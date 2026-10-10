@@ -1,6 +1,16 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>ORRERY | BUSINESS</title><style>
 :root{color-scheme:dark;--cyan:#59d9eb}*{box-sizing:border-box}body{margin:0;background:#07131f;color:#e6f7fa;font:15px -apple-system,BlinkMacSystemFont,Arial,sans-serif}main{max-width:1050px;margin:auto;padding:22px 13px 80px}h1{font-size:22px;letter-spacing:.13em}h2{font-size:17px}p,.muted{color:#aac5cf}.card{border:1px solid #276176;background:#0c2533;border-radius:14px;padding:16px;margin:12px 0}label{display:block;color:#b6d5dd;font-size:12px;margin:10px 0 4px}input,select,textarea,button{font:inherit}input,select,textarea{border:1px solid #3c6b7e;color:#fff;background:#061722;border-radius:9px;padding:12px;width:100%;min-width:0}textarea{min-height:70px}button{background:#12516a;color:#e9fdff;border:1px solid #53aeca;border-radius:9px;padding:11px;cursor:pointer}button.active{background:#1888a7}button.danger{border-color:#b36b6b;background:#4b2525}.nav,.actions{display:flex;flex-wrap:wrap;gap:8px}.nav button{flex:1;min-width:95px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.list{display:grid;gap:8px}.entry{background:#09202d;border:1px solid #285267;border-radius:9px;padding:12px}.entry strong{display:block;margin-bottom:5px}.entry p{margin:5px 0}.entry .actions{margin-top:8px}.note{font-size:12px;color:#a4bdc9}.hide{display:none!important}.status{color:#8bdfb8;min-height:20px}.error{color:#ff9b9b}.tab{display:none}.tab.active{display:block}.money{text-align:right}#printSheet{display:none}a{color:#7fdff3} @media print{body{background:#fff;color:#111}main{display:none}#printSheet{display:block!important;padding:20px;font:12px Arial;color:#111}#printSheet table{border-collapse:collapse;width:100%}#printSheet td,#printSheet th{border-bottom:1px solid #ccc;padding:8px;text-align:left}#printSheet header{border-top:8px solid #151515;border-bottom:2px solid #a11822;padding:14px 0;margin-bottom:25px}#printSheet h1{letter-spacing:.04em}#printSheet .total{text-align:right;font-weight:bold;font-size:17px;margin-top:20px}}
-</style></head><body><main><h1>ORRERY / BUSINESS</h1><p>KREYZE JAPAN · 顧客・案件・工程・見積の管理</p><section class="card"><h2>🔐 接続設定</h2><label>Business Worker URL</label><input id="endpoint" placeholder="https://orrery-business.XXXX.workers.dev" type="url"><label>BUSINESS_PIN（Cloudflare Secret）</label><input id="pin" type="password" autocomplete="off" placeholder="24文字以上"><div class="actions" style="margin-top:12px"><button id="saveurl">URLだけ保存</button><button id="connect">接続して読み込む</button></div><p class="note">PINは保存しません。公開GitHubに個人情報やAPIキーは書かないでください。</p><div id="status" class="status" role="status"></div></section><nav class="nav"><button class="active" data-tab="clients">顧客</button><button data-tab="projects">案件</button><button data-tab="tasks">工程</button><button data-tab="estimates">見積</button></nav>
+</style></head><body><main><h1>ORRERY / BUSINESS</h1><p>KREYZE JAPAN · 顧客・案件・工程・見積の管理</p><section class="card"><h2>🔐 接続設定</h2><label>Business Worker URL</label><input id="endpoint" placeholder="https://orrery-business.XXXX.workers.dev" type="url"><label>BUSINESS_PIN（Cloudflare Secret）</label><input id="pin" type="password" autocomplete="off" placeholder="24文字以上"><div class="actions" style="margin-top:12px"><button id="saveurl">URLだけ保存</button><button id="connect">接続して読み込む</button></div><p class="note">PINは保存しません。公開GitHubに個人情報やAPIキーは書かないでください。</p><div id="status" class="status" role="status"></div></section>
+<section class="card" id="import-panel">
+<h2>📥 ChatGPT解析データを一括取り込み</h2>
+<p class="note">ChatGPTで資料から作ったJSONを貼り付けるか、JSONファイルを選択。登録前に内容を確認できます。既存顧客は名前が完全一致すれば再利用し、同じ案件名がその顧客に存在する場合は登録を中止します。</p>
+<label>JSONファイルを選択（任意）</label><input type="file" id="import-file" accept=".json,application/json">
+<label>ChatGPTの解析結果（JSON）</label><textarea id="import-json" rows="9" placeholder='{"client":{"name":"TEST CUSTOMER"},"project":{"title":"テスト改修"},"tasks":[],"estimate":null}'></textarea>
+<div class="actions"><button type="button" id="import-preview-btn">内容を確認</button><button type="button" id="import-run-btn" disabled>確認した内容を一括登録</button></div>
+<div id="import-preview" class="list" aria-live="polite"></div>
+<p class="note">重要：読み取り結果には誤りがあり得ます。顧客名・関連案件・数量・単価・税・工程を確認してから登録してください。登録の途中で失敗した場合は、それまでに作成されたデータが残ります。実在の顧客情報は認証強化後に取り扱ってください。</p>
+</section>
+<nav class="nav"><button class="active" data-tab="clients">顧客</button><button data-tab="projects">案件</button><button data-tab="tasks">工程</button><button data-tab="estimates">見積</button></nav>
 <section id="clients" class="tab active card"><h2>顧客管理</h2><div id="clients-list" class="list"></div><h2 id="client-heading">顧客を追加</h2><form id="client-form"><input type="hidden" name="id"><div class="grid"><div><label>顧客名 *</label><input name="name" required></div><div><label>会社名</label><input name="company"></div><div><label>メール</label><input name="email" type="email"></div><div><label>電話</label><input name="phone"></div></div><label>備考</label><textarea name="notes"></textarea><div class="actions"><button type="submit">保存</button><button type="button" data-reset="client-form">新規入力</button></div></form></section>
 <section id="projects" class="tab card"><h2>案件一覧</h2><div id="projects-list" class="list"></div><h2 id="project-heading">案件を追加</h2><form id="project-form"><input type="hidden" name="id"><div class="grid"><div><label>顧客 *</label><select name="client_id" required class="clients-select"></select></div><div><label>案件名 *</label><input name="title" required></div><div><label>現場住所</label><input name="address"></div><div><label>状況</label><select name="status"><option>見積中</option><option>受注</option><option>施工準備</option><option>施工中</option><option>完了</option><option>保留</option></select></div><div><label>開始予定</label><input name="start_date" type="date"></div><div><label>終了予定</label><input name="due_date" type="date"></div><div><label>予算（USD）</label><input name="budget" type="number" min="0" step="0.01" value="0"></div></div><label>備考</label><textarea name="notes"></textarea><div class="actions"><button type="submit">保存</button><button type="button" data-reset="project-form">新規入力</button></div></form></section>
 <section id="tasks" class="tab card"><h2>工程一覧</h2><div id="tasks-list" class="list"></div><h2 id="task-heading">工程を追加</h2><form id="task-form"><input type="hidden" name="id"><div class="grid"><div><label>案件 *</label><select name="project_id" required class="projects-select"></select></div><div><label>作業内容 *</label><input name="title" required></div><div><label>担当</label><input name="assignee"></div><div><label>予定日</label><input name="due_date" type="date"></div><div><label>状態</label><select name="status"><option>未着手</option><option>進行中</option><option>完了</option><option>保留</option></select></div></div><label>備考</label><textarea name="notes"></textarea><div class="actions"><button type="submit">保存</button><button type="button" data-reset="task-form">新規入力</button></div></form></section>
@@ -25,4 +35,73 @@ document.querySelectorAll('[data-reset]').forEach(b=>b.onclick=()=>{$(b.dataset.
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-action]');if(!b)return;const action=b.dataset.action,table=b.dataset.table,n=Number(b.dataset.id);if(action==='items'){selectedEstimate=n;document.querySelector('#item-form [name=estimate_id]').value=n;renderItems();$('item-form').scrollIntoView({behavior:'smooth'});return}if(action==='pdf'){printEstimate(n);return}if(action==='edit'){const r=state[table].find(x=>x.id===n);const form=$(({'clients':'client-form','projects':'project-form','tasks':'task-form','estimates':'estimate-form','estimate_items':'item-form'})[table]);if(!r)return;for(const [k,v] of Object.entries(r))if(form.elements[k])form.elements[k].value=v??'';if(table==='estimate_items')selectedEstimate=r.estimate_id;form.scrollIntoView({behavior:'smooth'});setStatus('編集中：保存すると更新されます');return}if(action==='delete'){if(!confirm('本当に削除しますか？この操作は元に戻せません。'))return;try{await api(table,'delete',{id:n});await load();setStatus('削除しました')}catch(err){setStatus(err.message,true)}}});
 $('estimate-form').elements.issued_on.value=new Date().toLocaleDateString('en-CA',{timeZone:'Pacific/Honolulu'});
 function printEstimate(n){const e=state.estimates.find(x=>x.id===n);if(!e)return;const p=state.projects.find(x=>x.id===e.project_id)||{},c=state.clients.find(x=>x.id===p.client_id)||{};const items=state.estimate_items.filter(x=>x.estimate_id===n).sort((a,b)=>a.sort_order-b.sort_order||a.id-b.id);const subtotal=items.reduce((s,x)=>s+Number(x.qty)*Number(x.unit_price),0);const tax=subtotal*Number(e.tax_rate);const rows=items.map(x=>`<tr><td>${safe(x.description)}</td><td>${safe(x.qty)} ${safe(x.unit)}</td><td>${dollars(x.unit_price)}</td><td style="text-align:right">${dollars(x.qty*x.unit_price)}</td></tr>`).join('');$('printSheet').innerHTML=`<header><h1>KREYZE JAPAN | ESTIMATE</h1><div>CREATION · Y · BLAZE / PRIORITY SERVICE</div></header><h2>${safe(e.title)}</h2><p>見積番号: KJ-${String(n).padStart(5,'0')}　発行日: ${safe(e.issued_on)}<br>宛先: ${safe(c.name)} ${safe(c.company)}<br>工事名: ${safe(p.title)}　現場: ${safe(p.address)}</p><table><thead><tr><th>作業内容</th><th>数量</th><th>単価</th><th>金額</th></tr></thead><tbody>${rows}</tbody></table><p style="text-align:right">小計 ${dollars(subtotal)}<br>税 (${(100*e.tax_rate).toFixed(3)}%) ${dollars(tax)}</p><p class="total">合計 ${dollars(subtotal+tax)}</p><p style="white-space:pre-wrap">${safe(e.notes)}</p><hr><p>本見積は内容・数量・税率・許認可・施工条件の確認後に確定します。</p>`;window.print()}
+
+// Import v1: JSON generated in ChatGPT; uses existing authenticated /api endpoints.
+let approvedImport = null;
+const importArea = document.getElementById('import-json');
+const importOut = document.getElementById('import-preview');
+const importRun = document.getElementById('import-run-btn');
+const word = (v,n=300)=>String(v??'').trim().slice(0,n);
+const obj = x => x && typeof x==='object' && !Array.isArray(x) ? x : {};
+const boundedMoney=(v)=>{const n=Number(v??0);if(!Number.isFinite(n)||n<0||n>1e9)throw Error('数量・金額が不正です');return n};
+function validateImport(input){
+ const x=obj(input),c=obj(x.client),p=obj(x.project);
+ if(!word(c.name))throw Error('client.name（顧客名）が必要です');
+ if(!word(p.title))throw Error('project.title（案件名）が必要です');
+ if(!Array.isArray(x.tasks??[]))throw Error('tasksは配列にしてください');
+ if(x.tasks?.length>30)throw Error('1回の工程取り込みは30件まで');
+ const tasks=(x.tasks||[]).map((t,i)=>{t=obj(t);if(!word(t.title))throw Error(`工程${i+1}のタイトルがありません`);return {title:word(t.title),assignee:word(t.assignee),due_date:word(t.due_date,10),status:word(t.status||'未着手'),notes:word(t.notes,2000)}});
+ let estimate=null;
+ if(x.estimate!==null && x.estimate!==undefined){
+  const e=obj(x.estimate);
+  if(!Array.isArray(e.items) || !e.items.length || e.items.length>50)throw Error('estimate.itemsは1〜50件の配列');
+  const tax=boundedMoney(e.tax_rate);
+  if(tax>1)throw Error('tax_rateは0〜1で指定（例 4.712% は 0.04712）');
+  estimate={title:word(e.title||'工事見積'),issued_on:word(e.issued_on||new Date().toISOString().slice(0,10),10),tax_rate:tax,notes:word(e.notes,2000),items:e.items.map((r,i)=>{r=obj(r);if(!word(r.description))throw Error(`明細${i+1}の名称が空です`);return {description:word(r.description),qty:boundedMoney(r.qty??1),unit:word(r.unit||'式'),unit_price:boundedMoney(r.unit_price),sort_order:i}})};
+ }
+ return {client:{name:word(c.name),company:word(c.company),email:word(c.email),phone:word(c.phone),notes:word(c.notes,2000)},project:{title:word(p.title),address:word(p.address),status:word(p.status||'見積中'),start_date:word(p.start_date,10),due_date:word(p.due_date,10),budget:boundedMoney(p.budget),notes:word(p.notes,2000)},tasks,estimate};
+}
+function resetImport(){approvedImport=null;importRun.disabled=true;importOut.textContent='入力が変更されました。再度「内容を確認」を押してください。'}
+importArea.addEventListener('input',resetImport);
+document.getElementById('import-file').addEventListener('change',async e=>{
+ const f=e.target.files?.[0];if(!f)return;
+ if(f.size>100000) {setStatus('JSONは100KB以下にしてください',true);return}
+ importArea.value=await f.text();resetImport();
+});
+document.getElementById('import-preview-btn').onclick=async()=>{
+ try{
+  const normalized=validateImport(JSON.parse(importArea.value));
+  // Get freshest state for duplicate checking, but not a transaction guarantee.
+  await load();
+  const existing=state.clients.find(r=>r.name.trim().toLowerCase()===normalized.client.name.toLowerCase());
+  if(existing&&state.projects.some(r=>r.client_id===existing.id&&r.title.trim().toLowerCase()===normalized.project.title.toLowerCase()))throw Error('同一顧客に同名の案件がすでにあります。既存案件への追記はこの版では未対応です。');
+  approvedImport=normalized;importRun.disabled=false;
+  const sum=normalized.estimate?.items.reduce((s,r)=>s+r.qty*r.unit_price,0)||0;
+  const el=document.createElement('div');el.className='entry';
+  const make=(name,value)=>{const p=document.createElement('p');p.textContent=name+': '+value;el.appendChild(p)};
+  make('顧客',normalized.client.name+(existing?'（既存顧客を再利用）':'（新規）'));
+  make('新規案件',normalized.project.title);
+  make('工程',normalized.tasks.length+'件：'+normalized.tasks.map(t=>t.title).join(' / '));
+  make('見積',normalized.estimate?`${normalized.estimate.items.length}明細・税抜 ${dollars(sum)}・税率 ${normalized.estimate.tax_rate*100}%`:'登録しない');
+  make('注意','内容を照合してから登録してください。外注原価は現行テーブルで区別できないため、売上見積と混同しないでください。');
+  importOut.replaceChildren(el);
+ }catch(e){approvedImport=null;importRun.disabled=true;importOut.textContent='確認できません: '+e.message;}
+};
+importRun.onclick=async()=>{
+ if(!approvedImport)return;
+ const x=approvedImport;
+ if(!confirm(`顧客「${x.client.name}」・案件「${x.project.title}」・工程${x.tasks.length}件を登録します。見積${x.estimate?'あり':'なし'}。続行しますか？`))return;
+ importRun.disabled=true;
+ let created=[];
+ try{
+  await load();
+  let client=state.clients.find(r=>r.name.trim().toLowerCase()===x.client.name.toLowerCase());
+  if(!client){const res=await api('clients','create',{data:x.client});client={id:res.id};created.push('顧客 #'+res.id)}
+  if(state.projects.some(r=>r.client_id===client.id&&r.title.trim().toLowerCase()===x.project.title.toLowerCase()))throw Error('同名案件を検出しました');
+  const r=await api('projects','create',{data:{...x.project,client_id:client.id}});const pid=r.id;created.push('案件 #'+pid);
+  for(const task of x.tasks){const t=await api('tasks','create',{data:{...task,project_id:pid}});created.push('工程 #'+t.id)}
+  if(x.estimate){const e=await api('estimates','create',{data:{project_id:pid,title:x.estimate.title,issued_on:x.estimate.issued_on,tax_rate:x.estimate.tax_rate,notes:x.estimate.notes}});created.push('見積 #'+e.id);for(const line of x.estimate.items){const item=await api('estimate_items','create',{data:{...line,estimate_id:e.id}});created.push('明細 #'+item.id)}}
+  approvedImport=null;importArea.value='';await load();importOut.textContent='登録が完了しました：'+created.join('、');setStatus('一括登録に成功しました');
+ }catch(e){importOut.textContent='途中で停止：'+e.message+'。すでに作成されたもの：'+(created.join('、')||'なし')+'。再実行せず一覧を確認してください。';setStatus('一括登録が途中で停止しました',true)}
+};
 </script></body></html>
