@@ -1,10 +1,25 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>ORRERY | BUSINESS</title><style>
 :root{color-scheme:dark;--cyan:#59d9eb}*{box-sizing:border-box}body{margin:0;background:#07131f;color:#e6f7fa;font:15px -apple-system,BlinkMacSystemFont,Arial,sans-serif}main{max-width:1050px;margin:auto;padding:22px 13px 80px}h1{font-size:22px;letter-spacing:.13em}h2{font-size:17px}p,.muted{color:#aac5cf}.card{border:1px solid #276176;background:#0c2533;border-radius:14px;padding:16px;margin:12px 0}label{display:block;color:#b6d5dd;font-size:12px;margin:10px 0 4px}input,select,textarea,button{font:inherit}input,select,textarea{border:1px solid #3c6b7e;color:#fff;background:#061722;border-radius:9px;padding:12px;width:100%;min-width:0}textarea{min-height:70px}button{background:#12516a;color:#e9fdff;border:1px solid #53aeca;border-radius:9px;padding:11px;cursor:pointer}button.active{background:#1888a7}button.danger{border-color:#b36b6b;background:#4b2525}.nav,.actions{display:flex;flex-wrap:wrap;gap:8px}.nav button{flex:1;min-width:95px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.list{display:grid;gap:8px}.entry{background:#09202d;border:1px solid #285267;border-radius:9px;padding:12px}.entry strong{display:block;margin-bottom:5px}.entry p{margin:5px 0}.entry .actions{margin-top:8px}.note{font-size:12px;color:#a4bdc9}.hide{display:none!important}.status{color:#8bdfb8;min-height:20px}.error{color:#ff9b9b}.tab{display:none}.tab.active{display:block}.money{text-align:right}#printSheet{display:none}a{color:#7fdff3} @media print{body{background:#fff;color:#111}main{display:none}#printSheet{display:block!important;padding:20px;font:12px Arial;color:#111}#printSheet table{border-collapse:collapse;width:100%}#printSheet td,#printSheet th{border-bottom:1px solid #ccc;padding:8px;text-align:left}#printSheet header{border-top:8px solid #151515;border-bottom:2px solid #a11822;padding:14px 0;margin-bottom:25px}#printSheet h1{letter-spacing:.04em}#printSheet .total{text-align:right;font-weight:bold;font-size:17px;margin-top:20px}}
 </style></head><body><main><h1>ORRERY / BUSINESS</h1><p>KREYZE JAPAN · 顧客・案件・工程・見積の管理</p><section class="card"><h2>🔐 接続設定</h2><label>Business Worker URL</label><input id="endpoint" placeholder="https://orrery-business.XXXX.workers.dev" type="url"><label>BUSINESS_PIN（Cloudflare Secret）</label><input id="pin" type="password" autocomplete="off" placeholder="24文字以上"><div class="actions" style="margin-top:12px"><button id="saveurl">URLだけ保存</button><button id="connect">接続して読み込む</button></div><p class="note">PINは保存しません。公開GitHubに個人情報やAPIキーは書かないでください。</p><div id="status" class="status" role="status"></div></section>
+<section class="card" id="document-panel">
+<h2>📸 写真・PDFを読み取る（追加AI料金なし）</h2>
+<p class="note">写真・スクリーンショット・PDFをiPhoneから選択できます。文字はこの端末内で抽出します。書類の分類や見積明細の構造化は、結果をChatGPTへコピーして行い、そのJSONを下の一括取り込み欄に貼り付けます。</p>
+<div class="actions" style="flex-wrap:wrap">
+<label for="doc-pick" style="display:inline-flex;align-items:center;justify-content:center;background:#185a72;border:1px solid #58c7e1;border-radius:12px;padding:14px 16px;font-weight:bold;cursor:pointer">📁 写真・PDFを選択</label>
+<input type="file" id="doc-pick" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,application/pdf,.pdf,.jpg,.jpeg,.png,.webp,.heic,.heif" multiple style="position:absolute;width:1px;height:1px;opacity:0" aria-label="写真またはPDFを選択">
+<button type="button" id="doc-read">🔎 文字を読み取る</button>
+</div>
+<p class="note" id="doc-selected">未選択。1回最大4ファイル、各10MB以下。PDFは先頭5ページを処理します。</p>
+<div id="doc-progress" role="status" aria-live="polite" class="note"></div>
+<label for="doc-text">読み取り結果（確認・修正できます）</label>
+<textarea id="doc-text" rows="11" placeholder="写真・PDFを選び「文字を読み取る」を押すと、抽出結果がここに表示されます。" spellcheck="false"></textarea>
+<div class="actions"><button type="button" id="doc-copy">📋 ChatGPT用の指示文＋結果をコピー</button><button type="button" id="doc-clear">クリア</button></div>
+<p class="note">写真やスキャンPDFの読み取りは画像品質によって誤字・数字の読み違いが生じます。図面の正確な寸法判断は原図でも確認。日本語の複雑な図面ではChatGPTに原本PDFも直接添付した方が確実です。OCRライブラリを初回のみネットワークから読み込む場合があります。</p>
+</section>
 <section class="card" id="import-panel">
 <h2>📥 ChatGPT解析データを一括取り込み</h2>
 <p class="note">ChatGPTで資料から作ったJSONを貼り付けるか、JSONファイルを選択。登録前に内容を確認できます。既存顧客は名前が完全一致すれば再利用し、同じ案件名がその顧客に存在する場合は登録を中止します。</p>
-<label>JSONファイルを選択（任意）</label><input type="file" id="import-file" accept=".json,application/json">
+<label>JSONファイルを選択（ChatGPTの解析結果・任意）</label><input type="file" id="import-file" accept=".json,application/json">
 <label>ChatGPTの解析結果（JSON）</label><textarea id="import-json" rows="9" placeholder='{"client":{"name":"TEST CUSTOMER"},"project":{"title":"テスト改修"},"tasks":[],"estimate":null}'></textarea>
 <div class="actions"><button type="button" id="import-preview-btn">内容を確認</button><button type="button" id="import-run-btn" disabled>確認した内容を一括登録</button></div>
 <div id="import-preview" class="list" aria-live="polite"></div>
@@ -103,5 +118,100 @@ importRun.onclick=async()=>{
   if(x.estimate){const e=await api('estimates','create',{data:{project_id:pid,title:x.estimate.title,issued_on:x.estimate.issued_on,tax_rate:x.estimate.tax_rate,notes:x.estimate.notes}});created.push('見積 #'+e.id);for(const line of x.estimate.items){const item=await api('estimate_items','create',{data:{...line,estimate_id:e.id}});created.push('明細 #'+item.id)}}
   approvedImport=null;importArea.value='';await load();importOut.textContent='登録が完了しました：'+created.join('、');setStatus('一括登録に成功しました');
  }catch(e){importOut.textContent='途中で停止：'+e.message+'。すでに作成されたもの：'+(created.join('、')||'なし')+'。再実行せず一覧を確認してください。';setStatus('一括登録が途中で停止しました',true)}
+};
+
+// Document Import v2: client-side PDF text extraction and image OCR.
+// File contents are processed in the browser and never uploaded by this code.
+const docFiles=document.getElementById('doc-pick');
+const docReport=document.getElementById('doc-selected');
+const docProgress=document.getElementById('doc-progress');
+const docText=document.getElementById('doc-text');
+function docSay(s){docProgress.textContent=s}
+docFiles.addEventListener('change',()=>{
+ const fs=Array.from(docFiles.files||[]);
+ docReport.textContent=fs.length?fs.map(f=>`${f.name} (${(f.size/1048576).toFixed(1)}MB)`).join(' / '):'ファイル未選択';
+});
+let pdfLibPromise=null;
+async function pdfLibrary(){
+ if(window.pdfjsLib)return window.pdfjsLib;
+ if(!pdfLibPromise)pdfLibPromise=new Promise((resolve,reject)=>{
+   const sc=document.createElement('script');
+   sc.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+   sc.onload=()=>{window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';resolve(window.pdfjsLib)};
+   sc.onerror=()=>reject(Error('PDFライブラリの読み込みに失敗しました。通信状態を確認してください。'));
+   document.head.appendChild(sc);
+ });
+ return pdfLibPromise;
+}
+let tesseractPromise=null;
+async function ocrLibrary(){
+ if(window.Tesseract)return window.Tesseract;
+ if(!tesseractPromise)tesseractPromise=new Promise((resolve,reject)=>{
+  const sc=document.createElement('script');
+  sc.src='https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+  sc.onload=()=>resolve(window.Tesseract);
+  sc.onerror=()=>reject(Error('画像文字認識ライブラリを読み込めません。ネットワークを確認してください。'));
+  document.head.appendChild(sc);
+ });
+ return tesseractPromise;
+}
+async function ocrImage(input){
+ const T=await ocrLibrary();
+ const worker=await T.createWorker('jpn+eng');
+ try{const data=await worker.recognize(input);return data.data.text||''}finally{await worker.terminate()}
+}
+async function imageFileText(file){
+ if(/heic|heif/i.test(file.type)||/\.hei[cf]$/i.test(file.name)){
+  throw Error('HEIC形式はブラウザOCRで非対応の場合があります。iPhoneの写真をスクリーンショットにしてPNG/JPEGで選択してください。');
+ }
+ return await ocrImage(file);
+}
+async function pdfText(file){
+ const pdfjs=await pdfLibrary();
+ const pdf=await pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+ let out=[];
+ const count=Math.min(pdf.numPages,5);
+ for(let n=1;n<=count;n++){
+  docSay(`${file.name}: ${n}/${count}ページを処理中`);
+  const page=await pdf.getPage(n);
+  const content=await page.getTextContent();
+  let text=content.items.map(x=>x.str).join(' ').trim();
+  if(text.length<50){
+   const viewport=page.getViewport({scale:1.65});
+   const canvas=document.createElement('canvas');canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);
+   await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;
+   text=await ocrImage(canvas);
+   canvas.width=canvas.height=0;
+  }
+  out.push(`--- PDF ${n}/${pdf.numPages}ページ ---\n${text}`);
+ }
+ if(pdf.numPages>count)out.push(`※ 全${pdf.numPages}ページ中、先頭${count}ページのみ読み取りました。`);
+ return out.join('\n\n');
+}
+document.getElementById('doc-read').addEventListener('click',async()=>{
+ const fs=Array.from(docFiles.files||[]);
+ if(!fs.length){docSay('まず「写真・PDFを選択」を押してファイルを選んでください。');return}
+ if(fs.length>4||fs.some(f=>f.size>10*1024*1024)){docSay('1回4ファイル以内、各10MB以内にしてください。');return}
+ const b=document.getElementById('doc-read');b.disabled=true;
+ const results=[];
+ try{
+  for(let i=0;i<fs.length;i++){
+   const f=fs[i];docSay(`処理中 ${i+1}/${fs.length}：${f.name}`);
+   try{
+    const isPDF=f.type==='application/pdf'||/\.pdf$/i.test(f.name);
+    const isImage=f.type.startsWith('image/')||/\.(png|jpe?g|webp|heic|heif)$/i.test(f.name);
+    if(!isPDF&&!isImage)throw Error('PDFまたは画像のみ対応');
+    const result=isPDF?await pdfText(f):await imageFileText(f);
+    results.push(`===== ${f.name} =====\n${result||'（文字を認識できませんでした）'}`);
+   }catch(e){results.push(`===== ${f.name} =====\n読取エラー：${e.message}`)}
+  }
+  docText.value=results.join('\n\n');docSay('読み取りが終了しました。金額・寸法を必ず原本と照合してください。');
+ }catch(e){docSay('読み取りに失敗：'+e.message)}finally{b.disabled=false}
+});
+document.getElementById('doc-clear').onclick=()=>{docFiles.value='';docText.value='';docReport.textContent='未選択';docSay('クリアしました')};
+document.getElementById('doc-copy').onclick=async()=>{
+ if(!docText.value.trim()){docSay('先に資料を読み取ってください');return}
+ const prompt=`次の施工資料・自社見積・下請見積から情報を抽出し、文書を案件ごとに分離して整理してください。\n推測で金額・数量・寸法・住所・日程を埋めないでください。金額と税率は原文に照らし合わせてください。\n出力は次のJSON形式のみ（前後に説明やMarkdownを付けない）。対象は原則1案件ずつ。\n{"client":{"name":"TEST CUSTOMER","company":"","email":"","phone":"","notes":""},"project":{"title":"工事名","address":"","status":"見積中","start_date":"","due_date":"","budget":0,"notes":""},"tasks":[{"title":"確認できた作業","assignee":"","due_date":"","status":"未着手","notes":""}],"estimate":null}\n販売見積の明細がある場合のみ estimate を {"title":"見積","issued_on":"YYYY-MM-DD","tax_rate":0,"notes":"","items":[{"description":"項目","qty":1,"unit":"式","unit_price":100,"sort_order":0}]} に置き換えてください。税率は小数（4.712%=0.04712）。\n下請け原価見積を販売見積として登録しないでください。下請け見積・図面のみなら estimate:null。案件の特定に必要な情報が不足している場合はまず質問してください。\n--- 抽出テキスト ---\n${docText.value}`;
+ try{await navigator.clipboard.writeText(prompt);docSay('コピーしました。ChatGPTのチャットに貼り付けて解析し、返されたJSONを下の一括取り込み欄に貼り付けてください。')}catch(e){docSay('自動コピーに失敗。読み取り欄のテキストを長押しでコピーしてください。')}
 };
 </script></body></html>
