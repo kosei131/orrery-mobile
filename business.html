@@ -1,6 +1,15 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><title>ORRERY | BUSINESS</title><style>
 :root{color-scheme:dark;--cyan:#59d9eb}*{box-sizing:border-box}body{margin:0;background:#07131f;color:#e6f7fa;font:15px -apple-system,BlinkMacSystemFont,Arial,sans-serif}main{max-width:1050px;margin:auto;padding:22px 13px 80px}h1{font-size:22px;letter-spacing:.13em}h2{font-size:17px}p,.muted{color:#aac5cf}.card{border:1px solid #276176;background:#0c2533;border-radius:14px;padding:16px;margin:12px 0}label{display:block;color:#b6d5dd;font-size:12px;margin:10px 0 4px}input,select,textarea,button{font:inherit}input,select,textarea{border:1px solid #3c6b7e;color:#fff;background:#061722;border-radius:9px;padding:12px;width:100%;min-width:0}textarea{min-height:70px}button{background:#12516a;color:#e9fdff;border:1px solid #53aeca;border-radius:9px;padding:11px;cursor:pointer}button.active{background:#1888a7}button.danger{border-color:#b36b6b;background:#4b2525}.nav,.actions{display:flex;flex-wrap:wrap;gap:8px}.nav button{flex:1;min-width:95px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.list{display:grid;gap:8px}.entry{background:#09202d;border:1px solid #285267;border-radius:9px;padding:12px}.entry strong{display:block;margin-bottom:5px}.entry p{margin:5px 0}.entry .actions{margin-top:8px}.note{font-size:12px;color:#a4bdc9}.hide{display:none!important}.status{color:#8bdfb8;min-height:20px}.error{color:#ff9b9b}.tab{display:none}.tab.active{display:block}.money{text-align:right}#printSheet{display:none}a{color:#7fdff3} @media print{body{background:#fff;color:#111}main{display:none}#printSheet{display:block!important;padding:20px;font:12px Arial;color:#111}#printSheet table{border-collapse:collapse;width:100%}#printSheet td,#printSheet th{border-bottom:1px solid #ccc;padding:8px;text-align:left}#printSheet header{border-top:8px solid #151515;border-bottom:2px solid #a11822;padding:14px 0;margin-bottom:25px}#printSheet h1{letter-spacing:.04em}#printSheet .total{text-align:right;font-weight:bold;font-size:17px;margin-top:20px}}
-</style></head><body><main><h1>ORRERY / BUSINESS <span style="font-size:11px;color:#79dfee;white-space:nowrap">v7 · QUICK LOGIN</span></h1><p>KREYZE JAPAN · 顧客・案件・工程・見積の管理</p><section class="card"><h2>🔐 接続設定</h2><label>Business Worker URL</label><input id="endpoint" placeholder="https://orrery-business-api.reaf-nakayama.workers.dev" type="url" inputmode="url" autocomplete="url"><label for="pin">BUSINESS_PIN（iPhoneのパスワード自動入力に対応）</label><input id="business-username" type="text" name="username" autocomplete="username" value="orrery-business-owner" style="position:absolute;left:-9999px;width:1px;height:1px" aria-hidden="true" tabindex="-1"><input id="pin" name="password" type="password" autocomplete="current-password" placeholder="タップしてFace IDでパスワードを入力"><p class="note">iPhoneの「パスワード」にこのサイトのBUSINESS_PINを登録しておくと、Face IDで呼び出せます。PINはアプリの保存領域には保存しません。</p><div class="actions" style="margin-top:12px"><button id="saveurl">URLだけ保存</button><button id="connect">接続して読み込む</button></div><p class="note">PINは保存しません。公開GitHubに個人情報やAPIキーは書かないでください。</p><div id="status" class="status" role="status"></div></section>
+</style></head><body><main><h1>ORRERY / BUSINESS <span style="font-size:11px;color:#79dfee;white-space:nowrap">v8 · AI OFFICE PREP</span></h1><p>KREYZE JAPAN · 顧客・案件・工程・見積の管理</p><section class="card"><h2>🔐 接続設定</h2><label>Business Worker URL</label><input id="endpoint" placeholder="https://orrery-business-api.reaf-nakayama.workers.dev" type="url" inputmode="url" autocomplete="url"><label for="pin">BUSINESS_PIN（iPhoneのパスワード自動入力に対応）</label><input id="business-username" type="text" name="username" autocomplete="username" value="orrery-business-owner" style="position:absolute;left:-9999px;width:1px;height:1px" aria-hidden="true" tabindex="-1"><input id="pin" name="password" type="password" autocomplete="current-password" placeholder="タップしてFace IDでパスワードを入力"><p class="note">iPhoneの「パスワード」にこのサイトのBUSINESS_PINを登録しておくと、Face IDで呼び出せます。PINはアプリの保存領域には保存しません。</p><div class="actions" style="margin-top:12px"><button id="saveurl">URLだけ保存</button><button id="connect">接続して読み込む</button></div><p class="note">PINは保存しません。公開GitHubに個人情報やAPIキーは書かないでください。</p><div id="status" class="status" role="status"></div></section>
+<section class="card" id="office-panel">
+<h2>🧠 ORRERY OFFICE — 資料確認アシスタント</h2>
+<p class="note"><strong>無料・端末内処理：</strong>PDF・写真の読み取り結果から金額候補を抽出し、確認用の下書きを表示します。これは生成AIではなく、規則による補助解析です。自動登録・外部送信は行いません。</p>
+<label for="office-instruction">依頼内容</label><textarea id="office-instruction" rows="3" placeholder="例：下請け見積の金額を整理して、顧客提出前に確認したい"></textarea>
+<div class="actions"><button type="button" id="office-extract">📋 読み取り結果を整理</button><button type="button" id="office-copy">結果をコピー</button><button type="button" id="office-clear">消去</button></div>
+<div id="office-status" class="note" role="status"></div>
+<label for="office-output">確認用の下書き（編集可能）</label><textarea id="office-output" rows="12" placeholder="下の「写真・PDF読み取り」でOCRを実行してから「読み取り結果を整理」を押してください。"></textarea>
+<p class="note">⚠️ 数字はOCR誤認識の可能性があります。見積合計や利益率は自動確定しません。原本照合後に既存の見積管理から登録してください。ChatGPT・外部AI APIへの資料送信はしません。</p>
+</section>
 <section class="card" id="document-panel">
 <h2>📸 写真・PDF読み取り（原本をChatGPTに直接添付する方法を推奨）</h2>
 <p class="note">写真・PDFを選べます。図面や表のOCRは文字化けしやすいため、ChatGPTに原本を直接添付して解析する方法を推奨します。このアプリのOCRは補助機能です。</p>
@@ -271,5 +280,31 @@ function dataURL(blob){return new Promise((ok,no)=>{const f=new FileReader();f.o
 function download(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000)}
 $('local-export').onclick=async()=>{try{say('バックアップを作成中…');const recs=await all(),payload=[];for(const r of recs){const {blob,...meta}=r;payload.push({...meta,data:await dataURL(blob)})}download(new Blob([JSON.stringify({format:'orrery-local-documents',version:1,created:new Date().toISOString(),files:payload})],{type:'application/json'}),'ORRERY_FILES_BACKUP_'+new Date().toISOString().slice(0,10)+'.json');say('バックアップをダウンロードしました。iPhoneの「ファイル」に保存できたか確認してください。')}catch(e){say('バックアップ失敗: '+e.message)}};
 $('local-restore').onclick=async()=>{try{const f=$('local-backup-pick').files[0];if(!f)throw Error('バックアップJSONを選択してください');const data=JSON.parse(await f.text());if(data.format!=='orrery-local-documents'||!Array.isArray(data.files))throw Error('ORRERYのバックアップではありません');if(data.files.length>150||data.files.reduce((n,x)=>n+Number(x.size),0)>50*1048576)throw Error('バックアップ容量が上限を超えます');if(!confirm(data.files.length+'件をこの端末に復元しますか？既存の同じIDは上書きされます。'))return;for(const r of data.files){if(!/^data:(application\/pdf|image\/(jpeg|png|webp));base64,/.test(r.data))throw Error('不正なファイル形式');const resp=await fetch(r.data),blob=await resp.blob();if(blob.size!==r.size)throw Error('容量不一致: '+r.filename);const {data:ignored,...meta}=r;await put({...meta,blob})}await render();say('復元しました。顧客IDが正しく対応しているか確認してください。')}catch(e){say('復元できません: '+e.message)}};
+})();
+</script><script>
+(()=>{
+const source=document.getElementById('doc-text'),out=document.getElementById('office-output'),status=document.getElementById('office-status');
+const clean=t=>String(t||'').replace(/\r/g,'').trim();
+document.getElementById('office-extract').addEventListener('click',()=>{
+ const raw=clean(source.value),request=clean(document.getElementById('office-instruction').value);
+ if(!raw){status.textContent='まず下の「写真・PDF読み取り」で資料を読み取ってください。';return}
+ const lines=raw.split('\n').map(x=>x.trim()).filter(Boolean);
+ const amounts=[];
+ const money=/(?:\$|USD\s*)\s*([\d,]+(?:\.\d{2})?)/gi;
+ for(let i=0;i<lines.length;i++){
+  let m;while((m=money.exec(lines[i]))!==null){amounts.push({line:i+1,value:m[1],text:lines[i].slice(0,200)});if(amounts.length>=120)break}
+  money.lastIndex=0;if(amounts.length>=120)break;
+ }
+ const flagged=lines.filter(t=>/total|subtotal|tax|estimate|invoice|見積|合計|小計|税|請求|数量|単価|工事/i.test(t)).slice(0,50);
+ out.value=['ORRERY BUSINESS | DOCUMENT REVIEW (端末内・AI未使用)','',
+ '依頼: '+(request||'記載なし'), '解析日時: '+new Date().toLocaleString('ja-JP'),
+ '分類: 未確認（下請見積／自社見積／請求書を必ず目視判別）',
+ '【金額候補】',...(amounts.length?amounts.map(a=>'行'+a.line+': $'+a.value+' | '+a.text):['通貨記号付きの金額を検出できませんでした']),
+ '', '【関連行】',...flagged, '', '【原文】',raw,'',
+ '注意：この出力はOCRを元にした候補抽出であり、AI判断・見積計算・確定データではありません。原本照合必須。'].join('\n');
+ status.textContent=`候補 ${amounts.length} 件を抽出しました。出力は編集できます。`;document.getElementById('office-panel').scrollIntoView({behavior:'smooth'});
+ });
+ document.getElementById('office-copy').addEventListener('click',async()=>{if(!out.value.trim()){status.textContent='コピーする結果がありません';return}try{await navigator.clipboard.writeText(out.value);status.textContent='コピーしました'}catch(e){out.focus();out.select();status.textContent='長押ししてコピーしてください'}});
+ document.getElementById('office-clear').addEventListener('click',()=>{out.value='';document.getElementById('office-instruction').value='';status.textContent='消去しました'});
 })();
 </script></body></html>
