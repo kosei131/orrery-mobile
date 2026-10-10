@@ -2,8 +2,8 @@
 :root{color-scheme:dark;--cyan:#59d9eb}*{box-sizing:border-box}body{margin:0;background:#07131f;color:#e6f7fa;font:15px -apple-system,BlinkMacSystemFont,Arial,sans-serif}main{max-width:1050px;margin:auto;padding:22px 13px 80px}h1{font-size:22px;letter-spacing:.13em}h2{font-size:17px}p,.muted{color:#aac5cf}.card{border:1px solid #276176;background:#0c2533;border-radius:14px;padding:16px;margin:12px 0}label{display:block;color:#b6d5dd;font-size:12px;margin:10px 0 4px}input,select,textarea,button{font:inherit}input,select,textarea{border:1px solid #3c6b7e;color:#fff;background:#061722;border-radius:9px;padding:12px;width:100%;min-width:0}textarea{min-height:70px}button{background:#12516a;color:#e9fdff;border:1px solid #53aeca;border-radius:9px;padding:11px;cursor:pointer}button.active{background:#1888a7}button.danger{border-color:#b36b6b;background:#4b2525}.nav,.actions{display:flex;flex-wrap:wrap;gap:8px}.nav button{flex:1;min-width:95px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.list{display:grid;gap:8px}.entry{background:#09202d;border:1px solid #285267;border-radius:9px;padding:12px}.entry strong{display:block;margin-bottom:5px}.entry p{margin:5px 0}.entry .actions{margin-top:8px}.note{font-size:12px;color:#a4bdc9}.hide{display:none!important}.status{color:#8bdfb8;min-height:20px}.error{color:#ff9b9b}.tab{display:none}.tab.active{display:block}.money{text-align:right}#printSheet{display:none}a{color:#7fdff3} @media print{body{background:#fff;color:#111}main{display:none}#printSheet{display:block!important;padding:20px;font:12px Arial;color:#111}#printSheet table{border-collapse:collapse;width:100%}#printSheet td,#printSheet th{border-bottom:1px solid #ccc;padding:8px;text-align:left}#printSheet header{border-top:8px solid #151515;border-bottom:2px solid #a11822;padding:14px 0;margin-bottom:25px}#printSheet h1{letter-spacing:.04em}#printSheet .total{text-align:right;font-weight:bold;font-size:17px;margin-top:20px}}
 </style></head><body><main><h1>ORRERY / BUSINESS</h1><p>KREYZE JAPAN · 顧客・案件・工程・見積の管理</p><section class="card"><h2>🔐 接続設定</h2><label>Business Worker URL</label><input id="endpoint" placeholder="https://orrery-business.XXXX.workers.dev" type="url"><label>BUSINESS_PIN（Cloudflare Secret）</label><input id="pin" type="password" autocomplete="off" placeholder="24文字以上"><div class="actions" style="margin-top:12px"><button id="saveurl">URLだけ保存</button><button id="connect">接続して読み込む</button></div><p class="note">PINは保存しません。公開GitHubに個人情報やAPIキーは書かないでください。</p><div id="status" class="status" role="status"></div></section>
 <section class="card" id="document-panel">
-<h2>📸 写真・PDFを読み取る（追加AI料金なし）</h2>
-<p class="note">写真・スクリーンショット・PDFをiPhoneから選択できます。文字はこの端末内で抽出します。書類の分類や見積明細の構造化は、結果をChatGPTへコピーして行い、そのJSONを下の一括取り込み欄に貼り付けます。</p>
+<h2>📸 写真・PDF読み取り（原本をChatGPTに直接添付する方法を推奨）</h2>
+<p class="note">写真・PDFを選べます。図面や表のOCRは文字化けしやすいため、ChatGPTに原本を直接添付して解析する方法を推奨します。このアプリのOCRは補助機能です。</p>
 <div class="actions" style="flex-wrap:wrap">
 <label for="doc-pick" style="display:inline-flex;align-items:center;justify-content:center;background:#185a72;border:1px solid #58c7e1;border-radius:12px;padding:14px 16px;font-weight:bold;cursor:pointer">📁 写真・PDFを選択</label>
 <input type="file" id="doc-pick" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,application/pdf,.pdf,.jpg,.jpeg,.png,.webp,.heic,.heif" multiple style="position:absolute;width:1px;height:1px;opacity:0" aria-label="写真またはPDFを選択">
@@ -13,7 +13,7 @@
 <div id="doc-progress" role="status" aria-live="polite" class="note"></div>
 <label for="doc-text">読み取り結果（確認・修正できます）</label>
 <textarea id="doc-text" rows="11" placeholder="写真・PDFを選び「文字を読み取る」を押すと、抽出結果がここに表示されます。" spellcheck="false"></textarea>
-<div class="actions"><button type="button" id="doc-copy">📋 ChatGPT用の指示文＋結果をコピー</button><button type="button" id="doc-clear">クリア</button></div>
+<p class="note">精度優先：ChatGPTを開く → 元の写真・PDFを直接添付 → 「内容を案件別JSONに変換」と指示。OCR文字列だけを貼り付けるより、図表や寸法の位置関係を確認できます。</p><div class="actions"><button type="button" id="doc-reset-all">🧹 選択ファイル・OCR結果を全消去</button><button type="button" id="doc-copy">📋 ChatGPT用の指示文＋結果をコピー</button><button type="button" id="doc-clear">クリア</button></div>
 <p class="note">写真やスキャンPDFの読み取りは画像品質によって誤字・数字の読み違いが生じます。図面の正確な寸法判断は原図でも確認。日本語の複雑な図面ではChatGPTに原本PDFも直接添付した方が確実です。OCRライブラリを初回のみネットワークから読み込む場合があります。</p>
 </section>
 <section class="card" id="import-panel">
@@ -21,10 +21,11 @@
 <p class="note">ChatGPTで資料から作ったJSONを貼り付けるか、JSONファイルを選択。登録前に内容を確認できます。既存顧客は名前が完全一致すれば再利用し、同じ案件名がその顧客に存在する場合は登録を中止します。</p>
 <label>JSONファイルを選択（ChatGPTの解析結果・任意）</label><input type="file" id="import-file" accept=".json,application/json">
 <label>ChatGPTの解析結果（JSON）</label><textarea id="import-json" rows="9" placeholder='{"client":{"name":"TEST CUSTOMER"},"project":{"title":"テスト改修"},"tasks":[],"estimate":null}'></textarea>
-<div class="actions"><button type="button" id="import-preview-btn">内容を確認</button><button type="button" id="import-run-btn" disabled>確認した内容を一括登録</button></div>
+<div class="actions"><button type="button" id="import-clear-btn">🧹 JSON入力を全消去</button><button type="button" id="import-preview-btn">内容を確認</button><button type="button" id="import-run-btn" disabled>確認した内容を一括登録</button></div>
 <div id="import-preview" class="list" aria-live="polite"></div>
 <p class="note">重要：読み取り結果には誤りがあり得ます。顧客名・関連案件・数量・単価・税・工程を確認してから登録してください。登録の途中で失敗した場合は、それまでに作成されたデータが残ります。実在の顧客情報は認証強化後に取り扱ってください。</p>
 </section>
+<section class="card" id="maintenance-panel"><h2>🧹 データ整理・全削除</h2><p class="note">「入力欄をクリア」と「D1登録データの全削除」は別です。以下の全削除は顧客・案件・工程・見積・見積明細を消去します。復元できない場合があります。必ず事前にバックアップを取ってください。削除処理は途中停止する可能性があります。</p><div class="actions"><button type="button" id="backup-json">📦 全データをJSONでバックアップ</button></div><label>すべての業務データを削除する場合のみ DELETE ALL と入力</label><input id="wipe-confirm" placeholder="DELETE ALL" autocomplete="off" autocapitalize="off"><div class="actions"><button type="button" class="danger" id="wipe-all" disabled>⚠️ D1の全業務データを削除</button></div><p class="note" id="wipe-status"></p></section>
 <nav class="nav"><button class="active" data-tab="clients">顧客</button><button data-tab="projects">案件</button><button data-tab="tasks">工程</button><button data-tab="estimates">見積</button></nav>
 <section id="clients" class="tab active card"><h2>顧客管理</h2><div id="clients-list" class="list"></div><h2 id="client-heading">顧客を追加</h2><form id="client-form"><input type="hidden" name="id"><div class="grid"><div><label>顧客名 *</label><input name="name" required></div><div><label>会社名</label><input name="company"></div><div><label>メール</label><input name="email" type="email"></div><div><label>電話</label><input name="phone"></div></div><label>備考</label><textarea name="notes"></textarea><div class="actions"><button type="submit">保存</button><button type="button" data-reset="client-form">新規入力</button></div></form></section>
 <section id="projects" class="tab card"><h2>案件一覧</h2><div id="projects-list" class="list"></div><h2 id="project-heading">案件を追加</h2><form id="project-form"><input type="hidden" name="id"><div class="grid"><div><label>顧客 *</label><select name="client_id" required class="clients-select"></select></div><div><label>案件名 *</label><input name="title" required></div><div><label>現場住所</label><input name="address"></div><div><label>状況</label><select name="status"><option>見積中</option><option>受注</option><option>施工準備</option><option>施工中</option><option>完了</option><option>保留</option></select></div><div><label>開始予定</label><input name="start_date" type="date"></div><div><label>終了予定</label><input name="due_date" type="date"></div><div><label>予算（USD）</label><input name="budget" type="number" min="0" step="0.01" value="0"></div></div><label>備考</label><textarea name="notes"></textarea><div class="actions"><button type="submit">保存</button><button type="button" data-reset="project-form">新規入力</button></div></form></section>
@@ -120,6 +121,27 @@ importRun.onclick=async()=>{
  }catch(e){importOut.textContent='途中で停止：'+e.message+'。すでに作成されたもの：'+(created.join('、')||'なし')+'。再実行せず一覧を確認してください。';setStatus('一括登録が途中で停止しました',true)}
 };
 
+// Maintenance functions; no additional backend endpoint required.
+const importClearBtn=document.getElementById('import-clear-btn');
+importClearBtn.onclick=()=>{if(!confirm('JSON入力欄と確認結果をクリアしますか？D1の登録済みデータは消えません。'))return;importArea.value='';document.getElementById('import-file').value='';approvedImport=null;importRun.disabled=true;importOut.replaceChildren();setStatus('JSON入力欄をクリアしました（D1は変更なし）')};
+document.getElementById('backup-json').onclick=async()=>{try{await load();const payload={exported_at:new Date().toISOString(),data:Object.fromEntries(Object.entries(state).map(([key,rows])=>[key,rows]))};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='orrery-business-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);document.getElementById('wipe-status').textContent='バックアップを保存しました。iPhoneのダウンロード先を確認してください。'}catch(e){document.getElementById('wipe-status').textContent='バックアップ失敗：'+e.message}};
+const wipeInput=document.getElementById('wipe-confirm'),wipeButton=document.getElementById('wipe-all'),wipeStatus=document.getElementById('wipe-status');
+wipeInput.addEventListener('input',()=>{wipeButton.disabled=wipeInput.value!=='DELETE ALL'});
+wipeButton.onclick=async()=>{
+ if(wipeInput.value!=='DELETE ALL')return;
+ if(!confirm('D1に登録されたすべての顧客・案件・工程・見積を削除します。元に戻せない場合があります。バックアップは保存しましたか？'))return;
+ if(!confirm('最終確認：本当に全業務データを削除しますか？'))return;
+ wipeButton.disabled=true;wipeInput.disabled=true;
+ const order=['estimate_items','estimates','tasks','projects','clients'];let total=0;
+ try{await load();
+  for(const table of order){
+   if(state[table].length>=({estimate_items:3000,estimates:500,tasks:1500,projects:500,clients:300}[table]))throw Error(table+'は一覧の取得上限に達しています。安全のため停止しました。');
+   for(const item of state[table]){await api(table,'delete',{id:item.id});total++;wipeStatus.textContent='削除中：'+total+'件。終了まで画面を閉じないでください。'}
+  }
+  await load();wipeStatus.textContent='削除完了：'+total+'件。';setStatus('全業務データの削除が完了しました');
+ }catch(e){wipeStatus.textContent='途中停止：'+e.message+'。削除済み '+total+'件。再読み込みして残りを確認してください。';setStatus('削除は途中で停止しました',true)}
+ finally{wipeInput.value='';wipeInput.disabled=false;wipeButton.disabled=true}
+};
 // Document Import v2: client-side PDF text extraction and image OCR.
 // File contents are processed in the browser and never uploaded by this code.
 const docFiles=document.getElementById('doc-pick');
@@ -208,6 +230,7 @@ document.getElementById('doc-read').addEventListener('click',async()=>{
   docText.value=results.join('\n\n');docSay('読み取りが終了しました。金額・寸法を必ず原本と照合してください。');
  }catch(e){docSay('読み取りに失敗：'+e.message)}finally{b.disabled=false}
 });
+document.getElementById('doc-reset-all').onclick=()=>{if(!confirm('選択したファイルとOCR結果をクリアしますか？'))return;document.getElementById('doc-clear').click()};
 document.getElementById('doc-clear').onclick=()=>{docFiles.value='';docText.value='';docReport.textContent='未選択';docSay('クリアしました')};
 document.getElementById('doc-copy').onclick=async()=>{
  if(!docText.value.trim()){docSay('先に資料を読み取ってください');return}
