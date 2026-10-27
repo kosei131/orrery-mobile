@@ -65,6 +65,17 @@ class DashboardTests(unittest.TestCase):
         self.assertEqual(data["balance"], 10000)
         self.assertEqual(data["positions"][0]["symbol"], "XAUUSD-TEST")
 
+    def test_overlay_endpoint_has_same_auth_and_never_uses_simulation(self):
+        url = BASE + "/api/research-overlay?symbol=XAUUSD&timeframe=5m"
+        with self.assertRaises(HTTPError) as err:
+            urlopen(url, timeout=3)
+        self.assertEqual(err.exception.code, 403)
+        req = Request(url, headers={"X-Orrery-Token": self.token})
+        with self.assertRaises(HTTPError) as err:
+            urlopen(req, timeout=3)
+        self.assertEqual(err.exception.code, 503)
+        self.test_simulated_snapshot_only()
+
     def test_malformed_token_is_rejected_without_stopping_server(self):
         for token in ('wrong', 'é'):
             req = Request(BASE + '/api/snapshot', headers={'X-Orrery-Token': token})
