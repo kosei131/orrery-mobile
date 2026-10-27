@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run no-MT5 safety and HTTP tests
-        run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py
+        run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py
       - name: Verify FX storage safety and JavaScript syntax
         run: |
           node test_fx.cjs
