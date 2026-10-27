@@ -7,8 +7,6 @@ where py >nul 2>&1
 if errorlevel 1 goto :missing
 where curl.exe >nul 2>&1
 if errorlevel 1 goto :missing
-where powershell.exe >nul 2>&1
-if errorlevel 1 goto :missing
 rem Never overwrite files beside this launcher. Refuse an existing temp directory.
 set "ORRERY_VERIFY_DIR=%TEMP%\orrery-verify-%RANDOM%-%RANDOM%"
 if exist "%ORRERY_VERIFY_DIR%" goto :failed
@@ -43,11 +41,11 @@ set "ORRERY_VERIFY_FILE=%~1"
 set "ORRERY_VERIFY_HASH=%~2"
 curl.exe --proto =https --tlsv1.2 --fail --location --silent --show-error --connect-timeout 15 --max-time 60 --retry 2 "%BASE%/%~1" --output "%~1"
 if errorlevel 1 exit /b 1
-powershell.exe -NoProfile -NonInteractive -Command "if ((Get-FileHash -LiteralPath $env:ORRERY_VERIFY_FILE -Algorithm SHA256).Hash -ne $env:ORRERY_VERIFY_HASH) { exit 1 }"
+py -c "import hashlib,os,sys; from pathlib import Path; sys.exit(hashlib.sha256(Path(os.environ['ORRERY_VERIFY_FILE']).read_bytes()).hexdigest() != os.environ['ORRERY_VERIFY_HASH'])"
 exit /b %errorlevel%
 
 :missing
-echo [ERROR] Install Python launcher, Windows curl and PowerShell first.
+echo [ERROR] Install Python launcher and Windows curl first.
 if "%ORRERY_VERIFY_ONLY%"=="0" pause
 exit /b 1
 

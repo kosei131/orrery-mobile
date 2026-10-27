@@ -28,7 +28,7 @@ class WindowsLauncherTests(unittest.TestCase):
             self.assertEqual(sentinel.read_text(encoding='utf-8'), 'DO NOT OVERWRITE')
             output = result.stdout + result.stderr
             # Do not echo captured process output: regressions could contain a token.
-            self.assertNotRegex(output, r'http://127\.0\.0\.1:8765/#')
+            self.assertFalse(bool(re.search(r'http://127\.0\.0\.1:8765/#', output)), 'Private URL must not be printed')
             return result.returncode, output
 
     def test_pinned_downloads_and_offline_tests(self):

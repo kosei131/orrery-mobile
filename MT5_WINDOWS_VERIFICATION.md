@@ -1,8 +1,8 @@
 # ORRERY FX — Windows offline verification
 
 1. Download `VERIFY_MT5_WINDOWS.cmd` and inspect it before running.
-2. Run it on Windows with Python (`py`), curl.exe and PowerShell available.
-3. It creates a new temporary folder, downloads four public Python source files from the immutable revision named in the script, and checks their SHA-256 hashes before executing anything. Existing source files beside the launcher are not overwritten. Network failure or hash mismatch stops execution.
+2. Run it on Windows with Python (`py`), curl.exe available.
+3. It creates a new temporary folder, downloads four public Python source files from the immutable revision named in the script, and checks their SHA-256 hashes using Python standard libraries before executing anything. Existing source files beside the launcher are not overwritten. Network failure or hash mismatch stops execution.
 4. It compiles the sources and runs 13 offline tests. Only after success does it start the **SIMULATED TEST DATA** dashboard.
 5. Open the complete private localhost URL on the same PC. Do not save it in logs, screenshots or GitHub. Stop with Ctrl+C.
 
