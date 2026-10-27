@@ -20,6 +20,20 @@ class BridgeTests(unittest.TestCase):
         s=sample();before=deepcopy(s);r=run(s)
         self.assertEqual(r['status'],'RESEARCH_REPLAY_ONLY');self.assertFalse(r['execution_allowed'])
         self.assertEqual(s,before);self.assertEqual(r['trace'],[])
+    def test_extended_100_bar_window_accepted_101_rejected(self):
+        s=sample()
+        now=NOW
+        five=next(c for c in s['charts'] if c['timeframe']=='5m')
+        five['bars']=[dict(time=now-i*300,open=100,close=100,high=101,low=99)
+                      for i in range(100,0,-1)]
+        r=run(s)
+        self.assertEqual(r['status'],'RESEARCH_REPLAY_ONLY')
+        self.assertFalse(r['execution_allowed'])
+        five['bars'].insert(0,dict(time=now-101*300,open=100,close=100,high=101,low=99))
+        r=run(s)
+        self.assertEqual(r['status'],'NOT_EVALUATED')
+        self.assertFalse(r['execution_allowed'])
+
     def test_simulation_and_stale_snapshot_blocked(self):
         s=sample();s['status']='SIMULATED_TEST_DATA';self.assertEqual(run(s)['status'],'NOT_EVALUATED')
         self.assertEqual(run(sample(),NOW+6)['status'],'NOT_EVALUATED')
