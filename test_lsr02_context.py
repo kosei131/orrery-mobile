@@ -1,5 +1,6 @@
 import unittest
 from lsr02_context import analyze
+from lsr02_divisor import levels
 from lsr02_study import study
 from test_lsr02_paths import fixture
 
@@ -46,6 +47,27 @@ class ContextTests(unittest.TestCase):
         event = self.context(bars)['horizontal_breaks'][0]
         self.assertEqual(event['direction'], 'UP')
         self.assertLess(event['reference_known_at'], event['observed_at'])
+
+    def test_divisor_levels_are_price_levels_not_rr_or_extension(self):
+        out = levels(low=100, high=126, known_at=300, as_of=600)
+        self.assertEqual(out['offset'], 10)
+        self.assertEqual(out['buy_pullback_level'], 116)
+        self.assertEqual(out['sell_pullback_level'], 110)
+        self.assertAlmostEqual(out['range_fraction'], .3846153846153846)
+        self.assertEqual(out['author_match'], 'UNVERIFIED')
+        self.assertFalse(out['execution_allowed'])
+        with self.assertRaises(ValueError):
+            levels(low=100, high=126, known_at=900, as_of=600)
+        with self.assertRaises(ValueError):
+            levels(low=126, high=100, known_at=300, as_of=600)
+
+    def test_divisor_proxy_uses_only_previously_confirmed_anchors(self):
+        bars = [self.bar(c, i) for i, c in enumerate([10, 12, 10, 8, 10, 11])]
+        out = self.context(bars)['range_divisor_2_6']
+        self.assertIsNotNone(out)
+        self.assertLess(out['known_at'], bars[-1]['close_time'])
+        self.assertLess(out['anchor_high']['known_at'], bars[-1]['close_time'])
+        self.assertLess(out['anchor_low']['known_at'], bars[-1]['close_time'])
 
     def test_stale_future_gap_and_bad_config(self):
         bars = [self.bar(10, i) for i in range(7)]
