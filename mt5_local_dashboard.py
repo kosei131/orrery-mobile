@@ -19,17 +19,18 @@ HOST, PORT = "127.0.0.1", 8765
 TOKEN = secrets.token_urlsafe(24)
 HTML = """<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ORRERY MT5 Local</title>
 <style>body{background:#0b0c10;color:#eee0c4;font:16px system-ui;margin:0;padding:20px}main{max-width:800px;margin:auto}h1{color:#ddb66e}section{background:#17181b;border:1px solid #806238;border-radius:12px;margin:12px 0;padding:16px}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #42372b;padding:9px;text-align:left}.muted{color:#bbb;font-size:13px}.big{font-size:25px;font-weight:700}button{background:#d4ae69;padding:10px;border:0;border-radius:8px}</style>
-<main><h1>ORRERY FX · LOCAL MT5</h1><p class="muted">Windowsパソコン専用 · DEMO限定 · 読み取り専用 · 10秒ごとに更新 · 外部送信なし</p><section id="state">MT5接続を確認中...</section><section><div id="summary"></div></section><section><h3>POSITIONS</h3><table><thead><tr><th>Symbol</th><th>Side</th><th>Lot</th><th>P/L</th></tr></thead><tbody id="pos"></tbody></table></section><button id="refresh">今すぐ更新</button><p class="muted">この画面は同じWindows PCでのみ利用できます。iPhone同期は未実装です。</p></main>
+<main><h1>ORRERY FX · LOCAL MT5</h1><p class="muted">Windowsパソコン専用 · DEMO限定 · 読み取り専用 · 1秒間隔で更新要求（取得中は待機） · 外部送信なし</p><section id="state">MT5接続を確認中...</section><section><div id="summary"></div></section><section><h3>POSITIONS</h3><table><thead><tr><th>Symbol</th><th>Side</th><th>Lot</th><th>P/L</th></tr></thead><tbody id="pos"></tbody></table></section><button id="refresh">今すぐ更新</button><p class="muted">この画面は同じWindows PCでのみ利用できます。iPhone同期は未実装です。</p></main>
 <script>
 const auth=location.hash.slice(1);history.replaceState({},'',location.pathname);
 const $=id=>document.getElementById(id);
 const fmt=(x,c)=>new Intl.NumberFormat('en-US',{style:'currency',currency:c||'USD'}).format(x);
 function cell(tr,v){const td=document.createElement('td');td.textContent=String(v);tr.appendChild(td)}
-async function refresh(){try{let r=await fetch('/api/snapshot',{headers:{'X-Orrery-Token':auth},cache:'no-store'});let j=await r.json();if(!r.ok)throw Error(j.error||'Connection failed');$('state').textContent=(j.status==='SIMULATED_TEST_DATA'?'⚠️ TEST DATA — NOT REAL MT5 | ':'DEMO | ')+j.broker_server+' | ACCOUNT ****'+j.account_last4+' | '+j.checked_at_utc;
+let refreshing=false;
+async function refresh(){if(refreshing)return;refreshing=true;$('refresh').disabled=true;const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),5000);try{let r=await fetch('/api/snapshot',{headers:{'X-Orrery-Token':auth},cache:'no-store',signal:controller.signal});let j=await r.json();if(!r.ok)throw Error(j.error||'Connection failed');$('state').textContent=(j.status==='SIMULATED_TEST_DATA'?'⚠️ TEST DATA — NOT REAL MT5 | ':'DEMO | ')+j.broker_server+' | ACCOUNT ****'+j.account_last4+' | '+j.checked_at_utc;
 $('summary').textContent='BALANCE: '+fmt(j.balance,j.currency)+'　 EQUITY: '+fmt(j.equity,j.currency)+'　 FREE MARGIN: '+fmt(j.margin_free,j.currency)+'　 DEALS (7d): '+j.history_7d_count;
 $('pos').replaceChildren();for(let p of j.positions){let tr=document.createElement('tr');[p.symbol,p.side,p.lots,fmt(p.pnl,j.currency)].forEach(v=>cell(tr,v));$('pos').appendChild(tr)}
-}catch(e){$('state').textContent='ERROR: '+e.message;$('summary').textContent='';$('pos').replaceChildren()}}
-$('refresh').onclick=refresh;refresh();setInterval(refresh,10000);
+}catch(e){$('state').textContent='ERROR: '+e.message;$('summary').textContent='';$('pos').replaceChildren()}finally{clearTimeout(timeout);refreshing=false;$('refresh').disabled=false}}
+$('refresh').onclick=refresh;refresh();setInterval(refresh,1000);
 </script></html>"""
 
 def snapshot():
