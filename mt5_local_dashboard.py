@@ -6,6 +6,7 @@ import argparse
 import json
 import secrets
 import sys
+from math import isfinite
 from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlsplit
@@ -19,7 +20,7 @@ HOST, PORT = "127.0.0.1", 8765
 TOKEN = secrets.token_urlsafe(24)
 HTML = """<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ORRERY MT5 Local</title>
 <style>body{background:#0b0c10;color:#eee0c4;font:16px system-ui;margin:0;padding:20px}main{max-width:800px;margin:auto}h1{color:#ddb66e}section{background:#17181b;border:1px solid #806238;border-radius:12px;margin:12px 0;padding:16px}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #42372b;padding:9px;text-align:left}.muted{color:#bbb;font-size:13px}.big{font-size:25px;font-weight:700}button{background:#d4ae69;padding:10px;border:0;border-radius:8px}</style>
-<main><h1>ORRERY FX · LOCAL MT5</h1><p class="muted">Windowsパソコン専用 · DEMO限定 · 読み取り専用 · 1秒間隔で更新要求（取得中は待機） · 外部送信なし</p><section id="state">MT5接続を確認中...</section><section><div id="summary"></div></section><section><h3>POSITIONS</h3><table><thead><tr><th>Symbol</th><th>Side</th><th>Lot</th><th>P/L</th></tr></thead><tbody id="pos"></tbody></table></section><button id="refresh">今すぐ更新</button><p class="muted">この画面は同じWindows PCでのみ利用できます。iPhone同期は未実装です。</p></main>
+<main><h1>ORRERY FX · LOCAL MT5</h1><p class="muted">Windowsパソコン専用 · DEMO限定 · 読み取り専用 · 1秒間隔で更新要求（取得中は待機） · 外部送信なし</p><section id="state">MT5接続を確認中...</section><section><div id="summary"></div></section><section><h3>MT5 DEMO · BID / ASK</h3><p class="muted">ブローカー配信の最終ティック。ローソク足チャートではありません。価格時刻が10秒超過・未来の場合は利用不可。未対応銘柄は代替価格を使いません。</p><div id="quotes" style="white-space:pre-line">未取得</div></section><section><h3>POSITIONS</h3><table><thead><tr><th>Symbol</th><th>Side</th><th>Lot</th><th>P/L</th></tr></thead><tbody id="pos"></tbody></table></section><button id="refresh">今すぐ更新</button><p class="muted">この画面は同じWindows PCでのみ利用できます。iPhone同期は未実装です。</p></main>
 <script>
 const auth=location.hash.slice(1);history.replaceState({},'',location.pathname);
 const $=id=>document.getElementById(id);
@@ -28,10 +29,33 @@ function cell(tr,v){const td=document.createElement('td');td.textContent=String(
 let refreshing=false;
 async function refresh(){if(refreshing)return;refreshing=true;$('refresh').disabled=true;const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),5000);try{let r=await fetch('/api/snapshot',{headers:{'X-Orrery-Token':auth},cache:'no-store',signal:controller.signal});let j=await r.json();if(!r.ok)throw Error(j.error||'Connection failed');$('state').textContent=(j.status==='SIMULATED_TEST_DATA'?'⚠️ TEST DATA — NOT REAL MT5 | ':'DEMO | ')+j.broker_server+' | ACCOUNT ****'+j.account_last4+' | '+j.checked_at_utc;
 $('summary').textContent='BALANCE: '+fmt(j.balance,j.currency)+'　 EQUITY: '+fmt(j.equity,j.currency)+'　 FREE MARGIN: '+fmt(j.margin_free,j.currency)+'　 DEALS (7d): '+j.history_7d_count;
+$('quotes').textContent=j.status==='SIMULATED_TEST_DATA'?'SIMULATED TEST DATA — 市場価格は接続しません':(j.quotes||[]).map(q=>q.symbol+' | '+q.status+(q.status==='AVAILABLE'?' | Bid '+q.bid+' / Ask '+q.ask+' / Spread '+q.spread+' | '+q.tick_at_utc:'')).join('\\n');
 $('pos').replaceChildren();for(let p of j.positions){let tr=document.createElement('tr');[p.symbol,p.side,p.lots,fmt(p.pnl,j.currency)].forEach(v=>cell(tr,v));$('pos').appendChild(tr)}
-}catch(e){$('state').textContent='ERROR: '+e.message;$('summary').textContent='';$('pos').replaceChildren()}finally{clearTimeout(timeout);refreshing=false;$('refresh').disabled=false}}
+}catch(e){$('state').textContent='ERROR: '+e.message;$('summary').textContent='';$('quotes').textContent='取得失敗：価格は利用不可';$('pos').replaceChildren()}finally{clearTimeout(timeout);refreshing=false;$('refresh').disabled=false}}
 $('refresh').onclick=refresh;refresh();setInterval(refresh,1000);
 </script></html>"""
+
+def read_quotes(now):
+    quotes=[]
+    for symbol in ('XAUUSD','USDJPY'):
+        item=dict(symbol=symbol,status='UNAVAILABLE',source='MT5_DEMO_BROKER_TICK')
+        try:
+            tick=mt5.symbol_info_tick(symbol)
+            if tick is not None:
+                vals=(tick.bid,tick.ask,tick.time_msc)
+                if any(type(v) not in (int,float) or not isfinite(v) for v in vals) or not 0<tick.bid<=tick.ask:
+                    item['status']='INVALID'
+                else:
+                    age=now.timestamp()-tick.time_msc/1000
+                    if not 0<=age<=10:
+                        item['status']='STALE_OR_FUTURE'
+                    else:
+                        item.update(status='AVAILABLE',bid=tick.bid,ask=tick.ask,spread=tick.ask-tick.bid,
+                            tick_at_utc=datetime.fromtimestamp(tick.time_msc/1000,timezone.utc).isoformat())
+        except Exception:
+            pass  # No terminal error details or synthetic fallback.
+        quotes.append(item)
+    return quotes
 
 def snapshot():
     if ARGS.test_data:
@@ -52,7 +76,11 @@ def snapshot():
         history = mt5.history_deals_get(end - timedelta(days=7), end)
         if positions is None or history is None:
             raise RuntimeError("Unable to read MT5 account data")
-        return dict(status="READ_ONLY_DEMO", broker_server=account.server,
+        quotes=read_quotes(datetime.now(timezone.utc))
+        current=mt5.account_info()
+        if current is None or current.trade_mode!=mt5.ACCOUNT_TRADE_MODE_DEMO or current.login!=account.login or current.server!=account.server:
+            raise RuntimeError('Account changed during read; discard snapshot')
+        return dict(quotes=quotes,status="READ_ONLY_DEMO", broker_server=account.server,
             account_last4=str(account.login)[-4:], currency=account.currency,
             balance=round(account.balance,2), equity=round(account.equity,2),
             margin_free=round(account.margin_free,2), history_7d_count=len(history),
