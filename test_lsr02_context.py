@@ -33,6 +33,11 @@ class ContextTests(unittest.TestCase):
         self.assertEqual(self.context(bars, tenkan=9, kijun=26, span_b=52, shift=26)['cloud_location'], 'UNKNOWN')
         bars = [self.bar(10, i) for i in range(78)]
         self.assertEqual(self.context(bars, tenkan=9, kijun=26, span_b=52, shift=26)['cloud_location'], 'INSIDE')
+        bars = [self.bar(10, i) for i in range(100)]
+        result = self.context(bars, tenkan=9, kijun=26, span_b=52, shift=26)
+        self.assertEqual(result['status'], 'OBSERVED')
+        self.assertEqual(result['cloud_location'], 'INSIDE')
+        self.assertFalse(result['execution_allowed'])
 
     def test_up_down_cloud_cross_and_boundary(self):
         for last, expected in ((12, 'UP'), (8, 'DOWN'), (10, None)):
