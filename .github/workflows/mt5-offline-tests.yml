@@ -25,6 +25,7 @@ jobs:
       - name: Verify FX storage safety and JavaScript syntax
         run: |
           node test_fx.cjs
+          node test_mt5_poll.cjs
           node test_weekly_plan.cjs
       - name: Exercise pinned Windows launcher and hash rejection
         if: runner.os == 'Windows'
