@@ -48,7 +48,7 @@ class DashboardTests(unittest.TestCase):
         with urlopen(BASE + "/") as response:
             html = response.read().decode("utf8")
         self.assertIn("ORRERY FX", html)
-        self.assertIn("10秒", html)
+        self.assertIn("1秒間隔", html)
 
     def test_unauthorized_request_is_rejected(self):
         with self.assertRaises(HTTPError) as err:
