@@ -27,7 +27,7 @@ def review_closed_bars(bars, *, as_of, interval, lookback, trend_efficiency,
     decision=decide(market_regime=mapped, data_fresh=assessment.get("reason")!="STALE_DATA",
         spread_ok=spread_ok,news_clear=news_clear,risk_budget_ok=risk_budget_ok,
         loss_halt=loss_halt,candidates=[],timestamp=as_of)
-    if regime=="UNKNOWN" and decision["status"]=="WAIT":
+    if regime=="UNKNOWN" and decision["status"]=="WAIT" and decision["reason_codes"]==["REGIME_NOT_TRADEABLE"]:
         decision["reason_codes"]=["REGIME_NOT_CONFIRMED"]
     decision["regime"]=regime
     decision["regime_reason"]=assessment["reason"]
