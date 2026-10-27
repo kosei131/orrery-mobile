@@ -4,6 +4,8 @@ Run on Windows with MT5 already logged in. Never uploads or stores account data.
 from datetime import datetime, timedelta, timezone
 import json
 import sys
+import argparse
+from pathlib import Path
 
 try:
     import MetaTrader5 as mt5
@@ -15,6 +17,9 @@ def safe_float(value):
     return round(float(value), 5)
 
 def main():
+    parser = argparse.ArgumentParser(description="ORRERY MT5 read-only demo diagnostic")
+    parser.add_argument("--export", action="store_true", help="Write private JSON snapshot to Downloads")
+    args = parser.parse_args()
     if not mt5.initialize():
         print("MT5 connection failed:", mt5.last_error())
         print("Open Windows MetaTrader 5 and log in to your DEMO account first.")
@@ -54,6 +59,11 @@ def main():
             "checked_at_utc": end.isoformat()
         }
         print(json.dumps(report, ensure_ascii=False, indent=2))
+        if args.export:
+            target = Path.home() / "Downloads" / "orrery-mt5-snapshot.json"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+            print(f"Local private snapshot saved: {target}")
         print("\nNo orders sent. No credentials saved. No data uploaded.")
         return 0
     finally:
