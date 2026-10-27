@@ -14,13 +14,13 @@ mkdir "%ORRERY_VERIFY_DIR%"
 if errorlevel 1 goto :failed
 cd /d "%ORRERY_VERIFY_DIR%"
 if errorlevel 1 goto :failed
-set "BASE=https://raw.githubusercontent.com/kosei131/orrery-mobile/1a01767d96756a5fc17bbd875c3b19aef567d940"
+set "BASE=https://raw.githubusercontent.com/kosei131/orrery-mobile/7a93209efadfc85d32289f2cb0ad88d9b52d3798"
 echo Downloading pinned public sources into an isolated temporary folder...
-call :download mt5_local_dashboard.py 9fae0e02bd33b52afa25b536db2e426e643b874a48d51829ad955d28bf8dcff0
+call :download mt5_local_dashboard.py 4466203e7c94bdacff333784768b82eacdc28511ef76f3c357996ac6958822fb
 if errorlevel 1 goto :failed
 call :download mt5_readonly.py c48b03f9263b6a2605451184a8e0d01f211eeb0d121127a57da51f6c07b4aad0
 if errorlevel 1 goto :failed
-call :download test_mt5_local_dashboard.py ee14b20b5ef41f34a42f40d25c33b34acc1e3ba11bc8ccc73c7e1ccc902641aa
+call :download test_mt5_local_dashboard.py 5c4d350a4adc50d66196fb7ebcdd5dcaf6a21ff0631d4748a70cb15100db65d3
 if errorlevel 1 goto :failed
 call :download test_mt5_safety.py 1663551c6be0e1cba7140a2a1016468aec4180b658e09859ed07f1cacffe5ab9
 if errorlevel 1 goto :failed
