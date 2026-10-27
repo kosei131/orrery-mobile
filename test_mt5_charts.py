@@ -8,7 +8,7 @@ class ChartTests(unittest.TestCase):
     def read(self,rows,now=1200):
         m=Mock(TIMEFRAME_M5=5);m.copy_rates_from_pos.return_value=rows
         with patch.object(d,'mt5',m):r=d.read_closed_charts(datetime.fromtimestamp(now,timezone.utc))
-        m.copy_rates_from_pos.assert_any_call('XAUUSD',5,1,70)
+        m.copy_rates_from_pos.assert_any_call('XAUUSD',5,1,100)
         return r
     def test_closed_bars_and_start_index(self):
         r=self.read(self.rows());self.assertEqual(r[0]['status'],'CLOSED_BARS_AVAILABLE');self.assertEqual(len(r[0]['bars']),3)
@@ -22,7 +22,7 @@ class ChartTests(unittest.TestCase):
         m=Mock(TIMEFRAME_M5=5,TIMEFRAME_M15=15,TIMEFRAME_H4=240)
         intervals={5:300,15:900,240:14400}
         def rows(symbol,tf,start,count):
-            self.assertEqual((start,count),(1,70))
+            self.assertEqual((start,count),(1,100))
             step=intervals[tf]
             return [dict(time=t,open=100,high=102,low=99,close=101) for t in (28800-2*step,28800-step)]
         m.copy_rates_from_pos.side_effect=rows
