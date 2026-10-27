@@ -28,3 +28,8 @@ This stage runs **only on your Windows PC**. It does not connect the iPhone app 
 A separately authenticated HTTPS transport and access controls are needed before private snapshots can safely appear on an iPhone. Do not expose this localhost service to the Internet using router port-forwarding.
 
 This is account/position snapshot polling, not a market-price candlestick feed. Completed 4H/15m/5m bars retain their own close schedule. Simulated FX candles still advance manually; TradingView data cadence is controlled by its provider.
+
+## DEMO broker quotes (experimental)
+The latest local dashboard reads `symbol_info_tick` for exact symbols XAUUSD and USDJPY already available in the terminal. It does not select symbols or guess broker suffixes. Missing or invalid ticks are unavailable; timestamps over 10 seconds old or in the future are rejected. This threshold is a research freshness rule, not a trading permission. Weekends/closed sessions may show unavailable prices. No synthetic fallback. The DEMO account identity is rechecked after account and quote reads; changed accounts cause the whole snapshot to be discarded. This is best-effort switch detection, not an atomic terminal lock.
+
+Quotes are broker-provided DEMO Bid/Ask, not a candlestick chart or guaranteed execution prices. They are separate from the simulated FX page, TradingView and LSR replay. Browser requests occur at one-second intervals; new market ticks depend on the broker. Actual Windows terminal quote delivery and performance remain unverified. No data is persisted or uploaded.
