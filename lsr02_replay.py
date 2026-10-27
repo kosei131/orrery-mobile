@@ -6,9 +6,14 @@ from lsr02_sequence import Candidate, number
 from lsr02_regime import classify, review_transition
 
 
-def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2, regime_config=None):
+def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2, regime_config=None, halt_store=None):
     if symbol not in ('XAUUSD','USDJPY') or not number(buffer) or buffer<=0 or not number(lifetime) or lifetime<=0:
         raise ValueError('Invalid replay settings')
+    if halt_store is not None:
+        if regime_config is None:
+            raise ValueError('Durable halt requires environment-filtered mode')
+        if halt_store.get(symbol) is not None:
+            raise RuntimeError('REVIEW_REQUIRED: durable candidate halt is active')
     # Validate complete inputs, including time order and gaps; never discard unfinished bars silently.
     for bars, interval in ((h4,14400),(m15,900),(m5,300)):
         detect(bars,as_of=as_of,interval=interval,left=left,right=right)
@@ -23,6 +28,8 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
         trace.append(row)
     for b in m5:
         t=b['close_time']
+        if halt_store is not None and not review_required and halt_store.get(symbol) is not None:
+            raise RuntimeError('REVIEW_REQUIRED: durable candidate halt is active')
         context=[x for x in h4 if x['close_time']<=t]
         h=detect(context,as_of=t,interval=14400,left=left,right=right)
         fresh=bool(context) and t-context[-1]['close_time']<14400
@@ -33,6 +40,8 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
             previous_regime=regime['regime']
             if candidate is not None and candidate.state!='INVALID' and action!='RECHECK_RISK_NO_AUTO_RESUME':
                 candidate.state='INVALID';review_required=True
+                if halt_store is not None:
+                    halt_store.halt(symbol,t)
                 emit(dict(at=t,side=candidate.side,state='INVALID',
                     stop=candidate.sweep_extreme-buffer if candidate.side=='BUY' else candidate.sweep_extreme+buffer,
                     poi=candidate.poi,readiness='BLOCKED_UNVERIFIED_GUARDS',
