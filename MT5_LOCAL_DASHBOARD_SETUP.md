@@ -9,7 +9,7 @@ This stage runs **only on your Windows PC**. It does not connect the iPhone app 
 4. Download `mt5_local_dashboard.py` from this repository.
 5. Open PowerShell in the download directory and run `py mt5_local_dashboard.py`.
 6. It prints a private local address starting `http://127.0.0.1:8765/#...`. **On that same PC**, open the full URL in the browser.
-7. Balance, equity, free margin, positions, and seven-day deal count update every 10 seconds. Stop with Ctrl+C.
+7. Balance, equity, free margin, positions, and seven-day deal count request updates every second (an in-flight request is never overlapped; slow MT5 responses and background browser throttling can reduce the actual update rate). Stop with Ctrl+C.
 
 ## Safety
 - Uses only MT5 `initialize`, `account_info`, `positions_get`, `history_deals_get`, and `shutdown` API calls; **no trading/order API calls**.
@@ -26,3 +26,5 @@ This stage runs **only on your Windows PC**. It does not connect the iPhone app 
 
 ## Next stage
 A separately authenticated HTTPS transport and access controls are needed before private snapshots can safely appear on an iPhone. Do not expose this localhost service to the Internet using router port-forwarding.
+
+This is account/position snapshot polling, not a market-price candlestick feed. Completed 4H/15m/5m bars retain their own close schedule. Simulated FX candles still advance manually; TradingView data cadence is controlled by its provider.
