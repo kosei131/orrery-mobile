@@ -49,5 +49,5 @@ def filter_trend(bars, *, period=14, min_adx=25):
     elif m["plus_di"]>m["minus_di"]:decision="UP_TREND_CANDIDATE"
     elif m["minus_di"]>m["plus_di"]:decision="DOWN_TREND_CANDIDATE"
     else:decision="WAIT_NO_DIRECTION"
-    return dict(**m,decision=decision,execution_allowed=False,
+    return dict(**m,decision=decision,
         caution="ADX strength is not a buy/sell signal; test threshold out of sample.")
