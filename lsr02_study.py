@@ -1,5 +1,6 @@
 """Structural-candidate exit study, NOT an executable strategy or portfolio test."""
 from lsr02 import hypothesis_targets
+from lsr02_context import analyze
 from lsr02_exits import finite, simulate
 from lsr02_replay import replay
 
@@ -29,7 +30,7 @@ def outcome_summary(outcomes):
 
 def study(symbol, h4, m15, m5, *, as_of, buffer, risk_usd,
           round_trip_cost_usd, per_exit_cost_usd, partial_r, partial_fraction,
-          lifetime=3600, left=2, right=2, regime_config=None):
+          lifetime=3600, left=2, right=2, regime_config=None, context_config=None):
     """Once per first RETEST, assume entry at its close; simulate later bars.
 
     A measurement is explicitly the triggering 15m sweep candle's high-low.
@@ -43,6 +44,10 @@ def study(symbol, h4, m15, m5, *, as_of, buffer, risk_usd,
             or min(round_trip_cost_usd, per_exit_cost_usd) < 0
             or not 0 < partial_fraction < 1):
         raise ValueError('Explicit valid research sizing and exit settings required')
+    if context_config is not None:
+        if not isinstance(context_config, dict) or set(context_config) != {'tenkan', 'kijun', 'span_b', 'shift'}:
+            raise ValueError('Explicit cloud parameters required')
+        analyze([], as_of=as_of, interval=300, left=left, right=right, **context_config)
     trace = replay(symbol, h4, m15, m5, as_of=as_of, buffer=buffer,
                    lifetime=lifetime, left=left, right=right,
                    regime_config=regime_config)
@@ -73,6 +78,11 @@ def study(symbol, h4, m15, m5, *, as_of, buffer, risk_usd,
         entry = five[row['at']]['close']
         current.update(entry_at=row['at'], entry=entry, poi=row['poi'],
                        reason='HYPOTHETICAL_RETEST_CLOSE')
+        if context_config is not None:
+            current['entry_context'] = {
+                label: analyze([b for b in stream if b['close_time'] <= row['at']],
+                    as_of=row['at'], interval=interval, left=left, right=right, **context_config)
+                for label, stream, interval in (('4H', h4, 14400), ('15m', m15, 900), ('5m', m5, 300))}
         sign = 1 if current['side'] == 'BUY' else -1
         distance = sign*(entry-current['stop'])
         # replay should already ensure no stop touch on entry candle.
@@ -102,6 +112,8 @@ def study(symbol, h4, m15, m5, *, as_of, buffer, risk_usd,
     entered = [c for c in candidates if c['entry_at'] is not None]
     paired = [c for c in entered if all(c['policies'][p]['status'] == 'CLOSED' for p in POLICIES)]
     return dict(status='HYPOTHETICAL_CANDIDATE_STUDY', symbol=symbol,
+                strategy_identity='LSR02_INDEPENDENT_HYPOTHESES',
+                rule_2_6_status='UNRESOLVED_AUTHOR_DEFINITION',
                 data_source='CALLER_PROVIDED_UNVERIFIED', execution_allowed=False,
                 entry_assumption='FIRST_RETEST_CLOSE',
                 measurement_A='TRIGGERING_15M_SWEEP_CANDLE_HIGH_MINUS_LOW',
