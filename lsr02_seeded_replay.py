@@ -30,7 +30,8 @@ def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025
         candles.append(dict(t=i,open=round(old,5),close=round(price,5),
             high=round(max(old,price)+.1,5),low=round(min(old,price)-.1,5),
             regime=regime))
-    from lsr02_indicator_research import metrics\n    # One-bar entry signal based exclusively on previous completed candle.
+    from lsr02_indicator_research import metrics
+    # One-bar entry signal based exclusively on previous completed candle.
     # Next bar resolves TP or SL conservatively if both touched.
     equity=initial_equity;peak=equity;max_dd=0.;ledger=[];loss_streak=0;halted_at=None
     for i in range(1,len(candles)):
