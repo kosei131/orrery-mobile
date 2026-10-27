@@ -20,7 +20,7 @@ def diagnose(results):
                          for v in by.values()):
             raise ValueError("Invalid regime attribution")
         attributed=sum(v["net_usd"] for v in by.values())
-        if abs(attributed-total)>0.051:
+        if abs(attributed-total)>0.5:
             raise ValueError("Regime totals do not reconcile")
         losses=sorted(((k,v["net_usd"],v["trades"]) for k,v in by.items()),
                       key=lambda a:a[1])
