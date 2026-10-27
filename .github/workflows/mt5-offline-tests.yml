@@ -32,7 +32,7 @@ jobs:
         run: python -m unittest -v test_windows_launcher.py
 
       - name: Test LSR-02 decision gates
-        run: python -m unittest -v test_lsr02.py test_lsr02_structure.py test_lsr02_sequence.py test_lsr02_replay.py test_lsr02_paths.py test_lsr02_regime.py test_lsr02_regime_replay.py test_lsr02_halts.py test_lsr02_csv.py test_lsr02_mt5_bridge.py test_lsr02_risk_plan.py
+        run: python -m unittest -v test_lsr02.py test_lsr02_structure.py test_lsr02_sequence.py test_lsr02_replay.py test_lsr02_paths.py test_lsr02_regime.py test_lsr02_regime_replay.py test_lsr02_halts.py test_lsr02_csv.py test_lsr02_mt5_bridge.py test_lsr02_risk_plan.py test_lsr02_exits.py
 
       - name: Verify synthetic LSR viewer
         run: |
