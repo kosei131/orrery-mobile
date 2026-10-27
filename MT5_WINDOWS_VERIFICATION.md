@@ -1,15 +1,12 @@
-# ORRERY FX — Windows v11 verification
-Run the offline tests before attempting a broker or iPhone connection.
+# ORRERY FX — Windows verification (v12)
 
-Download **all three** files from the GitHub repository into the **same Windows folder**:
-- `VERIFY_MT5_WINDOWS.cmd`
-- `mt5_local_dashboard.py`
-- `test_mt5_local_dashboard.py`
+## One-file verification
+1. On Windows, download `VERIFY_MT5_WINDOWS.cmd` from this repository.
+2. Inspect the CMD script before running it. It downloads two **public Python source files** from `https://raw.githubusercontent.com/kosei131/orrery-mobile/main/` into the CMD file's folder. Those Python files do not need to be downloaded separately.
+3. Double-click the CMD file on the Windows PC. It checks Python, downloads current scripts, compiles them, and runs simulated-data security tests.
+4. If **all tests pass**, a private URL appears: `http://127.0.0.1:8765/#<temporary-token>`. Open this complete URL **on the same Windows PC** to see the TEST DATA dashboard.
+5. Stop the dashboard with Ctrl+C.
 
-Double-click `VERIFY_MT5_WINDOWS.cmd`. The command window checks Python, runs four or more offline tests, and **only if all pass** starts the simulated local dashboard. It will print a private URL of the form `http://127.0.0.1:8765/#...`. Open that complete URL in the browser on the **same Windows PC**. Never share the URL.
+**Important:** This does not touch MetaTrader 5 or connect an actual account. It has **no order execution**, broker credentials or cloud upload. The launch script executes code downloaded from the current public repository branch, so use it only if you trust the repository. Windows network access to raw.githubusercontent.com is required. No iPhone auto-sync is implemented.
 
-The test uses **SIMULATED TEST DATA**. There is no connection to any MT5 account. If it fails, copy only the error summary (remove usernames, paths and identifying details). The Python `MetaTrader5` package is only required for a later genuine demo-account test. No order sending, no remote synchronization, no automatic execution and no brokerage credentials are part of this launcher.
-
-Important: a GitHub commit does not prove the program has run successfully. Verify the Windows test result separately.
-
-If Windows SmartScreen cautions about a script downloaded from the Internet, inspect the text of the CMD file and run only if you trust its content.
+If an offline test fails, do not proceed to actual MT5. Inspect the error lines (redact any local username before sharing). This document does not claim Windows real-device tests have passed.
