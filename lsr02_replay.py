@@ -3,20 +3,38 @@ All inputs are closed UTC bars from one caller-verified symbol/feed.
 """
 from lsr02_structure import detect
 from lsr02_sequence import Candidate, number
+from lsr02_regime import classify, review_transition
 
 
-def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2):
+def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2, regime_config=None):
     if symbol not in ('XAUUSD','USDJPY') or not number(buffer) or buffer<=0 or not number(lifetime) or lifetime<=0:
         raise ValueError('Invalid replay settings')
     # Validate complete inputs, including time order and gaps; never discard unfinished bars silently.
     for bars, interval in ((h4,14400),(m15,900),(m5,300)):
         detect(bars,as_of=as_of,interval=interval,left=left,right=right)
-    candidate=None; trace=[]; used=set()
+    if regime_config is not None:
+        if not isinstance(regime_config,dict) or set(regime_config)!={'lookback','trend_efficiency','range_efficiency'}:
+            raise ValueError('Explicit regime research parameters required')
+        classify([],as_of=as_of,interval=14400,left=left,right=right,**regime_config)
+    candidate=None; trace=[]; used=set(); review_required=False; previous_regime='UNKNOWN' 
     for b in m5:
         t=b['close_time']
         context=[x for x in h4 if x['close_time']<=t]
         h=detect(context,as_of=t,interval=14400,left=left,right=right)
         fresh=bool(context) and t-context[-1]['close_time']<14400
+        regime=None
+        if regime_config is not None:
+            regime=classify(context,as_of=t,interval=14400,left=left,right=right,**regime_config)
+            action=review_transition(previous_regime,regime['regime'])
+            previous_regime=regime['regime']
+            if candidate is not None and candidate.state!='INVALID' and action!='RECHECK_RISK_NO_AUTO_RESUME':
+                candidate.state='INVALID';review_required=True
+                trace.append(dict(at=t,side=candidate.side,state='INVALID',
+                    stop=candidate.sweep_extreme-buffer if candidate.side=='BUY' else candidate.sweep_extreme+buffer,
+                    poi=candidate.poi,readiness='BLOCKED_UNVERIFIED_GUARDS',
+                    reason='REGIME_REVIEW_REQUIRED',regime=regime['regime'],regime_reason=regime['reason']))
+            if review_required:
+                continue
         fifteen=[x for x in m15 if x['close_time']<=t]
         s=detect(fifteen,as_of=t,interval=900,left=left,right=right)
         # Only process a 15m event at the same close, never a delayed historical sweep.
@@ -44,7 +62,7 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
             e=sweeps[0];key=(e['known_at'],e['direction'])
             side='SELL' if e['direction']=='UP' else 'BUY'
             expected='DOWN' if side=='SELL' else 'UP'
-            if key not in used and h['trend']==expected:
+            if key not in used and h['trend']==expected and (regime is None or regime['regime']==expected):
                 used.add(key);source=fifteen[e['index']]
                 extreme=source['high'] if side=='SELL' else source['low']
                 candidate=Candidate(symbol,side,t,t+lifetime,context[-1]['close_time'],expected,extreme,buffer)
