@@ -148,8 +148,8 @@ class Handler(BaseHTTPRequestHandler):
                     if set(query)!={"symbol","timeframe"} or any(len(v)!=1 for v in query.values()):
                         self.respond(400,json.dumps({"error":"symbol and timeframe required"}),"application/json")
                         return
-                    checked_at=datetime.now(timezone.utc).timestamp()
                     source=snapshot()
+                    checked_at=datetime.now(timezone.utc).timestamp()
                     if source.get("status")!="READ_ONLY_DEMO":
                         raise ValueError("Only DEMO charts supported")
                     payload=export_snapshot(source,symbol=query["symbol"][0],
