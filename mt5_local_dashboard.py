@@ -9,7 +9,7 @@ import sys
 from math import isfinite
 from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
 
 PARSER = argparse.ArgumentParser(description='ORRERY FX local DEMO-only dashboard')
 PARSER.add_argument('--test-data', action='store_true', help='Simulated data, no MT5 required')
@@ -135,12 +135,28 @@ class Handler(BaseHTTPRequestHandler):
             return
         if path == "/":
             self.respond(200, HTML, "text/html; charset=utf-8")
-        elif path == "/api/snapshot":
+        elif path in ("/api/snapshot", "/api/research-overlay"):
             if not secrets.compare_digest(self.headers.get("X-Orrery-Token", "").encode("utf-8"), TOKEN.encode("ascii")):
                 self.respond(403, json.dumps({"error":"Unauthorized"}), "application/json")
                 return
             try:
-                self.respond(200,json.dumps(snapshot(),ensure_ascii=False),"application/json")
+                if path == "/api/research-overlay":
+                    # Same token, same-origin loopback only; never persist account data.
+                    # Explicit parameters, no guessing or trading path.
+                    from lsr02_snapshot_overlay import export_snapshot
+                    query=parse_qs(urlsplit(self.path).query)
+                    if set(query)!={"symbol","timeframe"} or any(len(v)!=1 for v in query.values()):
+                        self.respond(400,json.dumps({"error":"symbol and timeframe required"}),"application/json")
+                        return
+                    checked_at=datetime.now(timezone.utc).timestamp()
+                    source=snapshot()
+                    if source.get("status")!="READ_ONLY_DEMO":
+                        raise ValueError("Only DEMO charts supported")
+                    payload=export_snapshot(source,symbol=query["symbol"][0],
+                        timeframe=query["timeframe"][0],now=checked_at)
+                    self.respond(200,json.dumps(payload,ensure_ascii=False),"application/json")
+                else:
+                    self.respond(200,json.dumps(snapshot(),ensure_ascii=False),"application/json")
             except Exception:
                 # Never return terminal errors, account details or exception text.
                 self.respond(503, json.dumps({"error": "MT5 data unavailable. Check the connected DEMO terminal."}), "application/json")
