@@ -74,7 +74,7 @@ class SnapshotSafetyTests(unittest.TestCase):
 
     def test_only_readonly_mt5_calls_exist_in_both_scripts(self):
         allowed = {'initialize', 'account_info', 'positions_get',
-                   'history_deals_get', 'last_error', 'shutdown', 'symbol_info_tick'}
+                   'history_deals_get', 'last_error', 'shutdown', 'symbol_info_tick', 'copy_rates_from_pos'}
         for filename in ('mt5_local_dashboard.py', 'mt5_readonly.py'):
             tree = ast.parse(Path(filename).read_text(encoding='utf-8'))
             calls = {n.func.attr for n in ast.walk(tree) if isinstance(n, ast.Call)
