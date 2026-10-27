@@ -20,18 +20,20 @@ HOST, PORT = "127.0.0.1", 8765
 TOKEN = secrets.token_urlsafe(24)
 HTML = """<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ORRERY MT5 Local</title>
 <style>body{background:#0b0c10;color:#eee0c4;font:16px system-ui;margin:0;padding:20px}main{max-width:800px;margin:auto}h1{color:#ddb66e}section{background:#17181b;border:1px solid #806238;border-radius:12px;margin:12px 0;padding:16px}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #42372b;padding:9px;text-align:left}.muted{color:#bbb;font-size:13px}.big{font-size:25px;font-weight:700}button{background:#d4ae69;padding:10px;border:0;border-radius:8px}</style>
-<main><h1>ORRERY FX · LOCAL MT5</h1><p class="muted">Windowsパソコン専用 · DEMO限定 · 読み取り専用 · 1秒間隔で更新要求（取得中は待機） · 外部送信なし</p><section id="state">MT5接続を確認中...</section><section><div id="summary"></div></section><section><h3>MT5 DEMO · BID / ASK</h3><p class="muted">ブローカー配信の最終ティック。ローソク足チャートではありません。価格時刻が10秒超過・未来の場合は利用不可。未対応銘柄は代替価格を使いません。</p><div id="quotes" style="white-space:pre-line">未取得</div></section><section><h3>POSITIONS</h3><table><thead><tr><th>Symbol</th><th>Side</th><th>Lot</th><th>P/L</th></tr></thead><tbody id="pos"></tbody></table></section><button id="refresh">今すぐ更新</button><p class="muted">この画面は同じWindows PCでのみ利用できます。iPhone同期は未実装です。</p></main>
+<main><h1>ORRERY FX · LOCAL MT5</h1><p class="muted">Windowsパソコン専用 · DEMO限定 · 読み取り専用 · 1秒間隔で更新要求（取得中は待機） · 外部送信なし</p><section id="state">MT5接続を確認中...</section><section><div id="summary"></div></section><section><h3>MT5 DEMO · BID / ASK</h3><p class="muted">ブローカー配信の最終ティック。ローソク足チャートではありません。価格時刻が10秒超過・未来の場合は利用不可。未対応銘柄は代替価格を使いません。</p><div id="quotes" style="white-space:pre-line">未取得</div></section><section><h3>MT5 DEMO · 確定済み5分足</h3><p class="muted">最大70本・未確定足なし。価格表示は1秒間隔で取得要求しますが、確定足の追加は5分ごとです。欠損・古い履歴は描画しません。LSR判定とは未接続。</p><div id="charts"></div></section><section><h3>POSITIONS</h3><table><thead><tr><th>Symbol</th><th>Side</th><th>Lot</th><th>P/L</th></tr></thead><tbody id="pos"></tbody></table></section><button id="refresh">今すぐ更新</button><p class="muted">この画面は同じWindows PCでのみ利用できます。iPhone同期は未実装です。</p></main>
 <script>
 const auth=location.hash.slice(1);history.replaceState({},'',location.pathname);
 const $=id=>document.getElementById(id);
 const fmt=(x,c)=>new Intl.NumberFormat('en-US',{style:'currency',currency:c||'USD'}).format(x);
+function drawCharts(j){const host=$('charts');host.replaceChildren();if(j.status==='SIMULATED_TEST_DATA'){host.textContent='SIMULATED TEST DATA — 市場チャート未接続';return}for(const c of j.charts||[]){const title=document.createElement('p');title.textContent=c.symbol+' / '+c.timeframe+' / '+c.status+(c.last_close_utc?' / '+c.last_close_utc:'');host.appendChild(title);if(c.status!=='CLOSED_BARS_AVAILABLE'||!Array.isArray(c.bars)||c.bars.length<2||c.bars.length>70)continue;const bars=c.bars;if(!bars.every(b=>['open','high','low','close'].every(k=>Number.isFinite(b[k])&&b[k]>0)&&b.low<=Math.min(b.open,b.close)&&b.high>=Math.max(b.open,b.close)))continue;const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 700 220');svg.setAttribute('role','img');svg.setAttribute('aria-label',c.symbol+' 確定済み5分足');svg.style.width='100%';const low=Math.min(...bars.map(b=>b.low)),high=Math.max(...bars.map(b=>b.high)),range=Math.max(high-low,.000001),y=v=>10+200*(high-v)/range,step=680/bars.length;bars.forEach((b,i)=>{const color=b.close>=b.open?'#4db59a':'#ce424d',x=10+i*step;const line=document.createElementNS(ns,'line');for(const [k,v]of Object.entries({x1:x+step*.4,x2:x+step*.4,y1:y(b.high),y2:y(b.low),stroke:color}))line.setAttribute(k,String(v));svg.appendChild(line);const rect=document.createElementNS(ns,'rect');for(const [k,v]of Object.entries({x,y:Math.min(y(b.open),y(b.close)),width:step*.8,height:Math.max(1,Math.abs(y(b.open)-y(b.close))),fill:color}))rect.setAttribute(k,String(v));svg.appendChild(rect)});host.appendChild(svg)}}
 function cell(tr,v){const td=document.createElement('td');td.textContent=String(v);tr.appendChild(td)}
 let refreshing=false;
 async function refresh(){if(refreshing)return;refreshing=true;$('refresh').disabled=true;const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),5000);try{let r=await fetch('/api/snapshot',{headers:{'X-Orrery-Token':auth},cache:'no-store',signal:controller.signal});let j=await r.json();if(!r.ok)throw Error(j.error||'Connection failed');$('state').textContent=(j.status==='SIMULATED_TEST_DATA'?'⚠️ TEST DATA — NOT REAL MT5 | ':'DEMO | ')+j.broker_server+' | ACCOUNT ****'+j.account_last4+' | '+j.checked_at_utc;
 $('summary').textContent='BALANCE: '+fmt(j.balance,j.currency)+'　 EQUITY: '+fmt(j.equity,j.currency)+'　 FREE MARGIN: '+fmt(j.margin_free,j.currency)+'　 DEALS (7d): '+j.history_7d_count;
 $('quotes').textContent=j.status==='SIMULATED_TEST_DATA'?'SIMULATED TEST DATA — 市場価格は接続しません':(j.quotes||[]).map(q=>q.symbol+' | '+q.status+(q.status==='AVAILABLE'?' | Bid '+q.bid+' / Ask '+q.ask+' / Spread '+q.spread+' | '+q.tick_at_utc:'')).join('\\n');
+drawCharts(j);
 $('pos').replaceChildren();for(let p of j.positions){let tr=document.createElement('tr');[p.symbol,p.side,p.lots,fmt(p.pnl,j.currency)].forEach(v=>cell(tr,v));$('pos').appendChild(tr)}
-}catch(e){$('state').textContent='ERROR: '+e.message;$('summary').textContent='';$('quotes').textContent='取得失敗：価格は利用不可';$('pos').replaceChildren()}finally{clearTimeout(timeout);refreshing=false;$('refresh').disabled=false}}
+}catch(e){$('state').textContent='ERROR: '+e.message;$('summary').textContent='';$('quotes').textContent='取得失敗：価格は利用不可';$('charts').replaceChildren();$('pos').replaceChildren()}finally{clearTimeout(timeout);refreshing=false;$('refresh').disabled=false}}
 $('refresh').onclick=refresh;refresh();setInterval(refresh,1000);
 </script></html>"""
 
@@ -57,6 +59,32 @@ def read_quotes(now):
         quotes.append(item)
     return quotes
 
+def read_closed_charts(now):
+    charts=[]
+    for symbol in ('XAUUSD','USDJPY'):
+        item=dict(symbol=symbol,timeframe='5m',status='UNAVAILABLE',bars=[])
+        try:
+            rates=mt5.copy_rates_from_pos(symbol,mt5.TIMEFRAME_M5,1,70)
+            if rates is not None and 2<=len(rates)<=70:
+                bars=[]
+                for row in rates:
+                    b={k:float(row[k]) for k in ('open','high','low','close')}
+                    t=float(row['time']);closed=t+300
+                    if not all(isfinite(v) for v in (*b.values(),t)) or t%300 or closed>now.timestamp() or not 0<b['low']<=min(b['open'],b['close'])<=max(b['open'],b['close'])<=b['high']:
+                        raise ValueError('Invalid bar')
+                    if bars and t-bars[-1]['time']!=300:
+                        raise ValueError('Discontinuous bars')
+                    bars.append(dict(time=t,**b))
+                if now.timestamp()-(bars[-1]['time']+300)>300:
+                    item['status']='STALE'
+                else:
+                    item.update(status='CLOSED_BARS_AVAILABLE',bars=bars,
+                        last_close_utc=datetime.fromtimestamp(bars[-1]['time']+300,timezone.utc).isoformat())
+        except Exception:
+            pass
+        charts.append(item)
+    return charts
+
 def snapshot():
     if ARGS.test_data:
         return dict(status='SIMULATED_TEST_DATA', broker_server='SIMULATED-NO-BROKER',
@@ -77,10 +105,11 @@ def snapshot():
         if positions is None or history is None:
             raise RuntimeError("Unable to read MT5 account data")
         quotes=read_quotes(datetime.now(timezone.utc))
+        charts=read_closed_charts(datetime.now(timezone.utc))
         current=mt5.account_info()
         if current is None or current.trade_mode!=mt5.ACCOUNT_TRADE_MODE_DEMO or current.login!=account.login or current.server!=account.server:
             raise RuntimeError('Account changed during read; discard snapshot')
-        return dict(quotes=quotes,status="READ_ONLY_DEMO", broker_server=account.server,
+        return dict(charts=charts,quotes=quotes,status="READ_ONLY_DEMO", broker_server=account.server,
             account_last4=str(account.login)[-4:], currency=account.currency,
             balance=round(account.balance,2), equity=round(account.equity,2),
             margin_free=round(account.margin_free,2), history_7d_count=len(history),
