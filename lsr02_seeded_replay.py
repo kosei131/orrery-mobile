@@ -7,12 +7,12 @@ import random
 from datetime import datetime, timezone
 
 def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025,
-             reward_r=2.6,avoid_range=False):
+             reward_r=2.6,avoid_range=False,loss_streak_stop=None):
     if type(seed) is not int or type(steps) is not int or not 100<=steps<=100000:
         raise ValueError("Invalid seed or steps")
     if not (0<risk_fraction<=.01 and 0<reward_r<=10 and initial_equity>0):
         raise ValueError("Invalid synthetic research settings")
-    rng=random.Random(seed)
+    if loss_streak_stop is not None and (type(loss_streak_stop) is not int or loss_streak_stop<1):\n        raise ValueError('Positive loss streak stop required')\n    rng=random.Random(seed)
     # Independent held-out regime process, not generated from market prices.
     regimes=["TREND","RANGE","VOLATILE"]
     candles=[]
@@ -27,7 +27,7 @@ def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025
             regime=regime))
     # One-bar entry signal based exclusively on previous completed candle.
     # Next bar resolves TP or SL conservatively if both touched.
-    equity=initial_equity;peak=equity;max_dd=0.;ledger=[]
+    equity=initial_equity;peak=equity;max_dd=0.;ledger=[];loss_streak=0;halted_at=None
     for i in range(1,len(candles)):
         previous=candles[i-1];current=candles[i]
         if previous["close"]<=previous["open"]:continue
@@ -41,7 +41,7 @@ def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025
         risk=equity*risk_fraction
         cost=.08*risk
         pnl=risk*outcome-cost
-        equity+=pnl;peak=max(peak,equity);max_dd=max(max_dd,peak-equity)
+        equity+=pnl;peak=max(peak,equity);max_dd=max(max_dd,peak-equity)\n        loss_streak=loss_streak+1 if pnl<0 else 0\n        if loss_streak_stop is not None and loss_streak>=loss_streak_stop:halted_at=i
         ledger.append(dict(signal_at=i-1,exit_at=i,regime=previous["regime"],
                            outcome_r=outcome,net_pnl_usd=round(pnl,6),
                            equity_usd=round(equity,6)))
@@ -50,8 +50,8 @@ def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025
     return dict(status="SYNTHETIC_RESEARCH_ONLY",execution_allowed=False,
        seed=seed,steps=steps,price_series_sha256=hashlib.sha256(payload).hexdigest(),
        parameters=dict(initial_equity=initial_equity,risk_fraction=risk_fraction,
-                       reward_r=reward_r,avoid_range=avoid_range,cost_r=.08),
-       trades=len(ledger),wins=wins,win_rate=wins/len(ledger) if ledger else None,
+                       reward_r=reward_r,avoid_range=avoid_range,cost_r=.08,\n                       loss_streak_stop=loss_streak_stop),
+       halted_at=halted_at,trades=len(ledger),wins=wins,win_rate=wins/len(ledger) if ledger else None,
        final_equity_usd=round(equity,2),
        net_pnl_usd=round(equity-initial_equity,2),
        sampled_max_drawdown_usd=round(max_dd,2),
