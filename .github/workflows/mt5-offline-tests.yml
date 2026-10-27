@@ -38,6 +38,7 @@ jobs:
         run: |
           python build_lsr_view.py --check
           node test_lsr_view.cjs
+          node test_lsr_chart_preview.cjs
 
   browser-smoke:
     runs-on: ubuntu-latest
