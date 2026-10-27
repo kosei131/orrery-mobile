@@ -24,3 +24,6 @@ jobs:
         run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py
       - name: Verify FX storage safety and JavaScript syntax
         run: node test_fx.cjs
+      - name: Exercise pinned Windows launcher and hash rejection
+        if: runner.os == 'Windows'
+        run: python -m unittest -v test_windows_launcher.py

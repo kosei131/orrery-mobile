@@ -1,5 +1,7 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
+set "ORRERY_VERIFY_ONLY=0"
+if /i "%~1"=="--verify-only" set "ORRERY_VERIFY_ONLY=1"
 title ORRERY FX - Windows SIMULATED Verification
 where py >nul 2>&1
 if errorlevel 1 goto :missing
@@ -29,10 +31,11 @@ if errorlevel 1 goto :failed
 py -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py
 if errorlevel 1 goto :failed
 echo [PASS] Offline tests passed. No MT5 connection or orders.
+if "%ORRERY_VERIFY_ONLY%"=="1" exit /b 0
 echo Open the private URL below on this PC. Do not record or share it.
 py -u mt5_local_dashboard.py --test-data
 if errorlevel 1 goto :failed
-pause
+if "%ORRERY_VERIFY_ONLY%"=="0" pause
 exit /b 0
 
 :download
@@ -45,10 +48,10 @@ exit /b %errorlevel%
 
 :missing
 echo [ERROR] Install Python launcher, Windows curl and PowerShell first.
-pause
+if "%ORRERY_VERIFY_ONLY%"=="0" pause
 exit /b 1
 
 :failed
-echo [FAIL] Verification stopped. No dashboard or MT5 connection started.
-pause
+echo [FAIL] Verification stopped. No MT5 connection was requested.
+if "%ORRERY_VERIFY_ONLY%"=="0" pause
 exit /b 1
