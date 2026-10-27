@@ -31,6 +31,7 @@ def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025
     # Next bar resolves TP or SL conservatively if both touched.
     equity=initial_equity;peak=equity;max_dd=0.;ledger=[];loss_streak=0;halted_at=None
     for i in range(1,len(candles)):
+        if halted_at is not None:break
         previous=candles[i-1];current=candles[i]
         if previous["close"]<=previous["open"]:continue
         if avoid_range and previous["regime"]=="RANGE":continue
