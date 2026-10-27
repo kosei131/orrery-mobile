@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+orrery-mt5-snapshot*.json

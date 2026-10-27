@@ -12,13 +12,8 @@ from urllib.parse import urlsplit
 
 PARSER = argparse.ArgumentParser(description='ORRERY FX local DEMO-only dashboard')
 PARSER.add_argument('--test-data', action='store_true', help='Simulated data, no MT5 required')
-ARGS = PARSER.parse_args()
-if not ARGS.test_data:
-    try:
-        import MetaTrader5 as mt5
-    except ImportError:
-        print('Install first: py -m pip install MetaTrader5')
-        sys.exit(2)
+ARGS = argparse.Namespace(test_data=False)
+mt5 = None
 
 HOST, PORT = "127.0.0.1", 8765
 TOKEN = secrets.token_urlsafe(24)
@@ -44,7 +39,7 @@ def snapshot():
             margin_free=9500.00, history_7d_count=3, checked_at_utc=datetime.now(timezone.utc).isoformat(),
             positions=[dict(symbol='XAUUSD-TEST', side='BUY', lots=0.01, pnl=24.50)])
     if not mt5.initialize():
-        raise RuntimeError("MT5 not available: " + str(mt5.last_error()))
+        raise RuntimeError("MT5 not available; open the DEMO terminal and retry")
     try:
         account = mt5.account_info()
         if account is None:
@@ -80,13 +75,14 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/":
             self.respond(200, HTML, "text/html; charset=utf-8")
         elif path == "/api/snapshot":
-            if not secrets.compare_digest(self.headers.get("X-Orrery-Token",""), TOKEN):
+            if not secrets.compare_digest(self.headers.get("X-Orrery-Token", "").encode("utf-8"), TOKEN.encode("ascii")):
                 self.respond(403, json.dumps({"error":"Unauthorized"}), "application/json")
                 return
             try:
                 self.respond(200,json.dumps(snapshot(),ensure_ascii=False),"application/json")
-            except Exception as exc:
-                self.respond(503,json.dumps({"error":str(exc)}),"application/json")
+            except Exception:
+                # Never return terminal errors, account details or exception text.
+                self.respond(503, json.dumps({"error": "MT5 data unavailable. Check the connected DEMO terminal."}), "application/json")
         else:
             self.send_error(404)
     def respond(self, status, data, content_type):
@@ -104,6 +100,13 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 if __name__ == "__main__":
+    ARGS = PARSER.parse_args()
+    if not ARGS.test_data:
+        try:
+            import MetaTrader5 as mt5
+        except ImportError:
+            print('Install first: py -m pip install MetaTrader5')
+            sys.exit(2)
     server = HTTPServer((HOST,PORT),Handler)
     print("ORRERY FX LOCAL — " + ("SIMULATED TEST DATA" if ARGS.test_data else "DEMO READ-ONLY"))
     print("Open in Windows browser: http://%s:%s/#%s" % (HOST,PORT,TOKEN))

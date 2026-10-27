@@ -1,21 +1,26 @@
 name: ORRERY MT5 Offline Tests
 on:
   push:
-    paths:
-      - 'mt5_local_dashboard.py'
-      - 'test_mt5_local_dashboard.py'
-      - '.github/workflows/mt5-offline-tests.yml'
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   local-test-mode:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run no-MT5 tests
-        run: python -m unittest -v test_mt5_local_dashboard.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run no-MT5 safety and HTTP tests
+        run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py
+      - name: Verify FX storage safety and JavaScript syntax
+        run: node test_fx.cjs

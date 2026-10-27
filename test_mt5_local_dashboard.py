@@ -65,6 +65,22 @@ class DashboardTests(unittest.TestCase):
         self.assertEqual(data["balance"], 10000)
         self.assertEqual(data["positions"][0]["symbol"], "XAUUSD-TEST")
 
+    def test_malformed_token_is_rejected_without_stopping_server(self):
+        for token in ('wrong', 'é'):
+            req = Request(BASE + '/api/snapshot', headers={'X-Orrery-Token': token})
+            with self.assertRaises(HTTPError) as err:
+                urlopen(req, timeout=3)
+            self.assertEqual(err.exception.code, 403)
+        self.test_simulated_snapshot_only()
+
+    def test_cross_site_metadata_rejected(self):
+        for site in ('cross-site', 'same-site'):
+            req = Request(BASE + '/api/snapshot', headers={
+                'X-Orrery-Token': self.token, 'Sec-Fetch-Site': site})
+            with self.assertRaises(HTTPError) as err:
+                urlopen(req, timeout=3)
+            self.assertEqual(err.exception.code, 403)
+
     def test_dns_rebinding_host_rejected(self):
         req = Request(BASE + "/api/snapshot", headers={
             "X-Orrery-Token": self.token, "Host": "attacker.example:8765"})
