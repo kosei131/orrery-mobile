@@ -69,6 +69,10 @@ def snapshot():
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = urlsplit(self.path).path
+        # Reject DNS rebinding and requests addressed through non-loopback hosts.
+        if self.headers.get("Host", "") not in ("127.0.0.1:8765", "localhost:8765"):
+            self.send_error(403)
+            return
         # Prevent third-party web pages from accessing local MT5 data.
         if self.headers.get("Origin") or self.headers.get("Sec-Fetch-Site") in ("cross-site","same-site"):
             self.send_error(403)
