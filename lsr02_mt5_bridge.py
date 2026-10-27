@@ -29,7 +29,7 @@ def review_snapshot(snapshot, *, symbol, now, buffer, regime_config, halt_store=
             if len(matches)!=1 or matches[0].get('status')!='CLOSED_BARS_AVAILABLE':
                 raise ValueError('Missing or ambiguous stream')
             raw=matches[0]['bars']
-            if not 2<=len(raw)<=70:raise ValueError('Invalid size')
+            if not 2<=len(raw)<=100:raise ValueError('Invalid size')
             bars=[]
             for b in raw:
                 if not number(b['time']) or b['time']%seconds:raise ValueError('Invalid UTC grid')
