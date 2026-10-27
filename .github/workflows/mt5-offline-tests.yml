@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run no-MT5 safety and HTTP tests
-        run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py
+        run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py test_mt5_charts.py
       - name: Verify FX storage safety and JavaScript syntax
         run: |
           node test_fx.cjs
@@ -49,7 +49,12 @@ jobs:
           node-version: '22'
       - name: Install pinned browser test driver
         run: npm install --no-save --package-lock=false playwright@1.62.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Check synthetic viewer in installed Chrome
         env:
           ORRERY_BROWSER_CHANNEL: chrome
-        run: node test_lsr_browser.cjs
+        run: |
+          node test_lsr_browser.cjs
+          node test_mt5_chart_browser.cjs
