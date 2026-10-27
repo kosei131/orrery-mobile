@@ -24,6 +24,6 @@ class ImportTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    p=Path(tmp)/"trades.csv";r=row();r["news_window"]="maybe";self.write(p,r)
    with self.assertRaises(ValueError):load_report(p)
-   self.write(p,row(),FIELDS[:-1])
+   self.write(p,{k:v for k,v in row().items() if k in FIELDS[:-1]},FIELDS[:-1])
    with self.assertRaises(ValueError):load_report(p)
 if __name__=="__main__":unittest.main()
