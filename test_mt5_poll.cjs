@@ -1,6 +1,6 @@
 // Deterministic browser-script timer tests; no MT5 or localhost connection.
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
-const py=fs.readFileSync('mt5_local_dashboard.py','utf8');const script=py.match(/<script>([\s\S]*?)<\/script>/)[1];
+const html=require('node:child_process').execFileSync('python',['-c','import mt5_local_dashboard as d; print(d.HTML)'],{encoding:'utf8'});const script=html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const elements=new Map(),get=id=>{if(!elements.has(id))elements.set(id,{textContent:'',disabled:false,replaceChildren(){},appendChild(){}});return elements.get(id)};
 let calls=[],interval,delay,timers=new Map(),timerId=0;
 const context={document:{getElementById:get,createElement:()=>({textContent:'',appendChild(){}})},location:{hash:'#test-only',pathname:'/'},history:{replaceState(){}},Intl,AbortController,
