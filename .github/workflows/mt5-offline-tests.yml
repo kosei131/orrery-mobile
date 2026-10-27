@@ -29,3 +29,6 @@ jobs:
       - name: Exercise pinned Windows launcher and hash rejection
         if: runner.os == 'Windows'
         run: python -m unittest -v test_windows_launcher.py
+
+      - name: Test LSR-02 decision gates
+        run: python -m unittest -v test_lsr02.py
