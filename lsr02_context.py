@@ -2,6 +2,7 @@
 Not a reconstruction of any trader's proprietary '2.6' rule. No orders.
 """
 from lsr02_structure import detect
+from lsr02_divisor import levels
 
 
 def analyze(bars, *, as_of, interval, tenkan, kijun, span_b, shift,
@@ -21,7 +22,7 @@ def analyze(bars, *, as_of, interval, tenkan, kijun, span_b, shift,
                   tenkan=None, kijun=None, kijun_slope=None,
                   cloud=None, cloud_location='UNKNOWN', cloud_break=None,
                   nearest_support=None, nearest_resistance=None,
-                  horizontal_breaks=[], execution_allowed=False,
+                  horizontal_breaks=[], range_divisor_2_6=None, execution_allowed=False,
                   rule_2_6_status='UNRESOLVED_AUTHOR_DEFINITION',
                   attribution='INDEPENDENT_PUBLIC_INDICATOR_RESEARCH')
     if not bars or as_of-bars[-1]['close_time'] >= interval:
@@ -67,6 +68,26 @@ def analyze(bars, *, as_of, interval, tenkan, kijun, span_b, shift,
     # Current-close pivot confirmation may be used as a level next candle only.
     pivots = detect(bars[:-1], as_of=as_of, interval=interval,
                     left=left, right=right)['pivots']
+    # A mechanical paired-swing proxy, not a verified clean impulse detector.
+    if len(pivots) >= 2:
+        a, b = pivots[-2:]
+        if a['kind'] != b['kind'] and a['index'] != b['index']:
+            high = a if a['kind'] == 'HIGH' else b
+            low = a if a['kind'] == 'LOW' else b
+            if high['price'] > low['price']:
+                projected = levels(low=low['price'], high=high['price'],
+                    known_at=max(a['known_at'], b['known_at']), as_of=as_of)
+                projected.update(anchor_high=high, anchor_low=low,
+                    anchor_method='LAST_TWO_OPPOSITE_CONFIRMED_PIVOTS_PROXY')
+                buy = projected['buy_pullback_level']
+                sell = projected['sell_pullback_level']
+                old_close = bars[-2]['close']
+                projected.update(
+                    price_region='ABOVE_BUY_LEVEL' if close > buy else
+                                 'BELOW_SELL_LEVEL' if close < sell else 'BETWEEN_LEVELS',
+                    close_cross_up_buy=old_close <= buy < close,
+                    close_cross_down_sell=old_close >= sell > close)
+                result['range_divisor_2_6'] = projected
     supports = [p for p in pivots if p['kind'] == 'LOW' and p['price'] < close]
     resistances = [p for p in pivots if p['kind'] == 'HIGH' and p['price'] > close]
     result['nearest_support'] = max(supports, key=lambda p: p['price']) if supports else None
