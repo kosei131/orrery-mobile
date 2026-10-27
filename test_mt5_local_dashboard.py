@@ -65,6 +65,13 @@ class DashboardTests(unittest.TestCase):
         self.assertEqual(data["balance"], 10000)
         self.assertEqual(data["positions"][0]["symbol"], "XAUUSD-TEST")
 
+    def test_dns_rebinding_host_rejected(self):
+        req = Request(BASE + "/api/snapshot", headers={
+            "X-Orrery-Token": self.token, "Host": "attacker.example:8765"})
+        with self.assertRaises(HTTPError) as err:
+            urlopen(req, timeout=3)
+        self.assertEqual(err.exception.code, 403)
+
     def test_cross_origin_rejected(self):
         req = Request(BASE + "/api/snapshot", headers={
             "X-Orrery-Token": self.token, "Origin": "https://example.org"})
