@@ -1,56 +1,54 @@
 @echo off
-setlocal EnableExtensions
-cd /d "%~dp0"
-title ORRERY FX - Windows DEMO Verification
-echo ==============================================
-echo ORRERY FX - LOCAL SECURITY VERIFICATION
-echo TEST DATA ONLY / NO ORDERS / NO MT5 PASSWORDS
-echo ==============================================
-echo.
+setlocal EnableExtensions DisableDelayedExpansion
+title ORRERY FX - Windows SIMULATED Verification
 where py >nul 2>&1
-if errorlevel 1 (
- echo [ERROR] Python launcher not found.
- echo Install Python from https://www.python.org/downloads/windows/
- pause
- exit /b 1
-)
+if errorlevel 1 goto :missing
 where curl.exe >nul 2>&1
-if errorlevel 1 (
- echo [ERROR] Windows curl.exe not found.
- pause
- exit /b 1
-)
-set "BASE=https://raw.githubusercontent.com/kosei131/orrery-mobile/main"
-echo [1/4] Downloading two public source files directly from the ORRERY GitHub repository...
-curl.exe --fail --location --silent --show-error --retry 2 "%BASE%/mt5_local_dashboard.py" --output "mt5_local_dashboard.py"
-if errorlevel 1 (
- echo [ERROR] Failed to download dashboard source.
- pause
- exit /b 1
-)
-curl.exe --fail --location --silent --show-error --retry 2 "%BASE%/test_mt5_local_dashboard.py" --output "test_mt5_local_dashboard.py"
-if errorlevel 1 (
- echo [ERROR] Failed to download test source.
- pause
- exit /b 1
-)
-echo [2/4] Compiling Python scripts...
-py -m py_compile "mt5_local_dashboard.py" "test_mt5_local_dashboard.py"
-if errorlevel 1 (
- echo [ERROR] Python syntax check failed.
- pause
- exit /b 1
-)
-echo [3/4] Executing simulated-data integration and security tests...
-py -m unittest -v test_mt5_local_dashboard.py
-if errorlevel 1 (
- echo [FAIL] Tests failed. Dashboard will not start.
- pause
- exit /b 1
-)
-echo [PASS] Tests completed successfully on this PC.
-echo [4/4] Starting localhost-only SIMULATED DATA dashboard.
-echo Open the full private URL printed below in your Windows browser.
-echo Stop with Ctrl+C. Never publish the URL.
+if errorlevel 1 goto :missing
+where powershell.exe >nul 2>&1
+if errorlevel 1 goto :missing
+rem Never overwrite files beside this launcher. Refuse an existing temp directory.
+set "ORRERY_VERIFY_DIR=%TEMP%\orrery-verify-%RANDOM%-%RANDOM%"
+if exist "%ORRERY_VERIFY_DIR%" goto :failed
+mkdir "%ORRERY_VERIFY_DIR%"
+if errorlevel 1 goto :failed
+cd /d "%ORRERY_VERIFY_DIR%"
+if errorlevel 1 goto :failed
+set "BASE=https://raw.githubusercontent.com/kosei131/orrery-mobile/1a01767d96756a5fc17bbd875c3b19aef567d940"
+echo Downloading pinned public sources into an isolated temporary folder...
+call :download mt5_local_dashboard.py 9fae0e02bd33b52afa25b536db2e426e643b874a48d51829ad955d28bf8dcff0
+if errorlevel 1 goto :failed
+call :download mt5_readonly.py c48b03f9263b6a2605451184a8e0d01f211eeb0d121127a57da51f6c07b4aad0
+if errorlevel 1 goto :failed
+call :download test_mt5_local_dashboard.py ee14b20b5ef41f34a42f40d25c33b34acc1e3ba11bc8ccc73c7e1ccc902641aa
+if errorlevel 1 goto :failed
+call :download test_mt5_safety.py 1663551c6be0e1cba7140a2a1016468aec4180b658e09859ed07f1cacffe5ab9
+if errorlevel 1 goto :failed
+py -m py_compile mt5_local_dashboard.py mt5_readonly.py test_mt5_local_dashboard.py test_mt5_safety.py
+if errorlevel 1 goto :failed
+py -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py
+if errorlevel 1 goto :failed
+echo [PASS] Offline tests passed. No MT5 connection or orders.
+echo Open the private URL below on this PC. Do not record or share it.
 py -u mt5_local_dashboard.py --test-data
+if errorlevel 1 goto :failed
 pause
+exit /b 0
+
+:download
+set "ORRERY_VERIFY_FILE=%~1"
+set "ORRERY_VERIFY_HASH=%~2"
+curl.exe --proto =https --tlsv1.2 --fail --location --silent --show-error --connect-timeout 15 --max-time 60 --retry 2 "%BASE%/%~1" --output "%~1"
+if errorlevel 1 exit /b 1
+powershell.exe -NoProfile -NonInteractive -Command "if ((Get-FileHash -LiteralPath $env:ORRERY_VERIFY_FILE -Algorithm SHA256).Hash -ne $env:ORRERY_VERIFY_HASH) { exit 1 }"
+exit /b %errorlevel%
+
+:missing
+echo [ERROR] Install Python launcher, Windows curl and PowerShell first.
+pause
+exit /b 1
+
+:failed
+echo [FAIL] Verification stopped. No dashboard or MT5 connection started.
+pause
+exit /b 1
