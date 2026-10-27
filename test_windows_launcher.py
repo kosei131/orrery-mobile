@@ -33,7 +33,7 @@ class WindowsLauncherTests(unittest.TestCase):
 
     def test_pinned_downloads_and_offline_tests(self):
         code, output = self.run_launcher()
-        self.assertEqual(code, 0, 'Launcher failed; captured output intentionally withheld')
+        self.assertEqual(code, 0, 'Launcher failed: ' + repr([line for line in output.splitlines() if line.startswith(('[ERROR]', '[FAIL]', 'curl:'))]))
         self.assertIn('[PASS] Offline tests passed.', output)
         self.assertIn('Ran 13 tests', output)
 
