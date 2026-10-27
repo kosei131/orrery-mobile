@@ -2,18 +2,23 @@
 Start: py mt5_local_dashboard.py
 Opens http://127.0.0.1:8765 on the SAME Windows PC. Not reachable from iPhone.
 """
+import argparse
 import json
 import secrets
 import sys
 from datetime import datetime, timedelta, timezone
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlsplit
 
-try:
-    import MetaTrader5 as mt5
-except ImportError:
-    print("Install first: py -m pip install MetaTrader5")
-    sys.exit(2)
+PARSER = argparse.ArgumentParser(description='ORRERY FX local DEMO-only dashboard')
+PARSER.add_argument('--test-data', action='store_true', help='Simulated data, no MT5 required')
+ARGS = PARSER.parse_args()
+if not ARGS.test_data:
+    try:
+        import MetaTrader5 as mt5
+    except ImportError:
+        print('Install first: py -m pip install MetaTrader5')
+        sys.exit(2)
 
 HOST, PORT = "127.0.0.1", 8765
 TOKEN = secrets.token_urlsafe(24)
@@ -25,7 +30,7 @@ const auth=location.hash.slice(1);history.replaceState({},'',location.pathname);
 const $=id=>document.getElementById(id);
 const fmt=(x,c)=>new Intl.NumberFormat('en-US',{style:'currency',currency:c||'USD'}).format(x);
 function cell(tr,v){const td=document.createElement('td');td.textContent=String(v);tr.appendChild(td)}
-async function refresh(){try{let r=await fetch('/api/snapshot',{headers:{'X-Orrery-Token':auth},cache:'no-store'});let j=await r.json();if(!r.ok)throw Error(j.error||'Connection failed');$('state').textContent='DEMO | '+j.broker_server+' | ACCOUNT ****'+j.account_last4+' | '+j.checked_at_utc;
+async function refresh(){try{let r=await fetch('/api/snapshot',{headers:{'X-Orrery-Token':auth},cache:'no-store'});let j=await r.json();if(!r.ok)throw Error(j.error||'Connection failed');$('state').textContent=(j.status==='SIMULATED_TEST_DATA'?'⚠️ TEST DATA — NOT REAL MT5 | ':'DEMO | ')+j.broker_server+' | ACCOUNT ****'+j.account_last4+' | '+j.checked_at_utc;
 $('summary').textContent='BALANCE: '+fmt(j.balance,j.currency)+'　 EQUITY: '+fmt(j.equity,j.currency)+'　 FREE MARGIN: '+fmt(j.margin_free,j.currency)+'　 DEALS (7d): '+j.history_7d_count;
 $('pos').replaceChildren();for(let p of j.positions){let tr=document.createElement('tr');[p.symbol,p.side,p.lots,fmt(p.pnl,j.currency)].forEach(v=>cell(tr,v));$('pos').appendChild(tr)}
 }catch(e){$('state').textContent='ERROR: '+e.message;$('summary').textContent='';$('pos').replaceChildren()}}
@@ -33,6 +38,11 @@ $('refresh').onclick=refresh;refresh();setInterval(refresh,10000);
 </script></html>"""
 
 def snapshot():
+    if ARGS.test_data:
+        return dict(status='SIMULATED_TEST_DATA', broker_server='SIMULATED-NO-BROKER',
+            account_last4='0000', currency='USD', balance=10000.00, equity=10024.50,
+            margin_free=9500.00, history_7d_count=3, checked_at_utc=datetime.now(timezone.utc).isoformat(),
+            positions=[dict(symbol='XAUUSD-TEST', side='BUY', lots=0.01, pnl=24.50)])
     if not mt5.initialize():
         raise RuntimeError("MT5 not available: " + str(mt5.last_error()))
     try:
@@ -90,8 +100,8 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 if __name__ == "__main__":
-    server = ThreadingHTTPServer((HOST,PORT),Handler)
-    print("ORRERY FX LOCAL — DEMO READ-ONLY")
+    server = HTTPServer((HOST,PORT),Handler)
+    print("ORRERY FX LOCAL — " + ("SIMULATED TEST DATA" if ARGS.test_data else "DEMO READ-ONLY"))
     print("Open in Windows browser: http://%s:%s/#%s" % (HOST,PORT,TOKEN))
     print("Ctrl+C to stop; keep this address private. NO ORDERS, NO CLOUD SYNC.")
     try:
