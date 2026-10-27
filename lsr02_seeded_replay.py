@@ -7,13 +7,16 @@ import random
 from datetime import datetime, timezone
 
 def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025,
-             reward_r=2.6,avoid_range=False,loss_streak_stop=None):
+             reward_r=2.6,avoid_range=False,loss_streak_stop=None,
+             use_adx=False,use_atr_stop=False):
     if type(seed) is not int or type(steps) is not int or not 100<=steps<=100000:
         raise ValueError("Invalid seed or steps")
     if not (0<risk_fraction<=.01 and 0<reward_r<=10 and initial_equity>0):
         raise ValueError("Invalid synthetic research settings")
     if loss_streak_stop is not None and (type(loss_streak_stop) is not int or loss_streak_stop<1):
         raise ValueError('Positive loss streak stop required')
+    if type(use_adx) is not bool or type(use_atr_stop) is not bool:
+        raise ValueError('Indicator switches must be booleans')
     rng=random.Random(seed)
     # Independent held-out regime process, not generated from market prices.
     regimes=["TREND","RANGE","VOLATILE"]
@@ -27,7 +30,7 @@ def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025
         candles.append(dict(t=i,open=round(old,5),close=round(price,5),
             high=round(max(old,price)+.1,5),low=round(min(old,price)-.1,5),
             regime=regime))
-    # One-bar entry signal based exclusively on previous completed candle.
+    from lsr02_indicator_research import metrics\n    # One-bar entry signal based exclusively on previous completed candle.
     # Next bar resolves TP or SL conservatively if both touched.
     equity=initial_equity;peak=equity;max_dd=0.;ledger=[];loss_streak=0;halted_at=None
     for i in range(1,len(candles)):
@@ -35,7 +38,12 @@ def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025
         previous=candles[i-1];current=candles[i]
         if previous["close"]<=previous["open"]:continue
         if avoid_range and previous["regime"]=="RANGE":continue
-        entry=previous["close"];distance=.3
+        indicator=None
+        if use_adx or use_atr_stop:
+            indicator=metrics(candles[max(0,i-70):i],period=14)
+            if indicator['status']!='OK':continue
+        if use_adx and not (indicator['adx']>=25 and indicator['plus_di']>indicator['minus_di']):continue
+        entry=previous["close"];distance=max(.3,indicator['atr']) if use_atr_stop else .3
         stop=entry-distance;target=entry+distance*reward_r
         if current["low"]<=stop: outcome=-1.
         elif current["high"]>=target:outcome=reward_r
@@ -56,6 +64,7 @@ def simulate(*,seed=260427,steps=1500,initial_equity=10000.0,risk_fraction=.0025
        seed=seed,steps=steps,price_series_sha256=hashlib.sha256(payload).hexdigest(),
        parameters=dict(initial_equity=initial_equity,risk_fraction=risk_fraction,
                        reward_r=reward_r,avoid_range=avoid_range,cost_r=.08,
+                       use_adx=use_adx,use_atr_stop=use_atr_stop,
                        loss_streak_stop=loss_streak_stop),
        halted_at=halted_at,trades=len(ledger),wins=wins,win_rate=wins/len(ledger) if ledger else None,
        final_equity_usd=round(equity,2),
