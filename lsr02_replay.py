@@ -17,6 +17,10 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
             raise ValueError('Explicit regime research parameters required')
         classify([],as_of=as_of,interval=14400,left=left,right=right,**regime_config)
     candidate=None; trace=[]; used=set(); review_required=False; previous_regime='UNKNOWN' 
+    def emit(row):
+        if regime_config is not None:
+            row.update(regime=regime['regime'],regime_reason=regime['reason'],efficiency=regime['efficiency'])
+        trace.append(row)
     for b in m5:
         t=b['close_time']
         context=[x for x in h4 if x['close_time']<=t]
@@ -29,7 +33,7 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
             previous_regime=regime['regime']
             if candidate is not None and candidate.state!='INVALID' and action!='RECHECK_RISK_NO_AUTO_RESUME':
                 candidate.state='INVALID';review_required=True
-                trace.append(dict(at=t,side=candidate.side,state='INVALID',
+                emit(dict(at=t,side=candidate.side,state='INVALID',
                     stop=candidate.sweep_extreme-buffer if candidate.side=='BUY' else candidate.sweep_extreme+buffer,
                     poi=candidate.poi,readiness='BLOCKED_UNVERIFIED_GUARDS',
                     reason='REGIME_REVIEW_REQUIRED',regime=regime['regime'],regime_reason=regime['reason']))
@@ -50,13 +54,15 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
             old=candidate.state
             stop=candidate.sweep_extreme-buffer if candidate.side=='BUY' else candidate.sweep_extreme+buffer
             hit=b['low']<=stop if candidate.side=='BUY' else b['high']>=stop
+            reason=None
             if t>=candidate.expires_at or hit or not evidence['context_valid']:
+                reason='EXPIRED' if t>=candidate.expires_at else 'STOP_TOUCHED' if hit else 'HTF_CONTEXT_INVALID'
                 candidate.state='INVALID'
             elif old=='SWEEP' and events:
                 p=events[0]['poi'];candidate.poi=(p['low'],p['high']);candidate.state='CONFIRM'
             elif old=='CONFIRM' and b['low']<=candidate.poi[1] and b['high']>=candidate.poi[0]:
                 candidate.state='RETEST'
-            trace.append(dict(at=t,side=candidate.side,state=candidate.state,stop=stop,poi=candidate.poi,readiness='BLOCKED_UNVERIFIED_GUARDS'))
+            emit(dict(at=t,side=candidate.side,state=candidate.state,stop=stop,poi=candidate.poi,reason=reason,readiness='BLOCKED_UNVERIFIED_GUARDS'))
         # Existing candidate, even invalidated at this close, cannot restart at the same close.
         elif fresh and len(sweeps)==1:
             e=sweeps[0];key=(e['known_at'],e['direction'])
@@ -67,5 +73,5 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
                 extreme=source['high'] if side=='SELL' else source['low']
                 candidate=Candidate(symbol,side,t,t+lifetime,context[-1]['close_time'],expected,extreme,buffer)
                 candidate.state='SWEEP';candidate.last_at=t
-                trace.append(dict(at=t,side=side,state='SWEEP',stop=extreme+buffer if side=='SELL' else extreme-buffer,poi=None,readiness='BLOCKED_UNVERIFIED_GUARDS'))
+                emit(dict(at=t,side=side,state='SWEEP',stop=extreme+buffer if side=='SELL' else extreme-buffer,poi=None,readiness='BLOCKED_UNVERIFIED_GUARDS'))
     return trace
