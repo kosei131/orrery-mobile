@@ -37,3 +37,18 @@ jobs:
         run: |
           python build_lsr_view.py --check
           node test_lsr_view.cjs
+
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser test driver
+        run: npm install --no-save --package-lock=false playwright@1.62.1
+      - name: Check synthetic viewer in installed Chrome
+        env:
+          ORRERY_BROWSER_CHANNEL: chrome
+        run: node test_lsr_browser.cjs
