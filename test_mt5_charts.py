@@ -18,4 +18,21 @@ class ChartTests(unittest.TestCase):
             with self.subTest(now=now):
                 r=self.read(rows,now);self.assertNotEqual(r[0]['status'],'CLOSED_BARS_AVAILABLE');self.assertEqual(r[0]['bars'],[])
 
+    def test_timeframes_are_independent_and_closed(self):
+        m=Mock(TIMEFRAME_M5=5,TIMEFRAME_M15=15,TIMEFRAME_H4=240)
+        intervals={5:300,15:900,240:14400}
+        def rows(symbol,tf,start,count):
+            self.assertEqual((start,count),(1,70))
+            step=intervals[tf]
+            return [dict(time=t,open=100,high=102,low=99,close=101) for t in (28800-2*step,28800-step)]
+        m.copy_rates_from_pos.side_effect=rows
+        with patch.object(d,'mt5',m):result=d.read_closed_charts(datetime.fromtimestamp(28800,timezone.utc))
+        self.assertEqual(len(result),6)
+        self.assertEqual({x['timeframe'] for x in result},{'5m','15m','4H'})
+        self.assertTrue(all(x['status']=='CLOSED_BARS_AVAILABLE' for x in result))
+        original=rows
+        m.copy_rates_from_pos.side_effect=lambda symbol,tf,start,count:None if tf==15 else original(symbol,tf,start,count)
+        with patch.object(d,'mt5',m):result=d.read_closed_charts(datetime.fromtimestamp(28800,timezone.utc))
+        self.assertTrue(all((x['status']=='UNAVAILABLE')==(x['timeframe']=='15m') for x in result))
+
 if __name__=='__main__':unittest.main()
