@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Test offline HistData M1 import and timestamp handling
-        run: python -m unittest -v test_histdata_m1_import.py test_m1_complete_bars.py test_session_complete_bars.py test_histdata_pipeline.py test_merge_m1_months.py test_real_bars_lsr_bridge.py
+        run: python -m unittest -v test_histdata_m1_import.py test_m1_complete_bars.py test_session_complete_bars.py test_xau_session_coverage.py test_histdata_pipeline.py test_merge_m1_months.py test_real_bars_lsr_bridge.py
       - name: Run no-MT5 safety and HTTP tests
         run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py test_mt5_charts.py
       - name: Verify FX storage safety and JavaScript syntax
@@ -86,6 +86,8 @@ jobs:
         run: python orrery_public_xau_m1_audit.py xauusd_public_m1.csv public_xau_audit.json
       - name: Verify explicit UTC and generate complete M5 M15 H4 research bars
         run: python orrery_public_xau_to_bars.py xauusd_public_m1.csv --out public_xau_bars
+      - name: Crosscheck published XAU weekly sessions without certifying historical exceptions
+        run: python orrery_xau_session_coverage.py
       - name: Count LSR-02 structure events on uninterrupted real XAU bars
         run: python orrery_public_xau_structure_report.py
       - name: Diagnose H4 session gaps without inventing market hours
@@ -164,6 +166,8 @@ jobs:
           path: |
             public_xau_audit.json
             public_xau_bars/report.json
+            public_xau_session_coverage/report.json
+            public_xau_session_coverage/weekly_calendar_hypothesis.json
             public_xau_structure_report.json
             public_xau_h4_gap_report.json
             public_xau_h4_m1_gap_crosscheck.json

@@ -39,3 +39,23 @@ Next: obtain the publisher/broker session evidence and native H4 comparison;
 then evaluate as-of Type A/Type B separately with structural SL, realistic
 costs and untouched data. Weekly +$5000 remains a goal, never an override
 of the 0.25% research risk or loss stops.
+
+## Published weekly XAU crosscheck (2026-10-28)
+
+`orrery_xau_session_coverage.py` tests the public sample against the publisher's
+UTC schedule at https://getdata.finance/coverage/xauusd (report dated
+2026-08-22 20:59:35 UTC): Mon-Thu [00:00,21:00) and [22:00,24:00);
+Friday [00:00,20:45); Saturday closed; Sunday [22:00,24:00).
+This is a publisher claim, not a certified historical broker calendar. The
+page was retrieved through indexed primary-source search; direct access
+returned HTTP 530. Holiday lists and historical rule changes remain absent.
+The publisher's documentation says no separate session calendar is included.
+
+The crosscheck retains all input quotes, flags quotes during nominal closures,
+reports missing nominal-open minutes and edge truncation separately, and
+blocks H4 export on any closure conflict. With no conflict it can produce
+experimental session-partial H4 bars through the existing aggregator; they
+are NEVER automatically connected to strategy replay. No assumption converts
+a missing minute into a holiday. All readiness/execution flags stay false.
+The CI archive stores the report and exact weekly-calendar hypothesis; it
+does not redistribute newly generated price files.
