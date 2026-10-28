@@ -70,3 +70,25 @@ jobs:
           node test_lsr_browser.cjs
           node test_mt5_chart_browser.cjs
 
+
+  public-xau-m1-source-validation:
+    name: Inspect free XAUUSD M1 public sample (no trading)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download public research sample once per run
+        run: |
+          curl --fail --location --silent --show-error --max-time 90 \
+            --output xauusd_public_m1.csv \
+            https://raw.githubusercontent.com/getdata-finance/xauusd-1m-ohlcv-metals-historical-data/main/XAUUSD_1m.csv
+      - name: Verify raw CSV timestamps and OHLC
+        run: python orrery_public_xau_m1_audit.py xauusd_public_m1.csv public_xau_audit.json
+      - name: Save checksum and coverage report only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xauusd-public-m1-audit
+          path: public_xau_audit.json
+          if-no-files-found: warn
+          retention-days: 7
