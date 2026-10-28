@@ -1,0 +1,30 @@
+name: Free XAUUSD source availability probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/fx-safety-verification]
+    paths:
+      - orrery_duka_source_probe.py
+      - .github/workflows/duka-source-probe.yml
+permissions:
+  contents: read
+jobs:
+  source-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch one completed UTC hour, verify raw records
+        shell: bash
+        run: python orrery_duka_source_probe.py --symbol XAUUSD --hour 2026-10-22T12:00:00+00:00 --out duka_source_sample
+      - name: Save manifest even when data fetch fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dukascopy-source-probe
+          path: duka_source_sample/
+          if-no-files-found: warn
+          retention-days: 7
