@@ -6,6 +6,19 @@ Stops and targets evaluated conservatively; same-minute both hit means STOP.
 import csv,json,datetime as dt
 from pathlib import Path
 
+def evaluate_exit_bar(side, entry, stop, target, bid_high, bid_low, spread_usd):
+    """Returns stop, target or none; all quoted bars are assumed bid.
+    SELL exits require buying at synthetic ask (bid + spread).
+    If both barriers touch in one M1 bar, stop takes priority.
+    """
+    if side not in ("BUY", "SELL") or spread_usd<0:
+        raise ValueError("Invalid side or spread")
+    stop_hit=(bid_low<=stop if side=="BUY" else bid_high+spread_usd>=stop)
+    target_hit=(bid_high>=target if side=="BUY" else bid_low+spread_usd<=target)
+    if stop_hit:return "stop"
+    if target_hit:return "target"
+    return None
+
 def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initial=3000.0,risk_fraction=.0025,horizon_mins=120):
     evidence=json.loads(Path(report_path).read_text())["retouch_evidence"]
     with open(m1_path,newline="",encoding="utf-8") as f:
@@ -30,10 +43,9 @@ def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initia
         exit_time=None
         for bar in future:
             high,low=bar[2],bar[3]
-            stop_hit=low<=stop if side=="BUY" else high+spread_usd>=stop
-            target_hit=high>=target if side=="BUY" else low+spread_usd<=target
-            if stop_hit:outcome=-1.0;exit_time=bar[0];break
-            if target_hit:outcome=reward_r;exit_time=bar[0];break
+            exit_kind=evaluate_exit_bar(side,entry,stop,target,high,low,spread_usd)
+            if exit_kind=="stop":outcome=-1.0;exit_time=bar[0];break
+            if exit_kind=="target":outcome=reward_r;exit_time=bar[0];break
         if outcome is None:
             exit_time=future[-1][0]+60
             exit_bid=future[-1][4]
