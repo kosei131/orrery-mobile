@@ -20,7 +20,9 @@ def evaluate_exit_bar(side, entry, stop, target, bid_high, bid_low, spread_usd):
     return None
 
 def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initial=3000.0,risk_fraction=.0025,horizon_mins=120):
-    if spread_usd<0 or stop_usd<=0 or reward_r<=0 or initial<=0 or not 0<risk_fraction<=1 or horizon_mins<1:\n        raise ValueError("Invalid research simulation parameters")\n    evidence=json.loads(Path(report_path).read_text())["retouch_evidence"]
+    if spread_usd<0 or stop_usd<=0 or reward_r<=0 or initial<=0 or not 0<risk_fraction<=1 or horizon_mins<1:
+        raise ValueError("Invalid research simulation parameters")
+    evidence=json.loads(Path(report_path).read_text())["retouch_evidence"]
     with open(m1_path,newline="",encoding="utf-8") as f:
         bars=[(int(dt.datetime.fromisoformat(x["timestamp_utc"]).timestamp()),
                float(x["bid_open"]),float(x["bid_high"]),float(x["bid_low"]),float(x["bid_close"]))
@@ -63,5 +65,6 @@ def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initia
             "trades_detail":trades}
 if __name__=="__main__":
     result=simulate(Path("public_xau_bars/XAUUSD_M1_UNVERIFIED_QUOTE.csv"),Path("public_xau_sequence_report.json"))
-    Path("public_xau_hypothetical_pnl.json").write_text(json.dumps(result,indent=2)+"\n")
+    Path("public_xau_hypothetical_pnl.json").write_text(json.dumps(result,indent=2)+"
+")
     print(json.dumps({k:v for k,v in result.items() if k!="trades_detail"}))
