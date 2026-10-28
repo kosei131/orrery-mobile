@@ -34,9 +34,14 @@ def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initia
         idx=by_time.get(entry_time)
         if idx is None:skipped+=1;continue
         # Entry at M1 open beginning exactly when M5 touch bar has just closed.
+        # Walk only the observed contiguous minutes. A later gap must not
+        # retroactively discard a stop/target already reached.
         future=bars[idx:idx+horizon_mins]
-        if len(future)<horizon_mins or any(future[k][0]-future[k-1][0]!=60 for k in range(1,len(future))):
-            skipped+=1;continue
+        contiguous=1
+        while contiguous<len(future) and future[contiguous][0]-future[contiguous-1][0]==60:
+            contiguous+=1
+        complete=(contiguous==horizon_mins)
+        future=future[:contiguous]
         side=e["side"];ref=future[0][1]
         entry=ref+spread_usd if side=="BUY" else ref
         stop=entry-stop_usd if side=="BUY" else entry+stop_usd
@@ -48,6 +53,10 @@ def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initia
             exit_kind=evaluate_exit_bar(side,entry,stop,target,high,low,spread_usd)
             if exit_kind=="stop":outcome=-1.0;exit_time=bar[0];break
             if exit_kind=="target":outcome=reward_r;exit_time=bar[0];break
+        if outcome is None and not complete:
+            # Censored at the feed gap or source end: no synthetic liquidation.
+            skipped+=1
+            continue
         if outcome is None:
             exit_time=future[-1][0]+60
             exit_bid=future[-1][4]
