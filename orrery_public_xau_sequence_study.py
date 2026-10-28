@@ -32,9 +32,10 @@ def report(root):
                     out.append({"at":event["known_at"],"kind":event["kind"],
                                 "direction":event["direction"],
                                 "segment_start":group[0]["close_time"],
-                                "segment_end":group[-1]["close_time"]})
+                                "segment_end":group[-1]["close_time"],"poi":event.get("poi")})
     matched=0;by_side={"BUY":0,"SELL":0}
     vhf_passed=0;vhf_evaluable=0
+    vhf_poi=0;vhf_retouch=0
     m15_segments=segments(m15["bars"],900)
     used_m5_events=set()
     # Stable chronological one-to-one matching: each M5 event may confirm
@@ -47,7 +48,7 @@ def report(root):
                   and e["direction"]==target
                   and e["segment_start"]<=sweep["at"]<e["at"]]
         if eligible:
-            index,_=min(eligible,key=lambda item:(item[1]["at"],item[0]))
+            index,confirmation=min(eligible,key=lambda item:(item[1]["at"],item[0]))
             used_m5_events.add(index)
             matched+=1
             by_side["SELL" if target=="DOWN" else "BUY"]+=1
@@ -59,14 +60,25 @@ def report(root):
                     vhf_evaluable+=1
                     if v["value"]>=0.4 and v["slope"]=="RISING":
                         vhf_passed+=1
+                        poi=confirmation.get("poi")
+                        if poi is not None:
+                            vhf_poi+=1
+                            future=[b for b in m5["bars"]
+                                    if confirmation["at"]<b["close_time"]<=confirmation["at"]+3600
+                                    and b["close_time"]<=confirmation["segment_end"]
+                                    and b["close_time"]>=confirmation["segment_start"]]
+                            if any(b["low"]<=poi["high"] and b["high"]>=poi["low"] for b in future):
+                                vhf_retouch+=1
     return {"status":"EXPLORATORY_REAL_M15_M5_SEQUENCE_NOT_LSR02",
             "m15_sweeps":len(events15),"m5_bos_choch_events":len(events5),
             "unique_one_to_one_sweep_m5_matches":matched,
             "candidate_sides":by_side,
             "sweep_time_vhf_evaluable":vhf_evaluable,
             "sweep_time_vhf_research_passed":vhf_passed,
+            "vhf_passed_with_m5_poi":vhf_poi,
+            "vhf_passed_with_postconfirmation_poi_touch":vhf_retouch,
             "vhf_period":14,"research_vhf_threshold":0.4,"unique_executed_trades":0,
-            "h4_trend_verified":False,"retest_verified":False,
+            "h4_trend_verified":False,"retest_entry_verified":False,"poi_touch_research_evaluated":True,
             "vhf_filter_evaluated":True,"spread_and_execution_verified":False,
             "win_rate":None,"profit_usd":None,
             "warning":"M5 events assigned once; overlapping sweep windows remain research-only. No trade inference."}
