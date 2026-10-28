@@ -167,5 +167,6 @@ def verify_tick_archive(path, *, expected_manifest_sha256,
         raise ValueError('Expected audit configuration mismatch')
     return dict(status='VERIFIED_LOCAL_ARCHIVE_ONLY', row_count=count,
                 manifest_sha256=expected_manifest_sha256, audit=fresh_audit,
+                audit_options=options,
                 completeness_verified=False, backtest_ready=False, execution_allowed=False,
                 caveat='Checks local bytes and reproducible audit against an independent pin, not broker authenticity. Raw broker fields were not archived; concurrent external file replacement is outside this API guarantee.')
