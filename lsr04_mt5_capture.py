@@ -23,10 +23,8 @@ def capture_days(mt5, *, symbol, start_utc, end_utc, max_days=190):
             if t>=until.timestamp()*1000:continue
             if last_t is not None and t<last_t:
                 raise ValueError("Unordered history across windows")
-            if last_t is not None and t==last_t:
-                if item!=all_ticks[-1]:
-                    raise ValueError("Conflicting duplicate tick timestamp")
-                continue
+            # Multiple distinct ticks may legitimately share a millisecond.
+            # Only the half-open end boundary is discarded, never same-time ticks.
             all_ticks.append(item);last_t=t;accepted+=1
         windows.append(dict(start_utc=cursor.isoformat(),end_utc=until.isoformat(),
                             accepted_ticks=accepted,empty=accepted==0,
