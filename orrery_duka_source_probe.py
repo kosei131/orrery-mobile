@@ -57,7 +57,7 @@ def main():
                         decoded_sha256=hashlib.sha256(decoded).hexdigest(), tick_count=spreads_nonnegative,
                         note="Price scale and broker contract/cost terms NOT calibrated; no USD profit calculated.")
     except (ValueError, lzma.LZMAError, urllib.error.URLError, TimeoutError, OSError) as exc:
-        manifest.update(status="BLOCKED_SOURCE_FETCH", error_type=type(exc).__name__)
+        manifest.update(status="BLOCKED_SOURCE_FETCH", error_type=type(exc).__name__)\n        if isinstance(exc, urllib.error.HTTPError):\n            manifest["http_status"] = exc.code
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(manifest))
     return 0 if manifest["status"] == "RAW_TICKS_VALIDATED" else 2
