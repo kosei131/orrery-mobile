@@ -8,7 +8,7 @@ from datetime import datetime, timezone, timedelta
 from math import isfinite
 from lsr04_broker_sizing import size_from_broker_quote
 from lsr04_account_gate import review, _amount
-from lsr04_tick_fills import replay_exit
+from lsr04_tick_fills import replay_exit, market_exit_price
 from lsr02_risk_plan import performance
 
 
@@ -46,7 +46,8 @@ def replay_account(quotes, candidates, *, symbol, volume_min, volume_max, volume
     if not isinstance(candidates,list) or len(candidates)>10000:raise ValueError('Bounded confirmed candidate list required')
     plans=[];ids=set();last_known=None
     for c in candidates:
-        if not isinstance(c,dict) or set(c)!={'id','symbol','side','known_at_msc','eligible_after_msc','expires_at_msc','stop','target'}:
+        if (not isinstance(c,dict) or not {'id','symbol','side','known_at_msc','eligible_after_msc','expires_at_msc','stop','target'}<=set(c)
+                or set(c)-{'id','symbol','side','known_at_msc','eligible_after_msc','expires_at_msc','stop','target','max_holding_msc'}):
             raise ValueError('Only as-of entry plans accepted; no future outcome fields')
         if not isinstance(c['id'],str) or not c['id'] or c['id'] in ids or c['symbol']!=symbol or c['side'] not in ('BUY','SELL'):
             raise ValueError('Unique same-symbol candidates required')
@@ -55,6 +56,8 @@ def replay_account(quotes, candidates, *, symbol, volume_min, volume_max, volume
             if type(c[k]) is not int or c[k]<0:raise ValueError('Integer candidate clock required')
         if not c['known_at_msc']<c['eligible_after_msc']<c['expires_at_msc'] or (last_known is not None and c['known_at_msc']<last_known):
             raise ValueError('Chronological, strictly post-confirmation plans required')
+        if 'max_holding_msc' in c and (type(c['max_holding_msc']) is not int or c['max_holding_msc']<=0):
+            raise ValueError('Positive integer holding duration required')
         _num(c['stop'],True);_num(c['target'],True)
         if not (c['stop']<c['target'] if c['side']=='BUY' else c['target']<c['stop']):raise ValueError('Invalid stop/target order')
         plans.append(dict(c));last_known=c['known_at_msc']
@@ -102,7 +105,9 @@ def replay_account(quotes, candidates, *, symbol, volume_min, volume_max, volume
             price_gross_pnl_usd=price_gross,carry_cost_usd=carry,
             initial_risk=position['planned_risk'],lots=position['lots'],
             net_usd=price_gross-position['fee']-carry,
-            entry_at_msc=position['entry_at'],exit_reason=reason)
+            entry_at_msc=position['entry_at'],exit_reason=reason,
+            holding_deadline_msc=position['entry_at']+position['max_holding_msc'] if 'max_holding_msc' in position else None,
+            timeout_lag_msc=at-position['entry_at']-position['max_holding_msc'] if reason=='TIME_LIMIT' else None)
     for q in quotes:
         count+=1
         if count>max_quotes:raise ValueError('Quote budget exceeded; no prefix result')
@@ -138,6 +143,12 @@ def replay_account(quotes, candidates, *, symbol, volume_min, volume_max, volume
         if active is not None:
             outcome=replay_exit([active['entry_quote'],q],side=active['side'],
                 entry_after_msc=active['entry_at'],stop_price=active['stop'],target_price=active['target'],slippage=slip)
+            # SL/TP have priority on the observed quote. Otherwise time limit
+            # closes at this quote, never at an invented deadline price.
+            if (outcome['status']=='OPEN' and 'max_holding_msc' in active
+                    and at>=active['entry_at']+active['max_holding_msc']):
+                outcome=dict(status='CLOSED',exit_reason='TIME_LIMIT',
+                    exit_price=market_exit_price(side=active['side'],bid=bid,ask=ask,slippage=slip))
             if outcome['status']=='CLOSED':
                 _num(outcome['exit_price'],True)
                 gross=pnl(active['side'],active['lots'],active['entry_price'],outcome['exit_price'],at)

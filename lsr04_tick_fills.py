@@ -7,6 +7,16 @@ Outcomes are price differences only; broker PnL requires contract/currency data.
 """
 from math import isfinite
 
+def market_exit_price(*, side, bid, ask, slippage):
+    """Observed closing side plus adverse slippage; no quote interpolation."""
+    if side not in ('BUY','SELL') or any(type(v) not in (int,float) or not isfinite(v)
+            for v in (bid,ask,slippage)) or not 0<bid<=ask or slippage<0:
+        raise ValueError('Invalid market exit quote')
+    price=bid-slippage if side=='BUY' else ask+slippage
+    if not isfinite(price) or price<=0:raise ValueError('Unrepresentable market exit')
+    return price
+
+
 def replay_exit(ticks,*,side,entry_after_msc,stop_price,target_price,slippage=0.):
     if side not in ("BUY","SELL") or type(entry_after_msc) not in (int,float) or not isfinite(entry_after_msc):
         raise ValueError("Bad side or entry timestamp")
@@ -35,7 +45,7 @@ def replay_exit(ticks,*,side,entry_after_msc,stop_price,target_price,slippage=0.
         stop_hit=price<=stop_price if side=="BUY" else price>=stop_price
         target_hit=price>=target_price if side=="BUY" else price<=target_price
         if stop_hit or target_hit:
-            exit_price=(price-slippage) if side=="BUY" else (price+slippage)
+            exit_price=market_exit_price(side=side,bid=bid,ask=ask,slippage=slippage)
             delta=(exit_price-entry["entry_price"]) if side=="BUY" else (entry["entry_price"]-exit_price)
             return dict(status="CLOSED",side=side,entry_at=entry["entry_at"],exit_at=t,
                 entry_price=entry["entry_price"],exit_price=exit_price,
