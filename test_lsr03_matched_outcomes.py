@@ -15,6 +15,8 @@ class MatchedOutcomeTests(unittest.TestCase):
  def test_no_future_fill(self):
   h,f,m=fixture()
   m=m[:12]
-  result=audit("XAUUSD",h,f,m,as_of=m[-1]["close_time"],buffer=.1)
+  t=m[-1]["close_time"]
+  result=audit("XAUUSD",[b for b in h if b["close_time"]<=t],
+               [b for b in f if b["close_time"]<=t],m,as_of=t,buffer=.1)
   self.assertFalse(result["execution_allowed"])
 if __name__=="__main__":unittest.main()
