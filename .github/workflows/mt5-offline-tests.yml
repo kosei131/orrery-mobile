@@ -114,6 +114,8 @@ jobs:
         run: python orrery_xau_vhf_ablation.py
       - name: Check three-trade high-VHF sample fragility
         run: python orrery_xau_filter_fragility.py
+      - name: Audit requested six-month XAUUSD data coverage
+        run: python orrery_xau_six_month_coverage.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -136,5 +138,6 @@ jobs:
             public_xau_loss_diagnostic.json
             public_xau_vhf_ablation.json
             public_xau_filter_fragility.json
+            public_xau_six_month_coverage.json
           if-no-files-found: warn
           retention-days: 7
