@@ -134,6 +134,8 @@ jobs:
         run: python orrery_xau_h4_m1_gap_crosscheck.py
       - name: Classify missing H4 slots by underlying M1 completeness
         run: python orrery_xau_h4_m1_completeness.py
+      - name: Audit genuinely consecutive H4 trend windows
+        run: python orrery_xau_h4_contiguous_windows.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -146,6 +148,7 @@ jobs:
             public_xau_h4_gap_report.json
             public_xau_h4_m1_gap_crosscheck.json
             public_xau_h4_m1_completeness.json
+            public_xau_h4_contiguous_windows.json
             public_xau_sequence_report.json
             public_xau_hypothetical_pnl.json
             public_xau_cost_sensitivity.json
