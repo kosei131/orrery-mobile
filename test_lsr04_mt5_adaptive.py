@@ -34,4 +34,20 @@ class AdaptiveTests(unittest.TestCase):
   a=datetime(2026,4,27,tzinfo=timezone.utc)
   with self.assertRaises(ValueError):
    capture_adaptive(Live(),symbol="XAUUSD",start_utc=a,end_utc=a+timedelta(hours=1))
+ def test_recursive_odd_duration_keeps_exact_millisecond_partition(self):
+  class Dense(Mock):
+   def copy_ticks_range(self,s,a,b,f):
+    if b-a>timedelta(seconds=60):
+     return [dict(time_msc=int((a+timedelta(milliseconds=i)).timestamp()*1000),bid=2000.,ask=2000.1) for i in range(3)]
+    return []
+  a=datetime(2026,4,27,tzinfo=timezone.utc)
+  out=capture_adaptive(Dense(),symbol="XAUUSD",start_utc=a,end_utc=a+timedelta(seconds=3571),cap=3)
+  cursor=a
+  for w in out["windows"]:
+   start=datetime.fromisoformat(w["start"]);end=datetime.fromisoformat(w["end"])
+   self.assertEqual(start,cursor)
+   self.assertEqual(start.microsecond%1000,0)
+   self.assertEqual(end.microsecond%1000,0)
+   cursor=end
+  self.assertEqual(cursor,a+timedelta(seconds=3571))
 if __name__=="__main__":unittest.main()

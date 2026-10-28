@@ -9,6 +9,22 @@ from lsr02_sequence import number
 INTERVALS={'4H':14400,'15m':900,'5m':300}
 
 
+def validate_aggregation(streams):
+    """Check complete overlapping OHLC windows; never interpolate missing bars."""
+    # Compare only complete overlapping lower-timeframe windows, never interpolate.
+    for high_tf,low_tf in (('15m','5m'),('4H','15m')):
+        checked_windows=0;duration=INTERVALS[high_tf];step=INTERVALS[low_tf]
+        for high in streams[high_tf]:
+            close=high['close_time'];low=[b for b in streams[low_tf] if close-duration<b['close_time']<=close]
+            if len(low)!=duration//step or low[0]['close_time']!=close-duration+step or low[-1]['close_time']!=close:
+                continue
+            values=dict(open=low[0]['open'],close=low[-1]['close'],high=max(b['high'] for b in low),low=min(b['low'] for b in low))
+            if any(abs(values[k]-high[k])>max(abs(high[k])*1e-10,1e-10) for k in values):
+                raise ValueError('Cross-timeframe mismatch')
+            checked_windows+=1
+        if not checked_windows:raise ValueError('No complete overlap')
+
+
 def review_snapshot(snapshot, *, symbol, now, buffer, regime_config, halt_store=None):
     if not isinstance(regime_config,dict) or not number(buffer) or buffer<=0:
         raise ValueError('Explicit research settings required')
@@ -37,18 +53,7 @@ def review_snapshot(snapshot, *, symbol, now, buffer, regime_config, halt_store=
             detect(bars,as_of=now,interval=seconds)
             if now-bars[-1]['close_time']>=seconds:raise ValueError('Stale stream')
             streams[tf]=bars
-        # Compare only complete overlapping lower-timeframe windows, never interpolate.
-        for high_tf,low_tf in (('15m','5m'),('4H','15m')):
-            checked_windows=0;duration=INTERVALS[high_tf];step=INTERVALS[low_tf]
-            for high in streams[high_tf]:
-                close=high['close_time'];low=[b for b in streams[low_tf] if close-duration<b['close_time']<=close]
-                if len(low)!=duration//step or low[0]['close_time']!=close-duration+step or low[-1]['close_time']!=close:
-                    continue
-                values=dict(open=low[0]['open'],close=low[-1]['close'],high=max(b['high'] for b in low),low=min(b['low'] for b in low))
-                if any(abs(values[k]-high[k])>max(abs(high[k])*1e-10,1e-10) for k in values):
-                    raise ValueError('Cross-timeframe mismatch')
-                checked_windows+=1
-            if not checked_windows:raise ValueError('No complete overlap')
+        validate_aggregation(streams)
     except (KeyError,TypeError,ValueError,OverflowError):
         result['reason']='INVALID_STALE_OR_INCONSISTENT_DATA';return result
     # Persistence/config failures deliberately propagate; never reset a halt store.

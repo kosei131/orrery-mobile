@@ -15,6 +15,8 @@ def capture_adaptive(mt5, *, symbol, start_utc, end_utc,
         raise ValueError("Invalid window budget")
     if start_utc>=end_utc or end_utc-start_utc>timedelta(days=190):
         raise ValueError("Invalid historical horizon")
+    if start_utc.microsecond%1000 or end_utc.microsecond%1000:
+        raise ValueError("Millisecond-aligned capture bounds required")
     leaves=[];queue=[(start_utc,end_utc)]
     while queue:
         if len(leaves)+len(queue)>max_windows:
@@ -25,7 +27,9 @@ def capture_adaptive(mt5, *, symbol, start_utc, end_utc,
         if part["count"]>=cap:
             if (end-start).total_seconds()<=min_window_seconds:
                 raise ValueError("Unresolved saturated window; cannot claim coverage")
-            mid=start+(end-start)/2
+            # Partition on an exact tick-clock millisecond, never fractional ms.
+            span_ms=(end-start)//timedelta(milliseconds=1)
+            mid=start+timedelta(milliseconds=span_ms//2)
             queue.extend([(mid,end),(start,mid)])
             continue
         data=[row for row in part["ticks"] if row["time_msc"]<end.timestamp()*1000]
