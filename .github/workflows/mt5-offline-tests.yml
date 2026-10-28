@@ -138,6 +138,8 @@ jobs:
         run: python orrery_xau_h4_contiguous_windows.py
       - name: Audit future-window selection bias in hypothetical M1 fills
         run: python orrery_xau_future_window_bias.py
+      - name: Stress censored XAU trade outcomes without fabricating fills
+        run: python orrery_xau_censored_event_stress.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -152,6 +154,7 @@ jobs:
             public_xau_h4_m1_completeness.json
             public_xau_h4_contiguous_windows.json
             public_xau_m1_future_window_bias.json
+            public_xau_censored_event_stress.json
             public_xau_sequence_report.json
             public_xau_hypothetical_pnl.json
             public_xau_cost_sensitivity.json
