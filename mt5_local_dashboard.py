@@ -51,7 +51,8 @@ def read_quotes(now):
                     item['status']='INVALID'
                 else:
                     age=now.timestamp()-tick.time_msc/1000
-                    if not 0<=age<=10:
+                    # Float milliseconds can yield a tiny negative age for an equal instant.
+                    if not -0.001<=age<=10:
                         item['status']='STALE_OR_FUTURE'
                     else:
                         item.update(status='AVAILABLE',bid=tick.bid,ask=tick.ask,spread=tick.ask-tick.bid,
