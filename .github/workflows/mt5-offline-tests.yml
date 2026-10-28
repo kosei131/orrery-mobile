@@ -126,6 +126,8 @@ jobs:
         run: python orrery_xau_five_month_exit_sensitivity.py
       - name: Check chronological stability of 1.5R and 2R exits
         run: python orrery_xau_tp_stability_split.py
+      - name: Compare fixed partial TP split without optimization
+        run: python orrery_xau_fixed_split_tp.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -154,5 +156,6 @@ jobs:
             public_xau_alt_model_comparison.json
             public_xau_five_month_exit_sensitivity.json
             public_xau_tp_stability_split.json
+            public_xau_fixed_split_tp.json
           if-no-files-found: warn
           retention-days: 7
