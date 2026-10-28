@@ -19,12 +19,15 @@ SOURCES = {'LSR_VHF':'public_xau_sequence_report.json',
            'M15_DIRECT':'public_xau_m15_breakout_candidates.json',
            'M15_RETEST':'public_xau_m15_retest_candidates.json'}
 
-def annotate(h4, candidates, *, config):
+def annotate(h4, candidates, *, config, full_structure_history=False):
+    if type(full_structure_history) is not bool:
+        raise ValueError('Explicit boolean history mode required')
+    scope = 'CONTIGUOUS_HISTORY' if full_structure_history else 'WINDOW'
     times = [b['close_time'] for b in h4]
     if any(b<=a for a,b in zip(times,times[1:])):
         raise ValueError('H4 timestamps must strictly increase')
     # Validate parameters even for zero candidates.
-    classify([], as_of=0, interval=14400, **config)
+    classify([], as_of=0, interval=14400, structure_scope=scope, **config)
     seen = set()
     rows = []
     for c in candidates:
@@ -35,12 +38,12 @@ def annotate(h4, candidates, *, config):
         i = bisect_right(times,t)
         begin = i
         # Never bridge missing grid bars, weekends, or unverified holidays.
-        while begin>0 and i-begin<config['lookback']:
+        while begin>0 and (full_structure_history or i-begin<config['lookback']):
             if begin<i and times[begin]-times[begin-1]!=14400:
                 break
             begin-=1
         known = h4[begin:i]
-        r = classify(known, as_of=t, interval=14400, **config)
+        r = classify(known, as_of=t, interval=14400, structure_scope=scope, **config)
         direction = 'UP' if side=='BUY' else 'DOWN'
         group = ('ALIGNED' if r['regime']==direction else
                  'OPPOSED' if r['regime'] in ('UP','DOWN') else
@@ -48,7 +51,7 @@ def annotate(h4, candidates, *, config):
         rows.append({'entry_known_at':t, 'side':side, 'group':group,
                      'h4_regime':r['regime'], 'reason':r['reason'],
                      'h4_last_close':known[-1]['close_time'] if known else None,
-                     'h4_bars_used':len(known), 'execution_allowed':False})
+                     'h4_bars_used':len(known), 'structure_scope':scope, 'execution_allowed':False})
     return rows
 
 
@@ -101,7 +104,15 @@ def run(root=Path('.')):
         # Reuse unchanged 1.5R/6-price-unit stop/0.6 spread research model.
         outcomes = simulate(m1,path,reward_r=1.5)['trades_detail']
         outcomes = [t for t in outcomes if START<=t['touch_close_utc']<END]
+        expanded = annotate(h4,candidates,config=CONFIG,full_structure_history=True)
+        transitions = Counter(a['reason']+' -> '+b['reason'] for a,b in zip(annotations,expanded))
         results[model] = {'groups':summarize(annotations,outcomes),'annotations':annotations,
+                          'full_contiguous_structure_diagnostic': {
+                              'groups':summarize(expanded,outcomes),
+                              'regime_reason_counts':dict(Counter(a['reason'] for a in expanded)),
+                              'reason_transitions':dict(transitions),
+                              'annotations':expanded,
+                              'adopted':False},
                           'regime_reason_counts':dict(Counter(a['reason'] for a in annotations)),
                           'candidate_sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
     report = {'status':'ASOF_H4_ALIGNMENT_ATTRIBUTION_ONLY',
@@ -111,9 +122,11 @@ def run(root=Path('.')):
               'h4_file_sha256':hashlib.sha256(h4_path.read_bytes()).hexdigest(),
               'results':results,'broker_verified':False,'out_of_sample':False,
               'type_a_b_certified':False,'execution_allowed':False,
+              'structure_comparison':'WINDOW baseline vs CONTIGUOUS_HISTORY structure; identical last-12 efficiency, ATR, band, thresholds and confirmed pivot windows. No gap bridging. Diagnostic alternative NOT adopted.',
               'warning':'Publisher weekly calendar hypothesis; historical exceptions unverified. Existing experimental regime classifier. Outcomes use assumed spread and fixed stops, omit commissions/slippage/margin. R summaries are independent resolved outcomes, not account returns. UNKNOWN and unresolved candidates are retained, never counted as zero or winners. No model selection or threshold optimization.'}
     (root/'public_xau_h4_alignment.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
-    print(json.dumps({**report,'results':{k:{'groups':v['groups'],'regime_reason_counts':v['regime_reason_counts']} for k,v in results.items()}}))
+    print(json.dumps({**report,'results':{k:{'groups':v['groups'],'regime_reason_counts':v['regime_reason_counts'],
+        'full_contiguous_structure_diagnostic':{a:b for a,b in v['full_contiguous_structure_diagnostic'].items() if a!='annotations'}} for k,v in results.items()}}))
     return report
 
 if __name__=='__main__': run()

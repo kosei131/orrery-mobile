@@ -6,12 +6,14 @@ from lsr02_sequence import number
 
 
 def classify(bars, *, as_of, interval, lookback, trend_efficiency,
-             range_efficiency, left=2, right=2):
+             range_efficiency, left=2, right=2, structure_scope="WINDOW"):
+    if structure_scope not in ('WINDOW', 'CONTIGUOUS_HISTORY'):
+        raise ValueError('Unknown structure scope')
     if type(lookback) is not int or lookback<3:
         raise ValueError('lookback must be at least 3')
     if not all(number(x) for x in (trend_efficiency,range_efficiency)) or not 0<=range_efficiency<trend_efficiency<=1:
         raise ValueError('Invalid research thresholds')
-    detect(bars,as_of=as_of,interval=interval,left=left,right=right)
+    full_structure=detect(bars,as_of=as_of,interval=interval,left=left,right=right)
     result=dict(regime='UNKNOWN',reason='INSUFFICIENT_HISTORY',known_at=bars[-1]['close_time'] if bars else None,
                 efficiency=None,atr_sma=None,band=None,execution_allowed=False)
     if len(bars)<lookback:
@@ -19,7 +21,8 @@ def classify(bars, *, as_of, interval, lookback, trend_efficiency,
     if as_of-bars[-1]['close_time']>=interval:
         result['reason']='STALE_DATA';return result
     window=bars[-lookback:]
-    structural=detect(window,as_of=as_of,interval=interval,left=left,right=right)
+    structural=(full_structure if structure_scope=='CONTIGUOUS_HISTORY' else
+                detect(window,as_of=as_of,interval=interval,left=left,right=right))
     closes=[b['close'] for b in window]
     travel=sum(abs(b-a) for a,b in zip(closes,closes[1:]))
     efficiency=abs(closes[-1]-closes[0])/travel if travel else 0

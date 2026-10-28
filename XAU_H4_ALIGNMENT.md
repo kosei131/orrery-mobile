@@ -35,3 +35,36 @@ coverage; do not loosen thresholds after observing these PnLs or treat zero
 ALIGNED as zero-return proof of an effective strategy. Next investigate
 UNKNOWN reasons and adequate historical H4 continuity before preregistering
 any revised classifier and testing genuinely untouched data.
+
+## Structure-history diagnostic (2026-10-28)
+
+The default `lsr02_regime.classify` behavior remains WINDOW. An explicit
+`structure_scope="CONTIGUOUS_HISTORY"` research option uses confirmed pivots
+from the supplied complete contiguous prefix while keeping efficiency,
+ATR and band on the original last `lookback` bars. Validation still rejects
+future/unfinished, unordered and missing bars. Existing replay configuration
+and production paths are unchanged. This is a research alternative, not an
+assertion that the old specification was a bug.
+
+`annotate(..., full_structure_history=True)` supplies only the contiguous
+prefix available at the candidate time. The same report now includes both
+modes and reason transitions, with the alternative explicitly `adopted=False`.
+No thresholds, entries, stop/TP model, cost assumptions or outcomes are
+selected or changed based on this comparison. Both modes use inspected data,
+so neither result is out-of-sample evidence.
+
+Observed local diagnostic: LSR/VHF remains 10 UNKNOWN (7 insufficient history,
+2 insufficient swings, 1 conflicting evidence). For M15 direct, insufficient
+swings falls from 188 to 74 but its 18 ALIGNED resolved outcomes average
+-0.3488R (5 wins, PF 0.5171). M15 retest has 10 ALIGNED resolved outcomes,
+4 wins, mean +0.008R, PF 1.0138, before unmodeled fees/slippage. This is too
+small and too close to zero to demonstrate a profitable implementation.
+The previous baseline summaries remain unchanged. Do not adopt the
+alternative simply because more candidates receive a directional label.
+
+Priority after this diagnostic: assess the fixed 6-price-unit stop model
+against causal structural invalidation with identical cost assumptions,
+retaining baseline and unknown outcomes. Additional uninterrupted broker H4
+history/session evidence is still required; never bridge unknown closures
+just to increase classification coverage. Weekly profit targets do not alter
+risk limits or authorize high-lot mode.

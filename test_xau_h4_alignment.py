@@ -1,5 +1,6 @@
 import unittest
 from orrery_xau_h4_alignment import annotate, summarize
+from lsr02_regime import classify
 from test_lsr02_structure import bars
 
 CONFIG=dict(lookback=7,trend_efficiency=.3,range_efficiency=.2,left=1,right=1)
@@ -54,5 +55,44 @@ class H4AlignmentTests(unittest.TestCase):
         h=history();t=h[-1]['close_time']
         c=candidate(t)
         self.assertEqual(annotate(h,[c],config=CONFIG),annotate(h,[dict(c,r=500)],config=CONFIG))
+
+class StructureScopeTests(unittest.TestCase):
+    def expanded_history(self):
+        h=history()
+        for n in range(7):
+            p=15.2+.2*n
+            h.append(dict(close_time=h[-1]['close_time']+14400,
+                          open=p,close=p,high=p+.1,low=p-.1))
+        return h
+
+    def test_scope_preserves_efficiency_atr_and_band_but_keeps_older_pivots(self):
+        h=self.expanded_history();t=h[-1]['close_time']
+        kwargs=dict(as_of=t,interval=14400,**CONFIG)
+        old=classify(h,**kwargs)
+        self.assertEqual(old,classify(h,structure_scope='WINDOW',**kwargs))
+        full=classify(h,structure_scope='CONTIGUOUS_HISTORY',**kwargs)
+        self.assertEqual(old['reason'],'INSUFFICIENT_CONFIRMED_SWINGS')
+        self.assertEqual(full['regime'],'UP')
+        for key in ('efficiency','atr_sma','band'):
+            self.assertEqual(old[key],full[key])
+        self.assertFalse(full['execution_allowed'])
+
+    def test_full_history_mode_does_not_read_future_or_bridge_gap(self):
+        h=self.expanded_history();t=h[-1]['close_time']
+        a=annotate(h,[candidate(t)],config=CONFIG,full_structure_history=True)
+        self.assertEqual(a[0]['group'],'ALIGNED')
+        self.assertEqual(a[0]['h4_bars_used'],14)
+        future=dict(h[-1],close_time=t+14400)
+        self.assertEqual(a,annotate(h+[future],[candidate(t)],config=CONFIG,full_structure_history=True))
+        gapped=h[:6]+h[7:]
+        r=annotate(gapped,[candidate(t)],config=CONFIG,full_structure_history=True)[0]
+        self.assertEqual(r['h4_bars_used'],7)
+        self.assertEqual(r['group'],'UNKNOWN')
+
+    def test_invalid_structure_scope_rejected_even_without_history(self):
+        with self.assertRaises(ValueError):
+            classify([],as_of=0,interval=14400,structure_scope='AUTO',**CONFIG)
+        with self.assertRaises(ValueError):
+            annotate([],[],config=CONFIG,full_structure_history='yes')
 
 if __name__=='__main__':unittest.main()
