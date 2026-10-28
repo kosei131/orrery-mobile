@@ -1,0 +1,67 @@
+"""Research-only comparison: POI retest with vs without VHF gate.
+Uses identical source M1 simulator and same assumed costs. Not live-ready.
+"""
+import json
+from pathlib import Path
+from lsr02_structure import detect
+from lsr03_vhf import calculate
+from orrery_real_bars_lsr_bridge import load
+from orrery_public_xau_sequence_study import segments
+from orrery_xau_hypothetical_pnl import simulate
+
+def run(root=Path("public_xau_bars")):
+    m15=load(root/"XAUUSD_M15_UNVERIFIED_QUOTE.csv","M15")["bars"]
+    m5=load(root/"XAUUSD_M5_UNVERIFIED_QUOTE.csv","M5")["bars"]
+    events15=[];events5=[];m5_by_segment={}
+    for bars,sec,out in ((m15,900,events15),(m5,300,events5)):
+        for seg_idx,g in enumerate(segments(bars,sec)):
+            if len(g)<8:continue
+            d=detect(g,as_of=g[-1]["close_time"],interval=sec)
+            if sec==300:m5_by_segment[seg_idx]=g
+            for e in d["events"]:
+                if (sec==900 and e["kind"]=="SWEEP") or (sec==300 and e["kind"] in ("BOS","CHoCH")):
+                    out.append({"time":e["known_at"],"direction":e["direction"],
+                                "poi":e.get("poi"),"segment_start":g[0]["close_time"],
+                                "segment_index":seg_idx})
+    all_rows=[];selected=[];used=set()
+    m15_segments=segments(m15,900)
+    for sweep in sorted(events15,key=lambda x:x["time"]):
+        reverse="DOWN" if sweep["direction"]=="UP" else "UP"
+        matches=[(i,x) for i,x in enumerate(events5)
+                 if i not in used and x["direction"]==reverse
+                 and sweep["time"]<x["time"]<=sweep["time"]+3600
+                 and x["segment_start"]<=sweep["time"]]
+        if not matches:continue
+        idx,confirm=min(matches,key=lambda p:(p[1]["time"],p[0]))
+        used.add(idx)
+        poi=confirm["poi"]
+        if not isinstance(poi,dict) or "high" not in poi or "low" not in poi:continue
+        segment=m5_by_segment[confirm["segment_index"]]
+        later=[b for b in segment if confirm["time"]<b["close_time"]<=confirm["time"]+3600]
+        touches=[b for b in later if b["low"]<=poi["high"] and b["high"]>=poi["low"]]
+        if not touches:continue
+        row={"sweep_close":sweep["time"],"confirmation_close":confirm["time"],
+             "first_poi_touch_close":touches[0]["close_time"],"side":"BUY" if reverse=="UP" else "SELL",
+             "poi_low":poi["low"],"poi_high":poi["high"]}
+        all_rows.append(row)
+        old=next((g for g in m15_segments if g[0]["close_time"]<=sweep["time"]<=g[-1]["close_time"]),None)
+        if old:
+            known=[b for b in old if b["close_time"]<=sweep["time"]]
+            v=calculate(known,period=14,as_of=sweep["time"],interval=900)
+            if v["status"]=="OK" and v["value"]>=.4 and v["slope"]=="RISING":
+                selected.append(dict(row,vhf_at_sweep=v["value"]))
+    evidence_file=Path("public_xau_alt_no_vhf_evidence.json")
+    evidence_file.write_text(json.dumps({"retouch_evidence":all_rows}))
+    pnl=simulate(root/"XAUUSD_M1_UNVERIFIED_QUOTE.csv",evidence_file)
+    old_pnl=json.loads(Path("public_xau_hypothetical_pnl.json").read_text())
+    result={"status":"RESEARCH_ABLATION_NOT_LSR02","matched_sweeps":len(used),
+            "poi_touch_without_vhf":len(all_rows),"poi_touch_with_vhf":len(selected),
+            "no_vhf_model":{"trades":pnl["trades"],"wins":pnl["winners"],"losses":pnl["losers"],
+                "net_usd":pnl["net_usd"],"max_dd_pct":pnl["max_drawdown_pct"],"skipped":pnl["skipped_incomplete"]},
+            "existing_vhf_model":{"trades":old_pnl["trades"],"wins":old_pnl["winners"],"losses":old_pnl["losers"],
+                "net_usd":old_pnl["net_usd"],"max_dd_pct":old_pnl["max_drawdown_pct"]},
+            "high_lot_enabled":False,"broker_verified":False,
+            "warning":"Both variants in-sample. One-to-one pair matching is established before VHF gating; cost is assumed; source quote is not broker bid-ask."}
+    Path("public_xau_alt_model_comparison.json").write_text(json.dumps(result,indent=2)+"\n")
+    print(json.dumps(result))
+if __name__=="__main__":run()
