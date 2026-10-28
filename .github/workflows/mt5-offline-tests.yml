@@ -154,6 +154,8 @@ jobs:
         run: python orrery_xau_monthly_strategy_cohorts.py
       - name: Apply fail-closed research progression gates
         run: python orrery_xau_research_gate.py
+      - name: Regression-test fail-closed research progression criteria
+        run: python -m unittest -v test_orrery_xau_research_gate.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
