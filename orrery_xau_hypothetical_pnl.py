@@ -65,6 +65,5 @@ def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initia
             "trades_detail":trades}
 if __name__=="__main__":
     result=simulate(Path("public_xau_bars/XAUUSD_M1_UNVERIFIED_QUOTE.csv"),Path("public_xau_sequence_report.json"))
-    Path("public_xau_hypothetical_pnl.json").write_text(json.dumps(result,indent=2)+"
-")
+    Path("public_xau_hypothetical_pnl.json").write_text(json.dumps(result,indent=2)+"\n")
     print(json.dumps({k:v for k,v in result.items() if k!="trades_detail"}))
