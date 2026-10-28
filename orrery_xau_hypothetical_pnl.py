@@ -27,19 +27,21 @@ def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initia
         stop=entry-stop_usd if side=="BUY" else entry+stop_usd
         target=entry+stop_usd*reward_r if side=="BUY" else entry-stop_usd*reward_r
         outcome=None
+        exit_time=None
         for bar in future:
             high,low=bar[2],bar[3]
             stop_hit=low<=stop if side=="BUY" else high>=stop
             target_hit=high>=target if side=="BUY" else low<=target
-            if stop_hit:outcome=-1.0;break
-            if target_hit:outcome=reward_r;break
+            if stop_hit:outcome=-1.0;exit_time=bar[0];break
+            if target_hit:outcome=reward_r;exit_time=bar[0];break
         if outcome is None:
+            exit_time=future[-1][0]+60
             exit_bid=future[-1][4]
             exit_price=exit_bid if side=="BUY" else exit_bid+spread_usd
             outcome=((exit_price-entry) if side=="BUY" else (entry-exit_price))/stop_usd
         stake=equity*risk_fraction
         pnl=stake*outcome;equity+=pnl;peak=max(peak,equity);max_dd=max(max_dd,(peak-equity)/peak)
-        trades.append({"touch_close_utc":entry_time,"side":side,"entry_assumed":entry,"r":round(outcome,5),"pnl_usd":round(pnl,4)})
+        trades.append({"touch_close_utc":entry_time,"side":side,"entry_assumed":entry,"exit_time_utc":exit_time,"r":round(outcome,5),"pnl_usd":round(pnl,4)})
     return {"method":"HYPOTHETICAL next-M1-open fixed-stop fixed-2R research only",
             "trades":len(trades),"skipped_incomplete":skipped,"winners":sum(t["r"]>0 for t in trades),
             "losers":sum(t["r"]<0 for t in trades),"initial_usd":initial,
