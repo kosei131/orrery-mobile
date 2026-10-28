@@ -68,11 +68,11 @@ def main():
     print("WARNING: These are assumptions, NOT verified historical broker costs.")
     folder_name = ask("New unique output directory name", "orrery_pilot_real_001")
     out = (root / folder_name).resolve()
-    if out == root or root not in out.parents or out.exists():
+    if out == root or root not in out.parents or out.exists() or Path(folder_name).name != folder_name:
         raise ValueError("Output must be a new path inside this repository")
-    config_path = root / "pilot_settings.local.json"
+    config_path = root / f"{folder_name}.settings.local.json"
     if config_path.exists():
-        raise ValueError("pilot_settings.local.json already exists; do not overwrite it")
+        raise ValueError("This run settings file already exists; choose a new output name")
     config_path.write_text(json.dumps(cfg, indent=2) + "\n", encoding="utf-8")
     print(f"Config saved to {config_path.name}; preserve it with the resulting report.")
     print("Starting historical read-only pilot. No demo or live trades are placed.")
