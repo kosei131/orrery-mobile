@@ -5,6 +5,7 @@ gap as contiguous without independently verified provider trading sessions.
 """
 import datetime as dt
 import json
+from collections import Counter
 from pathlib import Path
 from orrery_real_bars_lsr_bridge import load
 
@@ -23,7 +24,10 @@ def classify_gap(prev_open,next_open):
 def audit(path):
     result=load(path,"H4")
     gs=[classify_gap(g["after_open"],g["before_open"]) for g in result["gaps"]]
+    patterns=Counter((g["after_open_utc"][11:16],g["before_open_utc"][11:16],g["missing_h4_grid_bars"]) for g in gs)
     return {"source_h4_bars":len(result["bars"]),"gap_count":len(gs),
+            "top_gap_patterns":[{"from_utc":a,"to_utc":b,"missing_h4_bars":n,"count":v}
+                                for (a,b,n),v in patterns.most_common(12)],
             "weekend_intersecting_gaps":sum(g["possible_market_closure"] for g in gs),
             "gaps_without_weekend":sum(not g["possible_market_closure"] for g in gs),
             "example_gaps":gs[:20],
