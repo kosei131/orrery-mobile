@@ -108,6 +108,8 @@ jobs:
         run: python orrery_xau_sizing_whatif.py
       - name: Stress high-VHF winners turning into losses
         run: python orrery_xau_high_lot_stress.py
+      - name: Diagnose loss causes and price excursions
+        run: python orrery_xau_loss_diagnostic.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -127,5 +129,6 @@ jobs:
             public_xau_chronological_split.json
             public_xau_sizing_whatif.json
             public_xau_high_lot_stress.json
+            public_xau_loss_diagnostic.json
           if-no-files-found: warn
           retention-days: 7
