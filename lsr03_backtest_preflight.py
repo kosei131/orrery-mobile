@@ -62,7 +62,7 @@ def preflight(config):
                 completeness_verified=False)
         except Exception:
             evidence[symbol]=dict(status='INVALID_OR_UNAVAILABLE_TICK_CATALOG')
-    blockers=['ACCOUNT_REPLAY_WITH_FLOATING_EQUITY_AND_STOPS_NOT_IMPLEMENTED',
+    blockers=['SIX_MONTH_MULTISYMBOL_OVERNIGHT_ACCOUNT_REPLAY_NOT_IMPLEMENTED',
               'HISTORICAL_BROKER_USD_VALUATION_AND_COSTS_NOT_VERIFIED',
               'CONTINUOUS_SESSION_AWARE_OHLC_REPLAY_NOT_IMPLEMENTED']
     if any(e['status']!='LOCAL_INTEGRITY_ONLY' for e in evidence.values()):

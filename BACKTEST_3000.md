@@ -30,8 +30,9 @@ returns BACKTEST_NOT_RUN and exit 2. Profit, ending equity, return, DD and
 trade count remain null. A matching local catalog alone cannot lift these
 remaining implementation blockers:
 
-- time-ordered account replay with floating equity, simultaneous exposure,
-  actual daily and streak stops;
+- complete six-month multi-symbol account replay: a limited intraday,
+  one-position prototype now exists in lsr03_account_replay.py, but combined
+  exposure and overnight/carry/margin behavior remain unimplemented;
 - historical account-USD valuation, executable quantities, margin and
   verified commissions/swaps/slippage;
 - structural OHLC replay across actual market sessions without invented bars.
@@ -47,3 +48,8 @@ missing; BACKTEST_NOT_RUN, net profit null. This is not $0 profit and not a
 $3000 ending balance. No real six-month run or performance result exists.
 Unit tests exercise missing/invalid inputs, pinned short-history rejection,
 exact request/risk settings, no input mutation and absence of fake metrics.
+
+The intraday prototype is not automatically called by this preflight, the
+candidate study or the MT5 pilot. It requires as-of candidate plans with no
+future outcome fields and a caller-provided historical USD valuation callback.
+Its synthetic tests are not a $3000 real-market backtest result.
