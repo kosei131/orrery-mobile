@@ -1,3 +1,4 @@
+from contextlib import closing
 import sqlite3
 import tempfile
 import unittest
@@ -61,7 +62,7 @@ class StoreTests(unittest.TestCase):
         self.store.initialize_session(scope=SCOPE, day_start_utc=tomorrow, policy=POLICY, verified_start=True)
         r=self.observe(day_start_utc=tomorrow, now_utc=tomorrow)
         self.assertEqual(r['reasons'], [])
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             records=db.execute('SELECT reasons FROM daily_risk_halts ORDER BY session').fetchall()
         self.assertEqual(len(records),2)
         self.assertIn('DAILY_DRAWDOWN_STOP', records[0][0])
@@ -81,10 +82,10 @@ class StoreTests(unittest.TestCase):
         with self.assertRaises(ValueError):self.observe(now_utc=START+timedelta(hours=11))
 
     def test_corrupt_record_and_schema_block(self):
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute("UPDATE daily_risk_halts SET reasons='[\"UNKNOWN\"]'")
         with self.assertRaises(ValueError):self.observe()
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute('UPDATE daily_metadata SET version=99')
         with self.assertRaises(ValueError):DailyRiskHaltStore(self.path)
 
