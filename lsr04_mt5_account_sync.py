@@ -22,11 +22,21 @@ def _identity(account):
     return key
 
 
+def daily_halt_keys(account, day_start_equity):
+    """Deterministic account/policy digests; not credential encryption."""
+    import hashlib
+    import json
+    scope = hashlib.sha256(json.dumps(_identity(account), separators=(",", ":")).encode()).hexdigest()
+    policy_data = ["ORRERY_DAILY_LATCH_V1", str(amount(day_start_equity).normalize()), ".01", ".01", 3]
+    policy = hashlib.sha256(json.dumps(policy_data, separators=(",", ":")).encode()).hexdigest()
+    return scope, policy
+
+
 def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
                    existing_stop_risk, proposed_stop_risk,
                    history_start_utc=None, history_complete=False,
                    day_start_snapshot=None, verified_cash_flows=None,
-                   stop_cost_allowances=None):
+                   stop_cost_allowances=None, risk_halt_store=None):
     if not all(_utc(t) for t in (day_start_utc, now_utc)):
         raise ValueError("UTC-aware times required")
     if not day_start_utc < now_utc < day_start_utc + timedelta(days=1):
@@ -124,20 +134,8 @@ def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
     details = dict(grouping=grouped, deal_count=len(deals), open_positions=len(positions),
                    account_currency=identity[2], daily_deal_net=daily_net,
                    daily_equity_change=after.equity - day_start_equity,
-                   daily_external_cash_net=daily_cash, daily_reconciled=False)
-    if stop_cost_allowances is not None:
-        from lsr04_mt5_position_risk import demo_position_risk
-        try:
-            exposure = demo_position_risk(mt5, now_utc=now_utc,
-                cost_allowances=stop_cost_allowances,
-                expected_positions=positions, expected_account=after)
-        except (ValueError, TypeError):
-            return blocked("BLOCKED_INVALID_STOP_ALLOWANCES", **details)
-        details["stop_exposure"] = exposure
-        if exposure["total_incremental_stop_risk"] is None:
-            return blocked("BLOCKED_POSITION_RISK", **details)
-        # Never use a manually supplied lower estimate in place of broker valuation.
-        existing_stop_risk = exposure["total_incremental_stop_risk"]
+                   daily_external_cash_net=daily_cash, daily_reconciled=False,
+                   halt_persistence_verified=False)
     if day_start_snapshot is not None:
         try:
             snap = day_start_snapshot
@@ -154,6 +152,41 @@ def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
         except (KeyError, AttributeError, ValueError, TypeError):
             return blocked("BLOCKED_INVALID_DAILY_BASELINE", **details)
         details["daily_review"] = daily_review
+    if risk_halt_store is not None:
+        # Observe the independently computable daily breach even while an open
+        # lifetime makes the completed-trade streak unknown. Never invent a streak.
+        if day_start_snapshot is None or not details["daily_review"]["balance_reconciled"]:
+            return blocked("BLOCKED_HALT_RECONCILIATION_REQUIRED", **details)
+        try:
+            scope, policy = daily_halt_keys(after, day_start_equity)
+            stop_reasons = []
+            if amount(day_start_equity) - (amount(after.equity) - amount(daily_cash)) >= amount(day_start_equity) * amount(.01):
+                stop_reasons.append("DAILY_DRAWDOWN_STOP")
+            if grouped["consecutive_losses"] is not None and grouped["consecutive_losses"] >= 3:
+                stop_reasons.append("LOSS_STREAK_STOP")
+            latch = risk_halt_store.observe(scope=scope, day_start_utc=day_start_utc,
+                now_utc=now_utc, policy=policy, reasons=stop_reasons)
+            if latch["execution_allowed"] is not False or not isinstance(latch["reasons"], list):
+                raise ValueError("Invalid halt-store result")
+        except Exception:
+            return blocked("BLOCKED_RISK_HALT_STORE", **details)
+        details["daily_halt"] = latch
+        details["halt_persistence_verified"] = True
+        if latch["reasons"]:
+            return blocked("BLOCKED_LATCHED_ACCOUNT_STOP", **details)
+    if stop_cost_allowances is not None:
+        from lsr04_mt5_position_risk import demo_position_risk
+        try:
+            exposure = demo_position_risk(mt5, now_utc=now_utc,
+                cost_allowances=stop_cost_allowances,
+                expected_positions=positions, expected_account=after)
+        except (ValueError, TypeError):
+            return blocked("BLOCKED_INVALID_STOP_ALLOWANCES", **details)
+        details["stop_exposure"] = exposure
+        if exposure["total_incremental_stop_risk"] is None:
+            return blocked("BLOCKED_POSITION_RISK", **details)
+        # Never use a manually supplied lower estimate in place of broker valuation.
+        existing_stop_risk = exposure["total_incremental_stop_risk"]
     if grouped["consecutive_losses"] is None:
         return blocked("BLOCKED_NO_AUTHORITATIVE_STREAK", **details)
     cash_verified = (day_start_snapshot is not None and
