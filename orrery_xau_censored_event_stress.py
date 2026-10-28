@@ -26,7 +26,8 @@ def run():
     for target in (1.5,2.0):
         simulation=simulate(path,report,reward_r=target)
         known=[x for x in simulation["trades_detail"] if START<=x["touch_close_utc"]<END]
-        missing=[x for x in audit["event_details"] if START<=x["touch_close_utc"]<END and x["reason"]!="full_horizon"]
+        known_times={t["touch_close_utc"] for t in known}
+        missing=[x for x in audit["event_details"] if START<=x["touch_close_utc"]<END and x["reason"]!="full_horizon" and x["touch_close_utc"] not in known_times]
         results[str(target)]={"observed_simulated_trades":len(known),
                               "censored_candidates":len(missing),
                               "censored_events":missing,
