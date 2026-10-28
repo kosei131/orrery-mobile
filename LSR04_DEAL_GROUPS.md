@@ -33,8 +33,9 @@ bounds, required numeric fields, and current POSITION_IDENTIFIER values.
 Account login/server/currency/DEMO identity is checked before and after the
 reads; identifiers are not returned in the report. Identity changes discard
 the result. These reads are not an atomic snapshot and do not certify data
-freshness or race-free execution. Unknown cash operations, balance changes,
-corrections and separate commission rows block rather than being ignored.
+freshness or race-free execution. Unknown cash operations, corrections and separate commission rows block
+rather than being ignored. Explicitly verified BALANCE cash rows are
+handled separately as described below.
 INOUT and OUT_BY remain unresolved/unsupported.
 
 Closed-trade streaks feed the existing account gate; three losses produce
@@ -43,13 +44,15 @@ the supplied UTC day boundary (through now), including partial closes and
 entry costs. Completed position net includes all lifetime costs, including
 pre-day entry costs. Both are account-currency amounts, never presumed USD.
 `daily_equity_change` includes floating equity change; it is not expected to
-equal daily deal net. `daily_reconciled=False` explicitly records that cash
-flows and floating PnL have not been reconciled. UTC boundaries and starting
+equal daily deal net. `daily_reconciled=False` explicitly records that the full equity
+components have not been independently reconciled. UTC boundaries and starting
 equity must be externally verified for the intended session/account.
 
 Caller-supplied stop exposure has not been verified against broker positions.
-Even a passing nested risk review returns BLOCKED_UNVERIFIED_STOP_EXPOSURE;
-a failing review returns BLOCKED. Other incomplete states also block.
+Without a verified daily baseline or with a balance mismatch, a grouped
+result returns BLOCKED_DAILY_RECONCILIATION. A matching balance still leaves
+BLOCKED_UNVERIFIED_EQUITY_AND_STOP_EXPOSURE (or BLOCKED when existing risk
+reasons apply). Other incomplete states also block.
 No order API is added. execution_allowed is always False.
 
 Reference: https://www.mql5.com/en/docs/constants/tradingconstants/dealproperties
@@ -64,3 +67,53 @@ Bridge tests use fake MT5 records: overnight entry fees versus daily totals,
 partial exits, three completed losses, truncated history, cash operations,
 account changes, wrong trade direction, failed reads, duplicate/future rows,
 missing fee, invalid equity and absent completeness assertions.
+
+## Daily balance reconciliation
+
+`day_start_snapshot` is an externally verified dictionary with `at_utc`,
+`login`, `server`, `currency`, `trade_mode`, `balance`, `equity`, `verified`.
+It must match the exact supplied session boundary, account identity and
+`day_start_equity`. It is not reconstructed from today's closing balance.
+No caller baseline means no reconciliation. The snapshot currently must be
+supplied by the caller; automated boundary capture/persistence is not added.
+
+`lsr04_daily_reconciliation.reconcile_day` checks, in account currency:
+
+    closing balance - opening balance = daily trade net + external cash net
+
+Default rounding tolerance is 0.01 account-currency units (configurable only
+between zero and 0.01). A match requires explicit history completeness and
+baseline verification. Missing/unclassified fees remain blocking and a match
+does not prove that no offsetting omissions occurred.
+
+`verified_cash_flows={ticket: signed_amount}` is external evidence that a
+specific BALANCE deal is a deposit/withdrawal, not an accounting correction.
+The bridge checks exact profit/amount agreement, zero volume, position_id=0,
+and zero commission/swap/fee. Every supplied evidence ticket must exist in
+fetched history, and every nontrade row must be classified. Cash rows are not
+passed to position grouping or counted as wins/losses. Only rows at/after
+the day boundary count in the day's cash net. CREDIT, correction, separate
+commission and other operations remain unsupported and block. The code cannot
+authenticate a caller's assertion about the economic purpose of a BALANCE row.
+
+A nonzero daily external cash net returns BLOCKED_CASH_ADJUSTED_RISK_REQUIRED:
+the existing raw-equity risk review is diagnostic and cannot be relied upon
+for a cash-adjusted daily limit. This prevents deposit-masked losses from
+producing an acceptable overall state. Cash-adjusted risk gating is future
+work, not silently approximated here.
+
+`daily_review.balance_reconciled` means only conditional balance agreement.
+`daily_reconciled` stays False because floating PnL, credit, blocked funds,
+and other broker-specific equity components are not independently verified.
+The equity-minus-balance change is labeled `nonbalance_equity_component_change`,
+not floating profit. Deposits/withdrawals are separately reported and excluded
+from `equity_change_excluding_external_cash`; neither is strategy profit.
+Account reads remain non-atomic and require live broker verification.
+
+Sources:
+- https://www.mql5.com/en/docs/constants/tradingconstants/dealproperties
+- https://www.metatrader5.com/en/terminal/help/trading/performing_deals
+
+Synthetic tests cover balance residuals, floating/equity changes, rounding,
+verified deposits/withdrawals, missing/mismatched cash evidence, prior-day
+cash exclusion, baseline account/time/equity mismatch and absent verification.

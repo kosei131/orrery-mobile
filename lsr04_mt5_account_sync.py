@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from math import isfinite, fsum
 from lsr04_account_gate import review
 from lsr04_deal_groups import reconcile
+from lsr04_daily_reconciliation import reconcile_day, amount
 
 
 def _utc(t):
@@ -22,7 +23,8 @@ def _identity(account):
 
 def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
                    existing_stop_risk, proposed_stop_risk,
-                   history_start_utc=None, history_complete=False):
+                   history_start_utc=None, history_complete=False,
+                   day_start_snapshot=None, verified_cash_flows=None):
     if not all(_utc(t) for t in (day_start_utc, now_utc)):
         raise ValueError("UTC-aware times required")
     if not day_start_utc < now_utc < day_start_utc + timedelta(days=1):
@@ -70,32 +72,73 @@ def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
         if len(set(ids)) != len(ids):
             raise ValueError("Duplicate open position identity")
         lower, upper = start.timestamp() * 1000, now_utc.timestamp() * 1000
+        cash_flows = {} if verified_cash_flows is None else verified_cash_flows
+        if not isinstance(cash_flows, dict) or any(type(k) is not int or k <= 0 for k in cash_flows):
+            raise ValueError("Ticket-indexed externally verified cash amounts required")
+        for value in cash_flows.values():
+            amount(value)
+        trades = []; cash_rows = []; seen = set()
         for d in deals:
+            if type(d.ticket) is not int or d.ticket <= 0 or d.ticket in seen:
+                raise ValueError("Duplicate/invalid history ticket")
+            seen.add(d.ticket)
             if type(d.time_msc) is not int or not lower <= d.time_msc <= upper:
                 raise ValueError("Deal outside requested history")
-            if type(d.type) is not int or d.type not in (buy, sell):
-                raise ValueError("Unclassified cash operation or correction")
+            if type(d.type) is not int:
+                raise ValueError("Unknown deal type")
+            if d.type not in (buy, sell):
+                # BALANCE also covers adjustments; never infer deposit/withdrawal from type/sign.
+                if d.type != getattr(mt5, "DEAL_TYPE_BALANCE", None) or d.ticket not in cash_flows:
+                    raise ValueError("Unclassified cash operation or correction")
+                if d.position_id != 0 or amount(d.volume) != 0 or amount(d.profit) != amount(cash_flows[d.ticket]):
+                    raise ValueError("Cash evidence mismatch")
+                if any(amount(getattr(d, f)) != 0 for f in ("commission", "swap", "fee")):
+                    raise ValueError("Cash row with unattributed costs")
+                cash_rows.append(d)
+                continue
+            if d.ticket in cash_flows:
+                raise ValueError("Trade mislabeled as cash")
+            trades.append(d)
             if not isinstance(d.symbol, str) or not d.symbol:
                 raise ValueError("Missing broker symbol")
+        if set(cash_flows) != {d.ticket for d in cash_rows}:
+            raise ValueError("Cash evidence not found in history")
         # Validate symbol and direction throughout each position lifetime.
         lifetimes = {}
-        for d in sorted(deals, key=lambda d: (d.time_msc, d.ticket)):
+        for d in sorted(trades, key=lambda d: (d.time_msc, d.ticket)):
             symbol, direction = lifetimes.setdefault(d.position_id, (d.symbol, d.type))
             if d.symbol != symbol or (d.entry == constants[0] and d.type != direction) or (d.entry == constants[1] and d.type == direction):
                 raise ValueError("Inconsistent position symbol/direction")
-        grouped = reconcile(list(deals), entry_in=constants[0], entry_out=constants[1],
+        grouped = reconcile(trades, entry_in=constants[0], entry_out=constants[1],
                             entry_inout=constants[2], open_position_ids=ids,
                             history_complete=history_complete)
-        daily = [d for d in deals if d.time_msc >= day_start_utc.timestamp() * 1000]
+        daily = [d for d in trades if d.time_msc >= day_start_utc.timestamp() * 1000]
         daily_net = fsum(getattr(d, f) for d in daily for f in ("profit", "commission", "swap", "fee"))
-        if not isfinite(daily_net):
+        daily_cash = fsum(d.profit for d in cash_rows if d.time_msc >= day_start_utc.timestamp() * 1000)
+        if not isfinite(daily_net) or not isfinite(daily_cash):
             raise ValueError("Nonfinite daily total")
     except (AttributeError, TypeError, ValueError, OverflowError):
         return blocked("BLOCKED_UNCLASSIFIED_OR_INVALID_HISTORY")
     details = dict(grouping=grouped, deal_count=len(deals), open_positions=len(positions),
                    account_currency=identity[2], daily_deal_net=daily_net,
                    daily_equity_change=after.equity - day_start_equity,
-                   daily_reconciled=False)
+                   daily_external_cash_net=daily_cash, daily_reconciled=False)
+    if day_start_snapshot is not None:
+        try:
+            snap = day_start_snapshot
+            if not isinstance(snap, dict) or snap["at_utc"] != day_start_utc or not _utc(snap["at_utc"]):
+                raise ValueError("Baseline must be at the exact session boundary")
+            if tuple(snap[f] for f in ("login", "server", "currency", "trade_mode")) != identity:
+                raise ValueError("Baseline account mismatch")
+            if amount(snap["equity"]) != amount(day_start_equity):
+                raise ValueError("Starting equity mismatch")
+            daily_review = reconcile_day(opening_balance=snap["balance"], opening_equity=snap["equity"],
+                closing_balance=after.balance, closing_equity=after.equity,
+                trade_net=daily_net, external_cash_net=daily_cash,
+                history_complete=history_complete, baseline_verified=snap["verified"])
+        except (KeyError, AttributeError, ValueError, TypeError):
+            return blocked("BLOCKED_INVALID_DAILY_BASELINE", **details)
+        details["daily_review"] = daily_review
     if grouped["consecutive_losses"] is None:
         return blocked("BLOCKED_NO_AUTHORITATIVE_STREAK", **details)
     try:
@@ -105,5 +148,12 @@ def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
                       consecutive_losses=grouped["consecutive_losses"])
     except (TypeError, ValueError):
         return blocked("BLOCKED_INVALID_ACCOUNT_RISK", **details)
-    return blocked("BLOCKED" if gate["reasons"] else "BLOCKED_UNVERIFIED_STOP_EXPOSURE",
+    # Nonzero external cash can mask or exaggerate the raw-equity daily gate.
+    # Until that gate supports cash-adjusted equity, retain an explicit block.
+    if daily_cash != 0:
+        return blocked("BLOCKED_CASH_ADJUSTED_RISK_REQUIRED", risk_review=gate, **details)
+    if day_start_snapshot is None or not details["daily_review"]["balance_reconciled"]:
+        return blocked("BLOCKED_DAILY_RECONCILIATION", risk_review=gate, **details)
+    # Balance reconciliation alone cannot verify floating/credit/blocked components.
+    return blocked("BLOCKED" if gate["reasons"] else "BLOCKED_UNVERIFIED_EQUITY_AND_STOP_EXPOSURE",
                    risk_review=gate, **details)

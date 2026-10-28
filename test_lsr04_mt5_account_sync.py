@@ -61,7 +61,7 @@ class Bridge(unittest.TestCase):
   r=demo_day_check(self.broker([a,self.row(1,2,1,profit=10)]),**self.kw(history_start_utc=datetime(2026,10,26,tzinfo=timezone.utc),history_complete=True))
   self.assertEqual(r["daily_deal_net"],9)
   self.assertEqual(r["grouping"]["positions"][0]["net"],8)
-  self.assertEqual(r["status"],"BLOCKED_UNVERIFIED_STOP_EXPOSURE")
+  self.assertEqual(r["status"],"BLOCKED_DAILY_RECONCILIATION")
   self.assertFalse(r["daily_reconciled"])
  def test_partial_exit_not_a_loss(self):
   r=demo_day_check(self.broker([self.row(1,1,0),self.row(1,2,1,.4,-5)], [SimpleNamespace(identifier=1)]),**self.kw(history_complete=True))
