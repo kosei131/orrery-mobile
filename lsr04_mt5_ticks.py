@@ -11,6 +11,9 @@ MAX_TICKS=300000
 def read_ticks(mt5, *, account_is_demo, symbol, start_utc, end_utc):
     if account_is_demo is not True:
         raise ValueError("DEMO-only data capture")
+    account=mt5.account_info()
+    if account is None or getattr(account,"trade_mode",None)!=getattr(mt5,"ACCOUNT_TRADE_MODE_DEMO",None) or getattr(mt5,"ACCOUNT_TRADE_MODE_DEMO",None) is None:
+        raise ValueError("Broker-reported DEMO account is required")
     if symbol not in ("XAUUSD","USDJPY"):
         raise ValueError("Explicit canonical symbol required; do not guess broker suffix")
     if not isinstance(start_utc,datetime) or not isinstance(end_utc,datetime) or start_utc.utcoffset() is None or end_utc.utcoffset() is None:
