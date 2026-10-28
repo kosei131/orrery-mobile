@@ -23,6 +23,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Test offline HistData M1 import and timestamp handling
+        run: python -m unittest -v test_histdata_m1_import.py
       - name: Run no-MT5 safety and HTTP tests
         run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py test_mt5_charts.py
       - name: Verify FX storage safety and JavaScript syntax
