@@ -148,6 +148,8 @@ jobs:
         run: python orrery_xau_m15_breakout_research.py
       - name: Compare M15 breakout with confirmed M5 retest model
         run: python orrery_xau_m15_retest_research.py
+      - name: Audit modeled XAU overlapping entries and exposure
+        run: python orrery_xau_position_overlap_audit.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -168,6 +170,7 @@ jobs:
             public_xau_m15_breakout_comparison.json
             public_xau_m15_retest_candidates.json
             public_xau_m15_retest_comparison.json
+            public_xau_position_overlap_audit.json
             public_xau_sequence_report.json
             public_xau_hypothetical_pnl.json
             public_xau_cost_sensitivity.json
