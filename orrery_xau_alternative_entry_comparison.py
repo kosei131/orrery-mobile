@@ -97,7 +97,21 @@ def run(root=Path("public_xau_bars")):
                  "wins":guarded_wins,"net_usd":round(guarded_equity-3000,2),
                  "max_closed_trade_dd_pct":round(100*guarded_dd,3),
                  "warning":"Outcome reuse and sequential equity replay; pending positions and balance are not fully account-executed."}
-    result={"status":"RESEARCH_ABLATION_NOT_LSR02","matched_sweeps":len(used),"breakdown":breakdown,"daily_two_loss_guard_research":daily_guard,
+    def five_month_replay(rows):
+        eq=3000.;peak=eq;dd=0.;wins=0
+        for t in sorted(rows,key=lambda x:x["touch_close_utc"]):
+            wins+=int(t["r"]>0)
+            eq*=1+0.0025*t["r"]
+            peak=max(peak,eq)
+            dd=max(dd,(peak-eq)/peak)
+        return {"trades":len(rows),"wins":wins,
+                "win_rate_pct":round(100*wins/len(rows),2) if rows else None,
+                "net_usd":round(eq-3000,2),"max_closed_trade_dd_pct":round(dd*100,3),
+                "mean_r":round(sum(t["r"] for t in rows)/len(rows),4) if rows else None}
+    old_in_window=[t for t in old_pnl["trades_detail"] if start<=t["touch_close_utc"]<end]
+    five_month_comparison={"no_vhf":five_month_replay(five_month),
+                           "with_vhf":five_month_replay(old_in_window)}
+    result={"status":"RESEARCH_ABLATION_NOT_LSR02","matched_sweeps":len(used),"five_month_comparison":five_month_comparison,"breakdown":breakdown,"daily_two_loss_guard_research":daily_guard,
             "five_month_no_vhf_by_side":five_month_by_side,
             "poi_touch_without_vhf":len(all_rows),"poi_touch_with_vhf":len(selected),
             "no_vhf_model":{"trades":pnl["trades"],"wins":pnl["winners"],"losses":pnl["losers"],
