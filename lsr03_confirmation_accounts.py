@@ -13,7 +13,10 @@ from lsr03_tick_study import load_catalog_ticks
 
 
 def compile_plans(confirmations, observations, m5, *, symbol, fixed_distance,
-                  target_r, entry_delay_msc, entry_window_msc, max_holding_msc):
+                  target_r, entry_delay_msc, entry_window_msc, max_holding_msc,
+                  cohort_start=START, cohort_end=END):
+    if any(type(t) is not int for t in (cohort_start,cohort_end)) or not 0<cohort_start<cohort_end:
+        raise ValueError('Explicit cohort bounds required')
     if symbol not in ('XAUUSD','USDJPY'):
         raise ValueError('Explicit supported symbol required')
     for v in (fixed_distance,target_r):
@@ -28,7 +31,7 @@ def compile_plans(confirmations, observations, m5, *, symbol, fixed_distance,
         if type(t) is not int or t in refs or type(price) not in (int,float) or not isfinite(price) or price<=0:
             raise ValueError('Unique confirmed close references required')
         refs[t]=price
-    universe=[c for c in confirmations if START<=c['confirmation_close']<END]
+    universe=[c for c in confirmations if cohort_start<=c['confirmation_close']<cohort_end]
     indexed={}
     for o in observations:
         key=(o['sweep_close'],o['confirmation_close'],o['side'])
@@ -36,7 +39,7 @@ def compile_plans(confirmations, observations, m5, *, symbol, fixed_distance,
         indexed[key]=o
     output={}
     for mode in ('CONFIRMATION','RETEST'):
-        entries,skips=entry_plans(universe,mode=mode,observations=indexed)
+        entries,skips=entry_plans(universe,mode=mode,observations=indexed,start=cohort_start,end=cohort_end)
         plans=[]
         for e in entries:
             at=e['first_poi_touch_close'];reference=refs[at]
@@ -44,13 +47,13 @@ def compile_plans(confirmations, observations, m5, *, symbol, fixed_distance,
             stop=reference-sign*fixed_distance
             target=reference+sign*fixed_distance*target_r
             if min(stop,target)<=0:raise ValueError('Nonpositive planned stop/target')
-            if at*1000+entry_delay_msc>=min(at*1000+entry_window_msc,END*1000):
+            if at*1000+entry_delay_msc>=min(at*1000+entry_window_msc,cohort_end*1000):
                 skips.append(dict(candidate_id=e['candidate_id'],reason='DELAY_OUTSIDE_STUDY_WINDOW'))
                 continue
             identity=':'.join(map(str,e['candidate_id']))
             plans.append(dict(id=identity,symbol=symbol,side=e['side'],known_at_msc=at*1000,
                 eligible_after_msc=at*1000+entry_delay_msc,
-                expires_at_msc=min(at*1000+entry_window_msc,END*1000),
+                expires_at_msc=min(at*1000+entry_window_msc,cohort_end*1000),
                 stop=stop,target=target,max_holding_msc=max_holding_msc))
         plans.sort(key=lambda p:(p['known_at_msc'],p['id']))
         output[mode]=dict(plans=plans,no_entry=skips)
@@ -65,7 +68,8 @@ def compare_confirmation_accounts(path, *, expected_catalog_sha256, bar_source,
         entry_delay_msc, entry_window_msc, max_holding_msc,
         volume_min,volume_max,volume_step,pnl_quote,round_trip_cost_per_lot_usd,
         cost_source,slippage,max_ticks=500000,daily_boundary_utc_hour=10,
-        carry_quote=None,carry_source=None,boundary_quote_max_age_msc=0):
+        carry_quote=None,carry_source=None,boundary_quote_max_age_msc=0,
+        cohort_start=START,cohort_end=END):
     loaded=load_catalog_ticks(path,expected_catalog_sha256=expected_catalog_sha256,
         bar_source=bar_source,as_of=as_of,max_ticks=max_ticks)
     if loaded['blocked']:
@@ -73,7 +77,8 @@ def compare_confirmation_accounts(path, *, expected_catalog_sha256, bar_source,
                     execution_allowed=False,market_edge_verified=False,six_month_backtest_complete=False)
     compiled=compile_plans(confirmations,observations,m5,symbol=loaded['symbol'],
         fixed_distance=fixed_distance,target_r=target_r,entry_delay_msc=entry_delay_msc,
-        entry_window_msc=entry_window_msc,max_holding_msc=max_holding_msc)
+        entry_window_msc=entry_window_msc,max_holding_msc=max_holding_msc,
+        cohort_start=cohort_start,cohort_end=cohort_end)
     accounts={};omitted={}
     for mode,item in compiled['modes'].items():
         plans=[];missing=[]
@@ -92,7 +97,7 @@ def compare_confirmation_accounts(path, *, expected_catalog_sha256, bar_source,
     return dict(status='CONFIRMATION_RETEST_INDEPENDENT_ACCOUNT_RESEARCH',
         accounts=accounts,universe=compiled['universe'],omitted=omitted,
         compiled_modes=compiled['modes'],
-        config=dict(fixed_distance=fixed_distance,target_r=target_r,entry_delay_msc=entry_delay_msc,
+        config=dict(cohort_start=cohort_start,cohort_end=cohort_end,fixed_distance=fixed_distance,target_r=target_r,entry_delay_msc=entry_delay_msc,
             entry_window_msc=entry_window_msc,max_holding_msc=max_holding_msc,
             volume_min=volume_min,volume_max=volume_max,volume_step=volume_step,
             round_trip_cost_per_lot_usd=round_trip_cost_per_lot_usd,cost_source=cost_source,

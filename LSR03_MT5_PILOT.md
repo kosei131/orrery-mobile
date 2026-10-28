@@ -108,3 +108,20 @@ this command is run against the intended demo terminal.
 
 Official API reference:
 https://www.mql5.com/en/docs/python_metatrader5/mt5copyratesrange_py
+
+## Optional captured-bundle account estimate
+
+New captures also save a SHA256 account-scope comparison token and an optional
+complete volume/profit-currency/calculation-mode specification snapshot. Raw
+login/server fields remain omitted; the hash is not anonymity or credential
+encryption. Scope/spec consistency is sampled, not atomic broker authentication.
+The price-R pilot still works with incomplete optional specs, but those runs
+cannot enter the new account-estimate path.
+
+See LSR03_MT5_ACCOUNT_PILOT.md for the separate read-only account command.
+It requires an independently retained run pin, matching current DEMO scope
+and spec, explicit USD-per-lot costs and no-rollover evidence. Legacy runs
+without the new metadata must be recaptured; identity is never inferred from
+a filename or user label. No automatic account calculation was added to the
+original launcher. Current broker calculations are not historical conversion
+proof, and the first account-pilot scope is USD-account/USD-profit XAUUSD only.

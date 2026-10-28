@@ -14,7 +14,9 @@ from orrery_xau_structural_stop_comparison import stop_specs, SPREAD
 from orrery_xau_h4_alignment import START, END, summarize
 
 
-def entry_plans(confirmations, *, mode, observations=None):
+def entry_plans(confirmations, *, mode, observations=None, start=START, end=END):
+    if any(type(t) is not int for t in (start,end)) or not 0<start<end:
+        raise ValueError('Explicit integer cohort bounds required')
     if mode not in ('CONFIRMATION','RETEST'):
         raise ValueError('Unknown entry mode')
     plans=[];skips=[];seen=set()
@@ -33,7 +35,7 @@ def entry_plans(confirmations, *, mode, observations=None):
                 continue
             if type(entry) is not int or not confirm<entry<=confirm+3600:
                 raise ValueError('Invalid retest time')
-        if not START<=entry<END:
+        if not start<=entry<end:
             skips.append(dict(candidate_id=identity,reason='OUTSIDE_ENTRY_WINDOW'))
             continue
         # Compatibility field denotes modeled entry, not a claimed POI touch.

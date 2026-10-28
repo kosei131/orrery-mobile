@@ -84,6 +84,19 @@ class ConfirmationAccountsTests(unittest.TestCase):
         self.assertEqual(a['modes']['CONFIRMATION']['plans'],b['modes']['CONFIRMATION']['plans'])
         self.assertEqual(b['modes']['RETEST']['plans'],[])
 
+    def test_explicit_new_pilot_cohort_does_not_inherit_public_sample_dates(self):
+        delta=180*86400
+        c=dict(signal(),sweep_close=C-600+delta,confirmation_close=C+delta)
+        o=dict(observation(),sweep_close=C-600+delta,confirmation_close=C+delta,entry_at=C+300+delta)
+        bars=[dict(b,close_time=b['close_time']+delta) for b in refs()]
+        args=dict(symbol='XAUUSD',fixed_distance=2,target_r=1.5,entry_delay_msc=1,
+                  entry_window_msc=60000,max_holding_msc=120000)
+        self.assertEqual(compile_plans([c],[o],bars,**args)['universe'],0)
+        actual=compile_plans([c],[o],bars,cohort_start=C+delta-1,cohort_end=C+delta+600,**args)
+        self.assertEqual(actual['universe'],1)
+        self.assertEqual(len(actual['modes']['CONFIRMATION']['plans']),1)
+        self.assertEqual(len(actual['modes']['RETEST']['plans']),1)
+
     def test_two_accounts_reuse_engine_on_explicit_synthetic_quotes(self):
         qs=[quote(1),quote(120001,100.5,100.6),quote(300001,100.5,100.6),quote(420001,101,101.1)]
         loaded=dict(blocked=False,symbol='XAUUSD',ticks=qs,start_msc=T-1,end_msc=T+500000,audit={})

@@ -46,6 +46,11 @@ def observe_retest(candidate, bars, *, deadline_seconds=3600):
 def report(root):
     m15=load(root/"XAUUSD_M15_UNVERIFIED_QUOTE.csv","M15")
     m5=load(root/"XAUUSD_M5_UNVERIFIED_QUOTE.csv","M5")
+    return report_from_bars(m15['bars'],m5['bars'])
+
+
+def report_from_bars(m15_bars,m5_bars):
+    m15={'bars':m15_bars};m5={'bars':m5_bars}
     events15=[];events5=[]
     for data,interval,out in ((m15,900,events15),(m5,300,events5)):
         for group in segments(data["bars"],interval):

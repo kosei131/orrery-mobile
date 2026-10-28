@@ -71,6 +71,24 @@ def _spec(mt5,symbol):
     return result
 
 
+def _valuation_spec(mt5,symbol):
+    """Optional snapshot; incomplete specs cannot enable account valuation."""
+    info=mt5.symbol_info(symbol)
+    if info is None:return None
+    names=('volume_min','volume_max','volume_step','currency_profit','trade_calc_mode')
+    if any(not hasattr(info,k) for k in names):return None
+    result={k:getattr(info,k) for k in names}
+    for k in ('volume_min','volume_max','volume_step'):
+        if type(result[k]) not in (int,float) or not isfinite(result[k]) or result[k]<=0:return None
+    if result['volume_min']>result['volume_max'] or not isinstance(result['currency_profit'],str) or not result['currency_profit'] or type(result['trade_calc_mode']) is not int:
+        return None
+    return dict(_spec(mt5,symbol),**result)
+
+
+def _scope(identity):
+    return sha256(_encode(list(identity))).hexdigest()
+
+
 def _bars(mt5,symbol,enum,seconds,start,end):
     raw=mt5.copy_rates_range(symbol,enum,start,end)
     if raw is None or not 2<=len(raw)<=10000:raise ValueError('Bounded broker OHLC history required')
@@ -93,9 +111,10 @@ def _bars(mt5,symbol,enum,seconds,start,end):
 def run_pilot(mt5,config,output,*,now_utc):
     settings=_config(config,now_utc)
     identity=_account(mt5);symbol=settings['symbol'];spec=_spec(mt5,symbol)
+    valuation_spec=_valuation_spec(mt5,symbol)
     root=Path(output);root.mkdir()
     def check():
-        if _account(mt5)!=identity or _spec(mt5,symbol)!=spec:
+        if _account(mt5)!=identity or _spec(mt5,symbol)!=spec or _valuation_spec(mt5,symbol)!=valuation_spec:
             raise ValueError('Account or broker specification changed during capture')
     streams={};excluded={}
     for label,enum,seconds,key in (('4H','TIMEFRAME_H4',14400,'h4_start_utc'),
@@ -136,6 +155,7 @@ def run_pilot(mt5,config,output,*,now_utc):
         hashes[name+'.json']=sha256(data).hexdigest()
     manifest=dict(schema_version=1,status='DEMO_PILOT_RESEARCH_ONLY',
         report_status=report['status'],catalog_sha256=saved['catalog_sha256'],
+        demo_account_scope_sha256=_scope(identity),broker_valuation_spec=valuation_spec,
         files_sha256=hashes,excluded_unfinished_bars=excluded,
         source_consistency_checked=True,broker_authenticity_verified=False,
         cost_basis='EXPLICIT_PRICE_UNIT_ASSUMPTIONS_NOT_BROKER_CURRENCY',
