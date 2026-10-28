@@ -54,7 +54,26 @@ def run(root=Path("public_xau_bars")):
     evidence_file.write_text(json.dumps({"retouch_evidence":all_rows}))
     pnl=simulate(root/"XAUUSD_M1_UNVERIFIED_QUOTE.csv",evidence_file)
     old_pnl=json.loads(Path("public_xau_hypothetical_pnl.json").read_text())
-    result={"status":"RESEARCH_ABLATION_NOT_LSR02","matched_sweeps":len(used),
+    import datetime as dt
+    start=int(dt.datetime(2026,4,25,tzinfo=dt.timezone.utc).timestamp())
+    end=int(dt.datetime(2026,9,25,tzinfo=dt.timezone.utc).timestamp())
+    breakdown={}
+    for t in pnl["trades_detail"]:
+        month=dt.datetime.fromtimestamp(t["touch_close_utc"],tz=dt.timezone.utc).strftime("%Y-%m")
+        for key in (("side:"+t["side"]),("month:"+month)):
+            if key not in breakdown:breakdown[key]={"trades":0,"wins":0,"sum_r":0.0}
+            row=breakdown[key]
+            row["trades"]+=1;row["wins"]+=int(t["r"]>0);row["sum_r"]+=t["r"]
+    breakdown={k:dict(v,win_rate_pct=round(100*v["wins"]/v["trades"],2),
+                       mean_r=round(v["sum_r"]/v["trades"],3))
+               for k,v in breakdown.items()}
+    five_month=[t for t in pnl["trades_detail"] if start<=t["touch_close_utc"]<end]
+    five_month_by_side={side:{"trades":len(x),"wins":sum(t["r"]>0 for t in x),
+                               "sum_r":round(sum(t["r"] for t in x),3)}
+                        for side in ("BUY","SELL")
+                        for x in [[t for t in five_month if t["side"]==side]]}
+    result={"status":"RESEARCH_ABLATION_NOT_LSR02","matched_sweeps":len(used),"breakdown":breakdown,
+            "five_month_no_vhf_by_side":five_month_by_side,
             "poi_touch_without_vhf":len(all_rows),"poi_touch_with_vhf":len(selected),
             "no_vhf_model":{"trades":pnl["trades"],"wins":pnl["winners"],"losses":pnl["losers"],
                 "net_usd":pnl["net_usd"],"max_dd_pct":pnl["max_drawdown_pct"],"skipped":pnl["skipped_incomplete"]},
