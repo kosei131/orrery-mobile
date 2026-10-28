@@ -72,26 +72,31 @@ def run(root=Path("public_xau_bars")):
                                "sum_r":round(sum(t["r"] for t in x),3)}
                         for side in ("BUY","SELL")
                         for x in [[t for t in five_month if t["side"]==side]]}
-    # Causal daily loss guard: after two realized negative trades in one UTC
-    # day, skip further entries until the next UTC day. No hindsight scores.
-    daily_loss_streak=0;current_day=None
+    # Record a loss only after its simulated exit time is known.
+    # Reset each UTC day. This is still hypothetical replay, not broker trading.
+    daily_loss_streak=0;current_day=None;pending=[]
     guarded_equity=3000.;guarded_peak=3000.;guarded_dd=0.;guarded_taken=0;guarded_skipped=0;guarded_wins=0
     for trade in sorted(pnl["trades_detail"],key=lambda t:t["touch_close_utc"]):
-        day=dt.datetime.fromtimestamp(trade["touch_close_utc"],tz=dt.timezone.utc).date()
+        entry_time=trade["touch_close_utc"]
+        day=dt.datetime.fromtimestamp(entry_time,tz=dt.timezone.utc).date()
         if day!=current_day:
             current_day=day;daily_loss_streak=0
+        newly_closed=sorted((p for p in pending if p["exit_time_utc"]<=entry_time),key=lambda p:p["exit_time_utc"])
+        pending=[p for p in pending if p["exit_time_utc"]>entry_time]
+        for closed in newly_closed:
+            if dt.datetime.fromtimestamp(closed["exit_time_utc"],tz=dt.timezone.utc).date()==day:
+                daily_loss_streak=daily_loss_streak+1 if closed["r"]<0 else 0
         if daily_loss_streak>=2:
-            guarded_skipped+=1
-            continue
+            guarded_skipped+=1;continue
         guarded_taken+=1;guarded_wins+=int(trade["r"]>0)
         guarded_equity*=1+0.0025*trade["r"]
         guarded_peak=max(guarded_peak,guarded_equity)
         guarded_dd=max(guarded_dd,(guarded_peak-guarded_equity)/guarded_peak)
-        daily_loss_streak= daily_loss_streak+1 if trade["r"]<0 else 0
+        pending.append(trade)
     daily_guard={"taken":guarded_taken,"skipped":guarded_skipped,
                  "wins":guarded_wins,"net_usd":round(guarded_equity-3000,2),
                  "max_closed_trade_dd_pct":round(100*guarded_dd,3),
-                 "warning":"Event outcomes reused; skipped trades not reallocated. No true execution timestamps enforced."}
+                 "warning":"Outcome reuse and sequential equity replay; pending positions and balance are not fully account-executed."}
     result={"status":"RESEARCH_ABLATION_NOT_LSR02","matched_sweeps":len(used),"breakdown":breakdown,"daily_two_loss_guard_research":daily_guard,
             "five_month_no_vhf_by_side":five_month_by_side,
             "poi_touch_without_vhf":len(all_rows),"poi_touch_with_vhf":len(selected),
