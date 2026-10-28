@@ -104,6 +104,8 @@ jobs:
         run: python orrery_xau_confidence_uncertainty.py
       - name: Chronological split of VHF research candidates
         run: python orrery_xau_chronological_split.py
+      - name: Compare hypothetical baseline and high-VHF risk sizing
+        run: python orrery_xau_sizing_whatif.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -121,5 +123,6 @@ jobs:
             public_xau_confidence_research.json
             public_xau_confidence_uncertainty.json
             public_xau_chronological_split.json
+            public_xau_sizing_whatif.json
           if-no-files-found: warn
           retention-days: 7
