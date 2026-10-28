@@ -152,6 +152,8 @@ jobs:
         run: python orrery_xau_position_overlap_audit.py
       - name: Diagnose monthly XAU research strategy performance
         run: python orrery_xau_monthly_strategy_cohorts.py
+      - name: Apply fail-closed research progression gates
+        run: python orrery_xau_research_gate.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -174,6 +176,7 @@ jobs:
             public_xau_m15_retest_comparison.json
             public_xau_position_overlap_audit.json
             public_xau_monthly_strategy_cohorts.json
+            public_xau_research_gate.json
             public_xau_sequence_report.json
             public_xau_hypothetical_pnl.json
             public_xau_cost_sensitivity.json
