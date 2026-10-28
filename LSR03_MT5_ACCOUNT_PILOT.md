@@ -46,8 +46,8 @@ python lsr03_mt5_account_pilot.py --pilot orrery_pilot_001 --pilot-run-sha256 CA
 ```
 
 The command needs Windows MT5 and its official Python package. This development
-environment has not connected to the user's terminal or Funded7. Existing
-launchers remain unchanged; this command is explicit and separately invoked.
+environment has not connected to the user's terminal or Funded7. The capture launcher remains unchanged. The account command can also be started
+with the guided launcher described below.
 
 ## Evidence and checks
 
@@ -110,3 +110,32 @@ missing identity metadata, calculation failure, call budgets, unsupported
 conversion, read-only calls and identifier omission. These are synthetic API
 tests, not an actual Windows/broker run. Actual connection, broker history,
 calibrated costs and the first real quote-based account comparison remain open.
+
+
+## Windowsで最初の比較を実行する手順
+
+この開発環境から利用者のWindows MT5へ接続することはできません。
+ここから必要なのは追加のインジケーターではなく、端末上での実データ実行です。
+
+1. 最新の研究ブランチをWindowsへ取得し、同じUSD建てDEMO口座をMT5で開きます。
+   Pythonと公式MetaTrader5パッケージが必要です。
+2. まだ新形式の取得データがなければ `START_REAL_MT5_PILOT.cmd` で短い
+   XAUUSD履歴を取得し、成功時に表示された `run_sha256` を別に保存します。
+   後から同じフォルダーを読み直して作ったハッシュで代用しません。
+3. `account_pilot_settings.example.json` を別名のローカルJSONへコピーします。
+   手数料の往復USD/lot、スリッページの価格単位、根拠を入力します。
+   対象期間がブローカーのロールオーバーをまたがないことを確認し、
+   根拠と `no_carry_interval_confirmed=true` を設定します。
+   不明な費用を0で埋めたり、未確認の項目をtrueにしたりしません。
+   同一ハワイ日次区間の条件も必要です。
+4. `START_MT5_ACCOUNT_COMPARISON.cmd` をダブルクリックし、取得フォルダー、
+   別途保存したハッシュ、設定JSON、MT5実行ファイル、新しい出力名を入力します。
+   既存出力は上書きしません。コスト未設定・ハッシュ不一致は端末起動前に停止します。
+5. 成功後の `account_report.json` と `account_run.json` を確認します。
+   元の取得データ・ハッシュ・設定と一緒に保存します。候補ゼロや未決済は
+   利益実績として扱いません。終了コード2は品質停止、1は実行失敗です。
+
+ランチャーは配列引数で既存エンジンを起動し、評価ロジックは複製しません。
+実口座へのログインや発注処理はありません。画面に口座IDやパスワードを入力する
+必要はありません。ランチャーテストは模擬起動であり、実端末の接続証明ではありません。
+この短期間の比較が実行できても、6か月検証や利益優位性の確認は別工程です。
