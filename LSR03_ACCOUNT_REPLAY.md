@@ -86,3 +86,9 @@ future-outcome rejection, no overlap/same-timestamp re-entry, unrealized PnL,
 open exclusion, price-gap losses, daily stopping/recovery, three-loss stopping,
 expired/unfilled plans, missing valuation/fees, unsupported overnight positions
 and resource exhaustion. No actual market dataset is used.
+
+As-of candidate adapter: see LSR03_ACCOUNT_STUDY.md. The engine also accepts
+`cancellations` as chronological {id, known_at_msc} events for an existing
+plan. A known pre-fill cancellation skips the unfilled plan. Later events
+never erase earlier entries or force an existing position out. Unknown IDs,
+duplicate events and backward/before-plan clocks are rejected.

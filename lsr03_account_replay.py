@@ -21,7 +21,7 @@ def _num(value, positive=False):
 def replay_account(quotes, candidates, *, symbol, volume_min, volume_max, volume_step,
                    pnl_quote, round_trip_cost_per_lot_usd, cost_source,
                    slippage, initial_equity=3000, risk_fraction=.0025,
-                   daily_boundary_utc_hour=10, max_quotes=1000000):
+                   daily_boundary_utc_hour=10, max_quotes=1000000, cancellations=()):
     if symbol not in ('XAUUSD','USDJPY') or not callable(pnl_quote):
         raise ValueError('Explicit single symbol and historical USD PnL callback required')
     if not isinstance(cost_source,str) or not cost_source.strip():raise ValueError('Cost provenance required')
@@ -51,6 +51,18 @@ def replay_account(quotes, candidates, *, symbol, volume_min, volume_max, volume
         _num(c['stop'],True);_num(c['target'],True)
         if not (c['stop']<c['target'] if c['side']=='BUY' else c['target']<c['stop']):raise ValueError('Invalid stop/target order')
         plans.append(dict(c));last_known=c['known_at_msc']
+    if not isinstance(cancellations,(list,tuple)) or len(cancellations)>10000:
+        raise ValueError('Bounded chronological cancellation events required')
+    known_by_id={c['id']:c['known_at_msc'] for c in plans}
+    canceled={};previous_cancel=None
+    for event in cancellations:
+        if not isinstance(event,dict) or set(event)!={'id','known_at_msc'} or event['id'] not in known_by_id:
+            raise ValueError('Cancellation must reference a confirmed plan')
+        at=event['known_at_msc']
+        if type(at) is not int or at<known_by_id[event['id']] or (previous_cancel is not None and at<previous_cancel):
+            raise ValueError('Invalid cancellation clock')
+        if event['id'] in canceled:raise ValueError('Duplicate cancellation event')
+        canceled[event['id']]=at;previous_cancel=at
     balance=equity=peak=initial;max_dd=0.;day=None;day_equity=None
     daily_held=False;streak_held=False;streak=max_streak=0;active=None
     pending=[];cursor=0;previous=None;last_exit=None;count=0
@@ -104,7 +116,8 @@ def replay_account(quotes, candidates, *, symbol, volume_min, volume_max, volume
         for c in pending:
             if at<c['eligible_after_msc']:waiting.append(c);continue
             reason=None
-            if at>=c['expires_at_msc']:reason='EXPIRED'
+            if c['id'] in canceled and canceled[c['id']]<=at:reason='INVALIDATED_BEFORE_FILL'
+            elif at>=c['expires_at_msc']:reason='EXPIRED'
             elif active is not None:reason='POSITION_ALREADY_OPEN'
             elif daily_held:reason='LATCHED_DAILY_STOP'
             elif streak_held:reason='LATCHED_THREE_LOSS_STOP'

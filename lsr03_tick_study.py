@@ -9,7 +9,7 @@ from hashlib import sha256
 from math import isfinite
 from pathlib import Path
 import json
-from lsr03_adapter import compare_vhf
+from lsr03_adapter import compare_vhf, collect_retests
 from lsr04_tick_fills import replay_exit
 from lsr04_tick_quality import audit_ticks
 from lsr04_tick_archive import _decode, _read_metadata, MAX_LINE_BYTES
@@ -36,24 +36,10 @@ def _summary(rows):
         profit_factor_r=sum(wins)/(-sum(losses)) if losses else None)
 
 
-def study_catalog(path, *, expected_catalog_sha256, h4, m15, m5, bar_source,
-                  as_of, buffer, target_r, round_trip_cost_per_unit, slippage,
-                  entry_delay_msc=1, period=14, min_vhf=.4, left=1, right=1,
-                  lifetime=6000, max_ticks=500000, max_candidates=1000,
-                  max_candidate_tick_visits=5000000):
-    """First RETEST per existing candidate, target is explicit research fixed R.
-
-    Source label agreement is a consistency check, not OHLC authentication.
-    Fixed R is an execution benchmark, never the author's 2.6 method.
-    """
-    for value in (buffer,target_r,lifetime):_positive(value)
-    for value in (round_trip_cost_per_unit,slippage):_positive(value,True)
-    if type(entry_delay_msc) is not int or entry_delay_msc<1:
-        raise ValueError('Strictly post-confirmation entry delay required')
-    if type(max_ticks) is not int or not 1<=max_ticks<=2000000 or type(max_candidates) is not int or not 1<=max_candidates<=10000:
-        raise ValueError('Explicit pilot study budgets required')
-    if type(max_candidate_tick_visits) is not int or not 1<=max_candidate_tick_visits<=100000000:
-        raise ValueError('Explicit replay work budget required')
+def load_catalog_ticks(path, *, expected_catalog_sha256, bar_source, as_of, max_ticks=500000):
+    """Shared bounded pinned loader/global audit; not a strategy approval."""
+    if type(max_ticks) is not int or not 1<=max_ticks<=2000000:
+        raise ValueError('Pilot tick budget required')
     _positive(as_of)
     root=Path(path)
     integrity=verify_tick_catalog(root,expected_catalog_sha256=expected_catalog_sha256,
@@ -90,26 +76,42 @@ def study_catalog(path, *, expected_catalog_sha256, h4, m15, m5, bar_source,
                  windows=windows if has_windows else None,
                  sessions=sessions if has_sessions else None,max_ticks=max_ticks)
     global_audit=audit_ticks(ticks,**options)
-    if global_audit['issues'] or global_audit['counts']['open_session_gap_candidates'] or global_audit['counts']['unknown_session_gaps'] or not has_windows:
+    return dict(integrity=integrity,ticks=ticks,audit=global_audit,symbol=shared['symbol'],
+        blocked=bool(global_audit['issues'] or global_audit['counts']['open_session_gap_candidates']
+                     or global_audit['counts']['unknown_session_gaps'] or not has_windows),
+        start_msc=catalog['start_msc'],end_msc=catalog['end_msc'])
+
+
+def study_catalog(path, *, expected_catalog_sha256, h4, m15, m5, bar_source,
+                  as_of, buffer, target_r, round_trip_cost_per_unit, slippage,
+                  entry_delay_msc=1, period=14, min_vhf=.4, left=1, right=1,
+                  lifetime=6000, max_ticks=500000, max_candidates=1000,
+                  max_candidate_tick_visits=5000000):
+    """First RETEST per existing candidate, target is explicit research fixed R.
+
+    Source label agreement is a consistency check, not OHLC authentication.
+    Fixed R is an execution benchmark, never the author's 2.6 method.
+    """
+    for value in (buffer,target_r,lifetime):_positive(value)
+    for value in (round_trip_cost_per_unit,slippage):_positive(value,True)
+    if type(entry_delay_msc) is not int or entry_delay_msc<1:
+        raise ValueError('Strictly post-confirmation entry delay required')
+    if type(max_ticks) is not int or not 1<=max_ticks<=2000000 or type(max_candidates) is not int or not 1<=max_candidates<=10000:
+        raise ValueError('Explicit pilot study budgets required')
+    if type(max_candidate_tick_visits) is not int or not 1<=max_candidate_tick_visits<=100000000:
+        raise ValueError('Explicit replay work budget required')
+    _positive(as_of)
+    loaded=load_catalog_ticks(path,expected_catalog_sha256=expected_catalog_sha256,
+        bar_source=bar_source,as_of=as_of,max_ticks=max_ticks)
+    ticks=loaded['ticks'];global_audit=loaded['audit'];symbol=loaded['symbol']
+    if loaded['blocked']:
         return dict(status='BLOCKED_GLOBAL_TICK_QUALITY',audit=global_audit,
-                    integrity=integrity,rows=[],execution_allowed=False,
+                    integrity=loaded['integrity'],rows=[],execution_allowed=False,
                     market_edge_verified=False)
-    symbol=shared['symbol']
+    catalog=dict(start_msc=loaded['start_msc'],end_msc=loaded['end_msc'])
     compared=compare_vhf(symbol,h4,m15,m5,as_of=as_of,buffer=buffer,period=period,
                          min_vhf=min_vhf,left=left,right=right,lifetime=lifetime)
-    candidates=[];active=None
-    for original,flt in zip(compared['base_trace'],compared['vhf_trace']):
-        if original['state']=='SWEEP' and (active is None or active['invalid_at'] is not None):
-            active=dict(id=f"{symbol}:{original['at']}:{original['side']}",side=original['side'],
-                        sweep_at=original['at'],stop=original['stop'],retest_at=None,
-                        invalid_at=None,group=None)
-        if active is None:raise ValueError('Missing candidate lifecycle')
-        if original['state']=='INVALID':active['invalid_at']=original['at']
-        if original['state']=='RETEST' and active['retest_at'] is None:
-            if len(candidates)>=max_candidates:raise ValueError('Pilot candidate budget exceeded')
-            active['retest_at']=original['at']
-            active['group']='VHF_PASS' if flt['decision']=='REVIEW' else 'VHF_FILTERED'
-            candidates.append(active)
+    candidates=collect_retests(compared,symbol,max_candidates=max_candidates)
     rows=[];tick_visits=0
     from bisect import bisect_left
     clock=[q['time_msc'] for q in ticks]

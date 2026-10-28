@@ -42,3 +42,29 @@ def compare_vhf(symbol,h4,m15,m5,*,as_of,buffer,period=14,
                 vhf_trace=annotated,execution_allowed=False,
                 author_color_definition="UNVERIFIED",
                 comparisons_require_real_broker_data=True)
+
+
+def collect_retests(compared, symbol, *, max_candidates=1000):
+    """One first RETEST per existing sweep; preserve later invalidation clock.
+
+    Invalidation is a separate event, never an earlier entry-time feature.
+    """
+    base=compared['base_trace'];vhf=compared['vhf_trace']
+    if len(base)!=len(vhf) or type(max_candidates) is not int or max_candidates<1:
+        raise ValueError('Aligned bounded structural/VHF traces required')
+    candidates=[];active=None
+    for original,flt in zip(base,vhf):
+        if original['at']!=flt['at'] or original['state']!=flt['lsr_state'] or original['side']!=flt['side']:
+            raise ValueError('Mismatched structural/VHF evidence')
+        if original['state']=='SWEEP' and (active is None or active['invalid_at'] is not None):
+            active=dict(id=f"{symbol}:{original['at']}:{original['side']}",side=original['side'],
+                        sweep_at=original['at'],stop=original['stop'],retest_at=None,
+                        invalid_at=None,group=None)
+        if active is None:raise ValueError('Missing candidate lifecycle')
+        if original['state']=='INVALID':active['invalid_at']=original['at']
+        if original['state']=='RETEST' and active['retest_at'] is None:
+            if len(candidates)>=max_candidates:raise ValueError('Candidate budget exceeded')
+            active['retest_at']=original['at']
+            active['group']='VHF_PASS' if flt['decision']=='REVIEW' else 'VHF_FILTERED'
+            candidates.append(active)
+    return candidates
