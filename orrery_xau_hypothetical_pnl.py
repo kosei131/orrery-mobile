@@ -30,8 +30,8 @@ def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initia
         exit_time=None
         for bar in future:
             high,low=bar[2],bar[3]
-            stop_hit=low<=stop if side=="BUY" else high>=stop
-            target_hit=high>=target if side=="BUY" else low<=target
+            stop_hit=low<=stop if side=="BUY" else high+spread_usd>=stop
+            target_hit=high>=target if side=="BUY" else low+spread_usd<=target
             if stop_hit:outcome=-1.0;exit_time=bar[0];break
             if target_hit:outcome=reward_r;exit_time=bar[0];break
         if outcome is None:
