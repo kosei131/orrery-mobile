@@ -101,6 +101,20 @@ class AccountStudyTests(unittest.TestCase):
         self.assertEqual(compiled['plans'],[])
         self.assertEqual(len(compiled['omitted']),1)
 
+    def test_optional_carry_inputs_reach_both_account_runs(self):
+        f=self.fixture
+        f.build([f.q(105900001,12,12.1),f.q(106000000,20,20.1)])
+        seen=[]
+        def carry(symbol,side,lots,entry,at):
+            seen.append(at);return 0
+        r=self.compare(carry_quote=carry,carry_source='SYNTHETIC_CARRY')
+        self.assertEqual(r['status'],'MATCHED_SINGLE_SYMBOL_CARRY_ACCOUNT_RESEARCH')
+        self.assertTrue(r['config']['carry_enabled'])
+        self.assertTrue(seen)
+        for account in r['accounts'].values():
+            self.assertEqual(account['carry_source'],'SYNTHETIC_CARRY')
+            self.assertFalse(account['six_month_backtest_complete'])
+
 
 class CancellationTests(unittest.TestCase):
     def replay(self,quotes,cancellations):

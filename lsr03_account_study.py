@@ -55,7 +55,8 @@ def compare_catalog_accounts(path,*,expected_catalog_sha256,h4,m15,m5,bar_source
                              pnl_quote,round_trip_cost_per_lot_usd,cost_source,slippage,
                              period=14,min_vhf=.4,left=1,right=1,lifetime=6000,
                              entry_delay_msc=1,max_ticks=500000,max_candidates=1000,
-                             daily_boundary_utc_hour=10):
+                             daily_boundary_utc_hour=10,carry_quote=None,carry_source=None,
+                             boundary_quote_max_age_msc=0):
     loaded=load_catalog_ticks(path,expected_catalog_sha256=expected_catalog_sha256,
                               bar_source=bar_source,as_of=as_of,max_ticks=max_ticks)
     if loaded['blocked']:
@@ -81,8 +82,9 @@ def compare_catalog_accounts(path,*,expected_catalog_sha256,h4,m15,m5,bar_source
             pnl_quote=pnl_quote,round_trip_cost_per_lot_usd=round_trip_cost_per_lot_usd,
             cost_source=cost_source,slippage=slippage,initial_equity=3000,
             daily_boundary_utc_hour=daily_boundary_utc_hour,max_quotes=max_ticks,
-            cancellations=cancellations)
-    return dict(status='MATCHED_INTRADAY_ACCOUNT_RESEARCH',symbol=loaded['symbol'],
+            cancellations=cancellations,carry_quote=carry_quote,carry_source=carry_source,
+            boundary_quote_max_age_msc=boundary_quote_max_age_msc)
+    return dict(status='MATCHED_INTRADAY_ACCOUNT_RESEARCH' if carry_quote is None else 'MATCHED_SINGLE_SYMBOL_CARRY_ACCOUNT_RESEARCH',symbol=loaded['symbol'],
         accounts=accounts,candidate_counts=dict(LSR02=len(plans),LSR03=len(selected),
             VHF_FILTERED=len(plans)-len(selected)),plans=plans,
         vhf_groups={key:value for key,value in compiled['groups'].items() if key in visible_ids},
@@ -95,7 +97,9 @@ def compare_catalog_accounts(path,*,expected_catalog_sha256,h4,m15,m5,bar_source
             right=right,lifetime=lifetime,entry_delay_msc=entry_delay_msc,
             volume_min=volume_min,volume_max=volume_max,volume_step=volume_step,
             round_trip_cost_per_lot_usd=round_trip_cost_per_lot_usd,cost_source=cost_source,
-            slippage=slippage,daily_boundary_utc_hour=daily_boundary_utc_hour),
+            slippage=slippage,daily_boundary_utc_hour=daily_boundary_utc_hour,
+            carry_source=carry_source,carry_enabled=carry_quote is not None,
+            boundary_quote_max_age_msc=boundary_quote_max_age_msc),
         global_tick_audit=loaded['audit'],bar_provenance_verified=False,
         execution_allowed=False,market_edge_verified=False,six_month_backtest_complete=False,
-        caveat='Single symbol/intraday/one position per account. Caller historical USD valuation and fees unverified. Accounts may take different trades due to their own capital/stops; this is not independent-candidate additive attribution. No overnight/margin/combined-symbol or real-market return claim.')
+        caveat='Single symbol/one position per account. Caller historical USD valuation, fees and optional carry unverified. Accounts may take different trades due to their own capital/stops. Carry requires explicit as-of boundary data; future carry not reserved in sizing. No margin/combined-symbol or six-month real-market return claim.')

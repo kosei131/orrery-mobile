@@ -77,3 +77,8 @@ OPEN exclusion, global quality and source rejection, trace alignment,
 expiry/delay, pre-fill cancellation, post-fill invariance and invalid
 cancellation clocks/identities. These are code-behavior tests, not market
 profit or a $3000 six-month result.
+
+Optional carry/source and boundary-quote age settings are now forwarded to
+both accounts. See LSR03_ACCOUNT_CARRY.md for the limited boundary accounting
+extension. Default intraday behavior is unchanged; broker rates, margin and
+six-month completeness remain unverified/unimplemented as described there.

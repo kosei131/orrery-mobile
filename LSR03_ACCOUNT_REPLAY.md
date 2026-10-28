@@ -92,3 +92,8 @@ As-of candidate adapter: see LSR03_ACCOUNT_STUDY.md. The engine also accepts
 plan. A known pre-fill cancellation skips the unfilled plan. Later events
 never erase earlier entries or force an existing position out. Unknown IDs,
 duplicate events and backward/before-plan clocks are rejected.
+
+Optional historical carry support now extends the intraday default; see
+LSR03_ACCOUNT_CARRY.md. The former overnight rejection still applies without
+explicit carry/source and valid as-of boundary quote evidence. No margin or
+complete multi-symbol/six-month capability is implied by this extension.

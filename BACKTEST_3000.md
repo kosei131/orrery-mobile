@@ -32,7 +32,8 @@ remaining implementation blockers:
 
 - complete six-month multi-symbol account replay: a limited intraday,
   one-position prototype now exists in lsr03_account_replay.py, but combined
-  exposure and overnight/carry/margin behavior remain unimplemented;
+  exposure, full-session boundary evidence and margin remain unfinished;
+  optional carry callbacks are implemented but not broker-calibrated;
 - historical account-USD valuation, executable quantities, margin and
   verified commissions/swaps/slippage;
 - structural OHLC replay across actual market sessions without invented bars.
@@ -53,3 +54,8 @@ The intraday prototype is not automatically called by this preflight, the
 candidate study or the MT5 pilot. It requires as-of candidate plans with no
 future outcome fields and a caller-provided historical USD valuation callback.
 Its synthetic tests are not a $3000 real-market backtest result.
+
+Optional carry support is described in LSR03_ACCOUNT_CARRY.md. It requires
+historical USD carry and as-of daily boundary evidence; no current swap rate
+is substituted for six months of historical charges. This does not remove
+multi-symbol, history, cost, margin or session-replay blockers.
