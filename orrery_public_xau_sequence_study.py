@@ -36,6 +36,7 @@ def report(root):
     matched=0;by_side={"BUY":0,"SELL":0}
     vhf_passed=0;vhf_evaluable=0
     vhf_poi=0;vhf_retouch=0
+    retouch_evidence=[]
     m15_segments=segments(m15["bars"],900)
     used_m5_events=set()
     # Stable chronological one-to-one matching: each M5 event may confirm
@@ -67,8 +68,10 @@ def report(root):
                                     if confirmation["at"]<b["close_time"]<=confirmation["at"]+3600
                                     and b["close_time"]<=confirmation["segment_end"]
                                     and b["close_time"]>=confirmation["segment_start"]]
-                            if any(b["low"]<=poi["high"] and b["high"]>=poi["low"] for b in future):
+                            touches=[b for b in future if b["low"]<=poi["high"] and b["high"]>=poi["low"]]
+                            if touches:
                                 vhf_retouch+=1
+                                retouch_evidence.append({"sweep_close":sweep["at"],"confirmation_close":confirmation["at"],"first_poi_touch_close":touches[0]["close_time"],"side":"BUY" if target=="UP" else "SELL","poi_low":poi["low"],"poi_high":poi["high"],"vhf_at_sweep":v["value"]})
     return {"status":"EXPLORATORY_REAL_M15_M5_SEQUENCE_NOT_LSR02",
             "m15_sweeps":len(events15),"m5_bos_choch_events":len(events5),
             "unique_one_to_one_sweep_m5_matches":matched,
@@ -77,6 +80,7 @@ def report(root):
             "sweep_time_vhf_research_passed":vhf_passed,
             "vhf_passed_with_m5_poi":vhf_poi,
             "vhf_passed_with_postconfirmation_poi_touch":vhf_retouch,
+            "retouch_evidence":retouch_evidence,
             "vhf_period":14,"research_vhf_threshold":0.4,"unique_executed_trades":0,
             "h4_trend_verified":False,"retest_entry_verified":False,"poi_touch_research_evaluated":True,
             "vhf_filter_evaluated":True,"spread_and_execution_verified":False,
