@@ -3,6 +3,7 @@ Uses already closed candles, resets on any missing grid interval, and never
 pretends that an unverified H4 trend or broker fills have passed.
 """
 import json
+from bisect import bisect_right
 from pathlib import Path
 from lsr02_structure import detect
 from lsr03_vhf import calculate
@@ -17,6 +18,30 @@ def segments(bars, interval):
         group.append(b);previous=b["close_time"]
     if group:result.append(group)
     return result
+
+def observe_retest(candidate, bars, *, deadline_seconds=3600):
+    """Observe in close-time order; never discard a touch due to a later gap."""
+    at=candidate['confirmation_close']
+    poi=candidate['poi']
+    if poi is None:
+        return dict(status='NO_POI',entry_at=None,observed_until=at)
+    if deadline_seconds<=0 or deadline_seconds%300 or poi['low']>poi['high']:
+        raise ValueError('Invalid retest specification')
+    times=[b['close_time'] for b in bars]
+    i=bisect_right(times,at)
+    expected=at+300
+    last=at
+    for b in bars[i:]:
+        if b['close_time']>at+deadline_seconds:break
+        if b['close_time']!=expected:
+            return dict(status='UNKNOWN_HISTORY',entry_at=None,observed_until=last)
+        last=b['close_time']
+        if b['low']<=poi['high'] and b['high']>=poi['low']:
+            return dict(status='RETEST',entry_at=last,observed_until=last)
+        expected+=300
+    return dict(status='EXPIRED' if last==at+deadline_seconds else 'UNKNOWN_HISTORY',
+                entry_at=None,observed_until=last)
+
 
 def report(root):
     m15=load(root/"XAUUSD_M15_UNVERIFIED_QUOTE.csv","M15")
@@ -37,6 +62,8 @@ def report(root):
     vhf_passed=0;vhf_evaluable=0
     vhf_poi=0;vhf_retouch=0
     retouch_evidence=[]
+    confirmation_evidence=[]
+    retest_observations=[]
     m15_segments=segments(m15["bars"],900)
     used_m5_events=set()
     # Stable chronological one-to-one matching: each M5 event may confirm
@@ -62,16 +89,23 @@ def report(root):
                     if v["value"]>=0.4 and v["slope"]=="RISING":
                         vhf_passed+=1
                         poi=confirmation.get("poi")
+                        confirmed={'sweep_close':sweep['at'],'confirmation_close':confirmation['at'],
+                                   'side':'BUY' if target=='UP' else 'SELL',
+                                   'poi':dict(poi) if poi is not None else None,
+                                   'vhf_at_sweep':v['value']}
+                        # This universe is emitted without reference to future POI touches.
+                        confirmation_evidence.append(confirmed)
+                        observation=observe_retest(confirmed,m5['bars'])
+                        retest_observations.append(dict(observation,sweep_close=sweep['at'],
+                                                       confirmation_close=confirmation['at'],side=confirmed['side']))
                         if poi is not None:
                             vhf_poi+=1
-                            future=[b for b in m5["bars"]
-                                    if confirmation["at"]<b["close_time"]<=confirmation["at"]+3600
-                                    and b["close_time"]<=confirmation["segment_end"]
-                                    and b["close_time"]>=confirmation["segment_start"]]
-                            touches=[b for b in future if b["low"]<=poi["high"] and b["high"]>=poi["low"]]
-                            if touches:
-                                vhf_retouch+=1
-                                retouch_evidence.append({"sweep_close":sweep["at"],"confirmation_close":confirmation["at"],"first_poi_touch_close":touches[0]["close_time"],"side":"BUY" if target=="UP" else "SELL","poi_low":poi["low"],"poi_high":poi["high"],"vhf_at_sweep":v["value"]})
+                        if observation['status']=='RETEST':
+                            vhf_retouch+=1
+                            retouch_evidence.append({'sweep_close':sweep['at'],
+                                'confirmation_close':confirmation['at'],
+                                'first_poi_touch_close':observation['entry_at'],'side':confirmed['side'],
+                                'poi_low':poi['low'],'poi_high':poi['high'],'vhf_at_sweep':v['value']})
     return {"status":"EXPLORATORY_REAL_M15_M5_SEQUENCE_NOT_LSR02",
             "m15_sweeps":len(events15),"m5_bos_choch_events":len(events5),
             "unique_one_to_one_sweep_m5_matches":matched,
@@ -81,6 +115,7 @@ def report(root):
             "vhf_passed_with_m5_poi":vhf_poi,
             "vhf_passed_with_postconfirmation_poi_touch":vhf_retouch,
             "retouch_evidence":retouch_evidence,
+            "confirmation_evidence":confirmation_evidence,"retest_observations":retest_observations,
             "vhf_period":14,"research_vhf_threshold":0.4,"unique_executed_trades":0,
             "h4_trend_verified":False,"retest_entry_verified":False,"poi_touch_research_evaluated":True,
             "vhf_filter_evaluated":True,"spread_and_execution_verified":False,

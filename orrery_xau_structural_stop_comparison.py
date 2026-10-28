@@ -21,7 +21,7 @@ def stop_specs(candidates, m15, m1, *, spread):
     specs={}
     for c in candidates:
         sweep,confirm,entry,side=(c[k] for k in ('sweep_close','confirmation_close','first_poi_touch_close','side'))
-        if not sweep<confirm<entry or side not in ('BUY','SELL'):
+        if not sweep<confirm<=entry or side not in ('BUY','SELL'):
             raise ValueError('Invalid candidate chronology/side')
         b=lookup[sweep]
         quote=b['low'] if side=='BUY' else b['high']
