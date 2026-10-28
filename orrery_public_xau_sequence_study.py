@@ -33,25 +33,29 @@ def report(root):
                                 "segment_start":group[0]["close_time"],
                                 "segment_end":group[-1]["close_time"]})
     matched=0;by_side={"BUY":0,"SELL":0}
-    # Every sweep is paired with at most the earliest causally subsequent M5
-    # structural event within 60m in the opposite breakout direction.
-    for sweep in events15:
+    used_m5_events=set()
+    # Stable chronological one-to-one matching: each M5 event may confirm
+    # at most one M15 sweep, and only after its known close.
+    for sweep in sorted(events15,key=lambda e:e["at"]):
         target="DOWN" if sweep["direction"]=="UP" else "UP"
-        eligible=[e for e in events5
-                  if sweep["at"]<e["at"]<=sweep["at"]+3600
+        eligible=[(index,e) for index,e in enumerate(events5)
+                  if index not in used_m5_events
+                  and sweep["at"]<e["at"]<=sweep["at"]+3600
                   and e["direction"]==target
                   and e["segment_start"]<=sweep["at"]<e["at"]]
         if eligible:
+            index,_=min(eligible,key=lambda item:(item[1]["at"],item[0]))
+            used_m5_events.add(index)
             matched+=1
             by_side["SELL" if target=="DOWN" else "BUY"]+=1
     return {"status":"EXPLORATORY_REAL_M15_M5_SEQUENCE_NOT_LSR02",
             "m15_sweeps":len(events15),"m5_bos_choch_events":len(events5),
-            "sweeps_with_one_opposite_m5_confirmation_within_60m":matched,
+            "unique_one_to_one_sweep_m5_matches":matched,
             "candidate_sides":by_side,"unique_executed_trades":0,
             "h4_trend_verified":False,"retest_verified":False,
             "vhf_filter_evaluated":False,"spread_and_execution_verified":False,
             "win_rate":None,"profit_usd":None,
-            "warning":"Overlap and repeat use of M5 events possible. No trade inference."}
+            "warning":"M5 events assigned once; overlapping sweep windows remain research-only. No trade inference."}
 if __name__=="__main__":
     root=Path("public_xau_bars")
     result=report(root)
