@@ -30,7 +30,7 @@ def run():
     r={"status":"IN_SAMPLE_EXIT_SENSITIVITY_NOT_OPTIMIZED","window_utc":"2026-04-25 to 2026-09-25 exclusive",
        "same_entry_rule":True,"fixed_stop_usd":6,"spread_assumption_usd":.6,
        "variants":output,"automatic_target_selection":False,"high_lot_enabled":False,
-       "warning":"All five targets evaluated on the same 9-event research sample, hence no out-of-sample inference."}
+       "warning":"All five targets evaluated on the small in-sample research sample, hence no out-of-sample inference."}
     Path("public_xau_five_month_exit_sensitivity.json").write_text(json.dumps(r,indent=2)+"\n")
     print(json.dumps(r))
 if __name__=="__main__":run()
