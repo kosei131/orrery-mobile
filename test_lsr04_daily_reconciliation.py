@@ -83,7 +83,8 @@ class Integration(unittest.TestCase):
             self.assertEqual(r['daily_deal_net'], 8)
             self.assertEqual(r['daily_external_cash_net'], cash)
             self.assertTrue(r['daily_review']['balance_reconciled'])
-            self.assertEqual(r['status'], 'BLOCKED_CASH_ADJUSTED_RISK_REQUIRED')
+            self.assertEqual(r['status'], 'BLOCKED_UNVERIFIED_EQUITY_AND_STOP_EXPOSURE')
+            self.assertEqual(r['risk_review']['cash_adjusted_equity'], 10008)
 
     def test_unverified_cash_blocks(self):
         b, kw = self.setup_run(cash=500); kw['verified_cash_flows'] = {}
@@ -120,6 +121,46 @@ class Integration(unittest.TestCase):
         r = demo_day_check(b, **kw)
         self.assertEqual(r['daily_external_cash_net'], 0)
         self.assertTrue(r['daily_review']['balance_reconciled'])
+
+    def test_deposit_masked_loss_reaches_daily_stop(self):
+        b, kw = self.setup_run(cash=500, balance=10400, equity=10400)
+        b.history_deals_get(None, None)[1].profit = -98  # lifetime/day costs total -100
+        r = demo_day_check(b, **kw)
+        self.assertTrue(r['daily_review']['balance_reconciled'])
+        self.assertIn('DAILY_DRAWDOWN_STOP', r['risk_review']['reasons'])
+        self.assertEqual(r['status'], 'BLOCKED')
+        self.assertEqual(r['risk_review']['daily_drawdown'], 100)
+
+    def test_withdrawal_preserves_daily_stop_for_actual_loss(self):
+        b, kw = self.setup_run(cash=-500, balance=9400, equity=9400)
+        b.history_deals_get(None, None)[1].profit = -98
+        r = demo_day_check(b, **kw)
+        self.assertIn('DAILY_DRAWDOWN_STOP', r['risk_review']['reasons'])
+        self.assertEqual(r['risk_review']['cash_adjusted_equity'], 9900)
+
+    def test_cash_without_baseline_never_runs_raw_equity_gate(self):
+        b, kw = self.setup_run(cash=500, balance=10508, equity=10508)
+        del kw['day_start_snapshot']
+        r = demo_day_check(b, **kw)
+        self.assertEqual(r['status'], 'BLOCKED_DAILY_RECONCILIATION')
+        self.assertNotIn('risk_review', r)
+
+    def test_cash_with_unmatched_balance_never_runs_raw_equity_gate(self):
+        b, kw = self.setup_run(cash=500, balance=10507, equity=10507)
+        r = demo_day_check(b, **kw)
+        self.assertEqual(r['status'], 'BLOCKED_DAILY_RECONCILIATION')
+        self.assertNotIn('risk_review', r)
+
+    def test_deposit_and_withdrawal_net_zero_do_not_change_budget(self):
+        b, kw = self.setup_run(cash=500)
+        rows = b.history_deals_get(None, None)
+        withdrawal = D(**dict(vars(rows[-1]), ticket=4, time_msc=rows[-1].time_msc+1, profit=-500))
+        rows.append(withdrawal)
+        kw['verified_cash_flows'][4] = -500
+        r = demo_day_check(b, **kw)
+        self.assertTrue(r['daily_review']['balance_reconciled'])
+        self.assertEqual(r['risk_review']['external_cash_net'], 0)
+        self.assertEqual(r['risk_review']['daily_loss_budget'], 100)
 
 
 if __name__ == '__main__':

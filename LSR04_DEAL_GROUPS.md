@@ -96,11 +96,11 @@ the day boundary count in the day's cash net. CREDIT, correction, separate
 commission and other operations remain unsupported and block. The code cannot
 authenticate a caller's assertion about the economic purpose of a BALANCE row.
 
-A nonzero daily external cash net returns BLOCKED_CASH_ADJUSTED_RISK_REQUIRED:
-the existing raw-equity risk review is diagnostic and cannot be relied upon
-for a cash-adjusted daily limit. This prevents deposit-masked losses from
-producing an acceptable overall state. Cash-adjusted risk gating is future
-work, not silently approximated here.
+Nonzero daily external cash is passed to the risk gate only after a verified
+opening baseline and daily balance reconciliation. Missing/mismatched evidence
+returns BLOCKED_DAILY_RECONCILIATION before any raw-equity risk review. The
+old BLOCKED_CASH_ADJUSTED_RISK_REQUIRED placeholder is replaced by the
+cash-adjusted gate described below.
 
 `daily_review.balance_reconciled` means only conditional balance agreement.
 `daily_reconciled` stays False because floating PnL, credit, blocked funds,
@@ -183,3 +183,49 @@ stale/future/crossed quotes, reached stops, invalid broker calculations,
 account/equity/position changes, duplicates and account-bridge integration.
 No live MT5 connection, broker fee validation or real-market performance
 has been verified by these tests.
+
+## Cash-adjusted daily research risk gate
+
+`lsr04_account_gate.review` accepts `external_cash_net` (signed account
+currency) and `cash_flows_verified` (strict bool). The backward-compatible
+zero-cash default remains available for research callers; it is not evidence
+that a real account had no cash activity. Nonzero cash requires explicit True.
+The MT5 bridge derives this assertion only from verified baseline/history and
+matched daily balance, plus the ticket-specific cash evidence checks above.
+It does not accept an independent override of reconciliation success.
+
+The research calculation is:
+
+    adjusted equity = current actual equity - verified daily external cash net
+    daily drawdown = max(0, opening equity - adjusted equity)
+    daily loss budget = opening equity * daily limit fraction
+    remaining daily risk = max(0, daily loss budget - daily drawdown)
+
+Deposit is positive, withdrawal negative. The equity includes floating PnL;
+trade-net alone is never used for daily drawdown. Credit/corrections/unknown
+fees remain unsupported. A negative adjusted equity is valid as a loss signal,
+not replaced by zero or used to bypass the stop.
+
+Daily and basket budgets remain fixed to opening equity. Deposits do not
+increase them, and profitable performance does not increase the daily risk
+budget. Actual projected equity at stops uses actual current equity minus
+existing/proposed risk, not the cash-adjusted equity: withdrawals must not
+create fictitious available capital. Existing risk alone exceeding remaining
+daily budget now triggers DAILY_REMAINING_RISK even with proposed risk=0.
+Daily drawdown at the exact loss limit blocks; total risk exactly equal to a
+positive remaining budget is allowed for research. Decimal money arithmetic
+avoids float cancellation at the loss threshold; finite outputs are required.
+
+These are ORRERY research rules, not Funded7 or another provider's rules.
+The bridge retains all equity-component/cost/stop-execution verification
+blocks, and execution_allowed=False in every result. There is no order API,
+margin/liquidation model, breach latch, session persistence or official funding
+rule implementation. A recovered drawdown is not a durable stop latch; future
+work must establish breach persistence and authorized reset behavior.
+
+Synthetic tests include deposit-masked losses, withdrawal-only changes,
+withdrawals plus actual losses, fixed budgets after a deposit, exhausted
+remaining risk without a new candidate, exact decimal threshold, real-capital
+projection after withdrawal, negative adjusted equity, unverified/nonfinite
+cash, cash with missing/mismatched baseline, and offsetting deposit/withdrawal
+rows. These tests verify arithmetic and fail-closed integration only.

@@ -156,17 +156,19 @@ def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
         details["daily_review"] = daily_review
     if grouped["consecutive_losses"] is None:
         return blocked("BLOCKED_NO_AUTHORITATIVE_STREAK", **details)
+    cash_verified = (day_start_snapshot is not None and
+                     details["daily_review"]["balance_reconciled"])
+    # Never pass a raw-equity gate through when nonzero cash is unverified.
+    if daily_cash != 0 and not cash_verified:
+        return blocked("BLOCKED_DAILY_RECONCILIATION", **details)
     try:
         gate = review(day_start_utc=day_start_utc, now_utc=now_utc,
                       day_start_equity=day_start_equity, current_equity=after.equity,
                       existing_stop_risk=existing_stop_risk, proposed_stop_risk=proposed_stop_risk,
-                      consecutive_losses=grouped["consecutive_losses"])
+                      consecutive_losses=grouped["consecutive_losses"],
+                      external_cash_net=daily_cash, cash_flows_verified=cash_verified)
     except (TypeError, ValueError):
         return blocked("BLOCKED_INVALID_ACCOUNT_RISK", **details)
-    # Nonzero external cash can mask or exaggerate the raw-equity daily gate.
-    # Until that gate supports cash-adjusted equity, retain an explicit block.
-    if daily_cash != 0:
-        return blocked("BLOCKED_CASH_ADJUSTED_RISK_REQUIRED", risk_review=gate, **details)
     if day_start_snapshot is None or not details["daily_review"]["balance_reconciled"]:
         return blocked("BLOCKED_DAILY_RECONCILIATION", risk_review=gate, **details)
     # Balance reconciliation alone cannot verify floating/credit/blocked components.
