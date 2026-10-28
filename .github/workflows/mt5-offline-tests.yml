@@ -130,6 +130,8 @@ jobs:
         run: python orrery_xau_fixed_split_tp.py
       - name: Regression test synthetic spread exit semantics
         run: python -m unittest -v test_orrery_xau_exit_spread.py
+      - name: Crosscheck missing H4 slots against raw M1 activity
+        run: python orrery_xau_h4_m1_gap_crosscheck.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -140,6 +142,7 @@ jobs:
             public_xau_bars/report.json
             public_xau_structure_report.json
             public_xau_h4_gap_report.json
+            public_xau_h4_m1_gap_crosscheck.json
             public_xau_sequence_report.json
             public_xau_hypothetical_pnl.json
             public_xau_cost_sensitivity.json
