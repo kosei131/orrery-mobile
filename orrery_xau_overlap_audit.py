@@ -14,10 +14,10 @@ def audit(path, horizon_minutes=120, risk_per_position=0.0025, max_total_risk=0.
     max_open=0
     for i,t in enumerate(trades):
         concurrent=sum(1 for prior in trades[:i]
-                       if t["touch_close_utc"]-prior["touch_close_utc"] < horizon_minutes*60)
+                       if t["touch_close_utc"] < prior["exit_time_utc"] + 60)
         max_open=max(max_open,concurrent+1)
         for previous in trades[:i]:
-            if t["touch_close_utc"]-previous["touch_close_utc"] < horizon_minutes*60:
+            if t["touch_close_utc"] < previous["exit_time_utc"] + 60:
                 overlapping_pairs.append((previous["touch_close_utc"],t["touch_close_utc"]))
     return {"candidate_count":len(trades),"potential_overlap_pairs":len(overlapping_pairs),
             "max_possible_concurrent_positions":max_open,
@@ -25,7 +25,8 @@ def audit(path, horizon_minutes=120, risk_per_position=0.0025, max_total_risk=0.
             "portfolio_risk_cap_pct":round(100*max_total_risk,3),
             "risk_cap_exceeded_by_full_horizon_assumption":max_open*risk_per_position>max_total_risk,
             "pnl_accounts_for_overlap":False,
-            "warning":"This is an upper-bound time-window audit. Actual exit timestamps not in PnL trades; no account-level fill/replay validated."}
+            "exit_times_considered":True,
+            "warning":"Simulated exits (plus one-minute conservatism) only; no MT5 account-level fills validated."}
 
 if __name__=="__main__":
     result=audit(Path("public_xau_hypothetical_pnl.json"))
