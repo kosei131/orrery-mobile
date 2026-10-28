@@ -118,6 +118,8 @@ jobs:
         run: python orrery_xau_six_month_coverage.py
       - name: Calculate five-calendar-month bounded XAU research PnL
         run: python orrery_xau_five_month_study.py
+      - name: Diagnose why XAU strategy has too few five-month trades
+        run: python orrery_xau_funnel_bottleneck.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
@@ -142,5 +144,6 @@ jobs:
             public_xau_filter_fragility.json
             public_xau_six_month_coverage.json
             public_xau_five_month_study.json
+            public_xau_funnel_bottleneck.json
           if-no-files-found: warn
           retention-days: 7
