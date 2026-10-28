@@ -86,6 +86,7 @@ def crosscheck(src, output_dir):
               'closure_conflict_examples': [iso(t) for t in outside[:10]],
               'edge_open_minutes_outside_observed_horizon': len(expected-inside),
               'h4_aggregation': bars, 'h4_continuity': continuity,
+              'h4_file_sha256': hashlib.sha256((out/'H4_WEEKLY_SCHEDULE_UNVERIFIED.csv').read_bytes()).hexdigest() if bars is not None else None,
               'historical_holidays_and_session_changes_verified': False,
               'broker_calendar_verified': False, 'h4_strategy_ready': False,
               'execution_allowed': False, 'profit_usd': None,
