@@ -67,3 +67,23 @@ jobs:
         run: |
           node test_lsr_browser.cjs
           node test_mt5_chart_browser.cjs
+
+  dukascopy-real-source-probe:
+    name: Dukascopy XAUUSD real-source probe (no trades)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch historical hour and verify structure
+        run: python orrery_duka_source_probe.py --symbol XAUUSD --hour 2026-10-22T12:00:00+00:00 --out duka_source_sample
+      - name: Preserve source verification manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xauusd-real-source-probe
+          path: duka_source_sample/
+          if-no-files-found: warn
+          retention-days: 7
