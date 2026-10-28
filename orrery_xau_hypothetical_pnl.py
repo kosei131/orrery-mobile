@@ -63,6 +63,7 @@ def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initia
         target=entry+distance*reward_r if side=="BUY" else entry-distance*reward_r
         outcome=None
         exit_time=None
+        exit_reason=None
         for bar in future:
             high,low=bar[2],bar[3]
             # A stop is not guaranteed at its level after an observed open gap.
@@ -70,22 +71,25 @@ def simulate(m1_path,report_path,spread_usd=0.6,stop_usd=6.0,reward_r=2.0,initia
             if (side=='BUY' and close_open<=stop) or (side=='SELL' and close_open>=stop):
                 outcome=((close_open-entry) if side=='BUY' else (entry-close_open))/distance
                 exit_time=bar[0]
+                exit_reason="STOP_AT_OPEN"
                 break
             exit_kind=evaluate_exit_bar(side,entry,stop,target,high,low,spread_usd)
-            if exit_kind=="stop":outcome=-1.0;exit_time=bar[0];break
-            if exit_kind=="target":outcome=reward_r;exit_time=bar[0];break
+            if exit_kind=="stop":outcome=-1.0;exit_time=bar[0];exit_reason="STOP_INTRAMINUTE";break
+            if exit_kind=="target":outcome=reward_r;exit_time=bar[0];exit_reason="TP_INTRAMINUTE";break
         if outcome is None and not complete:
             # Censored at the feed gap or source end: no synthetic liquidation.
             skipped+=1
             continue
         if outcome is None:
+            exit_reason="TIMEOUT"
             exit_time=future[-1][0]+60
             exit_bid=future[-1][4]
             exit_price=exit_bid if side=="BUY" else exit_bid+spread_usd
             outcome=((exit_price-entry) if side=="BUY" else (entry-exit_price))/distance
         stake=equity*risk_fraction
         pnl=stake*outcome;equity+=pnl;peak=max(peak,equity);max_dd=max(max_dd,(peak-equity)/peak)
-        trades.append({"touch_close_utc":entry_time,"side":side,"entry_assumed":entry,"exit_time_utc":exit_time,"r":round(outcome,5),"pnl_usd":round(pnl,4),"stop_assumed":stop,"initial_stop_distance":distance,"target_assumed":target})
+        trades.append({"touch_close_utc":entry_time,"side":side,"entry_assumed":entry,"exit_time_utc":exit_time,"r":round(outcome,5),"pnl_usd":round(pnl,4),"stop_assumed":stop,"initial_stop_distance":distance,"target_assumed":target,"exit_reason":exit_reason,"elapsed_minutes_lower_bound":(exit_time-entry_time)/60,
+                       "exit_clock":"BAR_CLOSE" if exit_reason=="TIMEOUT" else "OBSERVED_MINUTE_OPEN" if exit_reason=="STOP_AT_OPEN" else "MINUTE_OPEN_LOWER_BOUND"})
     return {"method":"HYPOTHETICAL next-M1-open stop-policy research only",
             "stop_policy":"STRUCTURAL" if structural_stops is not None else "FIXED",
             "skipped_stop_policy":stop_skips,
