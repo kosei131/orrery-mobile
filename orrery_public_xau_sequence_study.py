@@ -5,6 +5,7 @@ pretends that an unverified H4 trend or broker fills have passed.
 import json
 from pathlib import Path
 from lsr02_structure import detect
+from lsr03_vhf import calculate
 from orrery_real_bars_lsr_bridge import load
 
 def segments(bars, interval):
@@ -33,6 +34,8 @@ def report(root):
                                 "segment_start":group[0]["close_time"],
                                 "segment_end":group[-1]["close_time"]})
     matched=0;by_side={"BUY":0,"SELL":0}
+    vhf_passed=0;vhf_evaluable=0
+    m15_segments=segments(m15["bars"],900)
     used_m5_events=set()
     # Stable chronological one-to-one matching: each M5 event may confirm
     # at most one M15 sweep, and only after its known close.
@@ -48,12 +51,23 @@ def report(root):
             used_m5_events.add(index)
             matched+=1
             by_side["SELL" if target=="DOWN" else "BUY"]+=1
+            historical=next((g for g in m15_segments if g[0]["close_time"]<=sweep["at"]<=g[-1]["close_time"]),None)
+            if historical:
+                known=[b for b in historical if b["close_time"]<=sweep["at"]]
+                v=calculate(known,period=14,as_of=sweep["at"],interval=900)
+                if v["status"]=="OK":
+                    vhf_evaluable+=1
+                    if v["value"]>=0.4 and v["slope"]=="RISING":
+                        vhf_passed+=1
     return {"status":"EXPLORATORY_REAL_M15_M5_SEQUENCE_NOT_LSR02",
             "m15_sweeps":len(events15),"m5_bos_choch_events":len(events5),
             "unique_one_to_one_sweep_m5_matches":matched,
-            "candidate_sides":by_side,"unique_executed_trades":0,
+            "candidate_sides":by_side,
+            "sweep_time_vhf_evaluable":vhf_evaluable,
+            "sweep_time_vhf_research_passed":vhf_passed,
+            "vhf_period":14,"research_vhf_threshold":0.4,"unique_executed_trades":0,
             "h4_trend_verified":False,"retest_verified":False,
-            "vhf_filter_evaluated":False,"spread_and_execution_verified":False,
+            "vhf_filter_evaluated":True,"spread_and_execution_verified":False,
             "win_rate":None,"profit_usd":None,
             "warning":"M5 events assigned once; overlapping sweep windows remain research-only. No trade inference."}
 if __name__=="__main__":
