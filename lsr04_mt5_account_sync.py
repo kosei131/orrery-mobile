@@ -1,7 +1,8 @@
 """Read-only DEMO history/grouping bridge. No order authorization.
 
 Completeness is externally asserted, never inferred from a successful fetch.
-Caller-supplied SL risk remains unverified and blocks an overall safe status.
+Optional broker stop valuation replaces caller risk estimates for research.
+Costs/equity components remain unverified and block an overall safe status.
 """
 from datetime import datetime, timedelta
 from math import isfinite, fsum
@@ -24,7 +25,8 @@ def _identity(account):
 def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
                    existing_stop_risk, proposed_stop_risk,
                    history_start_utc=None, history_complete=False,
-                   day_start_snapshot=None, verified_cash_flows=None):
+                   day_start_snapshot=None, verified_cash_flows=None,
+                   stop_cost_allowances=None):
     if not all(_utc(t) for t in (day_start_utc, now_utc)):
         raise ValueError("UTC-aware times required")
     if not day_start_utc < now_utc < day_start_utc + timedelta(days=1):
@@ -123,6 +125,19 @@ def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
                    account_currency=identity[2], daily_deal_net=daily_net,
                    daily_equity_change=after.equity - day_start_equity,
                    daily_external_cash_net=daily_cash, daily_reconciled=False)
+    if stop_cost_allowances is not None:
+        from lsr04_mt5_position_risk import demo_position_risk
+        try:
+            exposure = demo_position_risk(mt5, now_utc=now_utc,
+                cost_allowances=stop_cost_allowances,
+                expected_positions=positions, expected_account=after)
+        except (ValueError, TypeError):
+            return blocked("BLOCKED_INVALID_STOP_ALLOWANCES", **details)
+        details["stop_exposure"] = exposure
+        if exposure["total_incremental_stop_risk"] is None:
+            return blocked("BLOCKED_POSITION_RISK", **details)
+        # Never use a manually supplied lower estimate in place of broker valuation.
+        existing_stop_risk = exposure["total_incremental_stop_risk"]
     if day_start_snapshot is not None:
         try:
             snap = day_start_snapshot

@@ -117,3 +117,69 @@ Sources:
 Synthetic tests cover balance residuals, floating/equity changes, rounding,
 verified deposits/withdrawals, missing/mismatched cash evidence, prior-day
 cash exclusion, baseline account/time/equity mismatch and absent verification.
+
+## Account-wide sampled stop exposure
+
+`lsr04_mt5_position_risk.demo_position_risk` reads the complete unfiltered
+positions_get result on a broker-reported DEMO account. It does not limit the
+account to XAUUSD/USDJPY or infer contract sizes from symbol names. Broker
+symbols, including suffixes, must resolve through symbol_info and a fresh
+symbol_info_tick. Unsupported symbols are not silently skipped.
+
+For each position the report includes identifier, symbol, direction, actual
+volume, entry, SL, Bid/Ask, tick timestamp and two order_calc_profit estimates:
+
+- entry_to_stop_pnl: signed hypothetical price PnL from entry to SL;
+- incremental_price_loss: loss from the current closing side to SL, BUY Bid
+  or SELL Ask. This estimates additional equity reduction, without adding
+  already-incurred floating losses a second time.
+
+A profit-locking SL above a BUY entry or below a SELL entry is allowed only
+when it is still adverse to the current closing price. Its additional equity
+risk is counted; unrealized/locked profit never offsets another position's
+stop risk. A reached/crossed SL blocks instead of producing zero risk.
+
+`cost_allowances={position_identifier: amount}` must include exactly every
+open position. Each finite nonnegative amount is externally supplied in
+account currency for incremental exit costs, future swaps and adverse
+slippage/gaps. No implicit zero is inserted. Explicit zero is a research
+assumption, not a statement that broker costs or gap risk are absent.
+Already posted costs must not be charged again. Allowance correctness and
+actual stop execution are not independently verified; the result is never a
+worst-case loss guarantee. No margin/liquidation or pending-order model is
+included. Hedged positions are summed without netting or correlation credit.
+
+Quotes must have positive uncrossed Bid/Ask, nonfuture integer time_msc and
+age at most 5 seconds by default (configurable up to 30). Exact-boundary age
+is allowed; one future millisecond blocks. Caller UTC time must be accurate.
+SL, entry, volume, identifiers, broker estimates and all totals must be
+finite/valid. Missing SL, missing symbol, invalid side, missing cost allowance
+or failed broker calculation discards the whole aggregate: total=None and no
+partial rows are returned. An explicitly empty portfolio with empty allowances
+is zero only after successful broker reads and checks.
+
+The module rechecks account identity, captured equity, and position
+identifier/ticket/symbol/side/volume/entry/SL after valuation. Changes block;
+unchanged endpoints do not prove atomicity or absence of transient changes.
+Floating prices are sampled and not treated as a guaranteed executable quote.
+
+`demo_day_check(..., stop_cost_allowances=...)` optionally invokes this
+valuation with its prior account/position snapshot as a consistency check.
+Failure blocks before risk review; success replaces caller existing_stop_risk
+with the broker-modeled incremental total. The optional argument defaults to
+None for compatibility, leaving the old manually supplied estimate explicitly
+unverified. Existing history, daily reconciliation and cash-flow blocks remain
+active. Even successful valuation does not remove the final equity/cost and
+stop-execution verification block. Full-history open positions currently keep
+streak certification blocked conservatively, as in the existing grouping API.
+
+References:
+- https://www.mql5.com/en/docs/python_metatrader5/mt5ordercalcprofit_py
+- https://www.mql5.com/en/docs/python_metatrader5/mt5symbolinfotick_py
+
+Synthetic tests cover BUY/SELL sides, actual volume, locked-profit stops,
+account-wide sums, missing costs, empty portfolios, unsupported symbols,
+stale/future/crossed quotes, reached stops, invalid broker calculations,
+account/equity/position changes, duplicates and account-bridge integration.
+No live MT5 connection, broker fee validation or real-market performance
+has been verified by these tests.
