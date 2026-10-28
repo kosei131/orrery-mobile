@@ -17,6 +17,15 @@ class CaptureTests(unittest.TestCase):
   self.assertEqual(len(r["windows"]),2)
   self.assertEqual(len(r["ticks"]),2)
   self.assertFalse(r["execution_allowed"])
+ def test_same_millisecond_ticks_retained(self):
+  class SameMs(Fake):
+   def copy_ticks_range(self,s,start,end,flag):
+    t=int((start+timedelta(hours=1)).timestamp()*1000)
+    return [dict(time_msc=t,bid=100.,ask=100.1),
+            dict(time_msc=t,bid=100.01,ask=100.11)]
+  t=datetime(2026,4,27,tzinfo=timezone.utc)
+  r=capture_days(SameMs(),symbol="XAUUSD",start_utc=t,end_utc=t+timedelta(days=1))
+  self.assertEqual(len(r["ticks"]),2)
  def test_limit(self):
   t=datetime(2026,4,27,tzinfo=timezone.utc)
   with self.assertRaises(ValueError):capture_days(Fake(),symbol="XAUUSD",start_utc=t,end_utc=t+timedelta(days=200))
