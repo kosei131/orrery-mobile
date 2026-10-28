@@ -1,47 +1,109 @@
-"""Read-only MT5 DEMO account history snapshot and conservative stop gate.
+"""Read-only DEMO history/grouping bridge. No order authorization.
 
-Requires broker-reported DEMO status, complete provided history window, and
-explicit authoritative daily start equity. MT5 position synchronization is
-NOT yet a broker-certified risk exposure calculation. Never sends orders.
+Completeness is externally asserted, never inferred from a successful fetch.
+Caller-supplied SL risk remains unverified and blocks an overall safe status.
 """
-from datetime import datetime, timezone
-from math import isfinite
+from datetime import datetime, timedelta
+from math import isfinite, fsum
 from lsr04_account_gate import review
+from lsr04_deal_groups import reconcile
 
-def demo_day_check(mt5,*,day_start_utc,now_utc,day_start_equity,
-                   existing_stop_risk,proposed_stop_risk):
-    if not all(isinstance(t,datetime) and t.utcoffset() is not None and
-               t.utcoffset().total_seconds()==0 for t in (day_start_utc,now_utc)):
+
+def _utc(t):
+    return isinstance(t, datetime) and t.utcoffset() is not None and t.utcoffset().total_seconds() == 0
+
+
+def _identity(account):
+    key = tuple(getattr(account, f, None) for f in ("login", "server", "currency", "trade_mode"))
+    if type(key[0]) is not int or key[0] <= 0 or any(not isinstance(s, str) or not s for s in key[1:3]):
+        raise ValueError("Account identity and currency required")
+    return key
+
+
+def demo_day_check(mt5, *, day_start_utc, now_utc, day_start_equity,
+                   existing_stop_risk, proposed_stop_risk,
+                   history_start_utc=None, history_complete=False):
+    if not all(_utc(t) for t in (day_start_utc, now_utc)):
         raise ValueError("UTC-aware times required")
-    if not day_start_utc<now_utc:
-        raise ValueError("Invalid history bounds")
-    account=mt5.account_info()
-    if account is None or getattr(mt5,"ACCOUNT_TRADE_MODE_DEMO",None) is None or getattr(account,"trade_mode",None)!=mt5.ACCOUNT_TRADE_MODE_DEMO:
-        raise ValueError("Broker-reported demo required")
-    deals=mt5.history_deals_get(day_start_utc,now_utc)
-    positions=mt5.positions_get()
-    if deals is None or positions is None:
-        return dict(status="BLOCKED_INCOMPLETE_BROKER_HISTORY",execution_allowed=False)
-    if type(day_start_equity) not in (int,float) or not isfinite(day_start_equity) or day_start_equity<=0:
+    if not day_start_utc < now_utc < day_start_utc + timedelta(days=1):
+        raise ValueError("Invalid daily history bounds")
+    start = day_start_utc if history_start_utc is None else history_start_utc
+    if not _utc(start) or start > day_start_utc or type(history_complete) is not bool:
+        raise ValueError("Invalid full-history bounds/completeness assertion")
+    if type(day_start_equity) not in (int, float) or not isfinite(day_start_equity) or day_start_equity <= 0:
         raise ValueError("Externally verified daily starting equity required")
-    # Aggregate close transactions rather than assuming an individual deal
-    # always corresponds to a complete round-trip trade.
-    # In absence of authoritative position-grouped trade PnL, do not estimate
-    # the consecutive loss count from raw DEAL_ENTRY_OUT rows.
-    if any(getattr(d,"entry",None)==getattr(mt5,"DEAL_ENTRY_OUT",object())
-           for d in deals):
-        return dict(status="BLOCKED_TRADE_GROUPING_REQUIRED",
-                    deal_count=len(deals),open_positions=len(positions),
-                    execution_allowed=False,
-                    caveat="Partial exits, commissions and multi-deal trades need authoritative grouping.")
-    if deals:
-        return dict(status="BLOCKED_UNCLASSIFIED_DEALS",
-                    deal_count=len(deals),execution_allowed=False)
-    result=review(day_start_utc=day_start_utc,now_utc=now_utc,
-        day_start_equity=day_start_equity,current_equity=float(account.equity),
-        existing_stop_risk=existing_stop_risk,proposed_stop_risk=proposed_stop_risk,
-        consecutive_losses=0)
-    # Zero closed deals in the verified period is not proof of past streak.
-    return dict(result,status="BLOCKED_NO_AUTHORITATIVE_STREAK",
-                open_positions=len(positions),deal_count=0,execution_allowed=False,
-                caveat="Requires earlier deal history and fully grouped positions before trade approval.")
+    account = mt5.account_info()
+    demo = getattr(mt5, "ACCOUNT_TRADE_MODE_DEMO", None)
+    if account is None or demo is None or getattr(account, "trade_mode", None) != demo:
+        raise ValueError("Broker-reported demo required")
+    identity = _identity(account)
+
+    def blocked(status, **details):
+        return dict(status=status, execution_allowed=False, **details)
+
+    try:
+        deals = mt5.history_deals_get(start, now_utc)
+        positions = mt5.positions_get()
+        after = mt5.account_info()
+    except Exception:
+        return blocked("BLOCKED_BROKER_READ_FAILED")
+    if deals is None or positions is None or after is None:
+        return blocked("BLOCKED_INCOMPLETE_BROKER_HISTORY")
+    try:
+        if _identity(after) != identity:
+            return blocked("BLOCKED_ACCOUNT_CHANGED")
+    except ValueError:
+        return blocked("BLOCKED_ACCOUNT_CHANGED")
+    if type(getattr(after, "equity", None)) not in (int, float) or not isfinite(after.equity) or after.equity <= 0:
+        return blocked("BLOCKED_INVALID_ACCOUNT_RISK")
+    # MT5 reads are not atomic: this identity check does not prove snapshot consistency.
+    try:
+        if len(deals) > 100000:
+            raise ValueError("History exceeds bounded grouping capacity")
+        constants = [getattr(mt5, f) for f in ("DEAL_ENTRY_IN", "DEAL_ENTRY_OUT", "DEAL_ENTRY_INOUT")]
+        if any(type(c) is not int for c in constants):
+            raise ValueError("Integer entry constants required")
+        buy, sell = mt5.DEAL_TYPE_BUY, mt5.DEAL_TYPE_SELL
+        if type(buy) is not int or type(sell) is not int or buy == sell:
+            raise ValueError("Trade type constants required")
+        ids = [p.identifier for p in positions]  # identifier, not potentially changing ticket
+        if len(set(ids)) != len(ids):
+            raise ValueError("Duplicate open position identity")
+        lower, upper = start.timestamp() * 1000, now_utc.timestamp() * 1000
+        for d in deals:
+            if type(d.time_msc) is not int or not lower <= d.time_msc <= upper:
+                raise ValueError("Deal outside requested history")
+            if type(d.type) is not int or d.type not in (buy, sell):
+                raise ValueError("Unclassified cash operation or correction")
+            if not isinstance(d.symbol, str) or not d.symbol:
+                raise ValueError("Missing broker symbol")
+        # Validate symbol and direction throughout each position lifetime.
+        lifetimes = {}
+        for d in sorted(deals, key=lambda d: (d.time_msc, d.ticket)):
+            symbol, direction = lifetimes.setdefault(d.position_id, (d.symbol, d.type))
+            if d.symbol != symbol or (d.entry == constants[0] and d.type != direction) or (d.entry == constants[1] and d.type == direction):
+                raise ValueError("Inconsistent position symbol/direction")
+        grouped = reconcile(list(deals), entry_in=constants[0], entry_out=constants[1],
+                            entry_inout=constants[2], open_position_ids=ids,
+                            history_complete=history_complete)
+        daily = [d for d in deals if d.time_msc >= day_start_utc.timestamp() * 1000]
+        daily_net = fsum(getattr(d, f) for d in daily for f in ("profit", "commission", "swap", "fee"))
+        if not isfinite(daily_net):
+            raise ValueError("Nonfinite daily total")
+    except (AttributeError, TypeError, ValueError, OverflowError):
+        return blocked("BLOCKED_UNCLASSIFIED_OR_INVALID_HISTORY")
+    details = dict(grouping=grouped, deal_count=len(deals), open_positions=len(positions),
+                   account_currency=identity[2], daily_deal_net=daily_net,
+                   daily_equity_change=after.equity - day_start_equity,
+                   daily_reconciled=False)
+    if grouped["consecutive_losses"] is None:
+        return blocked("BLOCKED_NO_AUTHORITATIVE_STREAK", **details)
+    try:
+        gate = review(day_start_utc=day_start_utc, now_utc=now_utc,
+                      day_start_equity=day_start_equity, current_equity=after.equity,
+                      existing_stop_risk=existing_stop_risk, proposed_stop_risk=proposed_stop_risk,
+                      consecutive_losses=grouped["consecutive_losses"])
+    except (TypeError, ValueError):
+        return blocked("BLOCKED_INVALID_ACCOUNT_RISK", **details)
+    return blocked("BLOCKED" if gate["reasons"] else "BLOCKED_UNVERIFIED_STOP_EXPOSURE",
+                   risk_review=gate, **details)
