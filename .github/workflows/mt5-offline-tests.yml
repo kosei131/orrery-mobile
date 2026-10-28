@@ -128,6 +128,8 @@ jobs:
         run: python orrery_xau_tp_stability_split.py
       - name: Compare fixed partial TP split without optimization
         run: python orrery_xau_fixed_split_tp.py
+      - name: Regression test synthetic spread exit semantics
+        run: python -m unittest -v test_orrery_xau_exit_spread.py
       - name: Save checksum and coverage report only
         if: always()
         uses: actions/upload-artifact@v4
