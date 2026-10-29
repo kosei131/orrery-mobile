@@ -1,0 +1,32 @@
+{
+  "hosts": {
+    "orrery-iphone": "REPLACE_IPHONE_TAILSCALE_IPV4",
+    "orrery-windows": "REPLACE_WINDOWS_TAILSCALE_IPV4"
+  },
+  "acls": [
+    {
+      "action": "accept",
+      "src": [
+        "orrery-iphone"
+      ],
+      "dst": [
+        "orrery-windows:443"
+      ],
+      "proto": "tcp"
+    }
+  ],
+  "tests": [
+    {
+      "src": "orrery-iphone",
+      "proto": "tcp",
+      "accept": [
+        "orrery-windows:443"
+      ],
+      "deny": [
+        "orrery-windows:8765",
+        "orrery-windows:8766",
+        "orrery-windows:8767"
+      ]
+    }
+  ]
+}
