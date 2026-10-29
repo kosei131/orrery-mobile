@@ -72,3 +72,50 @@ nonrepainting_verified / market_edge_verified / execution_allowedはすべてfal
 
 テストの一致用fixtureはローカル計算結果から作った合成入力で、検査器自体の動作確認専用。
 外部基準との一致や独立した正解系列として報告しない。
+
+
+## ファイルからの一括照合と保存
+
+`lsr05_reference_review.py` を追加した。受領済み正規化JSONのファイル入力専用で、
+TradingViewアカウント連携やWebhook受信は行わない。Pine/MT5の実エクスポートはまだ未受領。
+CSVを自動推測して変換しない。プラットフォーム固有の変換・全計算履歴の取得は別工程。
+
+入力はbars.json、reference.json、settings.jsonの3つ。
+settingsにはschema_version=1とcompare_referenceの次の全引数を保存する。
+symbol / data_source / as_of / interval / amplitude / channel_deviation /
+absolute_tolerance / calendar_evidence / expected_calendar_sha256。
+通常モードでは後ろ2つをnullにする。未記入の設定は既定値で埋めず停止する。
+入力はUTF-8 JSON、各8MiB以内。重複キー、NaN、無限大を拒否する。
+
+入力ファイル受領時に、各ファイルの**生バイトSHA-256**を別途控える。
+Windows PowerShellでは `Get-FileHash -Algorithm SHA256 -LiteralPath .\reference.json` 等で確認し、
+出力を小文字にする。reference_sha256関数のcanonical JSON hashとは別なので混用しない。
+照合時に3つの生バイトpinを明示し、後から置換された入力を拒否する。
+これは受領以降の変更検出であり、受領した資料の出所の真正性を証明しない。
+
+次のコマンドは入力準備後に使う形式例。大文字のSHA部分を実際の小文字64桁へ置き換え、
+未作成の保存フォルダーを指定する。コードは対象の最新コミットを展開した場所で実行する。
+
+```powershell
+py -3.12 lsr05_reference_review.py run --bars .\bars.json --bars-sha256 BARS_RAW_SHA --reference .\reference.json --reference-raw-sha256 REFERENCE_RAW_SHA --settings .\settings.json --settings-sha256 SETTINGS_RAW_SHA --output .\halftrend-review-001
+```
+
+保存内容は入力3ファイルの生バイトコピー、result.json、最後に書くcomplete.json。
+入力と結果のサイズ/hash、主要7モジュールのLF正規化コードhash、判定状態を記録する。
+入力ファイルの絶対パスは保存しない。秘密・口座情報を入力に含めない。
+標準出力にもパスやOHLC等を出さず、状態とRECEIPT_SHA256を表示する。
+このreceiptのpinを別途保管する。既存フォルダーは上書きせず、途中失敗も自動再開しない。
+
+```powershell
+py -3.12 lsr05_reference_review.py verify --run .\halftrend-review-001 --receipt-sha256 RETAINED_RECEIPT_SHA
+```
+
+verifyは全ファイルを再読込し、pin・構成・コード版を検査してローカル計算と全行照合を再実行する。
+保存した結果の読取りだけで成功にはしない。元の入力3ファイルを移動しても、保存コピーから再検証できる。
+コードが変わった場合は停止するため、当時のコード・pin・元エクスポートも保持する。
+コードhashは実行環境や外部プラットフォームでの実行の証明ではない。
+
+終了コード：0=当該サンプルの値が一致、2=有効な不一致/コンテキスト停止を保存または再検証、
+1=不正入力・pin違い・保存不全・コード変更等で実行失敗。0でも外部一致の正式認証や取引許可はない。
+失敗した出力フォルダーは削除や補修を自動で行わず、別の新規名で再実行する。
+同時利用者からの悪意あるファイル差替えを防ぐOS隔離を提供する機能ではなく、専用ローカル研究用途。
