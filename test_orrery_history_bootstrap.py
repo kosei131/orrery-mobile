@@ -17,7 +17,9 @@ class BootstrapTests(unittest.TestCase):
         self.source = Path(__file__).resolve().parent
 
     def download(self, name):
-        return (self.source/name).read_bytes()
+        # Simulate GitHub raw LF bytes, independent of Git's CRLF checkout.
+        # Production download verification still compares exact response bytes.
+        return (self.source/name).read_text(encoding='utf-8').encode('utf-8')
 
     def test_exact_source_pins_and_fresh_folders(self):
         first = bootstrap.prepare(self.parent, download=self.download)
