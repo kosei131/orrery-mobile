@@ -4,19 +4,21 @@
 # See research_refs/halftrend/COPYING and source.json. No warranty.
 """Standalone closed-bar HalfTrend research; not a trading strategy.
 
-Adapted from pinned everget Pine v6 source. No ORRERY core imports, orders,
+Adapted from pinned everget Pine v6 source. No orders,
 automatic integration, trailing orders or claims of TradingView/MT5 parity.
 """
 from hashlib import sha256
-from json import dumps
+from json import dumps, loads
 from math import isfinite, fsum
+from lsr05_session_clock import audit_close_times
 
 SOURCE_REVISION = '8385cc421888bbf31f36407195796bc0eabafb19'
 SOURCE_SHA256 = 'efa1915b4d0812d8126bd27c7667f9408e90aeed94988058b1b1edeaa23f4a3c'
 AMPLITUDES = (2,4,6,8)
 
 
-def calculate(bars, *, as_of, interval, amplitude=2, channel_deviation=2, enabled=False):
+def calculate(bars, *, as_of, interval, amplitude=2, channel_deviation=2, enabled=False,
+              calendar_evidence=None, expected_calendar_sha256=None, symbol=None, data_source=None):
     if (type(enabled) is not bool or type(amplitude) is not int or amplitude not in AMPLITUDES
             or type(channel_deviation) is not int
             or not 0<=channel_deviation<=100 or type(interval) is not int or interval not in (300,900)
@@ -29,6 +31,19 @@ def calculate(bars, *, as_of, interval, amplitude=2, channel_deviation=2, enable
     if not enabled: return dict(base,status='DISABLED',rows=[],signals=[])
     if not isinstance(bars,list) or len(bars)>10000:
         raise ValueError('Bounded closed OHLC history required')
+    if (calendar_evidence is None)!=(expected_calendar_sha256 is None):
+        raise ValueError('Both calendar evidence and retained pin required')
+    allowed=set()
+    if calendar_evidence is not None:
+        if not all(isinstance(b,dict) for b in bars): raise ValueError('OHLC records required')
+        audit=audit_close_times([b.get('close_time') for b in bars],as_of=as_of,interval=interval,
+            symbol=symbol,data_source=data_source,evidence=calendar_evidence,
+            expected_evidence_sha256=expected_calendar_sha256)
+        base.update(calendar_evidence=loads(dumps(calendar_evidence,allow_nan=False)),calendar_sha256=expected_calendar_sha256,
+                    calendar_audit=audit)
+        if audit['status']!='SESSION_CLOCK_MATCHED_RESEARCH':
+            return dict(base,status='BLOCKED_SESSION_HISTORY',rows=[],signals=[])
+        allowed={(g['previous_close'],g['next_close']) for g in audit['permitted_gaps']}
     clean=[]; prior=None
     for bar in bars:
         if not isinstance(bar,dict) or bar.get('is_closed',True) is not True:
@@ -37,7 +52,7 @@ def calculate(bars, *, as_of, interval, amplitude=2, channel_deviation=2, enable
         if any(type(v) not in (int,float) or not isfinite(v) for v in row.values()):
             raise ValueError('Finite OHLC and closing clock required')
         at=row['close_time']
-        if at<0 or at>as_of or (prior is not None and at-prior!=interval):
+        if at<0 or at>as_of or (prior is not None and at-prior!=interval and (prior,at) not in allowed):
             raise ValueError('Future, duplicate, unordered or gapped bar')
         if not 0<row['low']<=min(row['open'],row['close'])<=max(row['open'],row['close'])<=row['high']:
             raise ValueError('Invalid OHLC geometry')
@@ -86,15 +101,21 @@ def calculate(bars, *, as_of, interval, amplitude=2, channel_deviation=2, enable
         rows.append(result)
     return dict(base,status='HALFTREND_RESEARCH_ONLY' if len(clean)>=100 else 'INSUFFICIENT_HISTORY',
         rows=rows,signals=[r for r in rows if r['signal'] is not None],
-        input_sha256=sha256(dumps(clean,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest(),
+        input_sha256=sha256(dumps(clean if calendar_evidence is None else
+            dict(bars=clean,calendar_sha256=expected_calendar_sha256),
+            sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest(),
         history_start=clean[0]['close_time'] if clean else None,
         last_closed_at=clean[-1]['close_time'] if clean else None,
         history_seed_sensitive=True,
         caveat='Closed input only; finite-history seed and feed revisions can change results. No independent Pine/MT5 reference comparison or actual repaint observation yet.')
 
 
-def compare_amplitudes(bars, *, as_of, interval, channel_deviation=2):
+def compare_amplitudes(bars, *, as_of, interval, channel_deviation=2,
+                       calendar_evidence=None, expected_calendar_sha256=None, symbol=None, data_source=None):
     results={str(a):calculate(bars,as_of=as_of,interval=interval,amplitude=a,
-               channel_deviation=channel_deviation,enabled=True) for a in AMPLITUDES}
-    return dict(status='AMPLITUDE_OBSERVATION_ONLY',results=results,
+               channel_deviation=channel_deviation,enabled=True,calendar_evidence=calendar_evidence,
+               expected_calendar_sha256=expected_calendar_sha256,symbol=symbol,data_source=data_source)
+             for a in AMPLITUDES}
+    status='BLOCKED_SESSION_HISTORY' if any(r['status']=='BLOCKED_SESSION_HISTORY' for r in results.values()) else 'AMPLITUDE_OBSERVATION_ONLY'
+    return dict(status=status,results=results,
                 best_amplitude=None,market_edge_verified=False,execution_allowed=False)

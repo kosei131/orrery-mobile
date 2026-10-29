@@ -7,6 +7,7 @@ certification. The caller owns persistence of the returned observation events.
 from hashlib import sha256
 from json import dumps, loads
 from math import isfinite, isclose
+from lsr05_session_clock import audit_close_times
 
 
 def _bytes(value):
@@ -52,6 +53,18 @@ class HalfTrendObserver:
         if not isinstance(rows,list) or len(rows)>10000: raise ValueError('Bounded rows required')
         if not rows:
             return dict(status='WAIT_NO_HISTORY',events=[],signal_events=[],execution_allowed=False)
+        allowed=set(); calendar_identity=None
+        calendar_keys={'calendar_evidence','calendar_sha256','calendar_audit'}
+        if calendar_keys & snap.keys():
+            if not calendar_keys<=snap.keys(): raise ValueError('Complete calendar evidence required')
+            if not all(isinstance(row,dict) for row in rows): raise ValueError('Observation rows required')
+            audit=audit_close_times([row.get('at') for row in rows],as_of=observed_at,interval=snap['interval'],
+                symbol=symbol,data_source=data_source,evidence=snap['calendar_evidence'],
+                expected_evidence_sha256=snap['calendar_sha256'])
+            if audit['status']!='SESSION_CLOCK_MATCHED_RESEARCH' or _bytes(audit)!=_bytes(snap['calendar_audit']):
+                raise ValueError('Calendar clock audit mismatch')
+            allowed={(g['previous_close'],g['next_close']) for g in audit['permitted_gaps']}
+            calendar_identity=audit['calendar_identity_sha256']
         if (not all(isinstance(r,dict) for r in rows) or snap.get('history_start')!=rows[0].get('at')
                 or snap.get('last_closed_at')!=rows[-1].get('at')):
             raise ValueError('History anchor mismatch')
@@ -60,7 +73,7 @@ class HalfTrendObserver:
             if (set(row)!={'at','state','line','atr','atr_high','atr_low','signal',
                            'signal_known_at','signal_close','ready','internal_transition'}
                     or not _finite(row.get('at')) or not 0<=row['at']<=observed_at
-                    or (prior is not None and row['at']-prior!=snap['interval'])
+                    or (prior is not None and row['at']-prior!=snap['interval'] and (prior,row['at']) not in allowed)
                     or row.get('state') not in ('UP','DOWN') or not _finite(row.get('line')) or row['line']<=0
                     or type(row.get('ready')) is not bool or type(row.get('internal_transition')) is not bool):
                 raise ValueError('Invalid, future or non-contiguous closed observation')
@@ -90,6 +103,7 @@ class HalfTrendObserver:
         config={k:snap[k] for k in ('amplitude','channel_deviation','atr_period','interval',
                                     'source_revision','source_sha256','history_start')}
         config.update(data_source=data_source,implementation_version=implementation_version)
+        if calendar_identity is not None: config['session_calendar_identity']=calendar_identity
         revision=sha256(_bytes(config)).hexdigest()
         timeframe='M5' if snap['interval']==300 else 'M15'
         scope=(symbol,timeframe,revision)
@@ -116,6 +130,7 @@ class HalfTrendObserver:
                 changed_after_observation=old is not None,
                 previous_values=None if old is None else old['values'],
                 input_sha256=snap['input_sha256'],execution_allowed=False)
+            if calendar_identity is not None: event['calendar_sha256']=snap['calendar_sha256']
             self._events.append(event); new_events.append(event)
             self._latest[key]=dict(fingerprint=fingerprint,values=dict(row))
         self._scopes[scope]=dict(observed_at=observed_at,last_closed_at=snap['last_closed_at'])
