@@ -21,6 +21,7 @@ def digest(data): return sha256(data).hexdigest()
 
 def verify_code(root, manifest_path, expected_sha256):
     """Caller-retained pin, exact top-level Python inventory, no path traversal."""
+    root, manifest_path = Path(root), Path(manifest_path)
     _pin(expected_sha256)
     data = _read_metadata(manifest_path)
     if digest(data) != expected_sha256: raise ValueError('CODE_PIN')
@@ -174,7 +175,7 @@ def main(argv=None):
     try:
         if sys.platform != 'win32': raise ValueError('Windows required')
         root = Path(os.environ['LOCALAPPDATA']) / 'ORRERYFX' / 'research'
-        result = run_job(_decode(_read_metadata(args.config)), root, Path(__file__).resolve().parent,
+        result = run_job(_decode(_read_metadata(Path(args.config))), root, Path(__file__).resolve().parent,
                          args.code_manifest, args.code_manifest_sha256)
         print(_encode(result).decode(), end='')
         return 0 if result['state'] == 'COMPLETED_RESEARCH' else 2

@@ -128,10 +128,23 @@ class WorkerTests(unittest.TestCase):
         from orrery_research_code_manifest import prepare
         path = self.root / 'prepared.json'
         pin = prepare(self.code, 'b'*40, path)
-        self.assertEqual(verify_code(self.code, path, pin)['declared_revision'], 'b'*40)
+        self.assertEqual(verify_code(str(self.code), str(path), pin)['declared_revision'], 'b'*40)
         with self.assertRaises(FileExistsError): prepare(self.code, 'b'*40, path)
         (self.code / 'lsr03_mt5_pilot.py').write_text('# changed')
         with self.assertRaises(ValueError): verify_code(self.code, path, pin)
+
+    def test_cli_string_paths_record_disabled_settings_without_terminal(self):
+        from unittest.mock import patch
+        from orrery_research_worker import main
+        self.cfg['enabled'] = False
+        path = self.root / 'cli_config.json'; path.write_bytes(_encode(self.cfg))
+        with patch('orrery_research_worker.sys.platform', 'win32'), \
+             patch.dict('os.environ', {'LOCALAPPDATA': str(self.root)}), patch('builtins.print'):
+            self.assertEqual(main(['--config', str(path), '--code-manifest', str(self.manifest),
+                                   '--code-manifest-sha256', self.pin]), 2)
+        statuses = list((self.root / 'ORRERYFX' / 'research' / 'runs').glob('*/status.json'))
+        self.assertEqual(len(statuses), 1)
+        self.assertEqual(json.loads(statuses[0].read_bytes())['state'], 'BLOCKED_CONFIG')
 
     def test_account_stage_quality_blocked(self):
         def launch(command, **kw):
