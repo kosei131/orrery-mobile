@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "script_sha256": "0c453a45ab2cb6559b0384fadc3e4e29901c7e2b35f42bf73965d72d6e967a94",
+  "captured_at": null,
+  "missing_token": "",
+  "column_map": {
+    "SCHEMA": "ORRERY_HT05_SCHEMA",
+    "INDEX": "ORRERY_HT05_INDEX",
+    "OPEN_MS": "ORRERY_HT05_OPEN_MS",
+    "CLOSE_MS": "ORRERY_HT05_CLOSE_MS",
+    "CONFIRMED": "ORRERY_HT05_CONFIRMED",
+    "STANDARD": "ORRERY_HT05_STANDARD",
+    "INTERVAL_SEC": "ORRERY_HT05_INTERVAL_SEC",
+    "AMPLITUDE": "ORRERY_HT05_AMPLITUDE",
+    "DEVIATION": "ORRERY_HT05_DEVIATION",
+    "OPEN": "ORRERY_HT05_OPEN",
+    "HIGH": "ORRERY_HT05_HIGH",
+    "LOW": "ORRERY_HT05_LOW",
+    "CLOSE": "ORRERY_HT05_CLOSE",
+    "STATE": "ORRERY_HT05_STATE",
+    "LINE": "ORRERY_HT05_LINE",
+    "ATR100": "ORRERY_HT05_ATR100",
+    "ATR_HIGH": "ORRERY_HT05_ATR_HIGH",
+    "ATR_LOW": "ORRERY_HT05_ATR_LOW",
+    "SIGNAL": "ORRERY_HT05_SIGNAL",
+    "READY": "ORRERY_HT05_READY"
+  },
+  "settings": {
+    "schema_version": 1,
+    "symbol": "XAUUSD",
+    "data_source": null,
+    "as_of": null,
+    "interval": 900,
+    "amplitude": 2,
+    "channel_deviation": 2,
+    "absolute_tolerance": 1e-08,
+    "calendar_evidence": null,
+    "expected_calendar_sha256": null
+  }
+}
