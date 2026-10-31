@@ -51,7 +51,20 @@ def annotate(h4, candidates, *, config, full_structure_history=False):
         rows.append({'entry_known_at':t, 'side':side, 'group':group,
                      'h4_regime':r['regime'], 'reason':r['reason'],
                      'h4_last_close':known[-1]['close_time'] if known else None,
-                     'h4_bars_used':len(known), 'structure_scope':scope, 'execution_allowed':False})
+                     'h4_bars_used':len(known), 'structure_scope':scope,
+                     'history_diagnostic':{
+                         'minimum_bars_required':config['lookback'],
+                         'minimum_additional_bars':max(0,config['lookback']-len(known)),
+                         'available_total_asof':i,
+                         'used_first_close':known[0]['close_time'] if known else None,
+                         'latest_age_seconds':t-times[i-1] if i else None,
+                         'preceding_gap_seconds':times[begin]-times[begin-1]
+                             if begin>0 and begin<i and times[begin]-times[begin-1]!=14400 else None,
+                         'bar_count_sufficient':len(known)>=config['lookback'],
+                         'market_session_verified':False,
+                         'note':'Minimum count only; confirmed swings and freshness may still fail. '
+                                'Grid gaps do not distinguish closures from missing data.'},
+                     'execution_allowed':False})
     return rows
 
 

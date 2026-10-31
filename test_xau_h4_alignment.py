@@ -35,6 +35,31 @@ class H4AlignmentTests(unittest.TestCase):
             with self.subTest(records=records):
                 self.assertEqual(annotate(records,[candidate(at)],config=CONFIG)[0]['group'],'UNKNOWN')
 
+    def test_history_diagnostic_empty_and_short(self):
+        for h in ([],history()[:3]):
+            d=annotate(h,[candidate(100800)],config=CONFIG)[0]['history_diagnostic']
+            self.assertEqual(d['minimum_additional_bars'],7-len(h))
+            self.assertEqual(d['available_total_asof'],len(h))
+            self.assertFalse(d['bar_count_sufficient'])
+            self.assertFalse(d['market_session_verified'])
+        self.assertIsNone(annotate([],[candidate(100800)],config=CONFIG)[0]
+                          ['history_diagnostic']['latest_age_seconds'])
+
+    def test_gap_diagnostic_does_not_bridge_or_use_future(self):
+        h=history(); t=h[-1]['close_time']; h=h[:3]+h[4:]
+        d=annotate(h,[candidate(t)],config=CONFIG)[0]['history_diagnostic']
+        self.assertEqual(d['preceding_gap_seconds'],28800)
+        self.assertEqual(d['minimum_additional_bars'],4)
+        self.assertEqual(d['used_first_close'],72000)
+        self.assertEqual(d['latest_age_seconds'],0)
+
+    def test_count_sufficient_is_not_strategy_approval(self):
+        h=history();t=h[-1]['close_time']+14400
+        row=annotate(h,[candidate(t)],config=CONFIG)[0]
+        self.assertTrue(row['history_diagnostic']['bar_count_sufficient'])
+        self.assertEqual(row['group'],'UNKNOWN')
+        self.assertFalse(row['execution_allowed'])
+
     def test_duplicate_bad_side_or_clock_rejected(self):
         t=history()[-1]['close_time']
         for c in ([candidate(t),candidate(t)], [candidate(t,'INVALID')], [candidate(True)]):
