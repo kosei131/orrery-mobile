@@ -3,6 +3,7 @@
 No automatic model fitting or rule promotion. Candidate R is not account PnL.
 """
 from hashlib import sha256
+from fractions import Fraction
 from math import isfinite, fsum, isclose
 from pathlib import Path
 from lsr04_tick_archive import _encode, _decode, _pin, _read_metadata
@@ -66,8 +67,47 @@ def _stats(items, name):
                 observed_closed_total_candidate_net_r=fsum(values) if values else None,
                 all_candidates_evaluable=len(values)==len(items) and bool(items),
                 mean_net_r=fsum(values)/len(values) if values else None,
+                mean_win_net_r=profit/sum(x>0 for x in values) if profit else None,
+                mean_loss_net_r=-loss/sum(x<0 for x in values) if loss else None,
                 win_rate=sum(x>0 for x in values)/len(values) if values else None,
-                profit_factor=profit/loss if loss else None)
+                profit_factor=profit/loss if loss else None,
+                closed_candidate_sequence=_sequence(items,name))
+
+
+def _sequence(items, name):
+    """Exit-time candidate R batches; not equity DD or a live stop decision.
+
+    Equal millisecond exits have no known within-batch order. Unknown outcomes
+    suppress full-cohort sequence metrics rather than disappearing as zero R.
+    """
+    batches={}
+    for item in items:
+        if item[name] is not None:
+            batches.setdefault(item[name+'_exit_at'],[]).append(item[name])
+    complete=bool(items) and all(item[name] is not None for item in items)
+    tied=sum(len(values)>1 for values in batches.values())
+    drawdown=streak=None
+    if complete:
+        # Exact accumulation of the validated float R values preserves small
+        # losses after large gains and avoids quadratic prefix re-summation.
+        increments=[sum((Fraction(value) for value in batches[at]),Fraction())
+                    for at in sorted(batches)]
+        peak=total=largest=Fraction()
+        for value in increments:
+            total+=value; peak=max(peak,total); largest=max(largest,peak-total)
+        try: drawdown=float(largest)
+        except OverflowError as exc: raise ValueError('Candidate sequence overflow') from exc
+        if not isfinite(drawdown): raise ValueError('Candidate sequence overflow')
+        if not tied:
+            streak=current=0
+            for value in increments:
+                current=current+1 if value<0 else 0
+                streak=max(streak,current)
+    return dict(all_candidates_evaluable=complete,exit_batches=len(batches),
+                simultaneous_exit_batches=tied,
+                max_drawdown_at_exit_batches_r=drawdown,
+                max_consecutive_closed_losses=streak,
+                account_drawdown_available=False,live_stop_decision_available=False)
 
 
 def summarize(cases, *, as_of_msc):
@@ -133,6 +173,8 @@ def summarize(cases, *, as_of_msc):
         row=dict(original=None,opposite=None,reviewed=latest is not None)
         if latest:
             row.update({name:_outcome(context,latest['outcomes'][name],name) for name in ('original','opposite')})
+            row.update({name+'_exit_at':latest['outcomes'][name].get('exit_at')
+                        for name in ('original','opposite')})
         levels=context['levels']
         proximity='UNAVAILABLE' if not levels else 'NEAR' if any(l['near_reference'] for l in levels) else 'NOT_NEAR'
         cohort=(*key[:2],context['market_regime'],proximity)

@@ -125,5 +125,77 @@ class RollupTests(unittest.TestCase):
         case['review_sha256s']=[]
         with self.assertRaises(ValueError): summarize([case],as_of_msc=1200)
 
+    def closed(self,name,exit_at,*,win=False,cost=.1):
+        case=self.case(name,candidate_id=name,round_trip_cost_per_unit=cost)
+        bid,ask=(102.1,102.2) if win else (98.9,99.)
+        self.append(case,[self.q(1001,100.,100.1),self.q(exit_at,bid,ask)])
+        return case
+
+    def test_sequence_uses_exit_order_and_retains_losses(self):
+        a=self.closed('loss-a',1100); b=self.closed('loss-b',1200)
+        c=self.closed('win',1300,win=True)
+        report=summarize([c,b,a],as_of_msc=1300)
+        stats=report['cohorts'][0]['original']; seq=stats['closed_candidate_sequence']
+        self.assertEqual(seq['max_consecutive_closed_losses'],2)
+        self.assertAlmostEqual(seq['max_drawdown_at_exit_batches_r'],2*1.3/1.1)
+        self.assertAlmostEqual(stats['mean_loss_net_r'],-1.3/1.1)
+        self.assertAlmostEqual(stats['mean_win_net_r'],1.9/1.1)
+        self.assertEqual(report,summarize([a,b,c],as_of_msc=1300) | {
+            'source_pins_sha256':report['source_pins_sha256']})
+        self.assertFalse(seq['account_drawdown_available'])
+        self.assertFalse(seq['live_stop_decision_available'])
+
+    def test_simultaneous_exits_batch_without_invented_streak(self):
+        a=self.closed('loss',1100); b=self.closed('win',1100,win=True)
+        stats=summarize([a,b],as_of_msc=1200)['cohorts'][0]['original']
+        seq=stats['closed_candidate_sequence']
+        self.assertEqual(seq['exit_batches'],1)
+        self.assertEqual(seq['simultaneous_exit_batches'],1)
+        self.assertIsNone(seq['max_consecutive_closed_losses'])
+        self.assertEqual(seq['max_drawdown_at_exit_batches_r'],0.)
+
+    def test_unknown_disables_complete_sequence_instead_of_zero_fill(self):
+        a=self.closed('loss',1100); b=self.case('open',candidate_id='open')
+        self.append(b,[self.q(1001,100.,100.1)])
+        stats=summarize([a,b],as_of_msc=1200)['cohorts'][0]['original']
+        seq=stats['closed_candidate_sequence']
+        self.assertFalse(seq['all_candidates_evaluable'])
+        self.assertIsNone(seq['max_consecutive_closed_losses'])
+        self.assertIsNone(seq['max_drawdown_at_exit_batches_r'])
+        self.assertEqual(stats['unknown'],1)
+
+    def test_unknown_costs_disable_sequence_even_after_close(self):
+        case=self.case(round_trip_cost_per_unit=None,cost_source='UNKNOWN')
+        self.append(case,[self.q(1001,100.,100.1),self.q(1100,102.1,102.2)])
+        seq=summarize([case],as_of_msc=1200)['cohorts'][0]['original']['closed_candidate_sequence']
+        self.assertIsNone(seq['max_consecutive_closed_losses'])
+        self.assertIsNone(seq['max_drawdown_at_exit_batches_r'])
+
+    def test_breakeven_breaks_loss_streak(self):
+        cases=[self.closed('loss-a',1100),self.closed('flat',1200,win=True,cost=2.),
+               self.closed('loss-b',1300)]
+        stats=summarize(cases,as_of_msc=1300)['cohorts'][0]['original']
+        self.assertEqual(stats['breakeven'],1)
+        self.assertEqual(stats['closed_candidate_sequence']['max_consecutive_closed_losses'],1)
+
+    def test_future_close_does_not_enter_sequence(self):
+        a=self.closed('past',1100); b=self.closed('future',1300,win=True)
+        stats=summarize([a,b],as_of_msc=1200)['cohorts'][0]['original']
+        self.assertEqual(stats['closed_candidate_sequence']['exit_batches'],1)
+        self.assertIsNone(stats['closed_candidate_sequence']['max_drawdown_at_exit_batches_r'])
+
+    def test_three_research_losses_do_not_issue_live_stop(self):
+        cases=[self.closed(str(i),1100+i*100) for i in range(3)]
+        stats=summarize(cases,as_of_msc=1300)['cohorts'][0]['original']
+        self.assertEqual(stats['closed_candidate_sequence']['max_consecutive_closed_losses'],3)
+        self.assertFalse(stats['closed_candidate_sequence']['live_stop_decision_available'])
+
+    def test_all_wins_have_zero_drawdown_and_no_mean_loss(self):
+        case=self.closed('win',1100,win=True)
+        stats=summarize([case],as_of_msc=1200)['cohorts'][0]['original']
+        self.assertEqual(stats['closed_candidate_sequence']['max_drawdown_at_exit_batches_r'],0.)
+        self.assertEqual(stats['closed_candidate_sequence']['max_consecutive_closed_losses'],0)
+        self.assertIsNone(stats['mean_loss_net_r']); self.assertIsNone(stats['profit_factor'])
+
 
 if __name__=='__main__': unittest.main()
