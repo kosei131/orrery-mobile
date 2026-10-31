@@ -114,6 +114,29 @@ class RollupTests(unittest.TestCase):
         out=summarize([case],as_of_msc=1200)
         self.assertEqual(out['paired_counts']['both_lost'],1)
 
+    def test_line_kind_regime_does_not_pool_trend_and_range(self):
+        a=self.case('trend'); b=self.case('range',candidate_id='range',market_regime='RANGE')
+        self.append(a,[self.q(1001,100.,100.1),self.q(1100,102.1,102.2)])
+        self.append(b,[self.q(1001,100.,100.1),self.q(1100,98.9,99.)])
+        out=summarize([a,b],as_of_msc=1200)
+        groups=out['near_line_kind_regime_cohorts']
+        self.assertEqual(len(groups),2)
+        by_regime={g['market_regime']:g['original'] for g in groups}
+        self.assertEqual(by_regime['TREND']['wins'],1)
+        self.assertEqual(by_regime['RANGE']['losses'],1)
+        self.assertEqual(by_regime['TREND']['candidates'],1)
+        self.assertFalse(out['strategy_promoted'])
+
+    def test_joint_cohort_keeps_unknown_and_deduplicates_lines(self):
+        obs=deepcopy(self.args['level_observation']); obs['levels']*=2
+        case=self.case(level_observation=obs)
+        out=summarize([case],as_of_msc=1200)
+        groups=out['near_line_kind_regime_cohorts']
+        self.assertEqual(len(groups),1)
+        self.assertEqual(groups[0]['original']['unknown'],1)
+        self.assertEqual(groups[0]['original']['candidates'],1)
+        self.assertIsNone(groups[0]['original']['mean_net_r'])
+
     def test_empty_data_not_fake_performance(self):
         out=summarize([],as_of_msc=1200)
         self.assertEqual(out['cohorts'],[])

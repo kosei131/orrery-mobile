@@ -114,7 +114,7 @@ def summarize(cases, *, as_of_msc):
     """cases: explicit path, decision_sha256 and list of retained review_sha256s."""
     if not isinstance(cases,list) or len(cases)>10000 or type(as_of_msc) is not int or as_of_msc<0:
         raise ValueError('Bounded explicit cases and UTC milliseconds required')
-    rows=[]; seen=set(); pins=[]; review_count=0; future_reviews=0; cohorts={}; line_kinds={}
+    rows=[]; seen=set(); pins=[]; review_count=0; future_reviews=0; cohorts={}; line_kinds={}; regime_lines={}
     for item in cases:
         if not isinstance(item,dict) or set(item)!={'path','decision_sha256','review_sha256s'}:
             raise ValueError('Explicit case pins required')
@@ -181,6 +181,7 @@ def summarize(cases, *, as_of_msc):
         cohorts.setdefault(cohort,[]).append(row)
         for kind in sorted({level['kind'] for level in levels if level['near_reference']}):
             line_kinds.setdefault((*key[:2],kind),[]).append(row)
+            regime_lines.setdefault((*key[:2],context['market_regime'],kind),[]).append(row)
         rows.append(row); pins.append(dict(decision=item['decision_sha256'],reviews=sorted(reviews)))
     def grouped(groups,labels):
         return [dict(zip(labels,key),original=_stats(items,'original'),opposite=_stats(items,'opposite'))
@@ -192,6 +193,8 @@ def summarize(cases, *, as_of_msc):
         future_reviews_ignored=future_reviews,cohorts=grouped(cohorts,
             ('symbol','strategy_version','market_regime','level_proximity')),
         near_line_kind_cohorts=grouped(line_kinds,('symbol','strategy_version','level_kind')),
+        near_line_kind_regime_cohorts=grouped(regime_lines,
+            ('symbol','strategy_version','market_regime','level_kind')),
         paired_counts=dict(evaluable=len(paired),both_lost=sum(r['original']<0 and r['opposite']<0 for r in paired),
             original_lost_opposite_won=sum(r['original']<0 and r['opposite']>0 for r in paired),
             original_won_opposite_lost=sum(r['original']>0 and r['opposite']<0 for r in paired)),
