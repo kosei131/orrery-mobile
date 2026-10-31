@@ -20,7 +20,7 @@ def evidence_sha256(evidence): return sha256(_bytes(evidence)).hexdigest()
 
 def audit_close_times(times, *, as_of, interval, symbol, data_source,
                       evidence, expected_evidence_sha256):
-    if (type(interval) is not int or interval not in (300,900)
+    if (type(interval) is not int or interval not in (300,900,14400)
             or symbol not in ('XAUUSD','USDJPY') or not isinstance(data_source,str) or not data_source.strip()
             or type(as_of) not in (int,float) or not isfinite(as_of) or as_of<0
             or not isinstance(times,list) or len(times)>10000):

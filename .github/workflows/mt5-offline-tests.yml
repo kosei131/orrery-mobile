@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Test offline HistData M1 import and timestamp handling
-        run: python -m unittest -v test_histdata_m1_import.py test_m1_complete_bars.py test_session_complete_bars.py test_xau_session_coverage.py test_xau_h4_alignment.py test_xau_structural_stops.py test_xau_entry_exit_diagnostic.py test_xau_confirmation_entry.py test_histdata_pipeline.py test_merge_m1_months.py test_real_bars_lsr_bridge.py
+        run: python -m unittest -v test_histdata_m1_import.py test_m1_complete_bars.py test_session_complete_bars.py test_xau_session_coverage.py test_xau_h4_alignment.py test_lsr03_h4_session_history.py test_xau_structural_stops.py test_xau_entry_exit_diagnostic.py test_xau_confirmation_entry.py test_histdata_pipeline.py test_merge_m1_months.py test_real_bars_lsr_bridge.py
       - name: Run no-MT5 safety and HTTP tests
         run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py test_mt5_charts.py
       - name: Verify FX storage safety and JavaScript syntax
