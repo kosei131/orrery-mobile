@@ -37,3 +37,30 @@ class H4SessionHistoryTests(unittest.TestCase):
     def test_wrong_feed_or_late_calendar_rejected(self):
         for key,value in [('data_source','OTHER'),('known_at_utc','2026-10-27T00:00:00+00:00')]:
             with self.assertRaises(ValueError):self.run_case(ev=dict(self.ev,**{key:value}))
+
+class H4PriceTests(unittest.TestCase):
+    setUp=H4SessionHistoryTests.setUp
+    def prices(self):
+        return [dict(close_time=t,open=p,high=p+1,low=p-1,close=p)
+                for t,p in zip(self.times,[100.,100.,110.,110.])]
+    def inspect(self,bars):
+        from lsr03_h4_session_history import inspect_prices
+        return inspect_prices(bars,as_of=self.times[-1],minimum_bars=4,
+            symbol='XAUUSD',data_source='SYNTHETIC',evidence=self.ev,
+            expected_evidence_sha256=evidence_sha256(self.ev))
+    def test_reopening_gap_retained_and_structure_resets(self):
+        r=self.inspect(self.prices())
+        self.assertEqual(r['rows'][2]['true_range'],11.)
+        self.assertEqual(r['rows'][2]['opening_price_gap'],10.)
+        self.assertTrue(r['rows'][2]['follows_session_gap'])
+        self.assertEqual([s['bars'] for s in r['segmented_structure']],[2,2])
+        self.assertFalse(r['execution_allowed'])
+    def test_missing_open_bar_blocks_price_results(self):
+        r=self.inspect(self.prices()[1:])
+        self.assertEqual(r['rows'],[]);self.assertEqual(r['segmented_structure'],[])
+    def test_bad_price_rejected_even_before_selected_window(self):
+        for value in (float('nan'),True,-1.):
+            b=self.prices();b[0]['low']=value
+            with self.assertRaises(ValueError):self.inspect(b)
+    def test_input_not_rewritten(self):
+        b=self.prices();before=deepcopy(b);self.inspect(b);self.assertEqual(b,before)
