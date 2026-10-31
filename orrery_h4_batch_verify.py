@@ -24,19 +24,21 @@ def verify_batch(path, *, expected_result_sha256):
     result=_decode(raw)
     if result.get('file_sha256')!=file_pins(root):raise ValueError('Missing, changed or extra batch files')
     load_plan(root/'request.json',result['plan_sha256'])
-    count=result['saved_chunks'];requested=result['requested_chunks']
+    count=result['saved_chunks'];requested=result['requested_chunks'];start=result.get('start_chunk',0)
+    if type(start) is not int or not 0<=start<456 or type(requested) is not int or start+requested>456:
+        raise ValueError('Invalid chunk offset')
     if type(count) is not int or type(requested) is not int or not 0<=count<=requested<=456 or requested<1:
         raise ValueError('Invalid batch counts')
     success=result['status']=='REQUESTED_CHUNKS_SAVED_REVIEW_REQUIRED'
     if (result['status'] not in ('REQUESTED_CHUNKS_SAVED_REVIEW_REQUIRED','BLOCKED_BATCH')
             or (success and (count!=requested or result['failed_chunk_id'] is not None))
-            or (not success and (count>=requested or result['failed_chunk_id']!=count))
+            or (not success and (count>=requested or result['failed_chunk_id']!=start+count))
             or any(result.get(k) is not False for k in ('completeness_verified','backtest_ready','execution_allowed'))):
         raise ValueError('Inconsistent batch status')
-    expected_progress={'progress-%04d.json'%i for i in range(count)}
+    expected_progress={'progress-%04d.json'%i for i in range(start,start+count)}
     actual_progress={p.name for p in root.glob('progress-*.json')}
     if expected_progress!=actual_progress:raise ValueError('Progress manifest mismatch')
-    for chunk in build_plan()['tick_chunks'][:count]:
+    for chunk in build_plan()['tick_chunks'][start:start+count]:
         n=chunk['id'];folder=root/('chunk-%04d'%n)
         progress=_decode(_read_metadata(root/('progress-%04d.json'%n)))
         rawcheck=_read_metadata(folder/'history_check.json');check=_decode(rawcheck)
