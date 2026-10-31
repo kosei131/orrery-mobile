@@ -1,7 +1,7 @@
 """Monthly diagnostic of three XAU research models, fixed 1.5R exits.
 Descriptive only, no parameter selection based on in-sample outcomes.
 """
-import json,datetime as dt
+import json,datetime as dt,hashlib
 from pathlib import Path
 from collections import defaultdict
 from orrery_xau_hypothetical_pnl import simulate
@@ -28,10 +28,14 @@ def run():
             details[month]={"trades":len(trades),"wins":sum(t["r"]>0 for t in trades),
                             "total_r":round(total_r,4),
                             "mean_r":round(total_r/len(trades),4)}
-        results[name]={"months":details,"positive_months":sum(v["total_r"]>0 for v in details.values()),
+        results[name]={"months":details,
+                       "exit_model_assumptions":data["assumptions"],
+                       "candidate_source_sha256":hashlib.sha256(Path(path).read_bytes()).hexdigest(),"positive_months":sum(v["total_r"]>0 for v in details.values()),
                        "negative_months":sum(v["total_r"]<0 for v in details.values())}
     report={"status":"XAU_MONTHLY_COHORT_DIAGNOSTIC","period":"2026-04-25 to 2026-09-25 exclusive",
             "target_r":1.5,"results":results,
+            "m1_source_sha256":hashlib.sha256((root/"XAUUSD_M1_UNVERIFIED_QUOTE.csv").read_bytes()).hexdigest(),
+            "comparison_warning":"The five-month source PnL report uses a different target (2R); do not treat differing win rates as the same experiment.",
             "broker_verified":False,"automatic_trading":False,
             "warning":"Calendar boundary months are partial. Closed-trade outcomes are hypothetical and subject to assumed costs."}
     Path("public_xau_monthly_strategy_cohorts.json").write_text(json.dumps(report,indent=2)+"\n")

@@ -1,7 +1,7 @@
 """Five-calendar-month sample-window provisional PnL, bounded by actual source.
 Not a complete LSR-02/03 or MT5 broker-quality backtest.
 """
-import csv,datetime as dt,json
+import csv,datetime as dt,json,hashlib
 from pathlib import Path
 START=dt.datetime(2026,4,25,tzinfo=dt.timezone.utc)
 END=dt.datetime(2026,9,25,tzinfo=dt.timezone.utc)
@@ -14,7 +14,9 @@ def run():
             if first is None:first=t
             last=t
             if START<=t<END:n+=1
-    source=json.loads(Path("public_xau_hypothetical_pnl.json").read_text())["trades_detail"]
+    source_path=Path("public_xau_hypothetical_pnl.json")
+    source_bytes=source_path.read_bytes();source_report=json.loads(source_bytes)
+    source=source_report["trades_detail"]
     detail=json.loads(Path("public_xau_confidence_research.json").read_text())["details"]
     tiers={d["touch_close_utc"]:d["tier"] for d in detail}
     start,end=int(START.timestamp()),int(END.timestamp())
@@ -34,6 +36,9 @@ def run():
          "m1_rows_in_window":n,"bounds_covered":first<=START and last>=END-dt.timedelta(minutes=1),
          "all_matched_poi_research":calc(in_window),"vhf_at_least_050_research":calc(high),
          "broker_backtest_complete":False,"h4_verified":False,
+         "exit_model_assumptions":source_report["assumptions"],
+         "source_pnl_sha256":hashlib.sha256(source_bytes).hexdigest(),
+         "comparison_warning":"Compare only identical target, stop, cost, horizon and candidate universe. Monthly cohorts use 1.5R, this report inherits its pinned source target.",
          "notes":["Date bounds can be covered even when session holes are not verified.",
                   "VHF threshold was chosen on full data: in-sample selection.",
                   "Unknown brokerage bid-ask, true fills, and missing full LSR02 gating."]}
