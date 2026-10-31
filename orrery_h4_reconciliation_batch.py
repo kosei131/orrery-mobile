@@ -49,8 +49,11 @@ def run_batch(mt5, *, plan_path, plan_sha256, output, max_chunks, now):
         failed_chunk_id=failure,total_plan_chunks=456,plan_sha256=plan_sha256,
         full_plan_attempted=max_chunks==456,completeness_verified=False,
         backtest_ready=False,execution_allowed=False)
-    _write_exclusive(root/'batch_result.json',_encode(receipt))
-    return receipt
+    from orrery_h4_batch_verify import file_pins
+    receipt['file_sha256']=file_pins(root)
+    receipt_bytes=_encode(receipt)
+    _write_exclusive(root/'batch_result.json',receipt_bytes)
+    return dict(receipt,result_sha256=hashlib.sha256(receipt_bytes).hexdigest())
 
 
 def main():
@@ -70,7 +73,7 @@ def main():
         if not mt5.initialize(a.terminal_path,timeout=30000):raise ValueError('Terminal unavailable')
         r=run_batch(mt5,plan_path=a.plan,plan_sha256=a.plan_sha256,output=a.output,
                     max_chunks=a.max_chunks,now=datetime.now(timezone.utc).replace(microsecond=0))
-        print(_encode(r).decode());return 2 if r['status']=='BLOCKED_BATCH' else 0
+        print(_encode({k:v for k,v in r.items() if k!='file_sha256'}).decode());return 2 if r['status']=='BLOCKED_BATCH' else 0
     except Exception:
         print('BLOCKED: plan, DEMO account, history or persistence unavailable.');return 1
     finally:
