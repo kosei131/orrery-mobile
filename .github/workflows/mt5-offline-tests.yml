@@ -1,21 +1,226 @@
 name: ORRERY MT5 Offline Tests
 on:
   push:
-    paths:
-      - 'mt5_local_dashboard.py'
-      - 'test_mt5_local_dashboard.py'
-      - '.github/workflows/mt5-offline-tests.yml'
+  pull_request:
   workflow_dispatch:
+env:
+  PYTHONUTF8: "1"
+  PYTHONIOENCODING: utf-8
 permissions:
   contents: read
 jobs:
   local-test-mode:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run no-MT5 tests
-        run: python -m unittest -v test_mt5_local_dashboard.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test offline HistData M1 import and timestamp handling
+        run: python -m unittest -v test_histdata_m1_import.py test_m1_complete_bars.py test_session_complete_bars.py test_xau_session_coverage.py test_xau_h4_alignment.py test_lsr03_h4_session_history.py test_xau_h4_session_review.py test_h4_reconciliation_plan.py test_h4_reconciliation_batch.py test_h4_batch_verify.py test_h4_batch_resume.py test_h4_batch_chain.py test_h4_pc_workflow.py test_xau_structural_stops.py test_xau_entry_exit_diagnostic.py test_xau_confirmation_entry.py test_histdata_pipeline.py test_merge_m1_months.py test_real_bars_lsr_bridge.py
+      - name: Run no-MT5 safety and HTTP tests
+        run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py test_mt5_charts.py
+      - name: Verify FX storage safety and JavaScript syntax
+        run: |
+          node test_fx.cjs
+          node test_mt5_poll.cjs
+          node test_weekly_plan.cjs
+          node --check orrery-research-status.js
+      - name: Exercise pinned Windows launcher and hash rejection
+        if: runner.os == 'Windows'
+        run: python -m unittest -v test_windows_launcher.py
+
+      - name: Test LSR-02 decision gates
+        run: python -m unittest -v test_lsr02.py test_lsr02_structure.py test_lsr02_sequence.py test_lsr02_replay.py test_lsr02_paths.py test_lsr02_regime.py test_lsr02_regime_replay.py test_lsr02_halts.py test_lsr02_csv.py test_lsr02_mt5_bridge.py test_lsr02_risk_plan.py test_lsr02_exits.py test_lsr02_study.py test_lsr02_portfolio.py test_lsr02_context.py test_lsr02_pnl_preview.py test_lsr02_scalp_gate.py test_lsr02_decision_journal.py test_lsr02_market_review.py test_lsr02_level_observer.py test_lsr02_overlay_export.py test_lsr02_snapshot_overlay.py test_lsr02_basket_risk.py test_lsr02_equity_audit.py test_lsr02_trade_attribution.py test_lsr02_attribution_csv.py test_lsr02_deal_ledger.py test_lsr02_regime_diagnostics.py test_lsr02_seeded_replay.py test_lsr02_loss_stop.py test_lsr02_indicator_research.py test_lsr02_indicator_variants.py test_lsr02_multibar.py test_lsr02_variant_regression.py test_lsr03_vhf.py test_lsr03_adapter.py test_lsr03_candidate_report.py test_lsr03_unique_candidates.py test_lsr03_matched_outcomes.py test_lsr04_reversal.py test_lsr04_signal_journal.py test_lsr04_asof_join.py test_lsr04_signal_attribution.py test_lsr04_data_quality.py test_lsr04_mt5_ticks.py test_lsr04_mt5_capture.py test_lsr04_mt5_adaptive.py test_lsr04_tick_fills.py test_lsr04_broker_sizing.py test_lsr04_mt5_broker_quote.py test_lsr04_account_gate.py test_lsr04_mt5_account_sync.py test_lsr04_deal_groups.py test_lsr04_daily_reconciliation.py test_lsr04_mt5_position_risk.py test_lsr04_daily_halts.py test_lsr04_tick_quality.py test_lsr04_tick_archive.py test_lsr04_tick_catalog.py test_lsr03_tick_study.py test_lsr03_mt5_pilot.py test_lsr03_backtest_preflight.py test_lsr03_account_replay.py test_lsr03_account_study.py test_lsr03_account_carry.py test_lsr03_confirmation_accounts.py test_lsr03_mt5_account_pilot.py test_mt5_account_launcher.py test_orrery_research_worker.py test_orrery_research_summary.py test_orrery_research_status.py test_orrery_research_tailnet.py test_orrery_research_session.py test_research_session_windows.py test_orrery_mt5_history_check.py test_orrery_history_bootstrap.py test_orrery_history_review.py test_lsr03_filter_uncertainty.py test_lsr03_trade_learning.py test_lsr03_learning_rollup.py test_lsr05_halftrend.py test_lsr05_observation.py test_lsr05_observation_store.py test_lsr05_session_clock.py test_lsr05_reference_compare.py test_lsr05_reference_review.py test_lsr05_tradingview_csv.py
+      - name: Compare deterministic synthetic indicator variants
+        run: python lsr02_compare_variants.py
+
+      - name: Compare LSR-02 and VHF synthetic candidates
+        run: python lsr03_candidate_report.py
+
+      - name: Verify synthetic LSR viewer
+        run: |
+          python build_lsr_view.py --check
+          node test_lsr_view.cjs
+          node test_lsr_chart_preview.cjs
+
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser test driver
+        run: npm install --no-save --package-lock=false playwright@1.62.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check synthetic viewer in installed Chrome
+        env:
+          ORRERY_BROWSER_CHANNEL: chrome
+        run: |
+          node test_lsr_browser.cjs
+          node test_mt5_chart_browser.cjs
+          node test_orrery_research_status_browser.cjs
+
+
+  public-xau-m1-source-validation:
+    name: Inspect free XAUUSD M1 public sample (no trading)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download public research sample once per run
+        run: |
+          curl --fail --location --silent --show-error --max-time 90 \
+            --output xauusd_public_m1.csv \
+            https://raw.githubusercontent.com/getdata-finance/xauusd-1m-ohlcv-metals-historical-data/main/XAUUSD_1m.csv
+      - name: Verify raw CSV timestamps and OHLC
+        run: python orrery_public_xau_m1_audit.py xauusd_public_m1.csv public_xau_audit.json
+      - name: Verify explicit UTC and generate complete M5 M15 H4 research bars
+        run: python orrery_public_xau_to_bars.py xauusd_public_m1.csv --out public_xau_bars
+      - name: Crosscheck published XAU weekly sessions without certifying historical exceptions
+        run: python orrery_xau_session_coverage.py
+      - name: Count LSR-02 structure events on uninterrupted real XAU bars
+        run: python orrery_public_xau_structure_report.py
+      - name: Diagnose H4 session gaps without inventing market hours
+        run: python orrery_public_xau_h4_gap_diagnostic.py
+      - name: Count exploratory M15 sweep to M5 confirmation sequences
+        run: python orrery_public_xau_sequence_study.py
+      - name: Compare immediate confirmation entry vs retest on the full causal universe
+        run: python orrery_xau_confirmation_entry_comparison.py
+      - name: Compare fixed and causal sweep structural stops without order permission
+        run: python orrery_xau_structural_stop_comparison.py
+      - name: Diagnose XAU entry delay and fixed exit horizons without optimization
+        run: python orrery_xau_entry_exit_diagnostic.py
+      - name: Calculate explicitly hypothetical $3000 M1 candidate PnL
+        run: python orrery_xau_hypothetical_pnl.py
+      - name: Quantify nine XAUUSD spread-stop cost scenarios
+        run: python orrery_xau_cost_sensitivity.py
+      - name: Audit hypothetical trade overlaps against portfolio risk cap
+        run: python orrery_xau_overlap_audit.py
+      - name: Compare pretrade VHF confidence tiers (research only)
+        run: python orrery_xau_confidence_research.py
+      - name: Quantify confidence uncertainty and lock high lot
+        run: python orrery_xau_confidence_uncertainty.py
+      - name: Chronological split of VHF research candidates
+        run: python orrery_xau_chronological_split.py
+      - name: Compare hypothetical baseline and high-VHF risk sizing
+        run: python orrery_xau_sizing_whatif.py
+      - name: Stress high-VHF winners turning into losses
+        run: python orrery_xau_high_lot_stress.py
+      - name: Diagnose loss causes and price excursions
+        run: python orrery_xau_loss_diagnostic.py
+      - name: Compare low-VHF exclusion against original XAU research outcomes
+        run: python orrery_xau_vhf_ablation.py
+      - name: Check three-trade high-VHF sample fragility
+        run: python orrery_xau_filter_fragility.py
+      - name: Audit requested six-month XAUUSD data coverage
+        run: python orrery_xau_six_month_coverage.py
+      - name: Calculate five-calendar-month bounded XAU research PnL
+        run: python orrery_xau_five_month_study.py
+      - name: Diagnose why XAU strategy has too few five-month trades
+        run: python orrery_xau_funnel_bottleneck.py
+      - name: Compare alternative POI retest model without VHF
+        run: python orrery_xau_alternative_entry_comparison.py
+      - name: Compare five reward targets for five-month VHF XAU research
+        run: python orrery_xau_five_month_exit_sensitivity.py
+      - name: Check chronological stability of 1.5R and 2R exits
+        run: python orrery_xau_tp_stability_split.py
+      - name: Compare fixed partial TP split without optimization
+        run: python orrery_xau_fixed_split_tp.py
+      - name: Regression test synthetic spread exit semantics
+        run: python -m unittest -v test_orrery_xau_exit_spread.py
+      - name: Crosscheck missing H4 slots against raw M1 activity
+        run: python orrery_xau_h4_m1_gap_crosscheck.py
+      - name: Classify missing H4 slots by underlying M1 completeness
+        run: python orrery_xau_h4_m1_completeness.py
+      - name: Audit genuinely consecutive H4 trend windows
+        run: python orrery_xau_h4_contiguous_windows.py
+      - name: Audit future-window selection bias in hypothetical M1 fills
+        run: python orrery_xau_future_window_bias.py
+      - name: Stress censored XAU trade outcomes without fabricating fills
+        run: python orrery_xau_censored_event_stress.py
+      - name: Check whether unresolved XAU entries hit SL or TP before M1 gap
+        run: python orrery_xau_pre_gap_barrier_check.py
+      - name: Regression-test stop before M1 gap and censor unresolved entries
+        run: python -m unittest -v test_orrery_xau_pre_gap_accounting.py
+      - name: Study independent closed-M15 breakout candidates
+        run: python orrery_xau_m15_breakout_research.py
+      - name: Compare M15 breakout with confirmed M5 retest model
+        run: python orrery_xau_m15_retest_research.py
+      - name: Attribute XAU models to as-of H4 regimes without order permission
+        run: python orrery_xau_h4_alignment.py
+      - name: Review H4 sessions only after calendar publication
+        run: python orrery_xau_h4_session_review.py
+      - name: Audit modeled XAU overlapping entries and exposure
+        run: python orrery_xau_position_overlap_audit.py
+      - name: Diagnose monthly XAU research strategy performance
+        run: python orrery_xau_monthly_strategy_cohorts.py
+      - name: Apply fail-closed research progression gates
+        run: python orrery_xau_research_gate.py
+      - name: Regression-test fail-closed research progression criteria
+        run: python -m unittest -v test_orrery_xau_research_gate.py
+      - name: Save checksum and coverage report only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xauusd-public-m1-audit
+          path: |
+            public_xau_audit.json
+            public_xau_bars/report.json
+            public_xau_confirmation_entry_comparison.json
+            public_xau_confirmation_entry_plans.json
+            public_xau_retest_entry_plans.json
+            public_xau_entry_exit_diagnostic.json
+            public_xau_structural_stop_comparison.json
+            public_xau_stop_candidates.json
+            public_xau_h4_alignment.json
+            public_xau_h4_session_review.json
+            public_xau_session_coverage/report.json
+            public_xau_session_coverage/weekly_calendar_hypothesis.json
+            public_xau_structure_report.json
+            public_xau_h4_gap_report.json
+            public_xau_h4_m1_gap_crosscheck.json
+            public_xau_h4_m1_completeness.json
+            public_xau_h4_contiguous_windows.json
+            public_xau_m1_future_window_bias.json
+            public_xau_censored_event_stress.json
+            public_xau_pre_gap_barrier_check.json
+            public_xau_m15_breakout_candidates.json
+            public_xau_m15_breakout_comparison.json
+            public_xau_m15_retest_candidates.json
+            public_xau_m15_retest_comparison.json
+            public_xau_position_overlap_audit.json
+            public_xau_monthly_strategy_cohorts.json
+            public_xau_research_gate.json
+            public_xau_sequence_report.json
+            public_xau_hypothetical_pnl.json
+            public_xau_cost_sensitivity.json
+            public_xau_overlap_audit.json
+            public_xau_confidence_research.json
+            public_xau_confidence_uncertainty.json
+            public_xau_chronological_split.json
+            public_xau_sizing_whatif.json
+            public_xau_high_lot_stress.json
+            public_xau_loss_diagnostic.json
+            public_xau_vhf_ablation.json
+            public_xau_filter_fragility.json
+            public_xau_six_month_coverage.json
+            public_xau_five_month_study.json
+            public_xau_funnel_bottleneck.json
+            public_xau_alt_model_comparison.json
+            public_xau_five_month_exit_sensitivity.json
+            public_xau_tp_stability_split.json
+            public_xau_fixed_split_tp.json
+          if-no-files-found: warn
+          retention-days: 7

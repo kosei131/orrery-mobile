@@ -1,0 +1,9 @@
+# DEMO snapshot to LSR-02 research adapter
+
+`review_snapshot(snapshot, symbol=..., now=..., buffer=..., regime_config=..., halt_store=...)` accepts the completed local DEMO dashboard snapshot, converts bar-open timestamps to close timestamps, and calls the existing offline replay. It has no broker API calls or order authority. It is a Python adapter only; the dashboard polling loop/UI does not automatically run it yet. No default risk/strategy parameters are invented.
+
+Require READ_ONLY_DEMO, explicit UTC snapshot time no more than 5 seconds old, exactly one available series per requested symbol/timeframe, 2–70 closed bars, valid OHLC, continuity, UTC alignment and fresh last closes. Reject mixed/duplicate/missing/future/gapped streams. For fully covered overlapping 15m/5m and 4H/15m windows, compare aggregated OHLC with tight numeric tolerance. At least one full overlap per pair is required; partial windows are not interpolated. These consistency checks do not authenticate market origin.
+
+Invalid data returns NOT_EVALUATED and a fixed reason, with execution_allowed=False. Successful routing returns RESEARCH_REPLAY_ONLY, trace and execution_allowed=False. This is historical replay, not a currently actionable signal; timestamps in trace can predate now. Inadequate 4H structural history can legitimately yield no candidates. Existing regime/risk filters and no-READY behavior remain unchanged. Explicit halt store failures or invalid configuration propagate rather than silently replacing state.
+
+The direct MT5 snapshot producer remains DEMO-only with post-read account checks. A caller-constructed dictionary with the same status is not proof of a broker connection. Demo terminal integration, feed provenance, runtime latency, calibrated settings, persistent review configuration, live lifecycle handling and authenticated UI remain unverified/unimplemented. Strategy profitability has not been assessed.

@@ -1,0 +1,37 @@
+{
+  "enabled": false,
+  "terminal_path": "C:\\Program Files\\MetaTrader 5\\terminal64.exe",
+  "stage_timeout_seconds": 1800,
+  "pilot": {
+    "symbol": "XAUUSD",
+    "source": "REPLACE_WITH_DEMO_DATA_SOURCE",
+    "h4_start_utc": "2026-10-26T00:00:00+00:00",
+    "structure_start_utc": "2026-10-27T00:00:00+00:00",
+    "tick_start_utc": "2026-10-27T04:00:00+00:00",
+    "end_utc": "2026-10-27T08:00:00+00:00",
+    "chunk_seconds": 3600,
+    "max_ticks": 500000,
+    "buffer": 0.1,
+    "target_r": 2.0,
+    "round_trip_cost_per_unit": null,
+    "slippage": null,
+    "cost_assumption_source": "REPLACE_WITH_DOCUMENTED_COST_ASSUMPTIONS",
+    "max_spread_points": 50,
+    "max_gap_seconds": 60,
+    "period": 14,
+    "min_vhf": 0.4
+  },
+  "account": {
+    "fixed_distance": 6.0,
+    "target_r": 1.5,
+    "entry_delay_msc": 1,
+    "entry_window_msc": 60000,
+    "max_holding_msc": 7200000,
+    "round_trip_cost_per_lot_usd": null,
+    "slippage": null,
+    "cost_source": "REPLACE_WITH_DOCUMENTED_USD_PER_LOT_COSTS",
+    "no_carry_interval_confirmed": false,
+    "no_carry_evidence_source": "REPLACE_WITH_BROKER_ROLLOVER_EVIDENCE_FOR_CAPTURE_WINDOW",
+    "max_profit_calls": 10000
+  }
+}
