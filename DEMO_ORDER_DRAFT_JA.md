@@ -31,3 +31,24 @@ SLは既存構造計算と同じ価格を使用し、BUY Ask/SELL Bidから1lot�
 暗号学的には認証しない。デモ確認はbroker trade_modeの読取検査である。
 最小SL距離・証拠金・取引時間・fill policy・注文送信は後工程。
 実Windows口座での本アダプター実行、Dots連携、実約定と収益性は未検証。
+
+## 読取専用デモ事前検査
+
+lsr04_demo_preflight.reviewは上記注文案に、口座・端末の取引許可、銘柄の新規売買方向、
+成行・SL・TP対応、価格刻み、SL/TP距離、order_calc_marginによる証拠金見積りを追加する。
+情報不足・許可なし・証拠金不足・検査中の口座equity/余剰証拠金/仕様/価格変更は拒否する。
+構造SLやTPを動かす、丸める、端末設定を変更する処理はない。
+
+距離は決済側価格（BUYはBid、SELLはAsk）から測り、stopsとfreezeの大きい方を
+保守的な注文案用バッファにする。新規注文と既存注文変更のfreeze規則が同一という意味ではない。
+証拠金見積り＋指定costが余剰証拠金以内かを確認するが、order_calc_marginは既存ポジション・
+未決注文を考慮しないため、実際の注文受理や必要証拠金を保証しない。
+内部注文案のbroker_stops_and_margin_checked=Falseは維持し、外側で個別の検査フラグを返す。
+
+取引時間、fill policy、order_check、重複発注防止、約定照合は未実装。
+execution_allowed=False、broker_session_verified=False。模擬adapterの単体検査のみで、
+このチャットから実Windows/MT5/Dotsには接続していない。
+
+公式仕様：
+- https://www.mql5.com/en/docs/python_metatrader5/mt5ordercalcmargin_py
+- https://www.mql5.com/en/docs/constants/environment_state/marketinfoconstants
