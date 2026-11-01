@@ -1,0 +1,9 @@
+{
+  "repository": "everget/tradingview-pinescript-indicators",
+  "revision": "8385cc421888bbf31f36407195796bc0eabafb19",
+  "path": "trailing_stops/halftrend.pine",
+  "url": "https://raw.githubusercontent.com/everget/tradingview-pinescript-indicators/8385cc421888bbf31f36407195796bc0eabafb19/trailing_stops/halftrend.pine",
+  "sha256": "efa1915b4d0812d8126bd27c7667f9408e90aeed94988058b1b1edeaa23f4a3c",
+  "license": "GPL-3.0",
+  "copyright": "2021-present Alex Orekhov (everget)"
+}

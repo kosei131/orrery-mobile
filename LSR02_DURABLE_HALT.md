@@ -1,0 +1,9 @@
+# Local durable research halt (opt-in)
+
+`HaltStore(path, create=True)` explicitly creates a NEW local SQLite store and refuses to overwrite an existing file. Subsequent use is `HaltStore(path)`; missing, deleted or corrupt stores fail with an exception and must not be handled by creating an empty replacement. Keep runtime files outside the repository; the default suggested basename `orrery-halts.sqlite3` and its journals are gitignored.
+
+Pass this store explicitly to environment-filtered `replay(..., halt_store=store, regime_config=...)`. Environment invalidation persists a per-symbol latch before returning its result. A new replay/reader sees the latch and raises REVIEW_REQUIRED. Failure to read or save is propagated, not converted to permission to continue. The existing synthetic viewer and historical comparator do not opt into persistence.
+
+Only symbol, fixed reason code, bar timestamp and a fresh review token are stored. No account IDs, passwords, prices, balances or personal details are written. The review token is a stale-update guard, not an authentication credential. `acknowledge(symbol, token)` is an explicit low-level review action, not automatically invoked anywhere. A token from an older halt cannot clear a newer halt even at the same timestamp. Clearing a latch does not satisfy market/news/spread/risk gates or authorize orders. There is no remote acknowledgement API or user interface yet.
+
+This module is designed for a single replay owner per symbol. SQLite makes individual writes transactional, but the whole replay is not a cross-process atomic trading gate. File deletion/tampering and intentional creation of another store are not prevented. Production service integration, durable human authentication and full audit history remain unimplemented. Database fsync/crash consistency follows SQLite defaults and is not a power-loss guarantee.

@@ -1,0 +1,13 @@
+{
+  "fixed_distance": 6.0,
+  "target_r": 1.5,
+  "entry_delay_msc": 1,
+  "entry_window_msc": 60000,
+  "max_holding_msc": 7200000,
+  "round_trip_cost_per_lot_usd": null,
+  "slippage": null,
+  "cost_source": "REPLACE_WITH_DOCUMENTED_USD_PER_LOT_COSTS",
+  "no_carry_interval_confirmed": false,
+  "no_carry_evidence_source": "REPLACE_WITH_BROKER_ROLLOVER_EVIDENCE_FOR_CAPTURE_WINDOW",
+  "max_profit_calls": 10000
+}

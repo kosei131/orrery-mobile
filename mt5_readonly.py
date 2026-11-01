@@ -21,25 +21,25 @@ def main():
     parser.add_argument("--export", action="store_true", help="Write private JSON snapshot to Downloads")
     args = parser.parse_args()
     if not mt5.initialize():
-        print("MT5 connection failed:", mt5.last_error())
+        print("MT5 connection failed.")
         print("Open Windows MetaTrader 5 and log in to your DEMO account first.")
         return 1
     try:
         a = mt5.account_info()
         if a is None:
-            print("Cannot read account:", mt5.last_error())
+            print("Cannot read account.")
             return 1
         if a.trade_mode != mt5.ACCOUNT_TRADE_MODE_DEMO:
             print("SAFETY STOP: This diagnostic accepts DEMO accounts only.")
             return 2
         positions = mt5.positions_get()
         if positions is None:
-            print("Could not read positions:", mt5.last_error())
+            print("Could not read positions.")
             return 1
         end = datetime.now(timezone.utc)
         deals = mt5.history_deals_get(end - timedelta(days=7), end)
         if deals is None:
-            print("Could not read last 7 days of deals:", mt5.last_error())
+            print("Could not read last 7 days of deals.")
             return 1
         report = {
             "status": "READ_ONLY_DEMO",

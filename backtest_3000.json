@@ -1,0 +1,13 @@
+{
+  "initial_equity_usd": 3000,
+  "symbols": ["XAUUSD", "USDJPY"],
+  "start_utc": "2026-04-27T10:00:00+00:00",
+  "end_utc": "2026-10-27T10:00:00+00:00",
+  "period_basis": "Six calendar months, Hawaii midnight to Hawaii midnight",
+  "risk_fraction": 0.0025,
+  "daily_loss_fraction": 0.01,
+  "basket_risk_fraction": 0.01,
+  "consecutive_loss_stop": 3,
+  "daily_boundary_utc_hour": 10,
+  "catalogs": {}
+}

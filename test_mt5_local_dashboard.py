@@ -48,7 +48,7 @@ class DashboardTests(unittest.TestCase):
         with urlopen(BASE + "/") as response:
             html = response.read().decode("utf8")
         self.assertIn("ORRERY FX", html)
-        self.assertIn("10秒", html)
+        self.assertIn("1秒間隔", html)
 
     def test_unauthorized_request_is_rejected(self):
         with self.assertRaises(HTTPError) as err:
@@ -64,6 +64,33 @@ class DashboardTests(unittest.TestCase):
         self.assertEqual(data["account_last4"], "0000")
         self.assertEqual(data["balance"], 10000)
         self.assertEqual(data["positions"][0]["symbol"], "XAUUSD-TEST")
+
+    def test_overlay_endpoint_has_same_auth_and_never_uses_simulation(self):
+        url = BASE + "/api/research-overlay?symbol=XAUUSD&timeframe=5m"
+        with self.assertRaises(HTTPError) as err:
+            urlopen(url, timeout=3)
+        self.assertEqual(err.exception.code, 403)
+        req = Request(url, headers={"X-Orrery-Token": self.token})
+        with self.assertRaises(HTTPError) as err:
+            urlopen(req, timeout=3)
+        self.assertEqual(err.exception.code, 503)
+        self.test_simulated_snapshot_only()
+
+    def test_malformed_token_is_rejected_without_stopping_server(self):
+        for token in ('wrong', 'é'):
+            req = Request(BASE + '/api/snapshot', headers={'X-Orrery-Token': token})
+            with self.assertRaises(HTTPError) as err:
+                urlopen(req, timeout=3)
+            self.assertEqual(err.exception.code, 403)
+        self.test_simulated_snapshot_only()
+
+    def test_cross_site_metadata_rejected(self):
+        for site in ('cross-site', 'same-site'):
+            req = Request(BASE + '/api/snapshot', headers={
+                'X-Orrery-Token': self.token, 'Sec-Fetch-Site': site})
+            with self.assertRaises(HTTPError) as err:
+                urlopen(req, timeout=3)
+            self.assertEqual(err.exception.code, 403)
 
     def test_dns_rebinding_host_rejected(self):
         req = Request(BASE + "/api/snapshot", headers={

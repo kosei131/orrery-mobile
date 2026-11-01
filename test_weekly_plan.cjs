@@ -1,0 +1,15 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync('weekly-plan.html','utf8');
+const script=html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const elements=new Map();const get=id=>{if(!elements.has(id))elements.set(id,{value:'',textContent:'',addEventListener(){}});return elements.get(id);};
+const context={document:{getElementById:get}};vm.createContext(context);vm.runInContext(script,context);
+const calculate=context.weeklyPlan;
+const base={capital:100000,target:3000,risk:250,budget:1000,win:50,rr:2,cost:10,count:10};
+const x=calculate(base);assert.equal(x.targetPct,3);assert.equal(x.expectancy,115);assert.equal(x.weekly,1150);assert.equal(x.stop,false);
+assert.equal(calculate({...base,budget:260}).stop,true);
+assert.ok(calculate({...base,win:0}).weekly<0);
+assert.equal(calculate({...base,win:100,rr:1,cost:250}).expectancy,0);
+for(const change of [{risk:-1},{count:1.5},{win:101},{cost:-1},{capital:0},{target:NaN},{budget:Infinity}])assert.throws(()=>calculate({...base,...change}));
+assert.match(get('result').textContent,/有効な値/);
+assert.ok(!/localStorage|sessionStorage|\bfetch\s*\(|XMLHttpRequest|WebSocket/.test(script));
+console.log('PASS: weekly planning math, costs, loss-budget gate, invalid inputs, no persistence/network');

@@ -1,0 +1,34 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ORRERY · Weekly Strategy Lab</title><style>
+:root{color-scheme:dark;font:16px system-ui;background:#090a0d;color:#efe8db}*{box-sizing:border-box}main{max-width:850px;margin:auto;padding:20px}h1,h2,a{color:#dbb66e}h2{font-size:19px}section{background:#16171b;border:1px solid #5d4930;border-radius:14px;padding:18px;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}label{display:block;font-size:14px}input,textarea{display:block;width:100%;padding:12px;background:#0b0d11;color:#fff;border:1px solid #66573e;border-radius:8px;margin-top:7px;font:inherit}textarea{min-height:180px}p,li{line-height:1.7}.note{color:#b8afa0;font-size:13px}output{display:block;white-space:pre-line;line-height:1.9}button{padding:12px;background:#dbb66e;border:0;border-radius:8px;font:inherit}@media(max-width:520px){.grid{grid-template-columns:1fr}}</style></head><body><main>
+<a href="fx.html">← FX</a><h1>WEEKLY STRATEGY LAB</h1><p>週$3,000の目標を、口座条件とデモ検証で評価する。</p><p class="note">手入力の仮定計算です。MT5・市場データ・プロの配信との接続はありません。注文機能なし。入力は保存・送信しません。</p>
+<section><h2>1 · 口座と目標（USD専用）</h2><div class="grid">
+<label>口座エクイティ USD<input id="capital" type="number" min="0.01" step="any" placeholder="MT5で確認した値"></label>
+<label>週の口座損益目標 USD<input id="target" type="number" min="0.01" step="any" value="3000"></label>
+<label>1取引の想定SL損失 USD<input id="risk" type="number" min="0.01" step="any" placeholder="目標から逆算せず上限を決める"></label>
+<label>失格・停止までの残り許容損失 USD<input id="budget" type="number" min="0.01" step="any" placeholder="日次・全体制限の厳しい方"></label>
+<label>仮定の勝率 %<input id="win" type="number" min="0" max="100" step="any" placeholder="未検証なら仮定値"></label>
+<label>平均利益 ÷ 平均SL損失（コスト前）<input id="rr" type="number" min="0.01" step="any" placeholder="例：2"></label>
+<label>1取引の往復コスト USD<input id="cost" type="number" min="0" step="any" placeholder="スプレッド・手数料・滑り等"></label>
+<label>週の取引回数（仮定）<input id="count" type="number" min="1" max="1000" step="1" placeholder="回数を増やして埋めない"></label></div>
+<p class="note">損失上限はブローカー／プロップの現在の規約で確認。含み損・日次リセット・トレーリング制限・出金分配を別途確認してください。この計算は固定リスク・固定コストで、複利や損失上限到達時の停止を再現しません。目標は出金額・税引後収入ではありません。</p><output id="result" role="status">条件を入力してください。</output></section>
+<section><h2>2 · 検証する作戦</h2><ol><li>GOLD / USDJPYの4時間足で高値・安値と上昇／下落／レンジの仮説を決める。</li><li>15分足でエントリー条件、SL、TP、見送り条件を取引前に固定する。</li><li>損失額から数量を決める。銘柄の契約サイズ・最小数量・刻み・実スプレッドが未確認なら数量を確定しない。</li><li>指標発表・持越し・同時保有・日次損失制限を確認。取引ゼロの日を許容する。</li><li>デモ約定でコスト込み損益、最大ドローダウン、ルール順守を記録。少数の勝ちだけで採用しない。</li></ol><p class="note">これは未検証の検証手順です。売買シグナルや収益性が確認された戦略ではありません。</p></section>
+<section><h2>3 · プロの見解を検証するメモ</h2><p class="note">発信者の肩書や利益画像だけで採用しない。公開前後の日時と、実績／デモ／仮想結果を区別。反対シナリオとSLのない見解は売買案にしません。入力内容は画面を閉じると消えます。</p><textarea id="thesis" aria-label="見解の検証メモ" placeholder="発信者・原文URL：&#10;公開日時・タイムゾーン：&#10;対象銘柄・時間足・有効期限：&#10;上昇／下落シナリオ：&#10;エントリー条件・SL・TP・無効条件：&#10;実績の種類と検証期間：&#10;デモ検証結果（コスト込み）："></textarea></section>
+<p class="note">参考：<a href="https://www.cftc.gov/LearnAndProtect/forexfrauds" rel="noreferrer">CFTC：Forex Frauds</a> · <a href="https://www.nfa.futures.org/rulebooksql/rules.aspx?RuleID=9025&amp;Section=9" rel="noreferrer">NFA：仮想運用結果の限界</a>。過去・仮想の成績は将来の利益を保証しません。</p>
+</main><script>
+'use strict';
+function weeklyPlan(x){
+ const keys=['capital','target','risk','budget','win','rr','cost','count'];
+ if(keys.some(k=>typeof x[k]!=='number'||!Number.isFinite(x[k]))||x.capital<=0||x.target<=0||x.risk<=0||x.budget<=0||x.win<0||x.win>100||x.rr<=0||x.cost<0||!Number.isInteger(x.count)||x.count<1||x.count>1000)throw Error('全項目に有効な値を入力してください。');
+ const p=x.win/100,loss=x.risk+x.cost;
+ const expectancy=x.risk*(p*x.rr-(1-p))-x.cost;
+ const result={targetPct:100*x.target/x.capital,riskPct:100*loss/x.capital,expectancy,weekly:expectancy*x.count,breakEven:100*(1+x.cost/x.risk)/(1+x.rr),loss,stop:loss>=x.budget};
+ if(Object.values(result).some(v=>typeof v==='number'&&!Number.isFinite(v)))throw Error('数値が大きすぎます。');
+ return result;
+}
+const ids=['capital','target','risk','budget','win','rr','cost','count'];
+function update(){const out=document.getElementById('result');try{
+ const x=Object.fromEntries(ids.map(id=>{const raw=document.getElementById(id).value;return [id,raw.trim()===''?NaN:Number(raw)];})),r=weeklyPlan(x);
+ out.textContent=`必要な週利：${r.targetPct.toFixed(2)}%\n1回の想定損失＋コスト：$${r.loss.toFixed(2)}（エクイティの${r.riskPct.toFixed(2)}%）\n損益分岐勝率：${r.breakEven.toFixed(2)}%\n仮定の期待損益：$${r.expectancy.toFixed(2)} / 回、$${r.weekly.toFixed(2)} / 週\n${r.stop?'停止条件：1回の想定損失で残り許容損失に到達・超過します。':'損失制限は実際の規約・含み損と照合してください。'}\n${r.weekly<x.target?'入力した仮定では目標に届きません。目標のためにリスクや回数を増やさず、前提と目標を再検討してください。':'計算上の期待値が目標以上でも、今週の達成確率・利益保証を意味しません。'}\n損切り価格での約定は保証されず、実際の損失が入力額を超える場合があります。`;
+ }catch(e){out.textContent=e.message;}}
+ids.forEach(id=>document.getElementById(id).addEventListener('input',update));update();
+</script></body></html>
