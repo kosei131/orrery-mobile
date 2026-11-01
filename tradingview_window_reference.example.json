@@ -1,0 +1,9 @@
+{
+  "buffer": 0.1,
+  "target_r": 2.0,
+  "period": 14,
+  "min_vhf": 0.4,
+  "left": 1,
+  "right": 1,
+  "lifetime": 6000
+}
