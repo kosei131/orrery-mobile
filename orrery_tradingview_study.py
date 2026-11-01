@@ -122,9 +122,9 @@ def study(raw_csvs, settings, *, account_inputs=None):
     args=dict(h4=bars['H4'],m15=bars['M15'],m5=bars['M5'],as_of=settings['as_of_s'],**st)
     compiled=build_account_plans(settings['symbol'],**args)
     if account_inputs is None:return dict(base,status='STRATEGY_PLANS_READY_BID_ASK_AND_VALUATION_REQUIRED',plans=compiled)
-    if (not isinstance(account_inputs,dict) or {'h4','m15','m5','as_of','bar_source','buffer','target_r','period','min_vhf','left','right','lifetime','entry_delay_msc','max_candidates','daily_boundary_utc_hour'} & account_inputs.keys()):
+    if (not isinstance(account_inputs,dict) or {'h4','m15','m5','as_of','bar_source','expected_symbol','buffer','target_r','period','min_vhf','left','right','lifetime','entry_delay_msc','max_candidates','daily_boundary_utc_hour'} & account_inputs.keys()):
         raise ValueError('Account input cannot override pinned bars or strategy')
-    account=compare_catalog_accounts(bar_source=settings['data_source'],**args,**account_inputs)
+    account=compare_catalog_accounts(bar_source=settings['data_source'],expected_symbol=settings['symbol'],**args,**account_inputs)
     summaries=None
     if account['accounts'] is not None:
         summaries={name:{k:a[k] for k in ('initial_equity_usd','ending_balance_usd','ending_equity_usd',

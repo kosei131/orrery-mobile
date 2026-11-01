@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import Mock, patch
 from copy import deepcopy
 from lsr03_account_study import build_account_plans, compare_catalog_accounts
 from lsr03_account_replay import replay_account
@@ -87,6 +88,37 @@ class AccountStudyTests(unittest.TestCase):
     def test_bar_source_mismatch_rejected(self):
         f=self.fixture;f.build([f.q(105900001,12,12.1)])
         with self.assertRaises(ValueError):self.compare(bar_source='OTHER')
+
+    def test_matching_symbol_binding_preserves_account_results(self):
+        f=self.fixture;f.build([f.q(105900001,12,12.1),f.q(106000000,20,20.1)])
+        legacy=self.compare();bound=self.compare(expected_symbol='XAUUSD')
+        self.assertEqual(bound['accounts'],legacy['accounts'])
+        self.assertEqual(bound['plans'],legacy['plans'])
+        self.assertEqual(bound['config']['expected_symbol'],'XAUUSD')
+
+    def test_usdjpy_catalog_cannot_be_evaluated_as_xauusd(self):
+        f=self.fixture
+        f.build([f.q(105900001,12,12.1),f.q(106000000,20,20.1)],symbol='USDJPY',
+            broker_spec=dict(symbol='USDJPY',point=.001,trade_contract_size=100000,digits=3))
+        valuation=Mock(wraps=account_fixtures.pnl)
+        with patch('lsr03_account_study.build_account_plans') as compiler:
+            with self.assertRaisesRegex(ValueError,'Bar/tick symbol'):
+                self.compare(expected_symbol='XAUUSD',pnl_quote=valuation)
+            compiler.assert_not_called()
+        valuation.assert_not_called()
+        matched=self.compare(expected_symbol='USDJPY')
+        self.assertEqual(matched['symbol'],'USDJPY')
+        self.assertTrue(matched['plans'])
+        self.assertTrue(all(p['symbol']=='USDJPY' for p in matched['plans']))
+        self.assertFalse(matched['execution_allowed'])
+
+    def test_invalid_symbol_binding_rejected_before_catalog_read(self):
+        f=self.fixture;f.build([f.q(105900001,12,12.1)])
+        with patch('lsr03_account_study.load_catalog_ticks') as loader:
+            for symbol in ('', 'EURUSD', 'OANDA:XAUUSD', True):
+                with self.subTest(symbol=symbol),self.assertRaisesRegex(ValueError,'Canonical expected'):
+                    self.compare(expected_symbol=symbol)
+            loader.assert_not_called()
 
     def test_aligned_collector_rejects_mismatched_trace(self):
         f=self.fixture

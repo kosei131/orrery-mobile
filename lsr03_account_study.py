@@ -56,9 +56,15 @@ def compare_catalog_accounts(path,*,expected_catalog_sha256,h4,m15,m5,bar_source
                              period=14,min_vhf=.4,left=1,right=1,lifetime=6000,
                              entry_delay_msc=1,max_ticks=500000,max_candidates=1000,
                              daily_boundary_utc_hour=10,carry_quote=None,carry_source=None,
-                             boundary_quote_max_age_msc=0):
+                             boundary_quote_max_age_msc=0,expected_symbol=None):
+    # Raw OHLC has no embedded symbol. A caller that knows its bar identity
+    # must bind it to the pinned catalog before any plans or USD valuation.
+    if expected_symbol is not None and expected_symbol not in ('XAUUSD','USDJPY'):
+        raise ValueError('Canonical expected bar symbol required')
     loaded=load_catalog_ticks(path,expected_catalog_sha256=expected_catalog_sha256,
                               bar_source=bar_source,as_of=as_of,max_ticks=max_ticks)
+    if expected_symbol is not None and loaded['symbol']!=expected_symbol:
+        raise ValueError('Bar/tick symbol labels must match explicitly')
     if loaded['blocked']:
         return dict(status='BLOCKED_GLOBAL_TICK_QUALITY',audit=loaded['audit'],accounts=None,
                     execution_allowed=False,market_edge_verified=False,six_month_backtest_complete=False)
@@ -98,6 +104,7 @@ def compare_catalog_accounts(path,*,expected_catalog_sha256,h4,m15,m5,bar_source
             volume_min=volume_min,volume_max=volume_max,volume_step=volume_step,
             round_trip_cost_per_lot_usd=round_trip_cost_per_lot_usd,cost_source=cost_source,
             slippage=slippage,daily_boundary_utc_hour=daily_boundary_utc_hour,
+            expected_symbol=expected_symbol,
             carry_source=carry_source,carry_enabled=carry_quote is not None,
             boundary_quote_max_age_msc=boundary_quote_max_age_msc),
         global_tick_audit=loaded['audit'],bar_provenance_verified=False,
