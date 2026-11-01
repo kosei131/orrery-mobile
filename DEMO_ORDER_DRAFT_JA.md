@@ -77,3 +77,17 @@ order_check成功は実約定・取引時間・収益性を保証しない。実
 - https://www.mql5.com/en/docs/python_metatrader5/mt5ordercheck_py
 - https://www.mql5.com/en/docs/constants/structures/mqltraderequest
 - https://www.mql5.com/en/docs/constants/environment_state/marketinfoconstants
+
+## 永続候補予約（オフライン・発注権限なし）
+
+lsr04_demo_claimsはローカルSQLiteで候補IDを一意に予約する。initializeは明示的新規作成のみ。
+同じ口座tokenの同じ候補IDは、quoteや注文案hashが変わっても再予約できない。
+BEGIN IMMEDIATEと主キーで並行呼出を直列化し、接続を閉じた後も予約を保持する。
+受領済み事前照会の外部SHA・デモ状態・期限を検査し、期限切れでも既存予約を自動解除しない。
+DB欠落・破損・口座不一致は停止し、自動再作成しない。データは削除しない。
+
+呼出側は口座nonce/tokenと候補IDを安定保存し、全注文経路で同じDBを使う必要がある。
+違う候補ID・別DB・別マシン・別の発注経路を横断する防止や、ブローカー側の冪等性は未検証。
+SQLiteの記録と将来のbroker送信は単一トランザクションにできないため、応答不明時に再発注せず、
+約定照合する設計が別途必要。本モジュールは実発注経路へ未接続で、実取引の二重発注防止完成とは扱わない。
+保存hashは真正性証明ではない。execution_allowed=False、broker_order_sent=False。
