@@ -52,3 +52,28 @@ execution_allowed=False、broker_session_verified=False。模擬adapterの単体
 公式仕様：
 - https://www.mql5.com/en/docs/python_metatrader5/mt5ordercalcmargin_py
 - https://www.mql5.com/en/docs/constants/environment_state/marketinfoconstants
+
+## デモ事前照会（注文送信なし）
+
+lsr04_demo_order_check.inspect_orderは、上記事前検査を通した注文案だけをorder_checkへ渡す。
+新規成行・固定構造SL/TP・deviation=0・FOK（全量約定または取消）のみに限定。
+Request/InstantではFOKを使用し、Market/Exchangeでは銘柄のFOK対応フラグが必須。
+IOCやRETURNへの自動切替はしない。Market Executionではrequest.priceを省略するが、
+SLリスク計算には現時点のAsk/Bidを使い、実約定価格の保証とは扱わない。
+
+照会は1回のみ。None、非ゼロretcode（order_sendの成功コードも含む）、要求のecho不一致、
+不足/非有限の財務結果、見積り後の余剰証拠金不足を拒否する。
+照会後に同じnonceで事前検査を再実行し、口座・equity・余剰証拠金・価格・仕様・
+執行/fill設定の変更を拒否。実時間を再取得し、quoteから5秒を超えた結果や時計逆行も拒否する。
+全読取が原子的である保証はないため、結果を後日の発注承認として再利用しない。
+
+成功statusはDEMO_ORDER_CHECKED_NOT_ORDER_AUTHORIZATION。
+execution_allowed=False、duplicate_order_protection_verified=False。
+order_send・接続初期化・設定変更・自動再試行は実装しない。
+order_check成功は実約定・取引時間・収益性を保証しない。実端末での検証は未実施。
+重複発注防止、承認の固定、発注/約定照合は後工程。
+
+公式参照：
+- https://www.mql5.com/en/docs/python_metatrader5/mt5ordercheck_py
+- https://www.mql5.com/en/docs/constants/structures/mqltraderequest
+- https://www.mql5.com/en/docs/constants/environment_state/marketinfoconstants
