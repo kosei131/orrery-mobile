@@ -4,8 +4,12 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 
-from orrery_mt5_candidate_probe import _request, probe_latest
+from orrery_mt5_candidate_probe import _request, probe_latest, main
 from test_orrery_mt5_history_check import Feed
 
 
@@ -103,6 +107,26 @@ class ProbeTests(unittest.TestCase):
         self.report['candidates'][1]['plan']['known_at_msc']+=1;self.pin=self.save()
         with self.assertRaises(ValueError):self.probe()
         with self.assertRaises(ValueError):self.probe(now=self.now.replace(tzinfo=None))
+
+    def test_cli_environment_failure_reports_stage_without_initializing(self):
+        out=StringIO()
+        with patch('orrery_mt5_candidate_probe.sys.platform','linux'),redirect_stdout(out):
+            code=main(['--reference',str(self.path),'--reference-sha256',self.pin,
+                '--terminal-path','demo-terminal.exe','--output',str(self.output)])
+        r=json.loads(out.getvalue());self.assertEqual(code,1)
+        self.assertEqual(r['stage'],'ENVIRONMENT');self.assertEqual(r['reason'],'UNSUPPORTED_ENVIRONMENT')
+        self.assertFalse(self.output.exists())
+
+    def test_cli_terminal_failure_reports_reason_and_shuts_down(self):
+        out=StringIO();fake=SimpleNamespace(initialize=Mock(return_value=False),shutdown=Mock())
+        with (patch('orrery_mt5_candidate_probe.sys.platform','win32'),
+              patch('orrery_mt5_candidate_probe.sys.version_info',(3,12)),
+              patch.dict('sys.modules',{'MetaTrader5':fake}),redirect_stdout(out)):
+            code=main(['--reference',str(self.path),'--reference-sha256',self.pin,
+                '--terminal-path','demo-terminal.exe','--output',str(self.output)])
+        r=json.loads(out.getvalue());self.assertEqual(code,1)
+        self.assertEqual(r['stage'],'INITIALIZE');self.assertEqual(r['reason'],'TERMINAL_UNAVAILABLE')
+        fake.shutdown.assert_called_once();self.assertFalse(self.output.exists())
 
 
 if __name__=='__main__':unittest.main()

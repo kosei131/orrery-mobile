@@ -98,24 +98,39 @@ def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--reference', required=True); p.add_argument('--reference-sha256', required=True)
     p.add_argument('--terminal-path', required=True, help='Exact path of caller-confirmed DEMO terminal')
-    p.add_argument('--output', required=True); a = p.parse_args(argv); mt5 = None
+    p.add_argument('--output', required=True); a = p.parse_args(argv); mt5 = None; stage = 'ENVIRONMENT'
     try:
         if sys.platform != 'win32' or sys.version_info[:2] != (3,12):
             raise ValueError('Windows Python 3.12 required')
         now = datetime.now(timezone.utc).replace(microsecond=0)
         # Validate reference and output before initializing an explicitly selected terminal.
+        stage = 'REFERENCE_VALIDATION'
         _request(a.reference, a.reference_sha256, now)
         if Path(a.output).exists() or Path(a.output).is_symlink():
             raise FileExistsError('New output required')
+        stage = 'MT5_MODULE'
         import MetaTrader5 as mt5
+        stage = 'INITIALIZE'
         if not mt5.initialize(a.terminal_path, timeout=30000):
             raise ValueError('Terminal unavailable')
+        stage = 'HISTORY_CAPTURE'
         result = probe_latest(mt5, reference=a.reference, reference_sha256=a.reference_sha256,
                               output=a.output, now=now)
         print(_encode(result).decode(), end='')
         return 2 if result['status'].startswith('BLOCKED') else 0
-    except Exception:
-        print('{"status":"BLOCKED_CANDIDATE_PROBE","execution_allowed":false,"actual_profit_usd":null}')
+    except Exception as error:
+        reasons = {'Windows Python 3.12 required':'UNSUPPORTED_ENVIRONMENT',
+            'Terminal unavailable':'TERMINAL_UNAVAILABLE',
+            'Broker-reported DEMO required':'DEMO_REQUIRED',
+            'Empty or saturated history':'EMPTY_OR_SATURATED_HISTORY',
+            'No ticks inside requested interval':'NO_TICKS_IN_INTERVAL',
+            'Tick feed missing or exceeds safe batch size':'HISTORY_MISSING_OR_OVER_BUDGET',
+            'Exact broker symbol unavailable':'CANONICAL_SYMBOL_UNAVAILABLE',
+            'Reference report pin or size mismatch':'REFERENCE_PIN_OR_SIZE_MISMATCH'}
+        reason = 'MT5_MODULE_UNAVAILABLE' if stage == 'MT5_MODULE' and isinstance(error, ImportError) else reasons.get(str(error),'VALIDATION_OR_CAPTURE_FAILED')
+        # Do not serialize arbitrary exception text, account objects or credentials.
+        print(_encode(dict(status='BLOCKED_CANDIDATE_PROBE',stage=stage,reason=reason,
+            execution_allowed=False,actual_profit_usd=None)).decode(),end='')
         return 1
     finally:
         if mt5 is not None:
