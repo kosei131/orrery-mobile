@@ -1,0 +1,1430 @@
+{
+  "status": "PUBLIC_DATA_REPRODUCTION_NOT_TRADINGVIEW_OR_MT5_BACKTEST",
+  "run_utc": "2026-11-01T19:14:09.971223+00:00",
+  "execution_commit": "59df814c0923f330bca892e5227df77050293ce5",
+  "source_url": "https://raw.githubusercontent.com/getdata-finance/xauusd-1m-ohlcv-metals-historical-data/main/XAUUSD_1m.csv",
+  "source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "code_sha256": {
+    "orrery_public_xau_m1_audit.py": "6ba8ec29170e3b0fd3b8508e5d7b9fcf2820744804c1acfcfad87cd93ec12dc4",
+    "orrery_public_xau_to_bars.py": "d465be340169baaf5c5c3ef43a03ad20aa5a6d25ce20eaa8a9634444fff1ca11",
+    "orrery_public_xau_sequence_study.py": "a3b97fe9490f25759cf8ce14f37d7a7708e375f4e727742550fcaec9937fce43",
+    "orrery_xau_hypothetical_pnl.py": "2a847da7c2653227c381687060dfea8eb5328a51d5d89c1471b32e58812ec4b0",
+    "orrery_xau_structural_stop_comparison.py": "ce10a93dc79cda1d280a9d5af7900591e869c1532153804dc5a9989719ae7f1a",
+    "orrery_xau_cost_sensitivity.py": "aa7a6d3fbd5e7a5d5c7d819ddb0b2b92c2ceb056da609fb58e16b690d77cd2df",
+    "orrery_xau_h4_alignment.py": "8c2371ac7cf3ea272dda9a7b37d8ef43ad570a6d58af7986546821983a4dcbbb",
+    "lsr02_structure.py": "873fe9d8951d80dc2e79082f5bee9c3ba162a3b0c77ba7c212a4cc94d0c04a1b",
+    "lsr03_vhf.py": "20d7b8486434af192078cdeba8349900a407c9e9197183a0c4c8b1698c90b0ba"
+  },
+  "artifacts": {
+    "public_xau_audit.json": {
+      "source": "GetData Finance GitHub public XAUUSD 1m sample",
+      "source_price_type": "mid quotes according to publisher; broker fills unverified",
+      "sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+      "rows": 179662,
+      "first": "2026-03-26T02:28:00",
+      "last": "2026-09-25T20:44:00",
+      "duplicate_timestamps": 0,
+      "nonminute_timestamps": 0,
+      "number_of_gaps_gt_1min": 175,
+      "largest_missing_minutes": 3279,
+      "first_10_gaps": [
+        [
+          "2026-03-26T20:59:00",
+          "2026-03-26T22:00:00",
+          60
+        ],
+        [
+          "2026-03-27T20:44:00",
+          "2026-03-29T22:00:00",
+          2955
+        ],
+        [
+          "2026-03-30T20:59:00",
+          "2026-03-30T22:00:00",
+          60
+        ],
+        [
+          "2026-03-31T20:59:00",
+          "2026-03-31T22:00:00",
+          60
+        ],
+        [
+          "2026-04-01T20:59:00",
+          "2026-04-01T22:01:00",
+          61
+        ],
+        [
+          "2026-04-02T20:59:00",
+          "2026-04-03T14:36:00",
+          1056
+        ],
+        [
+          "2026-04-03T14:37:00",
+          "2026-04-03T14:43:00",
+          5
+        ],
+        [
+          "2026-04-03T14:43:00",
+          "2026-04-03T15:05:00",
+          21
+        ],
+        [
+          "2026-04-03T15:05:00",
+          "2026-04-03T15:07:00",
+          1
+        ],
+        [
+          "2026-04-03T15:07:00",
+          "2026-04-03T15:10:00",
+          2
+        ]
+      ],
+      "ready_for_6mo_backtest": false,
+      "pnl_usd": null
+    },
+    "public_xau_sequence_report.json": {
+      "status": "EXPLORATORY_REAL_M15_M5_SEQUENCE_NOT_LSR02",
+      "m15_sweeps": 640,
+      "m5_bos_choch_events": 1330,
+      "unique_one_to_one_sweep_m5_matches": 132,
+      "candidate_sides": {
+        "BUY": 68,
+        "SELL": 64
+      },
+      "sweep_time_vhf_evaluable": 124,
+      "sweep_time_vhf_research_passed": 30,
+      "vhf_passed_with_m5_poi": 30,
+      "vhf_passed_with_postconfirmation_poi_touch": 14,
+      "retouch_evidence": [
+        {
+          "sweep_close": 1774616400,
+          "confirmation_close": 1774618200,
+          "first_poi_touch_close": 1774619100,
+          "side": "SELL",
+          "poi_low": 4513.69,
+          "poi_high": 4526.57,
+          "vhf_at_sweep": 0.44422838960580235
+        },
+        {
+          "sweep_close": 1775063700,
+          "confirmation_close": 1775064900,
+          "first_poi_touch_close": 1775065500,
+          "side": "SELL",
+          "poi_low": 4888.875,
+          "poi_high": 4893.135,
+          "vhf_at_sweep": 0.6034238488784025
+        },
+        {
+          "sweep_close": 1776711600,
+          "confirmation_close": 1776714000,
+          "first_poi_touch_close": 1776717000,
+          "side": "SELL",
+          "poi_low": 4889.07,
+          "poi_high": 4891.5199999999995,
+          "vhf_at_sweep": 0.4575216450216519
+        },
+        {
+          "sweep_close": 1778089500,
+          "confirmation_close": 1778091600,
+          "first_poi_touch_close": 1778093100,
+          "side": "BUY",
+          "poi_low": 4720.410000000001,
+          "poi_high": 4724.030000000001,
+          "vhf_at_sweep": 0.5460945357023299
+        },
+        {
+          "sweep_close": 1779868800,
+          "confirmation_close": 1779870000,
+          "first_poi_touch_close": 1779870900,
+          "side": "BUY",
+          "poi_low": 4484.77,
+          "poi_high": 4487.57,
+          "vhf_at_sweep": 0.48527968596663257
+        },
+        {
+          "sweep_close": 1780290000,
+          "confirmation_close": 1780293000,
+          "first_poi_touch_close": 1780293600,
+          "side": "BUY",
+          "poi_low": 4529.664999999999,
+          "poi_high": 4535.855,
+          "vhf_at_sweep": 0.4204907286008628
+        },
+        {
+          "sweep_close": 1781010000,
+          "confirmation_close": 1781011200,
+          "first_poi_touch_close": 1781013000,
+          "side": "SELL",
+          "poi_low": 4351.31,
+          "poi_high": 4356.8,
+          "vhf_at_sweep": 0.44465058750773173
+        },
+        {
+          "sweep_close": 1782917100,
+          "confirmation_close": 1782918600,
+          "first_poi_touch_close": 1782919200,
+          "side": "SELL",
+          "poi_low": 4056.2699999999995,
+          "poi_high": 4062.3399999999997,
+          "vhf_at_sweep": 0.5793482240937373
+        },
+        {
+          "sweep_close": 1783916100,
+          "confirmation_close": 1783918800,
+          "first_poi_touch_close": 1783919100,
+          "side": "BUY",
+          "poi_low": 4047.875,
+          "poi_high": 4050.3250000000003,
+          "vhf_at_sweep": 0.46117176687682776
+        },
+        {
+          "sweep_close": 1784227500,
+          "confirmation_close": 1784228700,
+          "first_poi_touch_close": 1784229000,
+          "side": "BUY",
+          "poi_low": 3979.1749999999993,
+          "poi_high": 3982.2449999999994,
+          "vhf_at_sweep": 0.4352958321189215
+        },
+        {
+          "sweep_close": 1784635200,
+          "confirmation_close": 1784636700,
+          "first_poi_touch_close": 1784637300,
+          "side": "BUY",
+          "poi_low": 4068.794999999999,
+          "poi_high": 4073.284999999999,
+          "vhf_at_sweep": 0.4886008046490886
+        },
+        {
+          "sweep_close": 1788454800,
+          "confirmation_close": 1788456300,
+          "first_poi_touch_close": 1788458400,
+          "side": "BUY",
+          "poi_low": 4485.17,
+          "poi_high": 4488.23,
+          "vhf_at_sweep": 0.4645501317605694
+        },
+        {
+          "sweep_close": 1790046900,
+          "confirmation_close": 1790048100,
+          "first_poi_touch_close": 1790048400,
+          "side": "BUY",
+          "poi_low": 4341.22,
+          "poi_high": 4345.62,
+          "vhf_at_sweep": 0.46108981836361257
+        },
+        {
+          "sweep_close": 1790358300,
+          "confirmation_close": 1790360400,
+          "first_poi_touch_close": 1790361000,
+          "side": "BUY",
+          "poi_low": 4283.29,
+          "poi_high": 4285.59,
+          "vhf_at_sweep": 0.46908238687579445
+        }
+      ],
+      "confirmation_evidence": [
+        {
+          "sweep_close": 1774616400,
+          "confirmation_close": 1774618200,
+          "side": "SELL",
+          "poi": {
+            "index": 183,
+            "low": 4513.69,
+            "high": 4526.57,
+            "known_at": 1774618200
+          },
+          "vhf_at_sweep": 0.44422838960580235
+        },
+        {
+          "sweep_close": 1775063700,
+          "confirmation_close": 1775064900,
+          "side": "SELL",
+          "poi": {
+            "index": 232,
+            "low": 4888.875,
+            "high": 4893.135,
+            "known_at": 1775064900
+          },
+          "vhf_at_sweep": 0.6034238488784025
+        },
+        {
+          "sweep_close": 1775756700,
+          "confirmation_close": 1775757900,
+          "side": "SELL",
+          "poi": {
+            "index": 237,
+            "low": 4815.115,
+            "high": 4821.205,
+            "known_at": 1775757900
+          },
+          "vhf_at_sweep": 0.5198555956678718
+        },
+        {
+          "sweep_close": 1776335400,
+          "confirmation_close": 1776337200,
+          "side": "BUY",
+          "poi": {
+            "index": 152,
+            "low": 4886.885,
+            "high": 4891.3550000000005,
+            "known_at": 1776337200
+          },
+          "vhf_at_sweep": 0.5689093868692329
+        },
+        {
+          "sweep_close": 1776350700,
+          "confirmation_close": 1776351900,
+          "side": "BUY",
+          "poi": {
+            "index": 203,
+            "low": 4864.405000000001,
+            "high": 4870.545000000001,
+            "known_at": 1776351900
+          },
+          "vhf_at_sweep": 0.5613039247486092
+        },
+        {
+          "sweep_close": 1776711600,
+          "confirmation_close": 1776714000,
+          "side": "SELL",
+          "poi": {
+            "index": 256,
+            "low": 4889.07,
+            "high": 4891.5199999999995,
+            "known_at": 1776714000
+          },
+          "vhf_at_sweep": 0.4575216450216519
+        },
+        {
+          "sweep_close": 1777004100,
+          "confirmation_close": 1777006200,
+          "side": "BUY",
+          "poi": {
+            "index": 77,
+            "low": 4730.115,
+            "high": 4734.925,
+            "known_at": 1777006200
+          },
+          "vhf_at_sweep": 0.5247720967102654
+        },
+        {
+          "sweep_close": 1778089500,
+          "confirmation_close": 1778091600,
+          "side": "BUY",
+          "poi": {
+            "index": 240,
+            "low": 4720.410000000001,
+            "high": 4724.030000000001,
+            "known_at": 1778091600
+          },
+          "vhf_at_sweep": 0.5460945357023299
+        },
+        {
+          "sweep_close": 1778141700,
+          "confirmation_close": 1778142000,
+          "side": "SELL",
+          "poi": {
+            "index": 120,
+            "low": 4782.715,
+            "high": 4791.835,
+            "known_at": 1778142000
+          },
+          "vhf_at_sweep": 0.5614832030424636
+        },
+        {
+          "sweep_close": 1779708600,
+          "confirmation_close": 1779710400,
+          "side": "SELL",
+          "poi": {
+            "index": 163,
+            "low": 4640.8099999999995,
+            "high": 4644.3099999999995,
+            "known_at": 1779710400
+          },
+          "vhf_at_sweep": 0.48575418994414005
+        },
+        {
+          "sweep_close": 1779868800,
+          "confirmation_close": 1779870000,
+          "side": "BUY",
+          "poi": {
+            "index": 120,
+            "low": 4484.77,
+            "high": 4487.57,
+            "known_at": 1779870000
+          },
+          "vhf_at_sweep": 0.48527968596663257
+        },
+        {
+          "sweep_close": 1780290000,
+          "confirmation_close": 1780293000,
+          "side": "BUY",
+          "poi": {
+            "index": 92,
+            "low": 4529.664999999999,
+            "high": 4535.855,
+            "known_at": 1780293000
+          },
+          "vhf_at_sweep": 0.4204907286008628
+        },
+        {
+          "sweep_close": 1781010000,
+          "confirmation_close": 1781011200,
+          "side": "SELL",
+          "poi": {
+            "index": 181,
+            "low": 4351.31,
+            "high": 4356.8,
+            "known_at": 1781011200
+          },
+          "vhf_at_sweep": 0.44465058750773173
+        },
+        {
+          "sweep_close": 1781066700,
+          "confirmation_close": 1781069400,
+          "side": "BUY",
+          "poi": {
+            "index": 87,
+            "low": 4190.77,
+            "high": 4195.620000000001,
+            "known_at": 1781069400
+          },
+          "vhf_at_sweep": 0.42861454874735394
+        },
+        {
+          "sweep_close": 1782917100,
+          "confirmation_close": 1782918600,
+          "side": "SELL",
+          "poi": {
+            "index": 203,
+            "low": 4056.2699999999995,
+            "high": 4062.3399999999997,
+            "known_at": 1782918600
+          },
+          "vhf_at_sweep": 0.5793482240937373
+        },
+        {
+          "sweep_close": 1783430100,
+          "confirmation_close": 1783432800,
+          "side": "SELL",
+          "poi": {
+            "index": 188,
+            "low": 4168.92,
+            "high": 4181.12,
+            "known_at": 1783432800
+          },
+          "vhf_at_sweep": 0.6275327771156047
+        },
+        {
+          "sweep_close": 1783916100,
+          "confirmation_close": 1783918800,
+          "side": "BUY",
+          "poi": {
+            "index": 81,
+            "low": 4047.875,
+            "high": 4050.3250000000003,
+            "known_at": 1783918800
+          },
+          "vhf_at_sweep": 0.46117176687682776
+        },
+        {
+          "sweep_close": 1784227500,
+          "confirmation_close": 1784228700,
+          "side": "BUY",
+          "poi": {
+            "index": 251,
+            "low": 3979.1749999999993,
+            "high": 3982.2449999999994,
+            "known_at": 1784228700
+          },
+          "vhf_at_sweep": 0.4352958321189215
+        },
+        {
+          "sweep_close": 1784635200,
+          "confirmation_close": 1784636700,
+          "side": "BUY",
+          "poi": {
+            "index": 171,
+            "low": 4068.794999999999,
+            "high": 4073.284999999999,
+            "known_at": 1784636700
+          },
+          "vhf_at_sweep": 0.4886008046490886
+        },
+        {
+          "sweep_close": 1784736000,
+          "confirmation_close": 1784736900,
+          "side": "SELL",
+          "poi": {
+            "index": 213,
+            "low": 4169.615000000001,
+            "high": 4176.045,
+            "known_at": 1784736900
+          },
+          "vhf_at_sweep": 0.5019745970754513
+        },
+        {
+          "sweep_close": 1784871000,
+          "confirmation_close": 1784873700,
+          "side": "BUY",
+          "poi": {
+            "index": 95,
+            "low": 4028.024999999999,
+            "high": 4030.1749999999993,
+            "known_at": 1784873700
+          },
+          "vhf_at_sweep": 0.4957226474560996
+        },
+        {
+          "sweep_close": 1785839400,
+          "confirmation_close": 1785843000,
+          "side": "BUY",
+          "poi": {
+            "index": 159,
+            "low": 4073.425000000006,
+            "high": 4075.575000000006,
+            "known_at": 1785843000
+          },
+          "vhf_at_sweep": 0.662391681109171
+        },
+        {
+          "sweep_close": 1786347900,
+          "confirmation_close": 1786350900,
+          "side": "SELL",
+          "poi": {
+            "index": 125,
+            "low": 4372.265000000005,
+            "high": 4376.265000000005,
+            "known_at": 1786350900
+          },
+          "vhf_at_sweep": 0.4719218695500506
+        },
+        {
+          "sweep_close": 1787688900,
+          "confirmation_close": 1787691600,
+          "side": "SELL",
+          "poi": {
+            "index": 272,
+            "low": 4659.909999999999,
+            "high": 4661.589999999999,
+            "known_at": 1787691600
+          },
+          "vhf_at_sweep": 0.6657700067249368
+        },
+        {
+          "sweep_close": 1787839200,
+          "confirmation_close": 1787841900,
+          "side": "BUY",
+          "poi": {
+            "index": 195,
+            "low": 4574.539999999999,
+            "high": 4583.0199999999995,
+            "known_at": 1787841900
+          },
+          "vhf_at_sweep": 0.4440607734806459
+        },
+        {
+          "sweep_close": 1788320700,
+          "confirmation_close": 1788321600,
+          "side": "BUY",
+          "poi": {
+            "index": 68,
+            "low": 4285.35,
+            "high": 4291.69,
+            "known_at": 1788321600
+          },
+          "vhf_at_sweep": 0.4691862444671419
+        },
+        {
+          "sweep_close": 1788454800,
+          "confirmation_close": 1788456300,
+          "side": "BUY",
+          "poi": {
+            "index": 230,
+            "low": 4485.17,
+            "high": 4488.23,
+            "known_at": 1788456300
+          },
+          "vhf_at_sweep": 0.4645501317605694
+        },
+        {
+          "sweep_close": 1788977700,
+          "confirmation_close": 1788979500,
+          "side": "SELL",
+          "poi": {
+            "index": 244,
+            "low": 4416.72,
+            "high": 4417.97,
+            "known_at": 1788979500
+          },
+          "vhf_at_sweep": 0.40309360126917
+        },
+        {
+          "sweep_close": 1790046900,
+          "confirmation_close": 1790048100,
+          "side": "BUY",
+          "poi": {
+            "index": 63,
+            "low": 4341.22,
+            "high": 4345.62,
+            "known_at": 1790048100
+          },
+          "vhf_at_sweep": 0.46108981836361257
+        },
+        {
+          "sweep_close": 1790358300,
+          "confirmation_close": 1790360400,
+          "side": "BUY",
+          "poi": {
+            "index": 241,
+            "low": 4283.29,
+            "high": 4285.59,
+            "known_at": 1790360400
+          },
+          "vhf_at_sweep": 0.46908238687579445
+        }
+      ],
+      "retest_observations": [
+        {
+          "status": "RETEST",
+          "entry_at": 1774619100,
+          "observed_until": 1774619100,
+          "sweep_close": 1774616400,
+          "confirmation_close": 1774618200,
+          "side": "SELL"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1775065500,
+          "observed_until": 1775065500,
+          "sweep_close": 1775063700,
+          "confirmation_close": 1775064900,
+          "side": "SELL"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1775761500,
+          "sweep_close": 1775756700,
+          "confirmation_close": 1775757900,
+          "side": "SELL"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1776340800,
+          "sweep_close": 1776335400,
+          "confirmation_close": 1776337200,
+          "side": "BUY"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1776355500,
+          "sweep_close": 1776350700,
+          "confirmation_close": 1776351900,
+          "side": "BUY"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1776717000,
+          "observed_until": 1776717000,
+          "sweep_close": 1776711600,
+          "confirmation_close": 1776714000,
+          "side": "SELL"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1777009800,
+          "sweep_close": 1777004100,
+          "confirmation_close": 1777006200,
+          "side": "BUY"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1778093100,
+          "observed_until": 1778093100,
+          "sweep_close": 1778089500,
+          "confirmation_close": 1778091600,
+          "side": "BUY"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1778145600,
+          "sweep_close": 1778141700,
+          "confirmation_close": 1778142000,
+          "side": "SELL"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1779714000,
+          "sweep_close": 1779708600,
+          "confirmation_close": 1779710400,
+          "side": "SELL"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1779870900,
+          "observed_until": 1779870900,
+          "sweep_close": 1779868800,
+          "confirmation_close": 1779870000,
+          "side": "BUY"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1780293600,
+          "observed_until": 1780293600,
+          "sweep_close": 1780290000,
+          "confirmation_close": 1780293000,
+          "side": "BUY"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1781013000,
+          "observed_until": 1781013000,
+          "sweep_close": 1781010000,
+          "confirmation_close": 1781011200,
+          "side": "SELL"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1781073000,
+          "sweep_close": 1781066700,
+          "confirmation_close": 1781069400,
+          "side": "BUY"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1782919200,
+          "observed_until": 1782919200,
+          "sweep_close": 1782917100,
+          "confirmation_close": 1782918600,
+          "side": "SELL"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1783436400,
+          "sweep_close": 1783430100,
+          "confirmation_close": 1783432800,
+          "side": "SELL"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1783919100,
+          "observed_until": 1783919100,
+          "sweep_close": 1783916100,
+          "confirmation_close": 1783918800,
+          "side": "BUY"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1784229000,
+          "observed_until": 1784229000,
+          "sweep_close": 1784227500,
+          "confirmation_close": 1784228700,
+          "side": "BUY"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1784637300,
+          "observed_until": 1784637300,
+          "sweep_close": 1784635200,
+          "confirmation_close": 1784636700,
+          "side": "BUY"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1784740500,
+          "sweep_close": 1784736000,
+          "confirmation_close": 1784736900,
+          "side": "SELL"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1784877300,
+          "sweep_close": 1784871000,
+          "confirmation_close": 1784873700,
+          "side": "BUY"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1785846600,
+          "sweep_close": 1785839400,
+          "confirmation_close": 1785843000,
+          "side": "BUY"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1786354500,
+          "sweep_close": 1786347900,
+          "confirmation_close": 1786350900,
+          "side": "SELL"
+        },
+        {
+          "status": "UNKNOWN_HISTORY",
+          "entry_at": null,
+          "observed_until": 1787691600,
+          "sweep_close": 1787688900,
+          "confirmation_close": 1787691600,
+          "side": "SELL"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1787845500,
+          "sweep_close": 1787839200,
+          "confirmation_close": 1787841900,
+          "side": "BUY"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1788325200,
+          "sweep_close": 1788320700,
+          "confirmation_close": 1788321600,
+          "side": "BUY"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1788458400,
+          "observed_until": 1788458400,
+          "sweep_close": 1788454800,
+          "confirmation_close": 1788456300,
+          "side": "BUY"
+        },
+        {
+          "status": "EXPIRED",
+          "entry_at": null,
+          "observed_until": 1788983100,
+          "sweep_close": 1788977700,
+          "confirmation_close": 1788979500,
+          "side": "SELL"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1790048400,
+          "observed_until": 1790048400,
+          "sweep_close": 1790046900,
+          "confirmation_close": 1790048100,
+          "side": "BUY"
+        },
+        {
+          "status": "RETEST",
+          "entry_at": 1790361000,
+          "observed_until": 1790361000,
+          "sweep_close": 1790358300,
+          "confirmation_close": 1790360400,
+          "side": "BUY"
+        }
+      ],
+      "vhf_period": 14,
+      "research_vhf_threshold": 0.4,
+      "unique_executed_trades": 0,
+      "h4_trend_verified": false,
+      "retest_entry_verified": false,
+      "poi_touch_research_evaluated": true,
+      "vhf_filter_evaluated": true,
+      "spread_and_execution_verified": false,
+      "win_rate": null,
+      "profit_usd": null,
+      "warning": "M5 events assigned once; overlapping sweep windows remain research-only. No trade inference."
+    },
+    "public_xau_structural_stop_comparison.json": {
+      "status": "SAME_CANDIDATE_STRUCTURAL_SL_RESEARCH",
+      "period_utc": "2026-04-25 to 2026-09-25 exclusive",
+      "assumptions": {
+        "spread_price_units": 0.6,
+        "target_r": 1.5,
+        "timeout_minutes": 120,
+        "structural_anchor": "confirmed M15 sweep candle extreme; zero padding",
+        "sell_stop_basis": "source high plus assumed spread, synthetic Ask trigger",
+        "stop_open_gaps": "observed worse opening price; SL not clamped to -1R"
+      },
+      "source_hashes": {
+        "XAUUSD_M1_UNVERIFIED_QUOTE.csv": "741531ca37f0fddc904238da0fc1d646127928da0c87f5f81b4aab0579bfae91",
+        "XAUUSD_M15_UNVERIFIED_QUOTE.csv": "8bba85eab3ed8da92341dea6b0b6c26fa884b882caf074e8bc9de6ac844a083d",
+        "public_xau_sequence_report.json": "3b946f42d9ed9e4531f8bfe68d1e47d749a8cc01701a7123096b2c88c8356617"
+      },
+      "results": {
+        "FIXED_6": {
+          "all_candidates": {
+            "candidates": 10,
+            "resolved_outcomes": 10,
+            "unresolved_or_unmodeled": 0,
+            "wins": 5,
+            "win_rate_pct": 50.0,
+            "mean_r": 0.25,
+            "total_r": 2.5,
+            "pf": 1.5
+          },
+          "paired_resolved_only": {
+            "candidates": 7,
+            "resolved_outcomes": 7,
+            "unresolved_or_unmodeled": 0,
+            "wins": 3,
+            "win_rate_pct": 42.86,
+            "mean_r": 0.0714,
+            "total_r": 0.5,
+            "pf": 1.125
+          },
+          "stop_policy_skips": [],
+          "incomplete_after_entry": 0,
+          "trades_detail": [
+            {
+              "touch_close_utc": 1778093100,
+              "side": "BUY",
+              "entry_assumed": 4725.200000000002,
+              "exit_time_utc": 1778094600,
+              "r": 1.5,
+              "pnl_usd": 11.25,
+              "stop_assumed": 4719.200000000002,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 4734.200000000002,
+              "exit_reason": "TP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 25.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1779870900,
+              "side": "BUY",
+              "entry_assumed": 4489.21,
+              "exit_time_utc": 1779871800,
+              "r": 1.5,
+              "pnl_usd": 11.2922,
+              "stop_assumed": 4483.21,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 4498.21,
+              "exit_reason": "TP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 15.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1780293600,
+              "side": "BUY",
+              "entry_assumed": 4533.175,
+              "exit_time_utc": 1780294260,
+              "r": -1.0,
+              "pnl_usd": -7.5564,
+              "stop_assumed": 4527.175,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 4542.175,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 11.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1781013000,
+              "side": "SELL",
+              "entry_assumed": 4364.650000000001,
+              "exit_time_utc": 1781013000,
+              "r": 1.5,
+              "pnl_usd": 11.3062,
+              "stop_assumed": 4370.650000000001,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 4355.650000000001,
+              "exit_reason": "TP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 0.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1782919200,
+              "side": "SELL",
+              "entry_assumed": 4054.0399999999995,
+              "exit_time_utc": 1782920100,
+              "r": 1.5,
+              "pnl_usd": 11.3486,
+              "stop_assumed": 4060.0399999999995,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 4045.0399999999995,
+              "exit_reason": "TP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 15.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1783919100,
+              "side": "BUY",
+              "entry_assumed": 4056.0550000000003,
+              "exit_time_utc": 1783919340,
+              "r": 1.5,
+              "pnl_usd": 11.3912,
+              "stop_assumed": 4050.0550000000003,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 4065.0550000000003,
+              "exit_reason": "TP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 4.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1784229000,
+              "side": "BUY",
+              "entry_assumed": 3982.894999999999,
+              "exit_time_utc": 1784230260,
+              "r": -1.0,
+              "pnl_usd": -7.6226,
+              "stop_assumed": 3976.894999999999,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 3991.894999999999,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 21.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1784637300,
+              "side": "BUY",
+              "entry_assumed": 4073.044999999999,
+              "exit_time_utc": 1784637420,
+              "r": -1.0,
+              "pnl_usd": -7.6035,
+              "stop_assumed": 4067.044999999999,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 4082.044999999999,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 2.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1788458400,
+              "side": "BUY",
+              "entry_assumed": 4487.13,
+              "exit_time_utc": 1788460080,
+              "r": -1.0,
+              "pnl_usd": -7.5845,
+              "stop_assumed": 4481.13,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 4496.13,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 28.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1790048400,
+              "side": "BUY",
+              "entry_assumed": 4347.75,
+              "exit_time_utc": 1790048580,
+              "r": -1.0,
+              "pnl_usd": -7.5656,
+              "stop_assumed": 4341.75,
+              "initial_stop_distance": 6.0,
+              "target_assumed": 4356.75,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 3.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            }
+          ]
+        },
+        "SWEEP_EXTREME": {
+          "all_candidates": {
+            "candidates": 10,
+            "resolved_outcomes": 7,
+            "unresolved_or_unmodeled": 3,
+            "wins": 2,
+            "win_rate_pct": 28.57,
+            "mean_r": -0.4224,
+            "total_r": -2.9569,
+            "pf": 0.4086
+          },
+          "paired_resolved_only": {
+            "candidates": 7,
+            "resolved_outcomes": 7,
+            "unresolved_or_unmodeled": 0,
+            "wins": 2,
+            "win_rate_pct": 28.57,
+            "mean_r": -0.4224,
+            "total_r": -2.9569,
+            "pf": 0.4086
+          },
+          "stop_policy_skips": [
+            {
+              "touch_close_utc": 1781013000,
+              "side": "SELL",
+              "reason": "STRUCTURE_BREACHED_BEFORE_ENTRY"
+            },
+            {
+              "touch_close_utc": 1783919100,
+              "side": "BUY",
+              "reason": "STRUCTURE_BREACHED_BEFORE_ENTRY"
+            },
+            {
+              "touch_close_utc": 1788458400,
+              "side": "BUY",
+              "reason": "STRUCTURE_BREACHED_BEFORE_ENTRY"
+            }
+          ],
+          "incomplete_after_entry": 0,
+          "trades_detail": [
+            {
+              "touch_close_utc": 1778093100,
+              "side": "BUY",
+              "entry_assumed": 4725.200000000002,
+              "exit_time_utc": 1778094960,
+              "r": 1.5,
+              "pnl_usd": 11.25,
+              "stop_assumed": 4717.56,
+              "initial_stop_distance": 7.640000000001237,
+              "target_assumed": 4736.6600000000035,
+              "exit_reason": "TP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 31.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1779870900,
+              "side": "BUY",
+              "entry_assumed": 4489.21,
+              "exit_time_utc": 1779877800,
+              "r": -1.0,
+              "pnl_usd": -7.5281,
+              "stop_assumed": 4475.43,
+              "initial_stop_distance": 13.779999999999745,
+              "target_assumed": 4509.879999999999,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 115.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1780293600,
+              "side": "BUY",
+              "entry_assumed": 4533.175,
+              "exit_time_utc": 1780294920,
+              "r": -1.0,
+              "pnl_usd": -7.5093,
+              "stop_assumed": 4522.664999999999,
+              "initial_stop_distance": 10.510000000001128,
+              "target_assumed": 4548.940000000002,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 22.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1782919200,
+              "side": "SELL",
+              "entry_assumed": 4054.0399999999995,
+              "exit_time_utc": 1782926400,
+              "r": 0.54314,
+              "pnl_usd": 4.0684,
+              "stop_assumed": 4083.829999999999,
+              "initial_stop_distance": 29.78999999999951,
+              "target_assumed": 4009.3550000000005,
+              "exit_reason": "TIMEOUT",
+              "elapsed_minutes_lower_bound": 120.0,
+              "exit_clock": "BAR_CLOSE"
+            },
+            {
+              "touch_close_utc": 1784229000,
+              "side": "BUY",
+              "entry_assumed": 3982.894999999999,
+              "exit_time_utc": 1784230320,
+              "r": -1.0,
+              "pnl_usd": -7.5007,
+              "stop_assumed": 3976.234999999999,
+              "initial_stop_distance": 6.6599999999998545,
+              "target_assumed": 3992.884999999999,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 22.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1784637300,
+              "side": "BUY",
+              "entry_assumed": 4073.044999999999,
+              "exit_time_utc": 1784637420,
+              "r": -1.0,
+              "pnl_usd": -7.482,
+              "stop_assumed": 4067.454999999999,
+              "initial_stop_distance": 5.5900000000001455,
+              "target_assumed": 4081.4299999999994,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 2.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            },
+            {
+              "touch_close_utc": 1790048400,
+              "side": "BUY",
+              "entry_assumed": 4347.75,
+              "exit_time_utc": 1790049660,
+              "r": -1.0,
+              "pnl_usd": -7.4632,
+              "stop_assumed": 4339.51,
+              "initial_stop_distance": 8.239999999999782,
+              "target_assumed": 4360.11,
+              "exit_reason": "STOP_INTRAMINUTE",
+              "elapsed_minutes_lower_bound": 21.0,
+              "exit_clock": "MINUTE_OPEN_LOWER_BOUND"
+            }
+          ]
+        }
+      },
+      "execution_allowed": false,
+      "broker_verified": false,
+      "adopted": false,
+      "warning": "Inspected public mid-quote OHLC, synthetic Bid/Ask. Fixed-R TP is a comparison benchmark, not 2.6. No structural stop padding calibrated to broker ticks; fees, slippage, margin and portfolio loss stops absent. Paired resolved subset can be selection biased; all candidates and policy skips retained. No account profit claim."
+    },
+    "public_xau_cost_sensitivity.json": {
+      "model": "HYPOTHETICAL ONLY, not broker fill backtest",
+      "baseline": {
+        "spread_usd": 0.6,
+        "stop_distance_usd": 6.0,
+        "trades": 14,
+        "skipped": 0,
+        "net_usd": 13.89,
+        "max_dd_pct": 1.025,
+        "wins": 5,
+        "losses": 9,
+        "assumptions": {
+          "spread_usd": 0.6,
+          "stop_distance_usd": 6.0,
+          "target_r": 2.0,
+          "risk_fraction": 0.0025,
+          "timeout_minutes": 120,
+          "entry": "next M1 open after M5 POI touch confirms"
+        },
+        "resolved_total_r": 1.88333,
+        "mean_resolved_r": 0.13452,
+        "unresolved_or_unmodeled": 0,
+        "full_candidate_effect_evaluable": true
+      },
+      "scenarios": [
+        {
+          "spread_usd": 0.6,
+          "stop_distance_usd": 4.0,
+          "trades": 14,
+          "skipped": 0,
+          "net_usd": 29.85,
+          "max_dd_pct": 0.996,
+          "wins": 6,
+          "losses": 8,
+          "assumptions": {
+            "spread_usd": 0.6,
+            "stop_distance_usd": 4.0,
+            "target_r": 2.0,
+            "risk_fraction": 0.0025,
+            "timeout_minutes": 120,
+            "entry": "next M1 open after M5 POI touch confirms"
+          },
+          "resolved_total_r": 4.0,
+          "mean_resolved_r": 0.28571,
+          "unresolved_or_unmodeled": 0,
+          "full_candidate_effect_evaluable": true
+        },
+        {
+          "spread_usd": 0.6,
+          "stop_distance_usd": 6.0,
+          "trades": 14,
+          "skipped": 0,
+          "net_usd": 13.89,
+          "max_dd_pct": 1.025,
+          "wins": 5,
+          "losses": 9,
+          "assumptions": {
+            "spread_usd": 0.6,
+            "stop_distance_usd": 6.0,
+            "target_r": 2.0,
+            "risk_fraction": 0.0025,
+            "timeout_minutes": 120,
+            "entry": "next M1 open after M5 POI touch confirms"
+          },
+          "resolved_total_r": 1.88333,
+          "mean_resolved_r": 0.13452,
+          "unresolved_or_unmodeled": 0,
+          "full_candidate_effect_evaluable": true
+        },
+        {
+          "spread_usd": 0.6,
+          "stop_distance_usd": 10.0,
+          "trades": 13,
+          "skipped": 1,
+          "net_usd": -17.12,
+          "max_dd_pct": 1.261,
+          "wins": 4,
+          "losses": 9,
+          "assumptions": {
+            "spread_usd": 0.6,
+            "stop_distance_usd": 10.0,
+            "target_r": 2.0,
+            "risk_fraction": 0.0025,
+            "timeout_minutes": 120,
+            "entry": "next M1 open after M5 POI touch confirms"
+          },
+          "resolved_total_r": -2.266,
+          "mean_resolved_r": -0.17431,
+          "unresolved_or_unmodeled": 1,
+          "full_candidate_effect_evaluable": false
+        },
+        {
+          "spread_usd": 1.2,
+          "stop_distance_usd": 4.0,
+          "trades": 14,
+          "skipped": 0,
+          "net_usd": 29.85,
+          "max_dd_pct": 0.996,
+          "wins": 6,
+          "losses": 8,
+          "assumptions": {
+            "spread_usd": 1.2,
+            "stop_distance_usd": 4.0,
+            "target_r": 2.0,
+            "risk_fraction": 0.0025,
+            "timeout_minutes": 120,
+            "entry": "next M1 open after M5 POI touch confirms"
+          },
+          "resolved_total_r": 4.0,
+          "mean_resolved_r": 0.28571,
+          "unresolved_or_unmodeled": 0,
+          "full_candidate_effect_evaluable": true
+        },
+        {
+          "spread_usd": 1.2,
+          "stop_distance_usd": 6.0,
+          "trades": 14,
+          "skipped": 0,
+          "net_usd": -9.34,
+          "max_dd_pct": 1.297,
+          "wins": 4,
+          "losses": 10,
+          "assumptions": {
+            "spread_usd": 1.2,
+            "stop_distance_usd": 6.0,
+            "target_r": 2.0,
+            "risk_fraction": 0.0025,
+            "timeout_minutes": 120,
+            "entry": "next M1 open after M5 POI touch confirms"
+          },
+          "resolved_total_r": -1.21667,
+          "mean_resolved_r": -0.0869,
+          "unresolved_or_unmodeled": 0,
+          "full_candidate_effect_evaluable": true
+        },
+        {
+          "spread_usd": 1.2,
+          "stop_distance_usd": 10.0,
+          "trades": 13,
+          "skipped": 1,
+          "net_usd": -18.46,
+          "max_dd_pct": 1.276,
+          "wins": 4,
+          "losses": 9,
+          "assumptions": {
+            "spread_usd": 1.2,
+            "stop_distance_usd": 10.0,
+            "target_r": 2.0,
+            "risk_fraction": 0.0025,
+            "timeout_minutes": 120,
+            "entry": "next M1 open after M5 POI touch confirms"
+          },
+          "resolved_total_r": -2.446,
+          "mean_resolved_r": -0.18815,
+          "unresolved_or_unmodeled": 1,
+          "full_candidate_effect_evaluable": false
+        },
+        {
+          "spread_usd": 2.0,
+          "stop_distance_usd": 4.0,
+          "trades": 14,
+          "skipped": 0,
+          "net_usd": 10.82,
+          "max_dd_pct": 1.126,
+          "wins": 5,
+          "losses": 9,
+          "assumptions": {
+            "spread_usd": 2.0,
+            "stop_distance_usd": 4.0,
+            "target_r": 2.0,
+            "risk_fraction": 0.0025,
+            "timeout_minutes": 120,
+            "entry": "next M1 open after M5 POI touch confirms"
+          },
+          "resolved_total_r": 1.475,
+          "mean_resolved_r": 0.10536,
+          "unresolved_or_unmodeled": 0,
+          "full_candidate_effect_evaluable": true
+        },
+        {
+          "spread_usd": 2.0,
+          "stop_distance_usd": 6.0,
+          "trades": 14,
+          "skipped": 0,
+          "net_usd": -10.34,
+          "max_dd_pct": 1.33,
+          "wins": 4,
+          "losses": 10,
+          "assumptions": {
+            "spread_usd": 2.0,
+            "stop_distance_usd": 6.0,
+            "target_r": 2.0,
+            "risk_fraction": 0.0025,
+            "timeout_minutes": 120,
+            "entry": "next M1 open after M5 POI touch confirms"
+          },
+          "resolved_total_r": -1.35,
+          "mean_resolved_r": -0.09643,
+          "unresolved_or_unmodeled": 0,
+          "full_candidate_effect_evaluable": true
+        },
+        {
+          "spread_usd": 2.0,
+          "stop_distance_usd": 10.0,
+          "trades": 13,
+          "skipped": 1,
+          "net_usd": -20.25,
+          "max_dd_pct": 1.296,
+          "wins": 4,
+          "losses": 9,
+          "assumptions": {
+            "spread_usd": 2.0,
+            "stop_distance_usd": 10.0,
+            "target_r": 2.0,
+            "risk_fraction": 0.0025,
+            "timeout_minutes": 120,
+            "entry": "next M1 open after M5 POI touch confirms"
+          },
+          "resolved_total_r": -2.686,
+          "mean_resolved_r": -0.20662,
+          "unresolved_or_unmodeled": 1,
+          "full_candidate_effect_evaluable": false
+        }
+      ],
+      "scope": "FULL_AVAILABLE_SOURCE_NOT_FIVE_MONTH_WINDOW",
+      "parameter_units": "spread_usd and stop_distance_usd are XAUUSD quote-price units, not account-dollar fees",
+      "source_m1_sha256": "741531ca37f0fddc904238da0fc1d646127928da0c87f5f81b4aab0579bfae91",
+      "source_candidates_sha256": "3b946f42d9ed9e4531f8bfe68d1e47d749a8cc01701a7123096b2c88c8356617",
+      "selection_allowed": false,
+      "execution_allowed": false,
+      "broker_costs_verified": false,
+      "comparison_warning": "Stops differ across scenarios; skipped outcomes stay unknown. This grid does not isolate spread effects across different stops.",
+      "positive_scenarios": 4,
+      "total_scenarios": 9,
+      "warnings": [
+        "Small inspected sample; resolved and unresolved counts are reported per scenario; H4 unverified",
+        "source is non-broker quote",
+        "no account-level simultaneous-position constraints",
+        "parameters not calibrated to actual spread, commission or swaps"
+      ]
+    }
+  },
+  "tests": {
+    "command": "python -m unittest test_xau_structural_stops test_orrery_xau_exit_spread test_orrery_xau_pre_gap_accounting test_tradingview_study -q",
+    "run": 26,
+    "failed": 0
+  },
+  "actual_account_profit_usd": null,
+  "out_of_sample_verified": false,
+  "execution_allowed": false,
+  "strategy_adopted": false,
+  "pipeline_commands": [
+    "python orrery_public_xau_m1_audit.py xauusd_public_m1.csv public_xau_audit.json",
+    "python orrery_public_xau_to_bars.py xauusd_public_m1.csv --out public_xau_bars",
+    "python orrery_public_xau_sequence_study.py",
+    "python orrery_xau_structural_stop_comparison.py",
+    "python orrery_xau_cost_sensitivity.py"
+  ],
+  "research_code_matches_base_commit": "cb21d887bebeed1c69ba8cab54070c93e26fe758"
+}
