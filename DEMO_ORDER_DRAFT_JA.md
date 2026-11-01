@@ -91,3 +91,22 @@ DB欠落・破損・口座不一致は停止し、自動再作成しない。デ
 SQLiteの記録と将来のbroker送信は単一トランザクションにできないため、応答不明時に再発注せず、
 約定照合する設計が別途必要。本モジュールは実発注経路へ未接続で、実取引の二重発注防止完成とは扱わない。
 保存hashは真正性証明ではない。execution_allowed=False、broker_order_sent=False。
+
+## 再起動後も同じ口座として照合する
+
+lsr04_demo_account_context.create_contextは、既に初期化された模擬/MT5 adapterから
+DEMO口座の識別を読み、1回だけローカル識別contextを新規保存する。ログイン処理は行わない。
+保存内容はschema、DEMO区分、乱数nonce、口座token、execution_allowed=Falseのみ。
+口座番号・サーバー名・パスワードは保存しない。nonceは認証情報ではなく、暗号化保管でもない。
+context_sha256は別の場所に保持し、紛失時に新規contextや新規予約DBを自動生成しない。
+
+inspect_boundは保存contextをSHAと現在のDEMO口座に照合し、同じnonceでorder_checkを実行。
+照会後にもcontextファイル・口座・期限を再確認し、欠落・書換え・別口座・実口座を拒否する。
+報告書からnonceを取り除く。新しいadapterインスタンスでも同じ口座tokenを維持する。
+check_and_claimは、その結果を既存SQLite予約DBへ渡す。候補IDは上流で確定した同じIDを使う。
+再起動やquote変更ごとに候補ID/口座context/予約DBを作り直してはならない。
+
+推奨ローカル名はdemo_account_context.local.jsonとdemo_claims.local.sqlite。
+これらとSQLite付随ファイルはGit管理対象外にする。ほかの名前で保存した場合の除外は呼出側の責任。
+この連携もorder_sendを実装せず、実デモ口座での発注防止機能の稼働を証明するものではない。
+実端末接続・承認固定・約定照合・応答不明時の復旧は後工程。
