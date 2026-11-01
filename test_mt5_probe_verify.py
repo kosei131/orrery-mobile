@@ -111,6 +111,21 @@ class ProbeVerifyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.verify()
 
+    def test_nested_archive_symlink_is_rejected(self):
+        # A returned folder must not redirect inspection outside the pinned bundle.
+        tick=self.f.output/'history/archive/ticks.jsonl'
+        external=self.f.root/'outside-ticks.jsonl'
+        external.write_bytes(tick.read_bytes())
+        tick.unlink()
+        tick.symlink_to(external)
+        with self.assertRaises(ValueError):
+            self.verify()
+
+    def test_rehashed_unknown_profitability_status_is_rejected(self):
+        self.change_probe(lambda r:r.update(profitability_evaluated=True))
+        with self.assertRaisesRegex(ValueError,'unverified'):
+            self.verify()
+
     def test_cli_preserves_receipts_and_refuses_existing_output(self):
         out=self.f.root/'verification.json';original=(self.f.output/'probe.json').read_bytes()
         args=['--folder',str(self.f.output),'--probe-sha256',self.pin,'--expected-request',str(self.expected),
