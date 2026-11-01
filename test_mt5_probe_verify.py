@@ -99,6 +99,18 @@ class ProbeVerifyTests(unittest.TestCase):
             verify_probe(output,probe_sha256=sha256(p.read_bytes()).hexdigest(),expected_request=self.expected,
                 expected_request_sha256=self.expected_pin,reference=self.f.path,now=self.f.now)
 
+    def test_receipt_shape_rejects_extra_claims_even_with_updated_hash(self):
+        # A new field in the returned receipt must not silently expand the trusted contract.
+        self.change_probe(lambda r:r.update(verified_net_profit_usd=50000))
+        with self.assertRaisesRegex(ValueError,'Supported probe receipt required'):
+            self.verify()
+
+    def test_missing_history_archive_is_not_treated_as_zero_trades(self):
+        # Missing observations are not zero-profit observations.
+        (self.f.output/'history/archive/ticks.jsonl').unlink()
+        with self.assertRaises(ValueError):
+            self.verify()
+
     def test_cli_preserves_receipts_and_refuses_existing_output(self):
         out=self.f.root/'verification.json';original=(self.f.output/'probe.json').read_bytes()
         args=['--folder',str(self.f.output),'--probe-sha256',self.pin,'--expected-request',str(self.expected),
