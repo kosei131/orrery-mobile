@@ -34,7 +34,7 @@ def normalize(raw, *, timeframe, settings):
             or any(not h or len(h)>200 for h in headers) or not set(columns.values())<=set(headers)):
         raise ValueError('Missing or duplicate CSV headers')
     positions={k:headers.index(v) for k,v in columns.items()}
-    bars=[];gaps=[];previous=None;deferred=0;raw_rows=0
+    bars=[];gaps=[];previous=None;deferred=0;raw_rows=0;segments=[];segment_rows=0
     for cells in reader:
         raw_rows+=1
         if raw_rows>200000 or len(cells)!=len(headers) or deferred:raise ValueError('Ragged/excessive CSV or row after unfinished bar')
@@ -52,15 +52,36 @@ def normalize(raw, *, timeframe, settings):
         prices={k:float(_number(row[k])) for k in ('open','high','low','close')}
         if not 0<prices['low']<=min(prices['open'],prices['close'])<=max(prices['open'],prices['close'])<=prices['high']:
             raise ValueError('Invalid OHLC')
-        if previous is not None and at-previous>interval:
-            gaps.append(dict(after_open=previous,before_open=at,missing_grid_bars=(at-previous)//interval-1))
+        prior=previous
         previous=at
         if at+interval>asof:deferred+=1;continue
+        if prior is not None and at-prior>interval:
+            gaps.append(dict(after_open=prior,before_open=at,missing_grid_bars=(at-prior)//interval-1))
+            segments.append(segment_rows);segment_rows=0
+        segment_rows+=1
         bars.append(dict(close_time=at+interval,**prices))
     if not bars:raise ValueError('Confirmed history required')
+    segments.append(segment_rows)
     return bars,dict(raw_sha256=sha256(raw).hexdigest(),confirmed_rows=len(bars),
         deferred_unconfirmed_rows=deferred,first_close_s=bars[0]['close_time'],last_close_s=bars[-1]['close_time'],
+        first_open_s=bars[0]['close_time']-interval,contiguous_segment_count=len(segments),
+        longest_contiguous_rows=max(segments),
         gap_count=len(gaps),missing_grid_bars=sum(x['missing_grid_bars'] for x in gaps),gap_examples=gaps[:20])
+
+
+def _readiness(audit):
+    """Report every import blocker without equating range overlap with usable history."""
+    start=max(a['first_open_s'] for a in audit.values())
+    end=min(a['last_close_s'] for a in audit.values())
+    overlap=start<end
+    blockers=[]
+    for frame,a in audit.items():
+        if a['gap_count']:blockers.append(dict(timeframe=frame,reason='SESSION_OR_HISTORY_GAPS',count=a['gap_count']))
+        if a['confirmed_rows']>2000:blockers.append(dict(timeframe=frame,reason='REPLAY_WORK_BUDGET',rows=a['confirmed_rows'],limit=2000))
+    if not overlap:blockers.append(dict(timeframe=None,reason='NO_SHARED_TIME_RANGE'))
+    return dict(shared_range_start_s=start if overlap else None,shared_range_end_s=end if overlap else None,
+        shared_range_seconds=end-start if overlap else 0,shared_range_is_gap_free_verified=False,
+        strategy_warmup_verified=False,blockers=blockers)
 
 
 def study(raw_csvs, settings, *, account_inputs=None):
@@ -85,7 +106,8 @@ def study(raw_csvs, settings, *, account_inputs=None):
     if not isinstance(raw_csvs,dict) or set(raw_csvs)!=set(INTERVALS):raise ValueError('M5 M15 H4 exports required')
     bars={};audit={}
     for frame in INTERVALS:bars[frame],audit[frame]=normalize(raw_csvs[frame],timeframe=frame,settings=settings)
-    base=dict(symbol=settings['symbol'],data_source=settings['data_source'],audit=audit,
+    readiness=_readiness(audit)
+    base=dict(symbol=settings['symbol'],data_source=settings['data_source'],audit=audit,import_readiness=readiness,
         settings_sha256=sha256(_encode(settings)).hexdigest(),initial_equity_usd=3000,
         strategy_scope='EXISTING_LSR02_AND_VHF03_RETEST_STRUCTURAL_SL_FIXED_TARGET_R',
         excluded_modules=['REVERSAL04','HALFTREND05','UNDEFINED_2_6'],
@@ -96,6 +118,7 @@ def study(raw_csvs, settings, *, account_inputs=None):
     # Existing structure engine forbids gaps. Do not bridge weekends or missing bars.
     if any(a['gap_count'] for a in audit.values()):return dict(base,status='BLOCKED_SESSION_OR_HISTORY_GAPS',plans=None)
     if any(len(b)>2000 for b in bars.values()):return dict(base,status='BLOCKED_REPLAY_WORK_BUDGET',plans=None)
+    if readiness['shared_range_seconds']==0:return dict(base,status='BLOCKED_NO_SHARED_TIME_RANGE',plans=None)
     args=dict(h4=bars['H4'],m15=bars['M15'],m5=bars['M5'],as_of=settings['as_of_s'],**st)
     compiled=build_account_plans(settings['symbol'],**args)
     if account_inputs is None:return dict(base,status='STRATEGY_PLANS_READY_BID_ASK_AND_VALUATION_REQUIRED',plans=compiled)

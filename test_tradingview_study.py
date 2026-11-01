@@ -42,6 +42,36 @@ class StudyTests(unittest.TestCase):
         raw=dict(self.raw);raw['M5']=export(self.f.m[:2]+self.f.m[3:],300)
         r=study(raw,self.settings);self.assertEqual(r['status'],'BLOCKED_SESSION_OR_HISTORY_GAPS')
         self.assertIsNone(r['plans']);self.assertIsNone(r['modelled_account_summary'])
+    def test_large_gapped_import_reports_all_blockers_and_range(self):
+        raw={}
+        for frame,interval in (('M5',300),('M15',900),('H4',14400)):
+            bars=[dict(close_time=100000+i*interval*2+interval,open=12,high=13,low=11,close=12) for i in range(5000)]
+            raw[frame]=export(bars,interval)
+        r=study(raw,dict(self.settings,as_of_s=200000000))
+        ready=r['import_readiness']
+        self.assertEqual(len(ready['blockers']),6)
+        self.assertEqual(ready['shared_range_start_s'],100000)
+        self.assertEqual(ready['shared_range_end_s'],100000+9999*300)
+        self.assertFalse(ready['shared_range_is_gap_free_verified'])
+        self.assertEqual(r['audit']['H4']['contiguous_segment_count'],5000)
+        self.assertEqual(r['audit']['H4']['longest_contiguous_rows'],1)
+        self.assertIsNone(r['verified_profit_usd']);self.assertIsNone(r['plans'])
+    def test_nonoverlapping_histories_do_not_compile_strategy(self):
+        raw={}
+        for frame,start,interval in (('M5',0,300),('M15',10000,900),('H4',100000,14400)):
+            raw[frame]=export([dict(close_time=start+(i+1)*interval,open=12,high=13,low=11,close=12) for i in range(2)],interval)
+        r=study(raw,dict(self.settings,as_of_s=200000))
+        self.assertEqual(r['status'],'BLOCKED_NO_SHARED_TIME_RANGE')
+        self.assertIsNone(r['import_readiness']['shared_range_start_s'])
+        self.assertEqual(r['import_readiness']['shared_range_seconds'],0)
+        self.assertIsNone(r['plans'])
+    def test_gap_before_excluded_unfinished_tail_is_not_history_gap(self):
+        raw=dict(self.raw)
+        raw['M5']+=f"{self.f.end+600},12,13,11,12\r\n".encode()
+        r=study(raw,dict(self.settings,as_of_s=self.f.end+600))
+        self.assertEqual(r['audit']['M5']['deferred_unconfirmed_rows'],1)
+        self.assertEqual(r['audit']['M5']['gap_count'],0)
+        self.assertEqual(r['audit']['M5']['contiguous_segment_count'],1)
     def test_duplicate_and_nonfinite_rows_rejected(self):
         raw=dict(self.raw);raw['M5']+=raw['M5'].splitlines()[-1]+b'\n'
         with self.assertRaises(ValueError):study(raw,self.settings)
