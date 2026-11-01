@@ -126,6 +126,24 @@ class ProbeVerifyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'unverified'):
             self.verify()
 
+    def test_unknown_costs_cannot_be_promoted_to_zero_even_with_rehashed_receipt(self):
+        for field in ('slippage','carry_cost_usd','actual_profit_usd'):
+            with self.subTest(field=field):
+                original=self.f.output/'probe.json'
+                before=original.read_bytes()
+                self.change_probe(lambda r:r.update({field:0}))
+                with self.assertRaisesRegex(ValueError,'unknown'):
+                    self.verify()
+                original.write_bytes(before)
+                self.pin=sha256(before).hexdigest()
+
+    def test_foreign_conversation_of_archive_not_accepted_as_provenance(self):
+        # An unrequested archive file is never accepted as additional evidence.
+        unexpected=self.f.output/'history/archive/other-feed-ticks.jsonl'
+        unexpected.write_text('{"symbol":"USDJPY"}\\n',encoding='utf-8')
+        with self.assertRaises(ValueError):
+            self.verify()
+
     def test_cli_preserves_receipts_and_refuses_existing_output(self):
         out=self.f.root/'verification.json';original=(self.f.output/'probe.json').read_bytes()
         args=['--folder',str(self.f.output),'--probe-sha256',self.pin,'--expected-request',str(self.expected),
