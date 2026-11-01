@@ -31,6 +31,14 @@ Python API study(..., account_inputs=...)へ検証済み整合性のBid/Askカ�
 銘柄・価格提供元と約定カタログのsourceラベル不一致は既存エンジンが拒否する。
 ラベル一致だけで同一feedと証明するものではなく、ブローカー仕様・費用の史実性も未認証。
 
+口座比較ではsettings.symbolをexpected_symbolとして固定し、ピン留めしたBid/Askカタログの
+銘柄と一致しなければ、口座候補作成・履歴USD評価より前に拒否する。
+account_inputsでexpected_symbolを上書きすることはできない。
+下位compare_catalog_accountsを直接使う既存呼出しでは、互換性のためexpected_symbol=Noneが
+既定値として残る。OHLCの銘柄が分かる直接呼出しは必ず明示する。
+これは申告された銘柄ラベル間の整合性検査であり、CSVの価格や出所の真正性証明ではない。
+再現と検査範囲はRESEARCH_TV_SYMBOL_BINDING_JA.mdを参照。
+
 モデル結果に含むもの：終了残高、終了評価額、確定損益USD、未決済ポジション、
 勝率、期待値R、PF、観測quote時点の最大DD、連敗数、見送り理由。
 現在の研究制限：1銘柄1ポジション、計画リスク0.25%、日次損失1%、3連敗停止。

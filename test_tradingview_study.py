@@ -2,6 +2,7 @@ import csv
 import io
 import tempfile
 import unittest
+from unittest.mock import Mock
 from pathlib import Path
 import test_lsr03_account_study as fixture
 import test_lsr03_account_replay as account_fixture
@@ -90,6 +91,21 @@ class StudyTests(unittest.TestCase):
         self.assertEqual(r['plans'],study(self.raw,self.settings)['plans'])
     def test_optional_account_data_cannot_replace_strategy_inputs(self):
         with self.assertRaises(ValueError):study(self.raw,self.settings,account_inputs={'target_r':10})
+    def test_mismatched_tick_catalog_symbol_stops_before_usd_valuation(self):
+        f=self.f;f.build([f.q(105900001,12,12.1),f.q(106000000,20,20.1)])
+        valuation=Mock(wraps=account_fixture.pnl)
+        opts=dict(path=f.path,expected_catalog_sha256=f.saved['catalog_sha256'],volume_min=.01,volume_max=100.,volume_step=.01,
+            pnl_quote=valuation,round_trip_cost_per_lot_usd=.01,cost_source='SYNTHETIC_USD_MODEL',slippage=0.)
+        with self.assertRaisesRegex(ValueError,'Bar/tick symbol'):
+            study(self.raw,dict(self.settings,symbol='USDJPY'),account_inputs=opts)
+        valuation.assert_not_called()
+    def test_account_inputs_cannot_override_expected_bar_symbol(self):
+        f=self.f;f.build([f.q(105900001,12,12.1),f.q(106000000,20,20.1)])
+        opts=dict(path=f.path,expected_catalog_sha256=f.saved['catalog_sha256'],volume_min=.01,volume_max=100.,volume_step=.01,
+            pnl_quote=account_fixture.pnl,round_trip_cost_per_lot_usd=.01,cost_source='SYNTHETIC_USD_MODEL',slippage=0.,
+            expected_symbol='XAUUSD')
+        with self.assertRaisesRegex(ValueError,'cannot override'):
+            study(self.raw,dict(self.settings,symbol='USDJPY'),account_inputs=opts)
     def test_saved_inputs_recompute_and_tampering_is_detected(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);paths={k:root/(k+'.csv') for k in self.raw}
