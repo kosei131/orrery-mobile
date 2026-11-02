@@ -52,6 +52,23 @@ class LongHorizonGateTests(unittest.TestCase):
         self.assertFalse(x['coverage_gate_passed'])
         self.assertLess(x['holdout_calendar_coverage_ratio'],0.65)
 
+    def test_candidate_inside_unobserved_gap_is_rejected(self):
+        r=report(200,[row(100)])
+        r['windows']=[
+            dict(start_open_utc=dt(0),end_close_utc=dt(80)),
+            dict(start_open_utc=dt(120),end_close_utc=dt(200))]
+        with self.assertRaisesRegex(ValueError,'outside a single observed'):
+            assess(r)
+
+    def test_resolved_exit_crossing_data_gap_is_rejected(self):
+        r=report(200,[row(79)])
+        r['candidates'][0]['reference_r_exit_at']=int((START+timedelta(days=121)).timestamp()*1000)
+        r['windows']=[
+            dict(start_open_utc=dt(0),end_close_utc=dt(80)),
+            dict(start_open_utc=dt(120),end_close_utc=dt(200))]
+        with self.assertRaisesRegex(ValueError,'outside a single observed'):
+            assess(r)
+
     def test_overlapping_or_unsorted_windows_rejected(self):
         r=report(200,[row(10)])
         r['windows']=[
