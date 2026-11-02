@@ -8,6 +8,7 @@ from pathlib import Path
 from orrery_tradingview_window_replay import _aligned_windows, _one_window, _summary
 from orrery_public_xau_m1_audit import inspect
 from orrery_dashboard_analysis import analyze
+from orrery_public_m1_gap_inventory import inventory as m1_gap_inventory
 
 PARAMETERS = dict(buffer=.1, target_r=2, period=14, min_vhf=.4, left=1, right=1, lifetime=6000)
 STEPS = {'5m':300, '15m':900, '4H':14400}
@@ -125,6 +126,7 @@ if __name__ == '__main__':
     data=frames(args.bars)
     result=compare(data)
     result['audit']=audit
+    result['m1_gap_inventory']=m1_gap_inventory(args.source)
     result['aggregation_crosscheck']=crosscheck(args.source,data)
     result['frame_counts']={k:len(v) for k,v in data.items()}
     result['frame_coverage']=coverage(data)
