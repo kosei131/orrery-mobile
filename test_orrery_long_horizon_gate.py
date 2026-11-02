@@ -13,7 +13,7 @@ def report(days=200, rows=None):
     return dict(status='EXPLORATORY_WINDOW_RESET_GROSS_REFERENCE_ONLY',execution_allowed=False,
         actual_profit_usd=None,continuous_backtest_complete=False,
         common_range=dict(start_open_utc=dt(0),end_nominal_close_utc=dt(days)),
-        windows=[dict(index=0)],candidates=rows or [])
+        windows=[dict(index=0,start_open_utc=dt(0),end_close_utc=dt(days))],candidates=rows or [])
 
 class LongHorizonGateTests(unittest.TestCase):
     def test_short_history_never_passes_six_month_requirement(self):
@@ -21,6 +21,24 @@ class LongHorizonGateTests(unittest.TestCase):
         self.assertFalse(x['coverage_gate_passed'])
         self.assertFalse(x['out_of_sample_net_edge_verified'])
         self.assertIsNone(x['actual_profit_usd'])
+
+    def test_calendar_span_with_sparse_replay_windows_fails_coverage(self):
+        r=report(200,[row(10),row(180)])
+        r['windows']=[
+            dict(start_open_utc=dt(0),end_close_utc=dt(5)),
+            dict(start_open_utc=dt(175),end_close_utc=dt(200))]
+        result=assess(r)
+        self.assertEqual(result['span_days'],200)
+        self.assertEqual(result['observed_days'],30)
+        self.assertFalse(result['coverage_gate_passed'])
+
+    def test_overlapping_or_unsorted_windows_rejected(self):
+        r=report(200,[row(10)])
+        r['windows']=[
+            dict(start_open_utc=dt(0),end_close_utc=dt(80)),
+            dict(start_open_utc=dt(79),end_close_utc=dt(200))]
+        with self.assertRaisesRegex(ValueError,'nonoverlapping'):
+            assess(r)
 
     def test_long_span_with_few_trades_is_still_not_evidence(self):
         x=assess(report(200,[row(10),row(180)]))
