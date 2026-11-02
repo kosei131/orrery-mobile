@@ -83,10 +83,29 @@ def assess(report, *, train_days=120, min_days=MIN_DAYS, min_candidates=MIN_CAND
             net_expectancy_r=None,profit_factor_net=None,account_max_drawdown=None)
     elapsed_days=(end-start).total_seconds()/86400
     train=summary(cohorts['train']);test=summary(cohorts['holdout'])
-    coverage_ready=elapsed_days>=min_days and split<end
+    # A six-month first-to-last timestamp is NOT six months of observed history.
+    # Require explicitly reported, nonoverlapping coverage windows and account for gaps.
+    windows=report.get('windows')
+    if not isinstance(windows,list) or not windows:
+        raise ValueError('Observed replay windows required')
+    coverage_seconds=0.0
+    previous_end=None
+    train_seconds=holdout_seconds=0.0
+    for w in windows:
+        a=_time(w['start_open_utc']);b=_time(w['end_close_utc'])
+        if not start<=a<b<=end or (previous_end is not None and a<previous_end):
+            raise ValueError('Ordered nonoverlapping replay coverage required')
+        previous_end=b
+        coverage_seconds+=(b-a).total_seconds()
+        train_seconds+=max(0.0,(min(b,split)-a).total_seconds())
+        holdout_seconds+=max(0.0,(b-max(a,split)).total_seconds())
+    observed_days=coverage_seconds/86400
+    # Explicit coverage sufficiency is independent of calendar elapsed time.
+    coverage_ready=elapsed_days>=min_days and split<end and observed_days>=min_days
+
     sample_ready=train['closed']>=min_candidates and test['closed']>=min_candidates
     no_unresolved=train['all_resolved'] and test['all_resolved'] and not cohorts['boundary_excluded']
-    return dict(status='LONG_HORIZON_GATED_RESEARCH_ONLY',span_days=elapsed_days,
+    return dict(status='LONG_HORIZON_GATED_RESEARCH_ONLY',span_days=elapsed_days,observed_days=observed_days,\n        observed_train_days=train_seconds/86400,observed_holdout_days=holdout_seconds/86400,
         split_utc=split.isoformat(),minimum_days=min_days,minimum_closed_per_partition=min_candidates,
         observed_window_count=len(report.get('windows',[])),coverage_gate_passed=coverage_ready,
         sample_gate_passed=sample_ready,resolution_gate_passed=no_unresolved,
