@@ -51,3 +51,39 @@ python orrery_halftrend_holdout.py --plan research_evidence/local-history-202611
 候補数を0とせずnullで記録した。模擬検査は1970年の人工OHLCを使用し、実損益に転用しない。
 Python全1,055件中1,050成功・5skip・失敗0。新規8テスト。
 ユーザーPC/MT5の操作、注文、課金、マージ、配備は実施していない。
+
+## 明示的な複数ZIPレビュー（任意・独立窓研究）
+
+`orrery_halftrend_holdout_batch.py`は保存結果JSONの数字を足さず、指定した元ZIPを
+同一の固定計画で再検証する。既存の単体runが自動合算される変更ではない。
+元ZIP SHA256、共通評価期間の重複、候補ID重複を拒否。内容が同じでZIPの
+READMEだけ異なる再梱包も、共通期間が重なれば再生前に拒否する。
+境界は半開区間として扱い、前の終了時刻＝次の開始時刻の隣接を許可。
+
+最大8 ZIP、1個16MiB、合計32MiB。既存の各ZIP監査/計算量制限も維持。
+manifestは`[{"zip_path":"NEW_A.zip","zip_sha256":"..."}, ...]`形式で、
+manifest自体もSHA256で固定して指定する。
+
+```
+python orrery_halftrend_holdout_batch.py --manifest bundles.json --manifest-sha256 MANIFEST_SHA256 --plan research_evidence/local-history-20261101/halftrend_prospective_plan_20261102.json --plan-sha256 580ec6b919f6da6e9adb8b0973f89f3af2112000dce56ca559899bd10803c434 --output NEW_BATCH.json
+```
+
+既存LSR02/VHF03/HalfTrend studyを各ZIPで再実行し、候補を並べて既存_summaryと
+lsr03_learning_rollup._sequenceで全群を集計。群の事後選別はしない。
+ZIP順を入れ替えても時系列に正規化する。ZIP境界では指標/候補状態を持ち越さない。
+分割方法で境界付近の候補が変わり得るため、連続一括再生と同等とは主張しない。
+未決着を別ZIPの後続足で決着させず、人工的な連結や価格補間もしない。
+
+unsubmitted_common_span_gapsは計画のうち提出された共通期間の外側にある時間。
+市場休場・データ欠損の確定ではない。submitted_common_span_secondsも実足の
+観測秒数ではなく区間の長さで、内部の穴や正常休場を含み得る。
+partial_period=falseでもセッション完全性を証明しない。欠損/費用/未使用独立性の
+検証フラグはfalse、純期待値/利益率/口座DD/実損益はnullを維持する。
+原計画40ファイルと計画hashは不変。新しい集約器自身のコードhashも出力する。
+HalfTrendは比較対象に含むが採用保留、Reversal04/LSR01独立経路/2.6は未評価。
+
+今回は追加実CSV未取得。検査は人工OHLCと人工損失/未決着の入力を使う模擬検査で、
+これを新期間の取引件数や利益として報告しない。
+取得が必要なのは上記将来期間の同一OANDA提供元の確定4H/15m/5mと、
+別工程の口座比較には同一feed整合性を確認できるBid/Ask・仕様・費用・履歴USD評価。
+ユーザーPC/MT5にこの環境から接続したことはない。

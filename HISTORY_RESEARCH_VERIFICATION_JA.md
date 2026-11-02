@@ -479,3 +479,18 @@ orrery_halftrend_holdout.pyでコード依存40ファイル/LSR/VHF/HalfTrend設
 証拠: halftrend_prospective_plan_20261102.json / halftrend_prospective_readiness.json。
 8テスト追加（人工データで入口動作・既存ZIP/重複期間/コード設定変更/未来cutoff等の拒否）。
 Python全1,055件中1,050成功・5skip・失敗0。PC/MT5操作・発注・配備なし。
+
+## 2026-11-02 HST — 分割ZIPの重複計上を防ぐ事前検査
+
+PR1/3/6/7の最新HEADとPR7 CI成功を再取得。研究入口は42b312d。
+未完課題として、28日予備研究に複数ZIPを使う際の重複期間/同一ZIP/候補IDの二重計上防止を選定。
+既存の固定計画と40コードpinは変更せず、orrery_halftrend_holdout_batch.pyを追加。
+保存集計JSONを信頼せず、元ZIP pin照合→期間重複拒否→既存evaluate再生→候補ID照合→
+既存_summary/lsr03_learning_rollup._sequence再集計の順。全群を保持し勝者の選別はしない。
+未提出の共通時間範囲とZIP境界の初期化を明示、連続戦略/6か月/セッション完全性は未証明。
+費用/口座損益/DDと未使用独立性は未確認、HalfTrendは採用保留、Reversal等は未評価。
+9新規検査: 再梱包重複の再生前拒否、同一ZIP、隣接、順序不変、候補ID重複、
+旧期間、破損pin/件数制限、未決着＋損失集計、原計画40pin有効性。
+実CSV未取得・TradingView/MT5ツールなし。新期間候補数・損益は未算出。
+模擬検査を実収益に転用せず、実口座/PC/MT5操作・注文・課金・マージ・配備なし。
+全Python1,064件中1,059成功・5skip・失敗0、git diff --check成功。CIにも9検査を登録。
