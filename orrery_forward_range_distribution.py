@@ -16,6 +16,9 @@ def summarize(study, *, split_at, min_train=30, min_holdout=30):
     rows=study['rows'];horizons=study['horizons']
     if not isinstance(rows,list) or not 1<=len(rows)<=100000:
         raise ValueError('Bounded rows required')
+    interval=study.get('interval_seconds')
+    if type(interval) is not int or interval not in (300,900,14400):
+        raise ValueError('Explicit bar interval required')
     seen=set();train=[];holdout=[];excluded=[]
     for r in rows:
         t=r['decision_at'];f=r['features']
@@ -32,8 +35,6 @@ def summarize(study, *, split_at, min_train=30, min_holdout=30):
                 raise ValueError('Finite range outcomes required')
         # Do not allow training labels that overlap the untouched test interval.
         max_h=max(horizons)
-        interval=f.get('interval_seconds',300)
-        if type(interval) is not int or interval<=0:raise ValueError('Explicit bar interval required')
         if t<split_at and t+max_h*interval>=split_at: excluded.append(r)
         elif t<split_at:train.append(r)
         else:holdout.append(r)
