@@ -1,0 +1,34 @@
+{
+  "source_url": "https://www.tradingview.com/script/hkKioUnL-AMD-Po3-with-Live-Edge-Stats-WillyAlgoTrader/",
+  "script_id": "PUB;646ba78cb9e34cd096405b32aa1777a7",
+  "api_version": "3.0",
+  "source_header_version": "2.4.0",
+  "source_sha256": "df7516db74027b7913583a117f6fb1077ccc2d429bea60d90bc58bdb7ee1afa3",
+  "source_bytes": 84052,
+  "retrieved_at_utc": "2026-11-02T19:20:01.640790+00:00",
+  "source_access": "open_no_auth",
+  "license_header_identified": false,
+  "full_source_redistributed": false,
+  "static_review_only": true,
+  "pine_executed": false,
+  "parity_verified": false,
+  "synthetic_gap_counterexample": {
+    "side": "BUY",
+    "entry": 100,
+    "stop": 99,
+    "target": 102,
+    "following_bar": {
+      "open": 98,
+      "high": 103,
+      "low": 97,
+      "close": 100
+    },
+    "both_touched": true,
+    "source_ambiguous_branch_r": -1,
+    "open_price_stop_reference_r": -2.0,
+    "difference_r": 1,
+    "actual_market_trade": false
+  },
+  "execution_allowed": false,
+  "actual_profit_usd": null
+}
