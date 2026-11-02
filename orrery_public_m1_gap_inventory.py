@@ -11,6 +11,7 @@ import json
 from collections import Counter
 from hashlib import sha256
 from orrery_xau_h4_m1_completeness import classify
+from orrery_xau_session_coverage import classify_gap_intervals
 from pathlib import Path
 
 
@@ -81,7 +82,7 @@ def inventory(path, *, max_rows=500000, max_gap_details=10000):
         expected_grid='UTC_FIXED_4H', scope='FULLY_OBSERVED_SOURCE_HORIZON_ONLY',
         calendar_authenticated=False, continuity_restored=False)
     return dict(status='PUBLIC_M1_GAP_INVENTORY_RESEARCH_ONLY',
-        source_sha256=source_pin,h4_source_completeness=h4,source_rows=total,first_minute_utc=first.isoformat(),
+        weekly_gap_partition=classify_gap_intervals(gaps),source_sha256=source_pin,h4_source_completeness=h4,source_rows=total,first_minute_utc=first.isoformat(),
         last_minute_utc=last.isoformat(),gap_count=len(gaps),
         missing_minute_slots=sum(g['missing_minutes'] for g in gaps),
         largest_gap_minutes=max((g['missing_minutes'] for g in gaps),default=0),

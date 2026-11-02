@@ -20,6 +20,11 @@ class PublicM1GapInventoryTests(unittest.TestCase):
         a=inventory(self.path)
         self.assertEqual(a['source_rows'],4)
         self.assertEqual(a['gap_count'],1)
+        partition=a['weekly_gap_partition']
+        self.assertEqual(partition['missing_minutes'],a['missing_minute_slots'])
+        self.assertEqual(partition['weekly_open_unexplained_minutes']+
+                         partition['weekly_closed_candidate_minutes'],a['missing_minute_slots'])
+        self.assertFalse(partition['continuity_restored'])
         self.assertEqual(a['missing_minute_slots'],3059)
         self.assertTrue(a['gaps'][0]['crosses_weekend'])
         self.assertEqual(a['gaps'][0]['session_reason'],'UNVERIFIED')
