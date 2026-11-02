@@ -342,3 +342,39 @@ H4 f20d05e6d43212c71906b3e10ef7a5a49a55871ceebd675c947fee41f97226c9を使用。
 証拠: research_evidence/local-history-20261101/h4_interruption_evidence_requests.json。
 候補取得計画として保存し、価格補間・戦略採用・発注は保留。次は最上位区間の
 同一提供元のM1/更新イベントまたは無更新・セッション例外の証拠を確認する。
+
+## 最新提供元版による未観測分の再確認
+
+事前課題: 上位未観測時刻が最新公開版で追加/改訂されているか、価格混合なしで確認する。
+2026-11-02T08:20:20.815998Z（ハワイ11/1）に提供元mainのHEADをAPIで取得し、
+固定commit adcd99e7e0abee51e9a5eef123935e68a8d8aa30 のCSVを新規パスへ取得した。
+commit時刻は9/26 02:33:14UTC。最新であることは今回のHEAD取得時点に限る。
+取得元は次の不変URL:
+https://raw.githubusercontent.com/getdata-finance/xauusd-1m-ohlcv-metals-historical-data/adcd99e7e0abee51e9a5eef123935e68a8d8aa30/XAUUSD_1m.csv
+
+15,205,326 bytes、SHA256 a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225。
+元CSVと全バイト一致、179,662行。観測重複部のOHLC改訂0、行追加0/削除0。
+前回17区間の確認対象61分は全て未観測のままで、9/2 22:00の原因は未解決。
+
+orrery_m1_revision_compare.pyを追加。元/候補/対象計画のhash、提供元の固定commit URL、
+UTC分単位、時刻一意性、有限OHLC/volume、対象の重複と元で既観測でないことを検査。
+対象分の追加と既存重複部のOHLC/volume改訂、行削除を分離する。
+行追加が見つかっても、その元quoteや補修方法を認証したことにはならず、自動統合しない。
+このモジュール自体はネット接続・上書き・補間・注文を行わない。
+
+提供元公開資料 https://www.getdata.finance/documentation を検索取得で再確認。
+一般的な休場除外と補修方法の説明はあるが、当該分の無更新/欠損/例外を証明する
+個別レコードは確認できなかった。直接取得はHTTP530。
+FXCMの公開Candle/Tick資料も確認したが、公開列挙にXAUUSDはなく、別銘柄URLを推測して取得しない。
+資料: https://github.com/fxcm/MarketData/blob/master/CandleData/README.md
+https://github.com/fxcm/MarketData/blob/master/TickData/README.md
+他社データや一般的な開場時刻で元提供元の欠損を埋めない。
+
+6テスト追加: 同一版、対象行追加、重複価格改訂、既存行消失、pin/URL/対象拒否、不正CSV。
+全Python1,026件中1,021成功・5skip・失敗0。CIに単体検査を登録。
+証拠: research_evidence/local-history-20261101/latest_provider_revision_check.json。
+新しい実相場成績は計算せず、前回参照1件-1R/純利益不明を維持。
+HalfTrend/Reversalを含む全戦略の検証完了ではない。修復/戦略採用は保留。
+この公開版からの欠損原因確定は証拠不足のため停止。次は別の無料一次配信元を
+独立研究系列として利用できるか確認し、元系列を補修する目的では混合しない。
+PC/MT5への接続、問い合わせ送信、購入、発注、本番マージ/配備は行っていない。
