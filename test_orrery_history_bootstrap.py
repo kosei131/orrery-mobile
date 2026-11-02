@@ -1,5 +1,6 @@
 import ast
 import os
+import shutil
 from hashlib import sha256
 from pathlib import Path
 import subprocess
@@ -89,7 +90,8 @@ class BootstrapTests(unittest.TestCase):
         code, _ = self.cli(timeout=True)
         self.assertEqual(code, 1)
 
-    @unittest.skipUnless(os.name == 'nt', 'Windows Python launcher integration only')
+    @unittest.skipUnless(os.name == 'nt' and shutil.which('py'),
+                         'Windows integration requires py launcher')
     def test_windows_launcher_real_public_download_without_mt5(self):
         result = subprocess.run(['py', '-3.12', str(self.source/'orrery_history_bootstrap.py'),
                                  '--verify-only'], cwd=self.temp.name,
