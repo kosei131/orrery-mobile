@@ -105,7 +105,8 @@ def assess(report, *, train_days=120, min_days=MIN_DAYS, min_candidates=MIN_CAND
 
     sample_ready=train['closed']>=min_candidates and test['closed']>=min_candidates
     no_unresolved=train['all_resolved'] and test['all_resolved'] and not cohorts['boundary_excluded']
-    return dict(status='LONG_HORIZON_GATED_RESEARCH_ONLY',span_days=elapsed_days,observed_days=observed_days,\n        observed_train_days=train_seconds/86400,observed_holdout_days=holdout_seconds/86400,
+    return dict(status='LONG_HORIZON_GATED_RESEARCH_ONLY',span_days=elapsed_days,observed_days=observed_days,
+        observed_train_days=train_seconds/86400,observed_holdout_days=holdout_seconds/86400,
         split_utc=split.isoformat(),minimum_days=min_days,minimum_closed_per_partition=min_candidates,
         observed_window_count=len(report.get('windows',[])),coverage_gate_passed=coverage_ready,
         sample_gate_passed=sample_ready,resolution_gate_passed=no_unresolved,
