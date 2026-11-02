@@ -1,0 +1,90 @@
+{
+  "data_kind": "SYNTHETIC_ONLY",
+  "source_parity_verified": false,
+  "code_sha256": "2367017bcec95fe721c037a29562cc1737fc781a7e2b7c48b3ad53c41726c3ad",
+  "cases": [
+    {
+      "input": {
+        "side": "BUY",
+        "entry": 100,
+        "stop": 99,
+        "target": 102,
+        "bar": {
+          "open": 98,
+          "high": 103,
+          "low": 97,
+          "close": 100
+        }
+      },
+      "result": {
+        "status": "OPEN_AT_OR_BEYOND_STOP",
+        "both_touched": true,
+        "intrabar_order_unknown": false,
+        "reference_exit_price": 98.0,
+        "gross_reference_r": -2.0,
+        "stop_first_sensitivity_r": null,
+        "open_fill_assumption": true,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "actual_profit_usd": null,
+        "execution_allowed": false
+      }
+    },
+    {
+      "input": {
+        "side": "SELL",
+        "entry": 100,
+        "stop": 101,
+        "target": 98,
+        "bar": {
+          "open": 102,
+          "high": 103,
+          "low": 97,
+          "close": 100
+        }
+      },
+      "result": {
+        "status": "OPEN_AT_OR_BEYOND_STOP",
+        "both_touched": true,
+        "intrabar_order_unknown": false,
+        "reference_exit_price": 102.0,
+        "gross_reference_r": -2.0,
+        "stop_first_sensitivity_r": null,
+        "open_fill_assumption": true,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "actual_profit_usd": null,
+        "execution_allowed": false
+      }
+    },
+    {
+      "input": {
+        "side": "BUY",
+        "entry": 100,
+        "stop": 99,
+        "target": 102,
+        "bar": {
+          "open": 100,
+          "high": 103,
+          "low": 98,
+          "close": 100
+        }
+      },
+      "result": {
+        "status": "AMBIGUOUS_INTRABAR",
+        "both_touched": true,
+        "intrabar_order_unknown": true,
+        "reference_exit_price": null,
+        "gross_reference_r": null,
+        "stop_first_sensitivity_r": -1.0,
+        "open_fill_assumption": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "actual_profit_usd": null,
+        "execution_allowed": false
+      }
+    }
+  ],
+  "actual_profit_usd": null,
+  "execution_allowed": false
+}
