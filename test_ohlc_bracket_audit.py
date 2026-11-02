@@ -27,7 +27,7 @@ class BracketTests(unittest.TestCase):
         r=self.buy(open=100,high=101,low=100,close=100)
         self.assertIsNone(r['gross_reference_r']);self.assertFalse(r['execution_allowed'])
     def test_nonfinite_and_invalid_ohlc_rejected(self):
-        for value in ('NaN','Infinity',True,-1):
+        for value in ('NaN','Infinity',True,-1,'1e-9999','0.'+'9'*200):
             with self.assertRaises(ValueError):self.buy(open=value,high=103,low=97,close=100)
         with self.assertRaises(ValueError):self.buy(open=104,high=103,low=97,close=100)
     def test_invalid_side_or_geometry_rejected(self):

@@ -4,9 +4,11 @@ from decimal import Decimal, InvalidOperation
 
 def _price(value):
     if isinstance(value,bool):raise ValueError('Finite positive price required')
-    try:p=Decimal(str(value))
+    text=str(value)
+    if len(text)>100:raise ValueError('Bounded price precision required')
+    try:p=Decimal(text)
     except (InvalidOperation,ValueError):raise ValueError('Finite positive price required') from None
-    if not p.is_finite() or not 0<p<=Decimal('1e12'):raise ValueError('Finite positive price required')
+    if not p.is_finite() or not Decimal('1e-12')<=p<=Decimal('1e12'):raise ValueError('Finite positive price required')
     return p
 
 
