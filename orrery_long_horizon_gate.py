@@ -65,6 +65,8 @@ def assess(report, *, train_days=120, min_days=MIN_DAYS, min_candidates=MIN_CAND
             if exit_at>=end:
                 raise ValueError('Exit beyond covered interval')
         else:
+            if exit_ms is not None:
+                raise ValueError('Unresolved candidate cannot claim an exit timestamp')
             exit_at=None
         if when<split and (exit_at is None or exit_at>=split):
             group='boundary_excluded'
