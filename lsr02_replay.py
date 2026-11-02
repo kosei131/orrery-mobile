@@ -25,7 +25,8 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
         if not isinstance(diagnostics,dict) or diagnostics or regime_config is not None or halt_store is not None:
             raise ValueError('Empty diagnostic dict supported only for plain offline replay')
         diagnostics.update(m5_closes=0,h4_states={},m15_sweep_events=0,
-            sweep_dispositions={},candidate_transitions={},invalidation_reasons={},invalidation_from_states={})
+            sweep_dispositions={},candidate_transitions={},invalidation_reasons={},invalidation_from_states={},
+            h4_context_reasons={},h4_context_bars={},h4_reason_by_bars={},h4_sweep_context_reasons={})
     def count(group,key,n=1):
         if diagnostics is not None and n:
             bucket=diagnostics[group];bucket[key]=bucket.get(key,0)+n
@@ -47,6 +48,14 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
         if diagnostics is not None:
             diagnostics['m5_closes']+=1
             count('h4_states',h['trend'] if fresh else 'MISSING' if not context else 'STALE')
+            highs=sum(p['kind']=='HIGH' for p in h['pivots'])
+            lows=sum(p['kind']=='LOW' for p in h['pivots'])
+            h4_reason=('MISSING' if not context else 'STALE' if not fresh else
+                'INSUFFICIENT_CONFIRMED_PIVOTS' if highs<2 or lows<2 else
+                h['trend'] if h['trend'] in ('UP','DOWN') else 'NON_DIRECTIONAL_CONFIRMED_STRUCTURE')
+            count('h4_context_reasons',h4_reason)
+            count('h4_context_bars',str(len(context)))
+            count('h4_reason_by_bars',h4_reason+':'+str(len(context)))
         regime=None
         if regime_config is not None:
             regime=classify(context,as_of=t,interval=14400,left=left,right=right,**regime_config)
@@ -66,7 +75,9 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
         s=detect(fifteen,as_of=t,interval=900,left=left,right=right)
         # Only process a 15m event at the same close, never a delayed historical sweep.
         sweeps=[e for e in s['events'] if e['kind']=='SWEEP' and e['known_at']==t]
-        if diagnostics is not None:diagnostics['m15_sweep_events']+=len(sweeps)
+        if diagnostics is not None:
+            diagnostics['m15_sweep_events']+=len(sweeps)
+            count('h4_sweep_context_reasons',h4_reason,len(sweeps))
         if candidate is not None and candidate.state!='INVALID':
             count('sweep_dispositions','ACTIVE_CANDIDATE',len(sweeps))
             current=detect([x for x in m5 if x['close_time']<=t],as_of=t,interval=300,left=left,right=right)

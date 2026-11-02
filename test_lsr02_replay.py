@@ -54,6 +54,7 @@ class ReplayDiagnosticTests(unittest.TestCase):
         for b in h:b.update(open=12,close=12,low=11,high=13)
         d={};self.assertEqual(self.run_replay(h,m,f,diagnostics=d),[])
         self.assertEqual(d['h4_states'],{'RANGE':len(f)})
+        self.assertEqual(d['h4_context_reasons'],{'INSUFFICIENT_CONFIRMED_PIVOTS':len(f)})
         self.assertEqual(d['sweep_dispositions'],{'HTF_RANGE':1})
 
     def test_missing_h4_remains_missing(self):
@@ -74,5 +75,29 @@ class ReplayDiagnosticTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'Empty diagnostic'):
             self.run_replay(h,m,f,diagnostics=d)
         self.assertEqual(d,{'keep':True})
+
+class H4ContextDiagnosticTests(unittest.TestCase):
+    fixture=ReplayDiagnosticTests.fixture
+    run_replay=ReplayDiagnosticTests.run_replay
+    # Reuse the same fixtures; these are diagnostics, not new trend rules.
+    def test_short_context_is_pivot_shortage_not_established_range(self):
+        h,m,f=self.fixture();d={}
+        self.run_replay(h[-2:],m,f,diagnostics=d)
+        self.assertEqual(d['h4_context_reasons'],{'INSUFFICIENT_CONFIRMED_PIVOTS':len(f)})
+        self.assertEqual(d['h4_context_bars'],{'2':len(f)})
+        self.assertEqual(d['h4_sweep_context_reasons'],{'INSUFFICIENT_CONFIRMED_PIVOTS':1})
+
+    def test_confirmed_conflicting_structure_is_distinct(self):
+        h,m,f=self.fixture();h[4]['low']=6;h[6]['low']=5;d={}
+        self.assertEqual(self.run_replay(h,m,f,diagnostics=d),[])
+        self.assertEqual(d['h4_context_reasons'],{'NON_DIRECTIONAL_CONFIRMED_STRUCTURE':len(f)})
+        self.assertEqual(d['h4_reason_by_bars'],{'NON_DIRECTIONAL_CONFIRMED_STRUCTURE:7':len(f)})
+
+    def test_directional_structure_counts_use_current_confirmed_context(self):
+        h,m,f=self.fixture();d={}
+        expected=self.run_replay(h,m,f)
+        self.assertEqual(self.run_replay(h,m,f,diagnostics=d),expected)
+        self.assertEqual(d['h4_context_reasons'],{'UP':len(f)})
+        self.assertEqual(d['h4_sweep_context_reasons'],{'UP':1})
 
 if __name__=='__main__':unittest.main()

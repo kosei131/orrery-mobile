@@ -26,7 +26,8 @@ def diagnose_windows(windows):
     from lsr02_replay import replay
     totals=dict(m5_closes=0,m15_sweep_events=0)
     groups={k:Counter() for k in ('h4_states','sweep_dispositions',
-                                 'candidate_transitions','invalidation_reasons','invalidation_from_states')}
+                                 'candidate_transitions','invalidation_reasons','invalidation_from_states',
+        'h4_context_reasons','h4_context_bars','h4_reason_by_bars','h4_sweep_context_reasons')}
     rows=[]
     for w in windows:
         d={}
@@ -34,7 +35,11 @@ def diagnose_windows(windows):
             buffer=PARAMETERS['buffer'],lifetime=PARAMETERS['lifetime'],
             left=PARAMETERS['left'],right=PARAMETERS['right'],diagnostics=d)
         if (sum(d['h4_states'].values())!=d['m5_closes'] or
-                sum(d['sweep_dispositions'].values())!=d['m15_sweep_events']):
+                sum(d['sweep_dispositions'].values())!=d['m15_sweep_events'] or
+                sum(d['h4_context_reasons'].values())!=d['m5_closes'] or
+                sum(d['h4_context_bars'].values())!=d['m5_closes'] or
+                sum(d['h4_reason_by_bars'].values())!=d['m5_closes'] or
+                sum(d['h4_sweep_context_reasons'].values())!=d['m15_sweep_events']):
             raise ValueError('Replay diagnostic counters do not reconcile')
         for k in totals:totals[k]+=d[k]
         for k in groups:groups[k].update(d[k])
@@ -43,6 +48,8 @@ def diagnose_windows(windows):
         **{k:dict(v) for k,v in groups.items()},windows=rows,
         repeated_active_state_rows_counted=False,
         m15_scope='SWEEP_EVENTS_AT_OBSERVED_M5_CLOSE_ONLY',
+        h4_reason_basis='EXISTING_CONFIRMED_PIVOTS_TWO_HIGHS_AND_TWO_LOWS',
+        history_shortage_cause_verified=False,
         candidate_invalidations_are_trade_outcomes=False,
         counts_are_profitability_evidence=False,execution_allowed=False)
 
