@@ -5,11 +5,11 @@ geometry, not verified targets or order instructions.
 """
 from math import isfinite
 
-def projection(plan, *, candidate_id, observed_close, as_of_s):
+def projection(plan, *, candidate_id, entry_reference, observed_close, as_of_s):
     if not isinstance(candidate_id,str) or not candidate_id or not isinstance(plan,dict):
         raise ValueError('Candidate plan required')
     side=plan.get('side')
-    entry=plan.get('entry')
+    entry=entry_reference
     stop=plan.get('stop')
     target=plan.get('target')
     known=plan.get('known_at_msc')
