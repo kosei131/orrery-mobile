@@ -124,8 +124,15 @@ def run(source, bars, output_dir, *, expected_source_sha256):
     from datetime import datetime
     published=datetime.fromisoformat(review['published_report_utc']).timestamp()
     report=paired_compare(data,load(path,'H4')['bars'],published_at=published)
+    from orrery_h4_gap_requests import requests
+    calpath=output_dir/'session_diagnostic'/'weekly_calendar_hypothesis.json'
+    report['h4_gap_evidence_requests']=requests(
+        bars/'XAUUSD_M1_UNVERIFIED_QUOTE.csv',path,calpath,
+        normalized_sha256=review['normalized_m1_sha256'],h4_sha256=review['h4_file_sha256'],
+        calendar_sha256=sha256(calpath.read_bytes()).hexdigest(),
+        start=report['start_open_s'],end=report['end_close_s'],published_at=published)
     root=Path(__file__).resolve().parent
-    modules=('orrery_history_session_study.py','orrery_history_app.py','orrery_xau_session_coverage.py',
+    modules=('orrery_h4_gap_requests.py','orrery_history_session_study.py','orrery_history_app.py','orrery_xau_session_coverage.py',
         'orrery_m1_complete_bars.py','orrery_tradingview_window_replay.py','lsr03_account_study.py',
         'lsr03_adapter.py','lsr02_replay.py','lsr02_structure.py','lsr02_sequence.py',
         'lsr03_vhf.py','lsr02_exits.py','lsr02.py','lsr02_regime.py','lsr03_learning_rollup.py')
