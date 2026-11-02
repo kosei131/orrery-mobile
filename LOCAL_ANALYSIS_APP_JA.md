@@ -65,3 +65,25 @@ iPhone対応時は、このHTTPを外部公開せず、別のHTTPS認証gateway�
   14工程の再現結果はRESEARCH_RESUME_2026-11-01_JA.md参照。
   不足期間、同一feed Bid/Ask、手数料・滑り・セッション監査、真の未使用期間が必要。
 - execution_allowed=false。実口座接続・デモ注文・有料サービス使用なし。
+
+## 保存済みTradingView HalfTrend研究の別枠表示
+
+公開M1履歴のチャートとは別ソースであることを明記した保存済み研究枠を追加。
+既存の`--history-dir`起動に以下を追加する（同じローカルPCのみ、外部公開なし）。
+
+```
+--halftrend-report research_evidence/local-history-20261101/tradingview_halftrend_cohorts.json --halftrend-report-sha256 REPORT_SHA256
+```
+
+REPORT_SHA256は表示したいJSONファイル自体のSHA256。Python例:
+`python -c "from pathlib import Path;from hashlib import sha256;print(sha256(Path('research_evidence/local-history-20261101/tradingview_halftrend_cohorts.json').read_bytes()).hexdigest())"`
+
+既存`--research-results`は公開M1履歴と一致する結果専用のまま。
+新枠は入力JSONのhash・研究限定フラグと候補から再計算した全群集計を検査し、
+出典ZIP hash・対象UTC期間・候補/TP/SL/未決着/同一足曖昧を表示する。
+このhashは内容固定であり、提供元真正性やTradingView指標一致の証明ではない。
+MT5接続/模擬口座モードには付加できず、チャート上へ注文案を投影しない。
+費用/BidAsk・独立未使用期間・口座損益/DD未検証、Reversal04未評価、
+LSR01独立経路/2.6未比較とHalfTrend採用保留を明記。
+オプション未指定時は未読込、通信失敗時は前の表示を消す。
+既存PCへの更新/起動やiPhone接続はこの変更では実施していない。

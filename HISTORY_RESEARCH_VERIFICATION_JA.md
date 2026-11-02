@@ -450,3 +450,19 @@ HalfTrendの候補群比較を含めたが、全戦略・費用込み成績・�
 証拠: research_evidence/local-history-20261101/tradingview_halftrend_cohorts.json。
 戦略採用・SL/TP変更・発注・本番反映なし。次は未決着と少数標本を保持したまま、
 同じ設定の再現・追加期間検証へ引き継ぐ。勝者群だけで条件を選び直さない。
+
+## 2026-11-02 HST — 保存済みHalfTrend比較を分析画面へ統合
+
+研究課題: 公開M1画面に受領済みTradingView比較を混同せず提示する。
+`orrery_halftrend_panel.load_panel`で入力JSON hash/サイズ/研究限定フラグと
+既存_summaryによる全群の再集計一致を確認。個別注文案や口座数値を渡さず、
+別枠へ対象期間・ZIP/JSON hash・候補/TP/SL/未決着/曖昧数を表示する。
+費用・独立holdout・口座損益/DD未検証、Reversal04未評価、LSR01/2.6未比較を維持。
+任意指定・公開履歴モード限定。既存結果のファイル照合・ローカル認証は変更なし。
+今回新しい相場標本や損益計算はなく、HalfTrend採用保留の結論も変えない。
+6 Pythonテスト追加（実証拠集計、hash不一致、改変集計、scope逸脱、未知群、MT5併用拒否）。
+既存Chromium検査へ実証拠の表示/別データ明記/390px幅/未読込への消去を追加。
+ローカルの関連27テスト成功。ローカルChromium本体なしのため画面検査はCIで確認。
+PCへの適用・注文・マージ・配備は実施していない。
+
+全Python検査: 1,047件中1,042成功・5skip・失敗0。git diff --check成功。
