@@ -408,3 +408,45 @@ https://datafeed.dukascopy.com/datafeed/XAUUSD/2026/08/02/12h_ticks.bi5
 取得未完のため独立データによる戦略比較は未実行。既存の純損益・口座DDは不明のまま。
 この経路の実取得は429で保留。次は無料web exportの利用条件と出力仕様を確認するか、
 別一次提供元のUSDJPY少量履歴を独立に取得できるか調べる。追加課金・権限緩和はしない。
+
+## FXCM取得保留と受領済みTradingViewでのHalfTrend比較
+
+FXCM公式CandleData資料でUSDJPY/m1の公開URL方式を確認し、2026年36週を1要求だけ試行。
+https://github.com/fxcm/MarketData/blob/master/CandleData/README.md
+2026-11-02T08:44:12.376789Z（ハワイ11/1）、次のURLはHTTP403で停止した。
+https://candledata.fxcorporate.com/m1/USDJPY/2026/36.csv.gz
+提供元と中継側のどちらの制限か、対象年週のデータがあるかは未確認。生データ未取得。
+別経路/認証/権限緩和で回避せず、証拠をfxcm_usdjpy_source_attempt.jsonへ保存。
+
+新データ不足で停止したため、次の未完研究へ進めた。事前仮説は
+「確定RETEST時のM5 HalfTrend方向が候補側と一致する条件で価格参照結果が改善するか」。
+既存lsr05_halftrend.calculateを再利用し、amplitude2/channel2/ATR100の1設定を固定。
+既存LSR02/VHF03候補・SL/TP・参照約定・欠損リセットは変更せず、その同じ候補を分類。
+各連続窓のM5で初期化し、入口の完全一致clockの行だけ使用。未来行や次のsignalを取らない。
+ATRが準備できない候補はNOT_READYに残し、反対signalや損失として扱わない。
+外部TV版HalfTrendとの一致/非リペイントは未証明。Reversal04用の外部signalをHalfTrendで代用しない。
+
+入力: 受領済みORRERY_FX_XAUUSD_CSV ZIP、OANDA:XAUUSD、共通10/6〜10/30 UTC、
+ZIP SHA256 60c9f24963138f9c3d5673627662c964e523dc00a0bdb86936737566fce7a32b。
+18独立窓、M5 4,968本の基準再生。4候補・既存SL/TP/各参照結果が前回v2証拠と完全一致。
+
+|群|候補|TP参照|SL参照|未決着|
+|---|---:|---:|---:|---:|
+|LSR02全体|4|2|1|1|
+|HalfTrend方向一致|2|0|1|1|
+|HalfTrend方向不一致|1|1|0|0|
+|HalfTrend準備不足|1|1|0|0|
+
+この小標本では方向一致だけ残す案を採用する根拠はない。
+方向一致群の決着済みgross平均は-1Rだが、未決着があるため全候補合計R・口座DD・利益率は不明。
+反対群が1勝だったことから逆張りを採用せず、利益/勝率向上も主張しない。
+VHF03は従来通り2候補（1TP/1未決着）。別の公開M1研究1件-1Rとは合算しない。
+Reversal04は外部観測未提供としてNOT_EVALUATED、LSR01独立経路と未定義2.6も未比較。
+HalfTrendの候補群比較を含めたが、全戦略・費用込み成績・未使用期間検証の完了ではない。
+
+新規orrery_tradingview_halftrend_study.pyと6テストを追加。未来行不使用、初期化不足、
+一致/不一致で元plan維持、欠落clock、重複clock、ZIPpin/評価範囲を検査。
+全Python1,041件中1,036成功・5skip・失敗0。CI登録済み。
+証拠: research_evidence/local-history-20261101/tradingview_halftrend_cohorts.json。
+戦略採用・SL/TP変更・発注・本番反映なし。次は未決着と少数標本を保持したまま、
+同じ設定の再現・追加期間検証へ引き継ぐ。勝者群だけで条件を選び直さない。
