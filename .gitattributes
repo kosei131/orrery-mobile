@@ -1,0 +1,3 @@
+# Frozen research code and JSON receipts must have identical bytes on Windows/Linux.
+*.py text eol=lf
+research_evidence/**/*.json text eol=lf

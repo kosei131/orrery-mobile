@@ -80,6 +80,25 @@ class BatchTests(unittest.TestCase):
         self.assertEqual(summary['censored'],1);self.assertEqual(summary['mean_closed_gross_reference_r'],-1)
         self.assertIsNone(summary['total_all_candidates_gross_reference_r'])
         self.assertIsNone(summary['closed_reference_sequence']['max_drawdown_at_exit_batches_r'])
+    def test_git_windows_autocrlf_checkout_preserves_frozen_bytes(self):
+        import shutil,subprocess,tempfile
+        from pathlib import Path
+        from orrery_halftrend_holdout import code_pins
+        if not shutil.which('git'):self.skipTest('Git executable unavailable for checkout integration')
+        root=Path(__file__).resolve().parent
+        name='research_evidence/local-history-20261101/halftrend_prospective_plan_20261102.json'
+        raw=(root/name).read_bytes();p=json.loads(raw)
+        with tempfile.TemporaryDirectory() as tmp:
+            repo=Path(tmp)/'repo';repo.mkdir();out=Path(tmp)/'checkout';out.mkdir()
+            (repo/'.gitattributes').write_bytes((root/'.gitattributes').read_bytes())
+            for filename in [*p['code_sha256'],name]:
+                target=repo/filename;target.parent.mkdir(parents=True,exist_ok=True)
+                target.write_bytes((root/filename).read_bytes())
+            for args in (['init','-q'],['-c','core.autocrlf=true','add','--all'],
+                         ['-c','core.autocrlf=true','checkout-index','--all','--prefix='+out.as_posix()+'/']):
+                subprocess.run(['git',*args],cwd=repo,check=True,capture_output=True)
+            self.assertEqual((out/name).read_bytes(),raw)
+            self.assertEqual(code_pins(out),p['code_sha256'])
     def test_published_frozen_plan_remains_usable(self):
         from pathlib import Path
         raw=Path('research_evidence/local-history-20261101/halftrend_prospective_plan_20261102.json').read_bytes()

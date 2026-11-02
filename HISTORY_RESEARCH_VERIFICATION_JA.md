@@ -494,3 +494,11 @@ PR1/3/6/7の最新HEADとPR7 CI成功を再取得。研究入口は42b312d。
 実CSV未取得・TradingView/MT5ツールなし。新期間候補数・損益は未算出。
 模擬検査を実収益に転用せず、実口座/PC/MT5操作・注文・課金・マージ・配備なし。
 全Python1,064件中1,059成功・5skip・失敗0、git diff --check成功。CIにも9検査を登録。
+
+Windows初回CIで固定計画JSONのhash不一致を検出（705b467、job125482274388）。
+Gitの自動CRLF変換によるバイト不一致を再現し、.gitattributesでPythonと
+research_evidence配下JSONのcheckoutをLFへ固定。原計画JSON/hashと40ソースは変更せず、
+検証スキップ/改行の事後正規化/期待hashの差替えは行わない。
+一時Git repoでcore.autocrlf=trueのcheckoutを実行し、JSON元バイトと40ソースhashの
+完全一致を検査するテストを追加。新規合計10検査。
+修正後ローカル全1,065件中1,060成功・5skip・失敗0。Windows CIを再確認する。

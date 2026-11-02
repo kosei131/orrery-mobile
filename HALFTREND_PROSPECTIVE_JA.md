@@ -87,3 +87,10 @@ HalfTrendは比較対象に含むが採用保留、Reversal04/LSR01独立経路/
 取得が必要なのは上記将来期間の同一OANDA提供元の確定4H/15m/5mと、
 別工程の口座比較には同一feed整合性を確認できるBid/Ask・仕様・費用・履歴USD評価。
 ユーザーPC/MT5にこの環境から接続したことはない。
+
+### Windows checkout時の改行
+
+固定計画JSONとPythonコードは.gitattributesによりLFで取得する。
+自動CRLF変換があると元のhashと一致しないため、照合は正しく停止する。
+計画のhashを再計算して差し替えて通してはならない。既存のユーザーPCへは未適用。
+今回、一時Git repoのcore.autocrlf=trueで原JSON/40ソースのバイト一致を検査した。
