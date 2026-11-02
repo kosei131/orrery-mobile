@@ -378,3 +378,33 @@ HalfTrend/Reversalを含む全戦略の検証完了ではない。修復/戦略�
 この公開版からの欠損原因確定は証拠不足のため停止。次は別の無料一次配信元を
 独立研究系列として利用できるか確認し、元系列を補修する目的では混合しない。
 PC/MT5への接続、問い合わせ送信、購入、発注、本番マージ/配備は行っていない。
+
+## 独立Dukascopy系列の少量取得経路
+
+事前課題: GetDataと混合せず、別の一次提供元でBid/Askを独立検査できるか。
+既存orrery_duka_source_probe.pyを再利用し、匿名の1時間公開archiveだけを扱う。
+公式の履歴export資料でBid/Ask提供を確認。一括S3資料はRequester Paysのため利用しない。
+https://www.dukascopy.com/api/data/get/historical-data-export
+https://www.dukascopy.com/wiki/en/development/data-export/
+
+取得試行: 2026-11-02T08:35:04.806197Z（ハワイ11/1）、XAUUSDの9/2 12時UTCの1時間。
+https://datafeed.dukascopy.com/datafeed/XAUUSD/2026/08/02/12h_ticks.bi5
+1要求がHTTP429で停止。生データ未取得、実ティック数・価格倍率・配信品質は未確認。
+429が提供元か中継側かは特定していない。再試行、代理経路、課金経路を使って回避しない。
+旧receiptのfetched_at_utcは開始clockだったため、証拠JSONではrequest_started_at_utcと明記。
+既存端末/MT5の接続ではない。GetDataの欠損補修にも使用していない。
+
+改修: 明示UTC/過去の1時間/銘柄を確認し、新規フォルダーのみへ保存。
+リダイレクト禁止、匿名固定URL、圧縮30MB/展開40MB・LZMAメモリ64MiBを上限化。
+単一ストリーム終端・20byte framing、時刻順/時間範囲、ask>=bid>0、有限非負volumeを検査。
+同時刻tickは保持し重複clockを数える。価格倍率を推測してドル損益へ換算しない。
+失敗receiptに架空tick_countや成功を入れず、エラー型/HTTP状態だけを保存。
+モジュール自身にS3/認証/課金/インストール/注文処理はない。
+
+9テスト追加: record順序、価格/volume/clock、展開上限、不完全/連結ストリーム、
+転送拒否、模擬成功、HTTP失敗、既存出力保持、不正時刻。
+全Python1,035件中1,030成功・5skip・失敗0。実取得成功とは区別する。
+証拠: research_evidence/local-history-20261101/duka_independent_source_probe.json。
+取得未完のため独立データによる戦略比較は未実行。既存の純損益・口座DDは不明のまま。
+この経路の実取得は429で保留。次は無料web exportの利用条件と出力仕様を確認するか、
+別一次提供元のUSDJPY少量履歴を独立に取得できるか調べる。追加課金・権限緩和はしない。
