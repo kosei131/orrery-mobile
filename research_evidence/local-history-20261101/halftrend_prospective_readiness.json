@@ -1,0 +1,14 @@
+{
+  "status": "BLOCKED_NO_NEW_PERIOD_DATA",
+  "plan_sha256": "580ec6b919f6da6e9adb8b0973f89f3af2112000dce56ca559899bd10803c434",
+  "discovery_zip_sha256": "60c9f24963138f9c3d5673627662c964e523dc00a0bdb86936737566fce7a32b",
+  "observed_at_utc": "2026-11-02T18:44:21.134326+00:00",
+  "actual_received_zip_rejection": "Discovery ZIP is not a new period",
+  "prospective_candidates": null,
+  "net_expectancy_r": null,
+  "account_return_pct": null,
+  "account_max_dd_usd": null,
+  "actual_profit_usd": null,
+  "execution_allowed": false,
+  "independent_holdout_verified": false
+}

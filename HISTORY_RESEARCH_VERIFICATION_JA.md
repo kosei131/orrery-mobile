@@ -466,3 +466,16 @@ HalfTrendの候補群比較を含めたが、全戦略・費用込み成績・�
 PCへの適用・注文・マージ・配備は実施していない。
 
 全Python検査: 1,047件中1,042成功・5skip・失敗0。git diff --check成功。
+
+## 2026-11-02 HST — HalfTrend追加期間の事前固定ゲート
+
+追加の未使用TradingView M5データがないため、既閲覧期間を再命名せず、
+UTC11/3〜12/1の28日予備研究を先に固定。6か月検証完了とは呼ばない。
+orrery_halftrend_holdout.pyでコード依存40ファイル/LSR/VHF/HalfTrend設定を固定、
+新ZIPpin・期間・実行時刻を検査して既存studyを再利用。設定の再最適化なし。
+探索時集計と新期間の全群集計を保持、費用込み損益・独立性・セッション完全性は未証明。
+追加期間結果が部分期間なら明示し、自動採用/注文は禁止。詳細HALFTREND_PROSPECTIVE_JA.md。
+実受領済みZIPを再投入しDiscovery ZIPとして拒否を確認。新期間候補/損益はnull。
+証拠: halftrend_prospective_plan_20261102.json / halftrend_prospective_readiness.json。
+8テスト追加（人工データで入口動作・既存ZIP/重複期間/コード設定変更/未来cutoff等の拒否）。
+Python全1,055件中1,050成功・5skip・失敗0。PC/MT5操作・発注・配備なし。
