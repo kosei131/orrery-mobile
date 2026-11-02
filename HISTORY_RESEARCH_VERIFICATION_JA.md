@@ -182,3 +182,45 @@ Reversal/HalfTrend未統合、費用・利益率・PF・DD・未使用評価は�
 ```powershell
 python orrery_history_app.py --bars research_artifacts_20261101/public_xau_bars --source research_artifacts_20261101/xauusd_public_m1.csv --output research_with_sessions_new.json --session-review-dir session_diagnostic_new
 ```
+
+## 公表後の同条件LSR02/VHF03比較
+
+事前仮説: 価格を補間せず、既存週次ルールの部分セッションH4を加えることで
+方向判定可能な区間と候補が増えるか。費用後の改善を予め仮定しない。
+orrery_history_session_study.pyを追加し、元CSV hash・全M1照合・基準足照合を通してから
+既存compare/_one_window/_summaryを再利用。buffer0.1、TP2R、VHF14/0.4、pivot1/1、
+lifetime6000秒の1条件だけ実行し、結果を見た再調整なし。2.6の定義を変更しない。
+
+資料の公表2026-08-22T20:59:35Zを切り上げ、2026-08-23T00:00Z〜9/25T20:00Zに限定。
+両H4方式に同一M5/M15入力を渡しhash一致を記録。開始前のH4/M15 warmupなし。
+UTC完全足124本/最長5本に対し、未認証週次H4は132本/最長18本。
+どちらも25独立区間で欠損リセット。ただしH4による再生可能範囲が違い、
+M5再生本数は5,952対6,120。同一の有効観測本数による比較とは呼ばない。
+各H4方式のLSR02とVHF03は同じ候補集合から事前VHF値で分ける。
+
+|H4方式|LSR02候補|VHF03候補|価格参照結果|
+|---|---:|---:|---|
+|UTC完全足のみ|0|0|不明|
+|週次部分足・未認証|1|0|1損失、-1R|
+
+唯一の候補: 9/2 09:10UTC SELL、終値参照4318.54、構造SL4331.68、TP4292.26。
+11:40UTCにSL先着のM5 OHLC参照。H4 DOWN、VHF約0.26565/FALLINGで除外。
+スイープ極値4331.58+buffer0.1がSL、TPは2Rの固定比較仮説。
+失敗理由の因果証明ではない。VHFが1損失を除外しただけで改善とは判断しない。
+この1件のgross平均R=-1、PF=0、退出時点の参照DD=1R。口座DD・利益率・純期待値は不明。
+VHFの0候補を利益0・無損失とは扱わない。既閲覧期間なので未使用評価ではない。
+Reversal04/HalfTrend05/LSR01独立経路/未定義2.6を含む全戦略検証ではない。
+
+新規6テスト: 同一H4時の実エンジン一致、資料公表前warmup排除、欠損の維持、
+不正時刻/OHLC拒否、元CSVpin不一致の出力拒否、入力不変。
+全Python1005件中1000成功・5skip・失敗0。CIにも実CSV比較を追加。
+証拠: research_evidence/local-history-20261101/paired_session_strategy_comparison.json。
+この結果は研究上の候補生成の成立確認に留まり、戦略の採用は保留。
+SL/TP変更・ロット引上げ・注文・本番反映なし。口座リスク制限は変更せず、このgross参照計算には未適用。
+
+再現:
+```powershell
+python orrery_history_session_study.py --source research_artifacts_20261101/xauusd_public_m1.csv --bars research_artifacts_20261101/public_xau_bars --source-sha256 a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225 --output-dir paired_session_new
+```
+次は25区間の構造→スイープ→確認→リテストの候補生成経路を診断し、
+候補1件の主因が観測範囲かルールの希少性かを分ける。条件を緩めて勝ちを作らない。
