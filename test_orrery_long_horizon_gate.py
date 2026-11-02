@@ -23,7 +23,7 @@ class LongHorizonGateTests(unittest.TestCase):
         self.assertIsNone(x['actual_profit_usd'])
 
     def test_calendar_span_with_sparse_replay_windows_fails_coverage(self):
-        r=report(200,[row(10),row(180)])
+        r=report(200,[row(3),row(180)])
         r['windows']=[
             dict(start_open_utc=dt(0),end_close_utc=dt(5)),
             dict(start_open_utc=dt(175),end_close_utc=dt(200))]
