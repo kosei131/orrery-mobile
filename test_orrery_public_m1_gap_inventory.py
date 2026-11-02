@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+from hashlib import sha256
 import tempfile
 import unittest
 from pathlib import Path
@@ -43,6 +45,33 @@ class PublicM1GapInventoryTests(unittest.TestCase):
         self.assertEqual(a['gap_count'],0)
         self.assertEqual(a['missing_minute_slots'],0)
         self.assertFalse(a['continuity_restored'])
+
+    def test_h4_distinguishes_partial_empty_and_source_edges(self):
+        start=datetime(2026,10,1,tzinfo=timezone.utc)
+        # Two complete slots, one missing minute, one empty slot; partial edges.
+        stamps=[start+timedelta(minutes=i) for i in range(1,1201)
+                if i!=500 and not 720<=i<960]
+        self.write([t.isoformat() for t in stamps])
+        a=inventory(self.path);h=a['h4_source_completeness']
+        self.assertEqual(a['source_sha256'],sha256(self.path.read_bytes()).hexdigest())
+        self.assertEqual(h['complete_interior_slots'],2)
+        self.assertEqual(h['missing_h4_slots'],2)
+        self.assertEqual(h['m1_slot_classification'],{'partial_1_to_239':1,'empty':1})
+        self.assertEqual([x['observed_m1_bars_in_slot'] for x in h['edge_truncated_slots']],[239,1])
+        self.assertFalse(h['continuity_restored'])
+        self.assertFalse(h['full_h4_rebuild_allowed'])
+
+    def test_exact_h4_boundaries_are_not_truncated(self):
+        start=datetime(2026,10,1,tzinfo=timezone.utc)
+        self.write([(start+timedelta(minutes=i)).isoformat() for i in range(240)])
+        h=inventory(self.path)['h4_source_completeness']
+        self.assertEqual(h['complete_interior_slots'],1)
+        self.assertEqual(h['edge_truncated_slots'],[])
+        self.assertEqual(h['missing_h4_slots'],0)
+
+    def test_rejects_unbounded_sparse_horizon(self):
+        self.write(['2024-01-01T00:00:00Z','2026-01-01T00:00:00Z'])
+        with self.assertRaisesRegex(ValueError,'horizon'):inventory(self.path)
 
 if __name__=='__main__':
     unittest.main()

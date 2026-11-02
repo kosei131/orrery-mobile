@@ -86,6 +86,8 @@ jobs:
             https://raw.githubusercontent.com/getdata-finance/xauusd-1m-ohlcv-metals-historical-data/main/XAUUSD_1m.csv
       - name: Verify raw CSV timestamps and OHLC
         run: python orrery_public_xau_m1_audit.py xauusd_public_m1.csv public_xau_audit.json
+      - name: Inventory source M1 gaps and H4 completeness without assuming closures
+        run: python orrery_public_m1_gap_inventory.py --source xauusd_public_m1.csv --output public_xau_m1_gap_inventory.json
       - name: Verify explicit UTC and generate complete M5 M15 H4 research bars
         run: python orrery_public_xau_to_bars.py xauusd_public_m1.csv --out public_xau_bars
       - name: Crosscheck published XAU weekly sessions without certifying historical exceptions
@@ -179,6 +181,7 @@ jobs:
           name: xauusd-public-m1-audit
           path: |
             public_xau_audit.json
+            public_xau_m1_gap_inventory.json
             public_xau_bars/report.json
             public_xau_confirmation_entry_comparison.json
             public_xau_confirmation_entry_plans.json

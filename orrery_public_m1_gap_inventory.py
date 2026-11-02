@@ -8,6 +8,9 @@ import argparse
 import csv
 from datetime import datetime, timedelta, timezone
 import json
+from collections import Counter
+from hashlib import sha256
+from orrery_xau_h4_m1_completeness import classify
 from pathlib import Path
 
 
@@ -15,6 +18,8 @@ def inventory(path, *, max_rows=500000, max_gap_details=10000):
     source=Path(path)
     if source.is_symlink() or not source.is_file() or source.stat().st_size>100_000_000:
         raise ValueError('Bounded regular M1 source file required')
+    source_pin=sha256(source.read_bytes()).hexdigest()
+    buckets=Counter()
     before=None
     gaps=[]
     total=0
@@ -46,6 +51,9 @@ def inventory(path, *, max_rows=500000, max_gap_details=10000):
                                         or (at.date()-before.date()).days>=2),
                         session_reason='UNVERIFIED'))
             first=first or at
+            if (at-first).total_seconds()>366*86400:
+                raise ValueError("Source horizon exceeds one year")
+            buckets[int(at.timestamp())//14400*14400]+=1
             last=at
             before=at
             total+=1
@@ -53,8 +61,27 @@ def inventory(path, *, max_rows=500000, max_gap_details=10000):
                 raise ValueError('Source row limit exceeded')
     if not total:
         raise ValueError('Nonempty M1 source required')
+    if sha256(source.read_bytes()).hexdigest()!=source_pin:
+        raise ValueError('Source changed during inventory')
+    # Inspect every UTC H4 bucket, including completely absent ones. Edge
+    # truncation is distinct from interior missing minutes; never fill either.
+    details=[]; edges=[]; complete=0
+    begin=int(first.timestamp()); finish=int(last.timestamp())+60
+    for slot in range(begin//14400*14400, (finish-1)//14400*14400+14400,14400):
+        row=dict(missing_h4_open_utc=datetime.fromtimestamp(slot,timezone.utc).isoformat(),
+                 observed_m1_bars_in_slot=buckets[slot])
+        if slot<begin or slot+14400>finish:
+            edges.append(row)
+        elif buckets[slot]==240:
+            complete+=1
+        else:
+            details.append(row)
+    h4=classify(dict(details=details))
+    h4.update(complete_interior_slots=complete, edge_truncated_slots=edges,
+        expected_grid='UTC_FIXED_4H', scope='FULLY_OBSERVED_SOURCE_HORIZON_ONLY',
+        calendar_authenticated=False, continuity_restored=False)
     return dict(status='PUBLIC_M1_GAP_INVENTORY_RESEARCH_ONLY',
-        source_rows=total,first_minute_utc=first.isoformat(),
+        source_sha256=source_pin,h4_source_completeness=h4,source_rows=total,first_minute_utc=first.isoformat(),
         last_minute_utc=last.isoformat(),gap_count=len(gaps),
         missing_minute_slots=sum(g['missing_minutes'] for g in gaps),
         largest_gap_minutes=max((g['missing_minutes'] for g in gaps),default=0),

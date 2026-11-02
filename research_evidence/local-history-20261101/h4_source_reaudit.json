@@ -1,0 +1,224 @@
+{
+  "frame_counts": {
+    "5m": 35893,
+    "15m": 11942,
+    "4H": 649
+  },
+  "frame_coverage": {
+    "5m": {
+      "rows": 35893,
+      "gap_count": 139,
+      "longest_contiguous_bars": 276,
+      "first_open_utc": "2026-03-26T02:30:00+00:00",
+      "last_close_utc": "2026-09-25T20:45:00+00:00",
+      "session_calendar_verified": false
+    },
+    "15m": {
+      "rows": 11942,
+      "gap_count": 134,
+      "longest_contiguous_bars": 92,
+      "first_open_utc": "2026-03-26T02:30:00+00:00",
+      "last_close_utc": "2026-09-25T20:45:00+00:00",
+      "session_calendar_verified": false
+    },
+    "4H": {
+      "rows": 649,
+      "gap_count": 130,
+      "longest_contiguous_bars": 5,
+      "first_open_utc": "2026-03-26T04:00:00+00:00",
+      "last_close_utc": "2026-09-25T20:00:00+00:00",
+      "session_calendar_verified": false
+    }
+  },
+  "aggregation_crosscheck": {
+    "5m": {
+      "checked_parents": 35893,
+      "mismatches": 0
+    },
+    "15m": {
+      "checked_parents": 11942,
+      "mismatches": 0
+    },
+    "4H": {
+      "checked_parents": 649,
+      "mismatches": 0
+    }
+  },
+  "summaries": {
+    "LSR02": {
+      "candidates": 0,
+      "closed_reference": 0,
+      "censored": 0,
+      "ambiguous": 0,
+      "reference_wins": 0,
+      "reference_losses": 0,
+      "mean_closed_gross_reference_r": null,
+      "profit_factor_closed_gross_reference": null,
+      "all_candidates_reference_resolved": false,
+      "total_all_candidates_gross_reference_r": null,
+      "closed_reference_sequence": {
+        "all_candidates_evaluable": false,
+        "exit_batches": 0,
+        "simultaneous_exit_batches": 0,
+        "max_drawdown_at_exit_batches_r": null,
+        "max_consecutive_closed_losses": null,
+        "account_drawdown_available": false,
+        "live_stop_decision_available": false
+      },
+      "net_expectancy_r": null,
+      "account_return_pct": null,
+      "account_max_dd_usd": null,
+      "actual_profit_usd": null
+    },
+    "VHF03": {
+      "candidates": 0,
+      "closed_reference": 0,
+      "censored": 0,
+      "ambiguous": 0,
+      "reference_wins": 0,
+      "reference_losses": 0,
+      "mean_closed_gross_reference_r": null,
+      "profit_factor_closed_gross_reference": null,
+      "all_candidates_reference_resolved": false,
+      "total_all_candidates_gross_reference_r": null,
+      "closed_reference_sequence": {
+        "all_candidates_evaluable": false,
+        "exit_batches": 0,
+        "simultaneous_exit_batches": 0,
+        "max_drawdown_at_exit_batches_r": null,
+        "max_consecutive_closed_losses": null,
+        "account_drawdown_available": false,
+        "live_stop_decision_available": false
+      },
+      "net_expectancy_r": null,
+      "account_return_pct": null,
+      "account_max_dd_usd": null,
+      "actual_profit_usd": null
+    }
+  },
+  "parameters": {
+    "buffer": 0.1,
+    "target_r": 2,
+    "period": 14,
+    "min_vhf": 0.4,
+    "left": 1,
+    "right": 1,
+    "lifetime": 6000
+  },
+  "m1_gap_inventory": {
+    "status": "PUBLIC_M1_GAP_INVENTORY_RESEARCH_ONLY",
+    "source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+    "h4_source_completeness": {
+      "status": "H4_SOURCE_COMPLETENESS_RESEARCH",
+      "missing_h4_slots": 453,
+      "m1_slot_classification": {
+        "partial_1_to_239": 161,
+        "empty": 292
+      },
+      "examples": [
+        {
+          "open_utc": "2026-03-26T20:00:00+00:00",
+          "m1_bars": 180,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-03-27T20:00:00+00:00",
+          "m1_bars": 45,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-03-29T20:00:00+00:00",
+          "m1_bars": 120,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-03-30T20:00:00+00:00",
+          "m1_bars": 180,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-03-31T20:00:00+00:00",
+          "m1_bars": 180,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-04-01T20:00:00+00:00",
+          "m1_bars": 179,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-04-02T20:00:00+00:00",
+          "m1_bars": 60,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-04-03T12:00:00+00:00",
+          "m1_bars": 11,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-04-05T20:00:00+00:00",
+          "m1_bars": 120,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-04-06T20:00:00+00:00",
+          "m1_bars": 180,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-04-07T20:00:00+00:00",
+          "m1_bars": 180,
+          "category": "partial_1_to_239"
+        },
+        {
+          "open_utc": "2026-04-08T20:00:00+00:00",
+          "m1_bars": 180,
+          "category": "partial_1_to_239"
+        }
+      ],
+      "full_h4_rebuild_allowed": false,
+      "h4_trend_verified": false,
+      "warning": "240 M1 bars is only a completeness criterion, not a verified broker-session or H4 trend signal.",
+      "complete_interior_slots": 649,
+      "edge_truncated_slots": [
+        {
+          "missing_h4_open_utc": "2026-03-26T00:00:00+00:00",
+          "observed_m1_bars_in_slot": 92
+        },
+        {
+          "missing_h4_open_utc": "2026-09-25T20:00:00+00:00",
+          "observed_m1_bars_in_slot": 45
+        }
+      ],
+      "expected_grid": "UTC_FIXED_4H",
+      "scope": "FULLY_OBSERVED_SOURCE_HORIZON_ONLY",
+      "calendar_authenticated": false,
+      "continuity_restored": false
+    },
+    "source_rows": 179662,
+    "first_minute_utc": "2026-03-26T02:28:00+00:00",
+    "last_minute_utc": "2026-09-25T20:44:00+00:00",
+    "gap_count": 175,
+    "missing_minute_slots": 84955,
+    "largest_gap_minutes": 3279,
+    "calendar_authenticated": false,
+    "broker_quote_basis_verified": false,
+    "continuity_restored": false,
+    "backtest_ready": false,
+    "actual_profit_usd": null,
+    "execution_allowed": false
+  },
+  "status": "CLOUD_SOURCE_HASH_MATCHED_REAUDIT_ONLY",
+  "baseline_commit": "7fd50f971c0541440c843bf2e337a771161e9574",
+  "source_location": "Existing cloud public sample; not Windows PC access",
+  "independent_holdout": false,
+  "actual_profit_usd": null,
+  "execution_allowed": false,
+  "tests": {
+    "total": 990,
+    "passed": 985,
+    "skipped": 5,
+    "failures": 0
+  }
+}
