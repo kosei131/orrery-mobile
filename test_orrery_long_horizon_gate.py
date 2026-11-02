@@ -48,6 +48,12 @@ class LongHorizonGateTests(unittest.TestCase):
         with self.assertRaises(ValueError):assess(report(200,[row(10)|{'reference_r':float('nan')}]))
         with self.assertRaises(ValueError):assess(report(200,[row(10)|{'plan':dict(row(10)['plan'],symbol='USDJPY')}]))
 
+    def test_unresolved_candidate_with_fabricated_exit_is_rejected(self):
+        candidate=row(150,'CENSORED_AT_WINDOW_END')
+        candidate['reference_r_exit_at']=candidate['plan']['known_at_msc']+300000
+        with self.assertRaisesRegex(ValueError,'cannot claim an exit'):
+            assess(report(200,[candidate]))
+
     def test_no_profit_claim_even_when_many_synthetic_closed_outcomes(self):
         rows=[row(i, value=2 if i%2 else -1) for i in range(1,111)]
         rows += [row(i, value=2 if i%2 else -1) for i in range(130,190)]
