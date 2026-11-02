@@ -26,6 +26,10 @@ class SessionStudyTests(unittest.TestCase):
         self.assertGreater(a['summaries']['LSR02']['candidates'],0)
         self.assertEqual(a['common_lower_frames_sha256'],b['common_lower_frames_sha256'])
         self.assertEqual(a['summaries'],b['summaries'])
+        d=a['decision_diagnostics']
+        self.assertEqual(d,b['decision_diagnostics'])
+        self.assertEqual(d['m5_closes'],a['replayed_m5_bars'])
+        self.assertEqual(d['candidate_transitions']['RETEST'],1)
         self.assertIsNone(r['actual_profit_usd'])
         self.assertFalse(r['independent_holdout'])
         self.assertFalse(r['execution_allowed'])

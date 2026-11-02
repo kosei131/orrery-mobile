@@ -30,4 +30,49 @@ class ReplayTests(unittest.TestCase):
             short=replay('XAUUSD',[b for b in h if b['close_time']<=t],[b for b in f if b['close_time']<=t],m[:n],as_of=t,buffer=.1,left=1,right=1)
             self.assertEqual(short,[e for e in result if e['at']<=t])
 
+class ReplayDiagnosticTests(unittest.TestCase):
+    def fixture(self,sell=False):
+        from test_lsr02_paths import fixture
+        return fixture(sell)
+
+    def run_replay(self,h,m,f,**extra):
+        return replay('XAUUSD',h,m,f,as_of=f[-1]['close_time'],buffer=.1,
+                      left=1,right=1,**extra)
+
+    def test_diagnostics_preserve_buy_and_sell_traces_and_count_transitions_once(self):
+        for sell in (False,True):
+            h,m,f=self.fixture(sell);d={}
+            expected=self.run_replay(h,m,f,lifetime=6000)
+            self.assertEqual(expected,self.run_replay(h,m,f,lifetime=6000,diagnostics=d))
+            self.assertEqual(d['candidate_transitions'],{'SWEEP':1,'CONFIRM':1,'RETEST':1})
+            self.assertEqual(d['m15_sweep_events'],1)
+            self.assertEqual(sum(d['sweep_dispositions'].values()),1)
+            self.assertEqual(sum(d['h4_states'].values()),len(f))
+
+    def test_flat_h4_counts_direction_gate_without_promoting_candidate(self):
+        h,m,f=self.fixture()
+        for b in h:b.update(open=12,close=12,low=11,high=13)
+        d={};self.assertEqual(self.run_replay(h,m,f,diagnostics=d),[])
+        self.assertEqual(d['h4_states'],{'RANGE':len(f)})
+        self.assertEqual(d['sweep_dispositions'],{'HTF_RANGE':1})
+
+    def test_missing_h4_remains_missing(self):
+        h,m,f=self.fixture();d={}
+        self.assertEqual(self.run_replay([],m,f,diagnostics=d),[])
+        self.assertEqual(d['h4_states'],{'MISSING':len(f)})
+        self.assertEqual(d['sweep_dispositions'],{'HTF_STALE_OR_MISSING':1})
+
+    def test_expiration_is_counted_once_not_as_repeated_invalid_rows(self):
+        h,m,f=self.fixture();d={}
+        self.run_replay(h,m,f,lifetime=2400,diagnostics=d)
+        self.assertEqual(d['invalidation_reasons'],{'EXPIRED':1})
+        self.assertEqual(d['invalidation_from_states'],{'CONFIRM':1})
+        self.assertNotIn('RETEST',d['candidate_transitions'])
+
+    def test_filled_diagnostic_sink_rejected_and_kept(self):
+        h,m,f=self.fixture();d={'keep':True}
+        with self.assertRaisesRegex(ValueError,'Empty diagnostic'):
+            self.run_replay(h,m,f,diagnostics=d)
+        self.assertEqual(d,{'keep':True})
+
 if __name__=='__main__':unittest.main()

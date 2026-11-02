@@ -19,6 +19,33 @@ def _pin(value):
     return sha256(json.dumps(value,sort_keys=True,separators=(',',':'),allow_nan=False).encode()).hexdigest()
 
 
+
+def diagnose_windows(windows):
+    """Count the existing engine's actual decisions; no replacement rule model."""
+    from collections import Counter
+    from lsr02_replay import replay
+    totals=dict(m5_closes=0,m15_sweep_events=0)
+    groups={k:Counter() for k in ('h4_states','sweep_dispositions',
+                                 'candidate_transitions','invalidation_reasons','invalidation_from_states')}
+    rows=[]
+    for w in windows:
+        d={}
+        replay('XAUUSD',w['h4'],w['m15'],w['m5'],as_of=w['end_s'],
+            buffer=PARAMETERS['buffer'],lifetime=PARAMETERS['lifetime'],
+            left=PARAMETERS['left'],right=PARAMETERS['right'],diagnostics=d)
+        if (sum(d['h4_states'].values())!=d['m5_closes'] or
+                sum(d['sweep_dispositions'].values())!=d['m15_sweep_events']):
+            raise ValueError('Replay diagnostic counters do not reconcile')
+        for k in totals:totals[k]+=d[k]
+        for k in groups:groups[k].update(d[k])
+        rows.append(dict(start_s=w['start_s'],end_s=w['end_s'],**d))
+    return dict(status='EXISTING_REPLAY_DECISION_COUNTS_ONLY',**totals,
+        **{k:dict(v) for k,v in groups.items()},windows=rows,
+        repeated_active_state_rows_counted=False,
+        m15_scope='SWEEP_EVENTS_AT_OBSERVED_M5_CLOSE_ONLY',
+        candidate_invalidations_are_trade_outcomes=False,
+        counts_are_profitability_evidence=False,execution_allowed=False)
+
 def paired_compare(data, session_h4, *, published_at):
     if type(published_at) not in (int,float) or not isfinite(published_at) or published_at<0:
         raise ValueError('Explicit finite schedule publication clock required')
@@ -49,7 +76,7 @@ def paired_compare(data, session_h4, *, published_at):
         selected=dict(clipped,**{'4H':h4})
         result=compare(selected)
         windows=list(_aligned_windows({'5m':selected['5m'],'15m':selected['15m'],'4h':h4}))
-        result.update(frame_coverage=coverage(selected),
+        result.update(decision_diagnostics=diagnose_windows(windows),frame_coverage=coverage(selected),
             common_lower_frames_sha256=_pin([selected['5m'],selected['15m']]),
             replayed_m5_bars=sum(len(w['m5']) for w in windows),
             h4_input_sha256=_pin(h4))
