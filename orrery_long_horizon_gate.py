@@ -99,6 +99,16 @@ def assess(report, *, train_days=120, min_days=MIN_DAYS, min_candidates=MIN_CAND
         coverage_seconds+=(b-a).total_seconds()
         train_seconds+=max(0.0,(min(b,split)-a).total_seconds())
         holdout_seconds+=max(0.0,(b-max(a,split)).total_seconds())
+    # A nominal date inside the common range is insufficient: every candidate
+    # and resolved exit must lie within ONE actual observed replay window.
+    intervals=[(_time(w['start_open_utc']),_time(w['end_close_utc'])) for w in windows]
+    for group_rows in cohorts.values():
+        for row in group_rows:
+            entry=datetime.fromtimestamp(row['plan']['known_at_msc']/1000,timezone.utc)
+            finish=(datetime.fromtimestamp(row['reference_r_exit_at']/1000,timezone.utc)
+                    if row['reference_status']=='CLOSED_REFERENCE' else entry)
+            if not any(a<=entry<=finish<=b for a,b in intervals):
+                raise ValueError('Candidate or exit outside a single observed replay window')
     observed_days=coverage_seconds/86400
     # Observed-hour thresholds are diagnostic, not a claim that weekend gaps are valid sessions.
     # A 100% calendar-hour requirement would reject normal weekend closures.
