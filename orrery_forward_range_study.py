@@ -31,6 +31,6 @@ def study(bars, *, interval=300, lookback=90, horizons=(3,6,12), stride=12):
         rows.append(dict(decision_at=history[-1]['close_time'],features=observed,
                          future_label_only=outcomes))
     return dict(status='OFFLINE_FORWARD_LABELS_NOT_PREDICTIONS',samples=len(rows),
-        horizons=list(horizons),rows=rows,trained_model=False,
+        horizons=list(horizons),interval_seconds=interval,rows=rows,trained_model=False,
         calibrated_probabilities=False,forecast_candles=None,
         net_profit_usd=None,execution_allowed=False)
