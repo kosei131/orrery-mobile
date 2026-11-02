@@ -90,6 +90,8 @@ jobs:
         run: python orrery_public_m1_gap_inventory.py --source xauusd_public_m1.csv --output public_xau_m1_gap_inventory.json
       - name: Verify explicit UTC and generate complete M5 M15 H4 research bars
         run: python orrery_public_xau_to_bars.py xauusd_public_m1.csv --out public_xau_bars
+      - name: Crosscheck original and normalized M1 before separate session diagnostics
+        run: python orrery_history_app.py --bars public_xau_bars --source xauusd_public_m1.csv --output public_xau_history_session_review.json --session-review-dir public_xau_history_session_diagnostic
       - name: Crosscheck published XAU weekly sessions without certifying historical exceptions
         run: python orrery_xau_session_coverage.py
       - name: Count LSR-02 structure events on uninterrupted real XAU bars
@@ -182,6 +184,8 @@ jobs:
           path: |
             public_xau_audit.json
             public_xau_m1_gap_inventory.json
+            public_xau_history_session_review.json
+            public_xau_history_session_diagnostic/report.json
             public_xau_bars/report.json
             public_xau_confirmation_entry_comparison.json
             public_xau_confirmation_entry_plans.json

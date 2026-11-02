@@ -94,6 +94,58 @@ def crosscheck(source, data):
     return report
 
 
+
+def session_review(source, folder, output_dir):
+    """Opt-in diagnostic only: weekly-session bars never enter compare/snapshot.
+
+    Match every normalized minute to the original before using the existing
+    calendar aggregator. A timestamp-only match cannot authorize changed prices.
+    """
+    from decimal import Decimal
+    from itertools import zip_longest
+    from orrery_xau_session_coverage import crosscheck as session_crosscheck
+    source=Path(source); normalized=Path(folder)/'XAUUSD_M1_UNVERIFIED_QUOTE.csv'
+    audit=m1_gap_inventory(source)
+    if (normalized.is_symlink() or not normalized.is_file()
+            or normalized.stat().st_size>100_000_000):
+        raise ValueError('Bounded regular normalized M1 required')
+    normalized_pin=sha256(normalized.read_bytes()).hexdigest()
+    count=0
+    with source.open(encoding='utf-8-sig',newline='') as original, normalized.open(
+            encoding='utf-8-sig',newline='') as converted:
+        left=csv.DictReader(original); right=csv.DictReader(converted)
+        for a,b in zip_longest(left,right):
+            if a is None or b is None:
+                raise ValueError('Normalized M1 row count mismatch')
+            ta=datetime.fromisoformat(a['datetime'].replace('Z','+00:00'))
+            tb=datetime.fromisoformat(b['timestamp_utc'].replace('Z','+00:00'))
+            if tb.utcoffset() is None or tb.utcoffset().total_seconds()!=0 or ta!=tb:
+                raise ValueError('Normalized M1 timestamp mismatch')
+            values={k:Decimal(a[k]) for k in ('open','high','low','close')}
+            if (not all(x.is_finite() for x in values.values()) or not
+                    0<values['low']<=min(values['open'],values['close'])<=
+                    max(values['open'],values['close'])<=values['high']):
+                raise ValueError('Invalid original M1 OHLC')
+            if any(values[k]!=Decimal(b['bid_'+k]) for k in values):
+                raise ValueError('Normalized M1 OHLC mismatch')
+            count+=1
+    if (sha256(source.read_bytes()).hexdigest()!=audit['source_sha256'] or
+            sha256(normalized.read_bytes()).hexdigest()!=normalized_pin):
+        raise ValueError('M1 inputs changed during validation')
+    result=session_crosscheck(normalized,output_dir)
+    if (result['normalized_m1_sha256']!=normalized_pin or
+            sha256(normalized.read_bytes()).hexdigest()!=normalized_pin):
+        raise ValueError('Normalized M1 changed during session review')
+    result.update(status='UNVERIFIED_SESSION_AGGREGATION_DIAGNOSTIC_ONLY',
+        original_source_sha256=audit['source_sha256'],
+        normalized_source_rows_matched=count,normalized_ohlc_crosscheck=True,
+        weekly_gap_partition=audit['weekly_gap_partition'],
+        baseline_bars_replaced=False,strategy_comparison_executed=False,
+        historical_exceptions_authenticated=False,actual_profit_usd=None)
+    # Keep the saved receipt identical to the returned diagnostic.
+    (Path(output_dir)/'report.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
+    return result
+
 def snapshot(folder, comparison=None):
     data = frames(folder)
     charts = []
@@ -119,6 +171,7 @@ if __name__ == '__main__':
     parser.add_argument('--bars',type=Path,required=True)
     parser.add_argument('--source',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--session-review-dir',type=Path,help='New separate directory for unverified weekly-session diagnostics only')
     args=parser.parse_args()
     if args.output.exists():
         parser.error('New output only')
@@ -128,6 +181,8 @@ if __name__ == '__main__':
     result['audit']=audit
     result['m1_gap_inventory']=m1_gap_inventory(args.source)
     result['aggregation_crosscheck']=crosscheck(args.source,data)
+    if args.session_review_dir is not None:
+        result['session_review']=session_review(args.source,args.bars,args.session_review_dir)
     result['frame_counts']={k:len(v) for k,v in data.items()}
     result['frame_coverage']=coverage(data)
     hours={str(hour):0 for hour in range(24)};months={}

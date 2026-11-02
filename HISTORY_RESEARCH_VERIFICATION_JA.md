@@ -145,3 +145,40 @@ Python全994件中989成功・5skip・失敗0。価格/戦略/注文経路は変
 証拠: research_evidence/local-history-20261101/weekly_gap_partition.json。
 監査として保存。H4連続性の回復・戦略採用は保留。
 次工程はOPEN無観測1,825分の区間を同一提供元の休日・セッション変更証拠と照合すること。
+
+## 元M1に固定した週次セッションH4の別集約
+
+事前課題: 既存週次仮説で、OHLCを補完せずH4の利用可能な連続区間が増えるか。
+新規のsession_review APIと --session-review-dir オプションを履歴研究に追加。
+元CSVと正規化M1の全時刻・全OHLCをDecimalで1行ずつ完全照合し、件数・hash変更を拒否。
+既存orrery_xau_session_coverage.crosscheckとaggregateを再利用。別の新規ディレクトリーへ
+未認証H4と監査JSONを保存し、通常compare/snapshotへの自動入力・基準足の差替えは行わない。
+休場時刻に実際の観測があれば、既存通りセッション足の出力を止める。
+
+元CSV hash a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225。
+179,662行の正規化OHLC/時刻一致。通常H4 649本・最長5本から、週次仮説H4 779本・
+最長31本へ。追加130本は日次休場を含む実観測の部分セッション足で、240分足とは別の意味。
+12本以上の連続区間22、該当終点396。未説明OPEN 1,825分は除外したまま、不完全枠39。
+通常LSR02/VHF03の固定条件比較は候補0のまま。新セッション足で戦略比較は未実行。
+Reversal/HalfTrend未統合、費用・利益率・PF・DD・未使用評価は未確認。
+
+提供元資料の再確認（2026-11-02T06:01:14Z、ハワイ11/1）:
+- https://getdata.finance/coverage/xauusd : 週次UTC時刻と資料生成時刻を検索取得結果で確認。
+  直接アクセスはHTTP530。検索結果の報告末日は9/11で、手元CSV末日9/25とは異なる。
+- https://www.getdata.finance/documentation : 通常休場・休日等を除く説明はあるが、
+  今回の4/2〜3・7/3等を確定できる具体的な例外区間は見つからなかった。
+- https://www.getdata.finance/data-sources : broker CFD価格であり他社・取引所と同一とは限らない。
+資料の一般的説明を対象日の休場証明に転用せず、他社の休日表で元データを正当化しない。
+資料hashや同一feedの真正性は未認証。公表前期間を事前既知として扱わない。
+
+テスト: 正常な部分セッション、改変価格、行欠落、休場中の実観測、既存出力保護の5件追加。
+全Python999件中994成功・5skip・失敗0。CIに実公開CSVからの統合再計算を追加。
+証拠: research_evidence/local-history-20261101/session_rebuild_diagnostic.json。
+継続性拡張の研究基盤として保存。セッションH4の戦略採用は保留。
+次は8/22の資料公表後に限定し、週次仮説の完全区間でLSR/VHFを別研究比較する。
+これは既閲覧期間の記述的研究であり、未使用検証とは呼ばない。
+
+再実行（既存出力と別の新規パスを指定）:
+```powershell
+python orrery_history_app.py --bars research_artifacts_20261101/public_xau_bars --source research_artifacts_20261101/xauusd_public_m1.csv --output research_with_sessions_new.json --session-review-dir session_diagnostic_new
+```

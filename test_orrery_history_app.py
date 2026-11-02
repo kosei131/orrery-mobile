@@ -1,11 +1,11 @@
 import csv
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
 import mt5_local_dashboard as dashboard
-from orrery_history_app import frames, snapshot, coverage, crosscheck
+from orrery_history_app import frames, snapshot, coverage, crosscheck, session_review
 from lsr02_overlay_export import overlay
 
 
@@ -58,3 +58,60 @@ class HistoryTests(unittest.TestCase):
         data['5m'][0]['high']=102
         source.write_text(source.read_text().replace('1970-01-01T00:02:00+00:00,100,102,99,101\n',''),encoding='utf-8')
         with self.assertRaisesRegex(ValueError,'missing M1'):crosscheck(source,data)
+
+
+class SessionReviewTests(unittest.TestCase):
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
+        self.root=Path(self.temp.name);self.source=self.root/'source.csv'
+        self.normalized=self.root/'XAUUSD_M1_UNVERIFIED_QUOTE.csv'
+        self.output=self.root/'new_session_review'
+
+    def write(self, offsets):
+        base=datetime(2026,10,26,20,tzinfo=timezone.utc)
+        with self.source.open('w',newline='') as a,self.normalized.open('w',newline='') as b:
+            left=csv.writer(a);right=csv.writer(b)
+            left.writerow(['datetime','open','high','low','close'])
+            right.writerow(['timestamp_utc','bid_open','bid_high','bid_low','bid_close'])
+            for minute in offsets:
+                row=[(base+timedelta(minutes=minute)).isoformat(),100,102,99,101]
+                left.writerow(row);right.writerow(row)
+
+    def test_opt_in_partial_bars_remain_separate_and_unverified(self):
+        self.write([m for m in range(240) if m<60 or m>=120])
+        r=session_review(self.source,self.root,self.output)
+        self.assertEqual(r['normalized_source_rows_matched'],180)
+        self.assertEqual(r['h4_aggregation']['complete_session_partial_bars'],1)
+        self.assertFalse(r['baseline_bars_replaced'])
+        self.assertFalse(r['strategy_comparison_executed'])
+        self.assertFalse(r['h4_strategy_ready'])
+        self.assertIsNone(r['actual_profit_usd'])
+        import json
+        self.assertEqual(json.loads((self.output/'report.json').read_text()),r)
+
+    def test_changed_normalized_price_rejected_before_export(self):
+        self.write(range(5))
+        self.normalized.write_text(self.normalized.read_text().replace(',102,',',103,',1))
+        with self.assertRaisesRegex(ValueError,'OHLC mismatch'):
+            session_review(self.source,self.root,self.output)
+        self.assertFalse(self.output.exists())
+
+    def test_missing_normalized_row_rejected_before_export(self):
+        self.write(range(5))
+        self.normalized.write_text('\n'.join(self.normalized.read_text().splitlines()[:-1])+'\n')
+        with self.assertRaisesRegex(ValueError,'row count'):
+            session_review(self.source,self.root,self.output)
+        self.assertFalse(self.output.exists())
+
+    def test_observed_closure_quote_blocks_session_export(self):
+        self.write([60])
+        r=session_review(self.source,self.root,self.output)
+        self.assertEqual(r['quotes_during_published_closure'],1)
+        self.assertIsNone(r['h4_aggregation'])
+        self.assertFalse((self.output/'H4_WEEKLY_SCHEDULE_UNVERIFIED.csv').exists())
+
+    def test_existing_output_is_preserved(self):
+        self.write(range(5));self.output.mkdir()
+        kept=self.output/'keep.txt';kept.write_text('keep')
+        with self.assertRaises(FileExistsError):session_review(self.source,self.root,self.output)
+        self.assertEqual(kept.read_text(),'keep')
