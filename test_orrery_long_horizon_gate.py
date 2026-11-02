@@ -32,6 +32,26 @@ class LongHorizonGateTests(unittest.TestCase):
         self.assertEqual(result['observed_days'],30)
         self.assertFalse(result['coverage_gate_passed'])
 
+    def test_plausible_weekend_gaps_are_not_automatically_authenticated(self):
+        r=report(200,[row(10),row(160)])
+        r['windows']=[
+            dict(start_open_utc=dt(0),end_close_utc=dt(84)),
+            dict(start_open_utc=dt(88),end_close_utc=dt(120)),
+            dict(start_open_utc=dt(124),end_close_utc=dt(190))]
+        x=assess(r)
+        self.assertTrue(x['coverage_gate_passed'])
+        self.assertFalse(x['session_calendar_authenticated'])
+        self.assertFalse(x['six_month_backtest_complete'])
+
+    def test_holdout_gap_blocks_even_if_training_is_complete(self):
+        r=report(200,[row(10),row(180)])
+        r['windows']=[
+            dict(start_open_utc=dt(0),end_close_utc=dt(120)),
+            dict(start_open_utc=dt(175),end_close_utc=dt(200))]
+        x=assess(r)
+        self.assertFalse(x['coverage_gate_passed'])
+        self.assertLess(x['holdout_calendar_coverage_ratio'],0.65)
+
     def test_overlapping_or_unsorted_windows_rejected(self):
         r=report(200,[row(10)])
         r['windows']=[
