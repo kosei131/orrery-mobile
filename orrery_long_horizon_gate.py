@@ -100,13 +100,21 @@ def assess(report, *, train_days=120, min_days=MIN_DAYS, min_candidates=MIN_CAND
         train_seconds+=max(0.0,(min(b,split)-a).total_seconds())
         holdout_seconds+=max(0.0,(b-max(a,split)).total_seconds())
     observed_days=coverage_seconds/86400
-    # Explicit coverage sufficiency is independent of calendar elapsed time.
-    coverage_ready=elapsed_days>=min_days and split<end and observed_days>=min_days
+    # Observed-hour thresholds are diagnostic, not a claim that weekend gaps are valid sessions.
+    # A 100% calendar-hour requirement would reject normal weekend closures.
+    train_span_days=train_days
+    holdout_span_days=(end-split).total_seconds()/86400
+    train_ratio=(train_seconds/86400)/train_span_days
+    holdout_ratio=(holdout_seconds/86400)/holdout_span_days if holdout_span_days>0 else 0
+    coverage_ready=(elapsed_days>=min_days and split<end and
+                    train_ratio>=0.65 and holdout_ratio>=0.65)
 
     sample_ready=train['closed']>=min_candidates and test['closed']>=min_candidates
     no_unresolved=train['all_resolved'] and test['all_resolved'] and not cohorts['boundary_excluded']
     return dict(status='LONG_HORIZON_GATED_RESEARCH_ONLY',span_days=elapsed_days,observed_days=observed_days,
         observed_train_days=train_seconds/86400,observed_holdout_days=holdout_seconds/86400,
+        train_calendar_coverage_ratio=train_ratio,holdout_calendar_coverage_ratio=holdout_ratio,
+        session_calendar_authenticated=False,
         split_utc=split.isoformat(),minimum_days=min_days,minimum_closed_per_partition=min_candidates,
         observed_window_count=len(report.get('windows',[])),coverage_gate_passed=coverage_ready,
         sample_gate_passed=sample_ready,resolution_gate_passed=no_unresolved,
