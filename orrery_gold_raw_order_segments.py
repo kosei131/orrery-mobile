@@ -20,7 +20,7 @@ def analyze(source, *, expected_sha256, month, now):
     source=Path(source)
     if source.is_symlink() or not source.is_file():
         raise ValueError('Regular input required')
-    if not re.fullmatch(r'20\\d{4}',month) or not re.fullmatch(r'[a-f0-9]{64}',expected_sha256):
+    if not re.fullmatch(r'20\d{4}',month) or not re.fullmatch(r'[a-f0-9]{64}',expected_sha256):
         raise ValueError('Pinned source month and SHA256 required')
     datetime.strptime(month,'%Y%m')
     if not isinstance(now,datetime) or now.utcoffset()!=timedelta(0):
@@ -40,7 +40,7 @@ def analyze(source, *, expected_sha256, month, now):
         if not 1<=len(infos)<=4 or len({i.filename for i in infos})!=len(infos):
             raise ValueError('Unique bounded ZIP members required')
         for i in infos:
-            if ('/' in i.filename or '\\\\' in i.filename or i.is_dir()
+            if ('/' in i.filename or '\\' in i.filename or i.is_dir()
                 or i.flag_bits&1 or stat.S_ISLNK(i.external_attr>>16)
                 or not i.filename.endswith(('.csv','.txt'))):
                 raise ValueError('Unsafe ZIP member')
@@ -59,7 +59,7 @@ def analyze(source, *, expected_sha256, month, now):
                 count+=1;total_bytes+=len(line);raw_hash.update(line)
                 if count>MAX_RECORDS or total_bytes>MAX_BYTES:
                     raise ValueError('Bounded raw rows')
-                fields=line.rstrip(b'\\r\\n').split(b',')
+                fields=line.rstrip(b'\r\n').split(b',')
                 if len(fields)!=4:raise ValueError('Four tick fields expected')
                 t=clock(fields[0],month);b=price(fields[1]);a=price(fields[2])
                 if b>a or t>=int(now.timestamp()*1000):
