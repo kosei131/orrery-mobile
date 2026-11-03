@@ -1,0 +1,26 @@
+{
+  "status": "HALFTREND_PATTERN_SPREAD_AND_SINGLE_POSITION_REVIEW",
+  "scenarios": 36,
+  "gzip_sha256": "a120e389238227d1b9e362683344b2a68094440f17333ecfecdc03792cdb8712",
+  "uncompressed_sha256": "afae61a89279fe563712af096ac58b11967f5f96ed349bf46bb74ded93be8449",
+  "csv_sha256": "4bf690979244a3a918d0088a121f67c3288560ffbbee3c167d1b4c05eabdf624",
+  "gzip_bytes": 147804,
+  "uncompressed_bytes": 2086221,
+  "code_sha256": "81a2408ace41aa375be40bb8baf4d8361a5723b0189d6e70a71816d25d32edf9",
+  "parent_manifest_sha256": "f992759563e110ef2ed42dc3352f71963e1f0612d35e8c3fbb4b7b7746c2d982",
+  "source_pins": {
+    "bid_2026_09.csv": "09cc828da25ee817719c3fb5b3be22058f62d6f7b991ca00f7102a381953e325",
+    "ask_2026_09.csv": "697c9079a8ed80eb2716604f27900e4352206db0a62847510530efdcfaf3645d",
+    "bid_2026_10.csv": "05cdf7ebea1932a6a4748ed47ad74fe2de0023bb11f9b835c38bba424358dd7d",
+    "ask_2026_10.csv": "43d37686754e87fd343d14012832fd476b47551d390a15520fb62963f2ff74c0"
+  },
+  "engine_code_sha256": {
+    "orrery_paired_archive_study.py": "e1fa03147235097f05a9a5d7a05a05bbc68472b13cc006c3c7dbaa6973d20fd3",
+    "orrery_halftrend_patterns.py": "4a45174a1769491b23869f106f05cb0962ae5ec59d92cc4abca76c4c7786ea70",
+    "orrery_entry_stability_cost.py": "35197481a4a5f3494830fffa793fa3919f25716c756441d2b6e13395dacb9428",
+    "lsr03_learning_rollup.py": "043cd1b31fd9db81846854bd6a7d62e6c723ea32bdb15ca0d7fe3d8e0011f80f"
+  },
+  "baseline_twelve_models_exact_match": true,
+  "execution_allowed": false,
+  "adopted": false
+}

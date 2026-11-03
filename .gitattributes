@@ -6,3 +6,5 @@ research_evidence/**/*.json text eol=lf
 research_evidence/local-history-20261101/indicator_ablation_20261102.csv -text
 
 research_evidence/local-history-20261101/halftrend_patterns_20261102.csv -text
+
+research_evidence/local-history-20261101/halftrend_pattern_robustness_20261102.csv -text
