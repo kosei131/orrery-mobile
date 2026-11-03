@@ -1,0 +1,35 @@
+{
+  "status": "EXPLORATORY_SINGLE_INDICATOR_COHORT_ABLATION",
+  "comparisons": 168,
+  "models": 24,
+  "filters": [
+    "EMA20_50_DIRECTION",
+    "ADX14_GE25",
+    "MACD12_26_9_HISTOGRAM",
+    "ICHIMOKU9_26_52_CURRENT_CLOUD",
+    "BB20_2_BREAKOUT",
+    "DONCHIAN20_BREAKOUT",
+    "ATR14_EXPANSION"
+  ],
+  "uncompressed_sha256": "83da7af7967dcf406f90980de3be5ae0583d36d45c89c1c950d65db80cb36d1a",
+  "gzip_sha256": "c58177288b1f53a6e8b5a5d34dd871537d3b79b27ce55b3fc2ace4631b7298e8",
+  "csv_sha256": "fa415cdc7a6273fc53991d533df42b3829bac5a9c3b1943ee3a93addf16c152b",
+  "uncompressed_bytes": 1081028,
+  "gzip_bytes": 100860,
+  "study_code_sha256": "54764ee0867e109dd0b1b71fc9ee4b86e556211ee99f543085e1aca63a0e26b2",
+  "source_evidence_sha256": {
+    "research_evidence/local-history-20261101/entry_universe_profitability_20261102.json": "d298984ce96981f63cddad50886217de530431a78c1b8b50f1f4ba60e35a21dd",
+    "research_evidence/local-history-20261101/paired_archive_study_20261102.json": "a67972316ed9140150ccdcf42ed88532f9035400f2131cce50ece667f8a65946"
+  },
+  "baseline_all_models_reconciled": true,
+  "execution_allowed": false,
+  "adopted": false,
+  "out_of_sample": false,
+  "indicator_engine_sha256": {
+    "orrery_indicator_diagnostics.py": "679646077657040a00a3d2ce48866691f9094b26ed3b83019f1db7ef249f167c",
+    "orrery_m1_complete_bars.py": "91f9b8579bb39f2ae175a7812c1e7025429bcdaa06c3e97087ec813cfdf55418",
+    "orrery_real_bars_lsr_bridge.py": "5042cede47d7c5b2b9e27e98ed7dd43f79cc2cee10ea71968ca719640528af79",
+    "orrery_entry_universe_study.py": "0f1eeecb030b645d78c1e3a1535e8a2311118c7049f3d0868c5128093f7deee0",
+    "orrery_paired_archive_study.py": "e1fa03147235097f05a9a5d7a05a05bbc68472b13cc006c3c7dbaa6973d20fd3"
+  }
+}
