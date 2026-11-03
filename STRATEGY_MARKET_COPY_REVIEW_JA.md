@@ -123,6 +123,9 @@ ETF Timerは224取引、Calicutは281取引の表示。年率の計測開始日�
 
 8検査: 因果的特徴、将来quote/損益不変、UNKNOWN保持、SELL Ask anchor、未来anchor拒否、
 改変親拒否、重複ID/clock拒否、全36基準一致と全群再集計。全Python1,183件中1,178成功・5skip・失敗0。
+初回CI #996では既存ブラウザーテストの直接DOM描画が1秒pollに上書きされる競合を検出。
+保存済みpanel fixtureをsnapshot応答へ渡し、次の自動応答も待って検査する形へ修正した。
+製品の更新間隔や判定条件は変更せず、Node構文検査成功。実Chrome再検証は修正後HEADのCIを参照する。
 原HalfTrend将来計画SHAと原40コードhashは全一致。原戦略、追加期間の固定条件、既存の停止条件は変えない。
 調査事実の抜粋・URL・表示成績の種類・費用算術はstrategy_market_copy_review_20261103.jsonへ保存した。
 

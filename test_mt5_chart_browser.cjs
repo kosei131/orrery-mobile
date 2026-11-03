@@ -4,20 +4,29 @@ const {chromium}=require('playwright');const {execFileSync}=require('node:child_
 await p.route('**/*',async r=>{const url=new URL(r.request().url());if(url.pathname==='/')return r.fulfill({contentType:'text/html',body:html});if(url.pathname==='/api/snapshot'){const data={...extra,status:mode==='simulated'?'SIMULATED_TEST_DATA':'READ_ONLY_DEMO',broker_server:'TEST_ONLY',account_last4:'0000',checked_at_utc:'FIXTURE',balance:100,equity:100,margin_free:100,currency:'USD',positions:[],quotes:[],history_7d_count:0,analysis:{charts:[{symbol:'XAUUSD',timeframe:'5m',status:'RESEARCH_LEVELS_ONLY',levels:[{kind:'NEAREST_SUPPORT',price:99.5}],indicators:{atr:1,adx:25,ema_fast:100,ema_slow:99},reference_plans:[{side:'BUY',reference_entry:100,structural_sl:99.5,structural_tp:102,gross_reward_risk:4}]}]},charts:['5m','15m','4H'].map(timeframe=>({symbol:'XAUUSD',timeframe,status:mode==='available'?'CLOSED_BARS_AVAILABLE':'STALE',bars:mode==='available'?[{open:100,close:101,low:99,high:102},{open:101,close:100,low:99,high:102},{open:100,close:100,low:99,high:101}]:[]}))};return r.fulfill({json:data});}return r.abort()});
 await p.goto('http://127.0.0.1:8765/#TEST_FIXTURE');await p.waitForFunction(()=>document.querySelectorAll('#charts rect').length===3);assert.equal(await p.locator('#charts svg').count(),1);assert.match(await p.locator('#analysis').textContent(),/\u69cb\u9020SL/);assert.match(await p.locator('#analysis').textContent(),/\u7d14\u671f\u5f85\u5024: \u672a\u691c\u8a3c/);assert.equal(await p.locator('#charts text').count(),1);
 const archived=JSON.parse(execFileSync('python',['-c',"from orrery_halftrend_panel import load_panel;from hashlib import sha256;from pathlib import Path;import json;p=Path('research_evidence/local-history-20261101/tradingview_halftrend_cohorts.json');print(json.dumps(load_panel(p,sha256(p.read_bytes()).hexdigest())))"],{encoding:'utf8'}));
-await p.evaluate(r=>drawHalftrendArchive({halftrend_archive:r}),archived);
+// Keep archive fixtures in the snapshot feed: the real 1s poll must not erase them.
+extra={halftrend_archive:archived};
+await p.locator('#refresh').click();
+await p.waitForFunction(()=>document.getElementById('halftrendArchive').textContent.includes('HALFTREND_ALIGNED'));
 assert.match(await p.locator('#halftrendArchive').textContent(),/Reversal04.*未評価/);
 assert.match(await p.locator('#halftrendArchive').textContent(),/HALFTREND_ALIGNED.*候補 2.*SL参照 1.*未決着 1/);
 assert.match(await p.locator('#halftrendArchive').textContent(),/現在のチャートとは別データ/);
 assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
 const entry=JSON.parse(execFileSync('python',['-c',"from orrery_entry_panel import load_panel;from hashlib import sha256;from pathlib import Path;import json;p=Path('research_evidence/local-history-20261101/entry_opportunity_reaudit_20261102.json');print(json.dumps(load_panel(p,sha256(p.read_bytes()).hexdigest())))"],{encoding:'utf8'}));
-await p.evaluate(r=>drawEntryArchive({entry_archive:r}),entry);
+extra={...extra,entry_archive:entry};
+await p.locator('#refresh').click();
+await p.waitForFunction(()=>document.getElementById('entryArchive').textContent.includes('CONFIRMATION_SWEEP_EXTREME'));
 assert.match(await p.locator('#entryArchive').textContent(),/正式LSR02とは別研究/);
 assert.match(await p.locator('#entryArchive').textContent(),/CONFIRMATION_SWEEP_EXTREME.*取引案 22.*モデル決着 13.*未評価 9/);
 assert.match(await p.locator('#entryArchive').textContent(),/EXPIRED.*11/);
 assert.match(await p.locator('#entryArchive').textContent(),/timeout終値評価/);
 assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
 const readiness=JSON.parse(execFileSync('python',['-c',"from orrery_prospective_status import current_status;from datetime import datetime;import json;print(json.dumps(current_status(datetime.fromisoformat('2026-11-03T05:07:00+00:00'))))"],{encoding:'utf8'}));
-await p.evaluate(r=>drawProspectiveStatus({prospective_readiness:r}),readiness);
+extra={...extra,prospective_readiness:readiness};
+await p.locator('#refresh').click();
+await p.waitForFunction(()=>document.getElementById('prospectiveStatus').textContent.includes('IN_PROGRESS'));
+// Observe a subsequent automatic snapshot as a regression check for the race.
+await p.waitForResponse(r=>new URL(r.url()).pathname==='/api/snapshot');
 assert.match(await p.locator('#prospectiveStatus').textContent(),/新期間データはこの画面に未添付/);
 assert.match(await p.locator('#prospectiveStatus').textContent(),/IN_PROGRESS/);
 assert.match(await p.locator('#prospectiveStatus').textContent(),/取得済み足数・収録率ではありません/);
