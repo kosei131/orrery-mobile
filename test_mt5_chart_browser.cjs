@@ -22,6 +22,16 @@ assert.match(await p.locator('#prospectiveStatus').textContent(),/新期間デ�
 assert.match(await p.locator('#prospectiveStatus').textContent(),/IN_PROGRESS/);
 assert.match(await p.locator('#prospectiveStatus').textContent(),/取得済み足数・収録率ではありません/);
 assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+const prospective=JSON.parse(execFileSync('python',['-c',"from test_orrery_prospective_panel import synthetic_panel;import json;print(json.dumps(synthetic_panel()))"],{encoding:'utf8'}));
+await p.evaluate(({r,clock})=>{drawProspectiveArchive({prospective_archive:r});drawProspectiveStatus({prospective_readiness:clock,prospective_archive:r})},{r:prospective,clock:readiness});
+assert.match(await p.locator('#prospectiveStatus').textContent(),/明示された新期間ZIPを起動時に再検証済み/);
+assert.match(await p.locator('#prospectiveArchive').textContent(),/起動時に再検証/);
+assert.match(await p.locator('#prospectiveArchive').textContent(),/LSR02.*候補 0/);
+assert.match(await p.locator('#prospectiveArchive').textContent(),/ZIP境界で状態リセット/);
+assert.match(await p.locator('#prospectiveArchive').textContent(),/未提出の共通区間/);
+assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+await p.evaluate(()=>drawProspectiveArchive({}));
+assert.match(await p.locator('#prospectiveArchive').textContent(),/未読込/);
 await p.evaluate(()=>drawProspectiveStatus({}));
 assert.match(await p.locator('#prospectiveStatus').textContent(),/未読込/);
 await p.evaluate(()=>drawEntryArchive({}));

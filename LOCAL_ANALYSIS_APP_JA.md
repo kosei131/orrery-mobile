@@ -125,3 +125,38 @@ NO_PROSPECTIVE_INPUT_ATTACHED。新ZIP受領後は既存holdout/batchで別途�
 今回の全Python検査は1084件中1079成功・5skip・失敗0。
 固定計画のhash検査も成功。JavaScript構文検査成功。ローカルChromium本体はなく、
 新しい描画検査の実行結果は今回の研究コミットに対応するCIを参照する。
+
+## 追加期間の元ZIPを再検証して表示（2026-11-02 HST）
+
+公開履歴モードに次を追加する。MT5/模擬モードでは指定不可。
+
+```
+--prospective-manifest bundles.json --prospective-manifest-sha256 MANIFEST_SHA256
+```
+
+manifestは既存batch CLIと同じ形式、パスは起動時の作業ディレクトリー基準。
+
+```json
+[{"zip_path":"NEW_A.zip","zip_sha256":"EXTERNALLY_RETAINED_SHA256"}]
+```
+
+保存済み結果JSONを信用して表示する入力ではない。起動時に明示された元ZIPを読み、
+既存batch.reviewと固定計画SHA256/40コードを再検証する。旧期間・未来cutoff・
+hash不一致・重複ZIP/期間/候補は既存の検証器で拒否。自動取得・フォルダー探索なし。
+最大8 ZIP、1個16MiB、保持合計32MiBを読込段階でも維持。ZIPは展開しない。
+正常再生後だけ状況欄をPROSPECTIVE_INPUT_REPLAYEDに変更する。未指定時は前項の
+NO_PROSPECTIVE_INPUT_ATTACHEDを維持する。期日到来だけで再生済みにならない。
+更新には元ZIP/manifestの外部hashを確認してアプリを再起動する。
+
+画面には追加期間5群と既存探索期間を別々に表示。各ZIP共通期間/hash、部分期間、
+未提出の共通区間、未決着/曖昧、決着分だけの平均R/PFを保持。個別取引案とローカル
+ファイルパスはHTTP APIから除外する。ZIP境界の状態リセットは連続戦略と異なる。
+区間長は実足収録率ではなく、提供元真正性・セッション完全性・独立未使用性を証明しない。
+費用・口座損益・DDは不明、HalfTrend採用保留。計画/40ソース/売買条件は不変。
+
+実新期間ZIPは未取得。31関連検査には1970年人工OHLCを使用し、実成績には転用しない。
+7追加検査:元ZIP再生、重複/旧期間/未来拒否、manifest/hash、メモリ上限、パス非公開、
+CLIモード制限、添付時の状態。ブラウザー補助Python5断片は単独実行確認済み。
+390pxの新表示検査はCIで実行する。
+今回の全Python検査は1091件中1086成功・5skip・失敗0。JavaScript構文検査成功。
+新しい描画とWindows結果は対応するCIを参照。PC更新・実注文・公開・マージなし。
