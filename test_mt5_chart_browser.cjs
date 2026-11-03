@@ -9,6 +9,15 @@ assert.match(await p.locator('#halftrendArchive').textContent(),/Reversal04.*未
 assert.match(await p.locator('#halftrendArchive').textContent(),/HALFTREND_ALIGNED.*候補 2.*SL参照 1.*未決着 1/);
 assert.match(await p.locator('#halftrendArchive').textContent(),/現在のチャートとは別データ/);
 assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+const entry=JSON.parse(execFileSync('python',['-c',"from orrery_entry_panel import load_panel;from hashlib import sha256;from pathlib import Path;import json;p=Path('research_evidence/local-history-20261101/entry_opportunity_reaudit_20261102.json');print(json.dumps(load_panel(p,sha256(p.read_bytes()).hexdigest())))"],{encoding:'utf8'}));
+await p.evaluate(r=>drawEntryArchive({entry_archive:r}),entry);
+assert.match(await p.locator('#entryArchive').textContent(),/正式LSR02とは別研究/);
+assert.match(await p.locator('#entryArchive').textContent(),/CONFIRMATION_SWEEP_EXTREME.*取引案 22.*モデル決着 13.*未評価 9/);
+assert.match(await p.locator('#entryArchive').textContent(),/EXPIRED.*11/);
+assert.match(await p.locator('#entryArchive').textContent(),/timeout終値評価/);
+assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+await p.evaluate(()=>drawEntryArchive({}));
+assert.match(await p.locator('#entryArchive').textContent(),/未読込/);
 await p.evaluate(()=>drawHalftrendArchive({}));
 assert.match(await p.locator('#halftrendArchive').textContent(),/未読込/);
 if(process.env.ORRERY_SCREENSHOT)await p.screenshot({path:process.env.ORRERY_SCREENSHOT,fullPage:true});
