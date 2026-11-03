@@ -27,7 +27,10 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual(len(result['charts']),3)
         self.assertTrue(all(c['indicators']['atr'] is not None for c in result['analysis']['charts']))
         with patch.object(dashboard,'HISTORY_SNAPSHOT',result),patch.object(dashboard,'mt5') as mt5:
-            self.assertIs(dashboard.snapshot(),result)
+            display=dashboard.snapshot()
+            self.assertEqual({k:v for k,v in display.items() if k!='prospective_readiness'},result)
+            self.assertFalse(display['prospective_readiness']['data_acquired'])
+            self.assertIsNone(display['prospective_readiness']['prospective_candidates'])
             mt5.initialize.assert_not_called()
 
     def test_coverage_counts_gaps_without_filling(self):

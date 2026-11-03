@@ -26,7 +26,7 @@ jobs:
       - name: Test offline HistData M1 import and timestamp handling
         run: python -m unittest -v test_histdata_m1_import.py test_m1_complete_bars.py test_session_complete_bars.py test_xau_session_coverage.py test_xau_h4_alignment.py test_lsr03_h4_session_history.py test_xau_h4_session_review.py test_h4_reconciliation_plan.py test_h4_reconciliation_batch.py test_h4_batch_verify.py test_h4_batch_resume.py test_h4_batch_chain.py test_h4_pc_workflow.py test_h4_pc_bootstrap.py test_xau_loss_excursions.py test_xau_profit_protection.py test_xau_structural_stops.py test_xau_entry_exit_diagnostic.py test_xau_confirmation_entry.py test_histdata_pipeline.py test_merge_m1_months.py test_real_bars_lsr_bridge.py
       - name: Run no-MT5 safety and HTTP tests
-        run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py test_mt5_charts.py test_orrery_dashboard_analysis.py test_orrery_halftrend_panel.py test_orrery_entry_panel.py test_orrery_history_app.py test_orrery_history_session_study.py test_orrery_h4_gap_requests.py test_orrery_m1_revision_compare.py test_orrery_duka_source_probe.py test_orrery_public_m1_gap_inventory.py
+        run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py test_mt5_charts.py test_orrery_dashboard_analysis.py test_orrery_halftrend_panel.py test_orrery_entry_panel.py test_orrery_prospective_status.py test_orrery_history_app.py test_orrery_history_session_study.py test_orrery_h4_gap_requests.py test_orrery_m1_revision_compare.py test_orrery_duka_source_probe.py test_orrery_public_m1_gap_inventory.py
       - name: Verify FX storage safety and JavaScript syntax
         run: |
           node test_fx.cjs
