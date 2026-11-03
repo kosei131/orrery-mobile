@@ -84,11 +84,25 @@ def analyze(source, *, expected_sha256, month, now):
     flush()
     if sha256(source.read_bytes()).hexdigest()!=expected_sha256:
         raise ValueError('Source changed during audit')
+    # Segment duration is an upper-bound clock span, NOT proof of every observed
+    # second/minute or a valid broker execution timeline.
+    spans=[(s['last_utc_ms']-s['first_utc_ms'])//1000 for s in segments]
+    ranked=sorted(segments,key=lambda s:(-s['quotes'],s['first_row']))[:10]
+    distribution=dict(
+        one_quote_segments=sum(s['quotes']==1 for s in segments),
+        segments_with_same_second_pairs=sum(s['same_second_pairs']>0 for s in segments),
+        spans_at_least_5m=sum(v>=300 for v in spans),
+        spans_at_least_15m=sum(v>=900 for v in spans),
+        spans_at_least_4h=sum(v>=14400 for v in spans),
+        longest_clock_span_seconds=max(spans,default=0),
+        largest_segments_by_quotes=ranked,
+        span_thresholds_are_not_data_completeness=True,
+        segment_chronology_is_not_broker_certified=True)
     return dict(status='RAW_ORDER_SEGMENT_DIAGNOSTIC_ONLY',
         source_zip_sha256=expected_sha256,source_csv_sha256=raw_hash.hexdigest(),
         source_ticks=count,segments=len(segments),clock_reversal_pairs=reversals,
         gaps_over_60s=gaps,same_second_adjacent_pairs=tied,
-        segment_inventory=segments,raw_order_preserved=True,quotes_reordered=False,
+        segment_inventory=segments,distribution=distribution,raw_order_preserved=True,quotes_reordered=False,
         bid_ask_bar_exported=False,verified_execution_chronology=False,
         valid_broker_backtest=False,actual_profit_usd=None,
         execution_allowed=False)
