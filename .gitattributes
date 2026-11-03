@@ -4,3 +4,5 @@ research_evidence/**/*.json text eol=lf
 
 # Byte-pinned CSV evidence retains original line endings on every checkout.
 research_evidence/local-history-20261101/indicator_ablation_20261102.csv -text
+
+research_evidence/local-history-20261101/halftrend_patterns_20261102.csv -text
