@@ -34,7 +34,7 @@ def summarize(audit, *, fixed_stop_price=STOP_PRICE_DISTANCE, target_rs=TARGET_R
     by_hour=audit.get('spread_by_declared_utc_hour')
     summary=audit.get('synchronous_tick_spread_price')
     ticks=audit.get('ticks')
-    if not isinstance(by_hour,dict) or sorted(by_hour)!=[str(i) for i in range(24)] or type(ticks) is not int or ticks<=0:
+    if not isinstance(by_hour,dict) or set(by_hour)!={str(i) for i in range(24)} or type(ticks) is not int or ticks<=0:
         raise ValueError('Complete hour-by-hour spread evidence required')
     if not isinstance(summary,dict) or not all(type(summary.get(k)) in (int,float) and isfinite(summary[k]) and summary[k]>=0 for k in ('median','p95')):
         raise ValueError('Spread median and p95 required')
