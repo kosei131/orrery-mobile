@@ -16,7 +16,7 @@ assert.match(await p.locator('#entryArchive').textContent(),/CONFIRMATION_SWEEP_
 assert.match(await p.locator('#entryArchive').textContent(),/EXPIRED.*11/);
 assert.match(await p.locator('#entryArchive').textContent(),/timeout終値評価/);
 assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
-const readiness=JSON.parse(execFileSync('python',['-c',"from orrery_prospective_status import current_status;from datetime import datetime;import json;print(json.dumps(current_status(datetime.fromisoformat('2026-11-03T05:07:00+00:00')))))"],{encoding:'utf8'}));
+const readiness=JSON.parse(execFileSync('python',['-c',"from orrery_prospective_status import current_status;from datetime import datetime;import json;print(json.dumps(current_status(datetime.fromisoformat('2026-11-03T05:07:00+00:00'))))"],{encoding:'utf8'}));
 await p.evaluate(r=>drawProspectiveStatus({prospective_readiness:r}),readiness);
 assert.match(await p.locator('#prospectiveStatus').textContent(),/新期間データはこの画面に未添付/);
 assert.match(await p.locator('#prospectiveStatus').textContent(),/IN_PROGRESS/);
