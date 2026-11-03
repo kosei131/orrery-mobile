@@ -1,0 +1,17 @@
+{
+  "symbol": "USDJPY",
+  "hour_utc": "2026-09-02T12:00:00+00:00",
+  "source_url": "https://datafeed.dukascopy.com/datafeed/USDJPY/2026/08/02/12h_ticks.bi5",
+  "source": "DUKASCOPY_ANONYMOUS_HOURLY_ARCHIVE_INDEPENDENT_RESEARCH",
+  "request_started_at_utc": "2026-11-03T20:52:13.803112+00:00",
+  "execution_allowed": false,
+  "backtest_complete": false,
+  "source_is_user_mt5": false,
+  "merged_with_getdata": false,
+  "paid_route_used": false,
+  "broker_costs_verified": false,
+  "actual_profit_usd": null,
+  "status": "BLOCKED_SOURCE_FETCH_OR_VALIDATION",
+  "error_type": "HTTPError",
+  "http_status": 429
+}

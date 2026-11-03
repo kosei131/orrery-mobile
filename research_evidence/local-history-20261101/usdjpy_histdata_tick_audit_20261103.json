@@ -1,0 +1,617 @@
+{
+  "status": "DIAGNOSTIC_ONLY_BAR_EXPORT_BLOCKED",
+  "audit_mode": "DIAGNOSTIC_ONLY",
+  "chronological_bar_exported": false,
+  "strategy_replay_allowed": false,
+  "out_of_order_pairs": 341,
+  "maximum_backward_step_msc": 1000,
+  "order_violation_examples": [
+    {
+      "row": 3983,
+      "previous_msc": 1790834736000,
+      "current_msc": 1790834735000
+    },
+    {
+      "row": 17613,
+      "previous_msc": 1790843250000,
+      "current_msc": 1790843249000
+    },
+    {
+      "row": 19209,
+      "previous_msc": 1790843768000,
+      "current_msc": 1790843767000
+    },
+    {
+      "row": 19230,
+      "previous_msc": 1790843770000,
+      "current_msc": 1790843769000
+    },
+    {
+      "row": 19316,
+      "previous_msc": 1790843781000,
+      "current_msc": 1790843780000
+    },
+    {
+      "row": 21332,
+      "previous_msc": 1790844269000,
+      "current_msc": 1790844268000
+    },
+    {
+      "row": 29341,
+      "previous_msc": 1790847504000,
+      "current_msc": 1790847503000
+    },
+    {
+      "row": 34486,
+      "previous_msc": 1790850101000,
+      "current_msc": 1790850100000
+    },
+    {
+      "row": 68846,
+      "previous_msc": 1790865565000,
+      "current_msc": 1790865564000
+    },
+    {
+      "row": 79762,
+      "previous_msc": 1790868731000,
+      "current_msc": 1790868730000
+    },
+    {
+      "row": 79829,
+      "previous_msc": 1790868737000,
+      "current_msc": 1790868736000
+    },
+    {
+      "row": 79880,
+      "previous_msc": 1790868741000,
+      "current_msc": 1790868740000
+    },
+    {
+      "row": 79949,
+      "previous_msc": 1790868746000,
+      "current_msc": 1790868745000
+    },
+    {
+      "row": 79985,
+      "previous_msc": 1790868748000,
+      "current_msc": 1790868747000
+    },
+    {
+      "row": 80021,
+      "previous_msc": 1790868751000,
+      "current_msc": 1790868750000
+    },
+    {
+      "row": 80036,
+      "previous_msc": 1790868752000,
+      "current_msc": 1790868751000
+    },
+    {
+      "row": 80142,
+      "previous_msc": 1790868759000,
+      "current_msc": 1790868758000
+    },
+    {
+      "row": 80172,
+      "previous_msc": 1790868761000,
+      "current_msc": 1790868760000
+    },
+    {
+      "row": 80240,
+      "previous_msc": 1790868767000,
+      "current_msc": 1790868766000
+    },
+    {
+      "row": 80254,
+      "previous_msc": 1790868768000,
+      "current_msc": 1790868767000
+    }
+  ],
+  "cross_minute_order_reversals": 6,
+  "subsecond_nonzero_ticks": 0,
+  "observed_whole_second_timestamps_only": true,
+  "symbol": "USDJPY",
+  "source_month_fixed_est": "202610",
+  "source_zip_sha256": "da3b22b6eb2c5c048ba6a7dc09a286b1a17b0c0a23a343cca6829ea9a94d92aa",
+  "source_csv_member": "DAT_ASCII_USDJPY_T_202610.csv",
+  "source_csv_sha256": "32d4abe0b31d9a351787829d135b14db0fabf40f706591c17d0417ada495d2be",
+  "source_csv_bytes": 107630333,
+  "timestamp_rule": "HistData fixed EST UTC-05:00 without DST; add five hours to UTC",
+  "first_tick_utc": "2026-10-01T05:00:00+00:00",
+  "last_tick_utc": "2026-10-30T20:59:58+00:00",
+  "ticks": 2503031,
+  "same_timestamp_adjacent_pairs": 1536502,
+  "consecutive_identical_records": 119778,
+  "zero_volume_ticks": 2503031,
+  "paired_m1_minutes": 31188,
+  "minute_gaps": [
+    {
+      "first_missing_msc": 1790895540000,
+      "reopen_msc": 1790895600000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1790900700000,
+      "reopen_msc": 1790900760000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1790978400000,
+      "reopen_msc": 1791152100000,
+      "missing_minutes": 2895
+    },
+    {
+      "first_missing_msc": 1791152220000,
+      "reopen_msc": 1791152460000,
+      "missing_minutes": 4
+    },
+    {
+      "first_missing_msc": 1791152520000,
+      "reopen_msc": 1791152820000,
+      "missing_minutes": 5
+    },
+    {
+      "first_missing_msc": 1791237660000,
+      "reopen_msc": 1791237840000,
+      "missing_minutes": 3
+    },
+    {
+      "first_missing_msc": 1791410580000,
+      "reopen_msc": 1791410700000,
+      "missing_minutes": 2
+    },
+    {
+      "first_missing_msc": 1791412080000,
+      "reopen_msc": 1791412140000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1791496920000,
+      "reopen_msc": 1791497040000,
+      "missing_minutes": 2
+    },
+    {
+      "first_missing_msc": 1791498120000,
+      "reopen_msc": 1791498180000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1791498540000,
+      "reopen_msc": 1791498600000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1791583200000,
+      "reopen_msc": 1791756240000,
+      "missing_minutes": 2884
+    },
+    {
+      "first_missing_msc": 1791759420000,
+      "reopen_msc": 1791759480000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1791839580000,
+      "reopen_msc": 1791839640000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1791849300000,
+      "reopen_msc": 1791849360000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1791928860000,
+      "reopen_msc": 1791928920000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1792101960000,
+      "reopen_msc": 1792102020000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1792102080000,
+      "reopen_msc": 1792102140000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1792102320000,
+      "reopen_msc": 1792102380000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1792188000000,
+      "reopen_msc": 1792360860000,
+      "missing_minutes": 2881
+    },
+    {
+      "first_missing_msc": 1792532580000,
+      "reopen_msc": 1792532640000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1792534620000,
+      "reopen_msc": 1792534680000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1792535220000,
+      "reopen_msc": 1792535280000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1792707540000,
+      "reopen_msc": 1792707600000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1792792800000,
+      "reopen_msc": 1792962000000,
+      "missing_minutes": 2820
+    },
+    {
+      "first_missing_msc": 1792962060000,
+      "reopen_msc": 1792962300000,
+      "missing_minutes": 4
+    },
+    {
+      "first_missing_msc": 1792962780000,
+      "reopen_msc": 1792962900000,
+      "missing_minutes": 2
+    },
+    {
+      "first_missing_msc": 1792962960000,
+      "reopen_msc": 1792963080000,
+      "missing_minutes": 2
+    },
+    {
+      "first_missing_msc": 1792963200000,
+      "reopen_msc": 1792963320000,
+      "missing_minutes": 2
+    },
+    {
+      "first_missing_msc": 1792963440000,
+      "reopen_msc": 1792963560000,
+      "missing_minutes": 2
+    },
+    {
+      "first_missing_msc": 1792963620000,
+      "reopen_msc": 1792963800000,
+      "missing_minutes": 3
+    },
+    {
+      "first_missing_msc": 1792964520000,
+      "reopen_msc": 1792964580000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1793048460000,
+      "reopen_msc": 1793048520000,
+      "missing_minutes": 1
+    },
+    {
+      "first_missing_msc": 1793307720000,
+      "reopen_msc": 1793307900000,
+      "missing_minutes": 3
+    }
+  ],
+  "missing_internal_minutes": 11532,
+  "positive_file_order_tick_gaps_over_60s": 90,
+  "maximum_positive_file_order_tick_gap_seconds": 173736.0,
+  "largest_positive_file_order_tick_gaps": [
+    {
+      "seconds": 173736.0,
+      "after_utc": "2026-10-02T21:59:59+00:00",
+      "before_utc": "2026-10-04T22:15:35+00:00"
+    },
+    {
+      "seconds": 173043.0,
+      "after_utc": "2026-10-09T21:59:58+00:00",
+      "before_utc": "2026-10-11T22:04:01+00:00"
+    },
+    {
+      "seconds": 172911.0,
+      "after_utc": "2026-10-16T21:59:58+00:00",
+      "before_utc": "2026-10-18T22:01:49+00:00"
+    },
+    {
+      "seconds": 169207.0,
+      "after_utc": "2026-10-23T21:59:59+00:00",
+      "before_utc": "2026-10-25T21:00:06+00:00"
+    },
+    {
+      "seconds": 387.0,
+      "after_utc": "2026-10-04T22:21:29+00:00",
+      "before_utc": "2026-10-04T22:27:56+00:00"
+    },
+    {
+      "seconds": 322.0,
+      "after_utc": "2026-10-04T22:16:06+00:00",
+      "before_utc": "2026-10-04T22:21:28+00:00"
+    },
+    {
+      "seconds": 272.0,
+      "after_utc": "2026-10-25T21:00:34+00:00",
+      "before_utc": "2026-10-25T21:05:06+00:00"
+    },
+    {
+      "seconds": 241.0,
+      "after_utc": "2026-10-05T22:00:00+00:00",
+      "before_utc": "2026-10-05T22:04:01+00:00"
+    },
+    {
+      "seconds": 208.0,
+      "after_utc": "2026-10-25T21:26:40+00:00",
+      "before_utc": "2026-10-25T21:30:08+00:00"
+    },
+    {
+      "seconds": 200.0,
+      "after_utc": "2026-10-25T21:23:01+00:00",
+      "before_utc": "2026-10-25T21:26:21+00:00"
+    },
+    {
+      "seconds": 199.0,
+      "after_utc": "2026-10-29T21:01:41+00:00",
+      "before_utc": "2026-10-29T21:05:00+00:00"
+    },
+    {
+      "seconds": 197.0,
+      "after_utc": "2026-10-25T21:15:00+00:00",
+      "before_utc": "2026-10-25T21:18:17+00:00"
+    },
+    {
+      "seconds": 190.0,
+      "after_utc": "2026-10-25T21:19:46+00:00",
+      "before_utc": "2026-10-25T21:22:56+00:00"
+    },
+    {
+      "seconds": 178.0,
+      "after_utc": "2026-10-25T21:12:02+00:00",
+      "before_utc": "2026-10-25T21:15:00+00:00"
+    },
+    {
+      "seconds": 157.0,
+      "after_utc": "2026-10-26T21:00:00+00:00",
+      "before_utc": "2026-10-26T21:02:37+00:00"
+    },
+    {
+      "seconds": 156.0,
+      "after_utc": "2026-10-07T22:02:24+00:00",
+      "before_utc": "2026-10-07T22:05:00+00:00"
+    },
+    {
+      "seconds": 147.0,
+      "after_utc": "2026-10-08T22:01:33+00:00",
+      "before_utc": "2026-10-08T22:04:00+00:00"
+    },
+    {
+      "seconds": 127.0,
+      "after_utc": "2026-10-08T22:21:29+00:00",
+      "before_utc": "2026-10-08T22:23:36+00:00"
+    },
+    {
+      "seconds": 115.0,
+      "after_utc": "2026-10-25T21:41:11+00:00",
+      "before_utc": "2026-10-25T21:43:06+00:00"
+    },
+    {
+      "seconds": 111.0,
+      "after_utc": "2026-10-27T21:38:00+00:00",
+      "before_utc": "2026-10-27T21:39:51+00:00"
+    }
+  ],
+  "synchronous_tick_spread_price": {
+    "min": 0.001,
+    "median": 0.004,
+    "p95": 0.007,
+    "max": 0.32,
+    "mean": 0.004643845801350443,
+    "zero_spread_ticks": 0
+  },
+  "spread_by_declared_utc_hour": {
+    "0": {
+      "ticks": 72182,
+      "median": 0.004,
+      "p95": 0.008,
+      "max": 0.021
+    },
+    "1": {
+      "ticks": 124778,
+      "median": 0.004,
+      "p95": 0.007,
+      "max": 0.029
+    },
+    "2": {
+      "ticks": 101906,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.018
+    },
+    "3": {
+      "ticks": 80894,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.056
+    },
+    "4": {
+      "ticks": 67459,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.013
+    },
+    "5": {
+      "ticks": 69596,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.017
+    },
+    "6": {
+      "ticks": 78903,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.019
+    },
+    "7": {
+      "ticks": 120896,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.021
+    },
+    "8": {
+      "ticks": 141215,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.029
+    },
+    "9": {
+      "ticks": 123735,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.036
+    },
+    "10": {
+      "ticks": 101435,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.017
+    },
+    "11": {
+      "ticks": 95512,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.02
+    },
+    "12": {
+      "ticks": 116952,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.022
+    },
+    "13": {
+      "ticks": 162995,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.143
+    },
+    "14": {
+      "ticks": 185755,
+      "median": 0.003,
+      "p95": 0.006,
+      "max": 0.02
+    },
+    "15": {
+      "ticks": 178544,
+      "median": 0.003,
+      "p95": 0.006,
+      "max": 0.025
+    },
+    "16": {
+      "ticks": 145776,
+      "median": 0.003,
+      "p95": 0.006,
+      "max": 0.018
+    },
+    "17": {
+      "ticks": 117943,
+      "median": 0.003,
+      "p95": 0.006,
+      "max": 0.023
+    },
+    "18": {
+      "ticks": 109420,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.052
+    },
+    "19": {
+      "ticks": 103259,
+      "median": 0.004,
+      "p95": 0.006,
+      "max": 0.021
+    },
+    "20": {
+      "ticks": 79897,
+      "median": 0.004,
+      "p95": 0.007,
+      "max": 0.057
+    },
+    "21": {
+      "ticks": 41402,
+      "median": 0.005,
+      "p95": 0.053,
+      "max": 0.261
+    },
+    "22": {
+      "ticks": 38195,
+      "median": 0.049,
+      "p95": 0.136,
+      "max": 0.32
+    },
+    "23": {
+      "ticks": 44382,
+      "median": 0.006,
+      "p95": 0.025,
+      "max": 0.107
+    }
+  },
+  "source_text_sha256": {
+    "DAT_ASCII_USDJPY_T_202610.txt": "f99cc0583a7f29b5f581e5959386e2ef92182a89d5fad0b16ae215dc9bb2d6c4"
+  },
+  "code_sha256": "7907b7355a67e2df017f3fa64fee39178b0bdc2a49d1be9a455b0e2e505b3cd6",
+  "source_authenticity_verified": false,
+  "market_session_completeness_verified": false,
+  "missing_minutes_filled": false,
+  "source_is_user_mt5": false,
+  "execution_allowed": false,
+  "adopted": false,
+  "win_rate_pct": null,
+  "net_expectancy_r": null,
+  "account_return_pct": null,
+  "account_max_dd_usd": null,
+  "limitations": [
+    "Quotes in supplied public archive, not proof of complete broker ticks or actual fills.",
+    "Observed M1 slots only; tick count/zero volume do not certify traded volume.",
+    "Diagnostic mode counts clock reversals without sorting, deleting ticks or exporting OHLC bars.",
+    "Millisecond format does not establish subsecond time precision or quote ordering within ties.",
+    "Source month uses fixed EST; UTC boundaries can differ from calendar UTC month.",
+    "No market closure guessed; all internal minute gaps retained.",
+    "Higher bars require every nominal M1 slot, not certified session coverage.",
+    "No strategy, commissions, swaps, further slippage, lot/margin or account return evaluated."
+  ],
+  "output_sha256": {},
+  "aggregations": {
+    "bid_M1": {
+      "observed_complete_slot_bars": 31188,
+      "rejected_partial_slots": 0
+    },
+    "bid_M5": {
+      "observed_complete_slot_bars": 6218,
+      "rejected_partial_slots": 31
+    },
+    "bid_M15": {
+      "observed_complete_slot_bars": 2060,
+      "rejected_partial_slots": 23
+    },
+    "bid_H4": {
+      "observed_complete_slot_bars": 113,
+      "rejected_partial_slots": 22
+    },
+    "ask_M1": {
+      "observed_complete_slot_bars": 31188,
+      "rejected_partial_slots": 0
+    },
+    "ask_M5": {
+      "observed_complete_slot_bars": 6218,
+      "rejected_partial_slots": 31
+    },
+    "ask_M15": {
+      "observed_complete_slot_bars": 2060,
+      "rejected_partial_slots": 23
+    },
+    "ask_H4": {
+      "observed_complete_slot_bars": 113,
+      "rejected_partial_slots": 22
+    }
+  }
+}
