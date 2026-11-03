@@ -1,0 +1,3510 @@
+{
+  "status": "INSPECTED_DATA_SPREAD_REPLAY_AND_STABILITY_NOT_OOS",
+  "prior_evidence_sha256": "d298984ce96981f63cddad50886217de530431a78c1b8b50f1f4ba60e35a21dd",
+  "raw_source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "source_hashes": {
+    "XAUUSD_H4_UNVERIFIED_QUOTE.csv": "643c95d6c7ec72cb331d280b0c4c1c2d72702fe04fc85402e2666bbe0f19854c",
+    "XAUUSD_M5_UNVERIFIED_QUOTE.csv": "ef68aad060022c4534a5cee2d7ff9d89b243177f5a479f938cf8ad582dc84b99",
+    "XAUUSD_M1_UNVERIFIED_QUOTE.csv": "741531ca37f0fddc904238da0fc1d646127928da0c87f5f81b4aab0579bfae91",
+    "XAUUSD_M15_UNVERIFIED_QUOTE.csv": "8bba85eab3ed8da92341dea6b0b6c26fa884b882caf074e8bc9de6ac844a083d"
+  },
+  "baseline_all_eight_models_exact_match": true,
+  "code_sha256": "35197481a4a5f3494830fffa793fa3919f25716c756441d2b6e13395dacb9428",
+  "models": {
+    "ALL_CONFIRMATION_FIXED_6": {
+      "0.6": {
+        "spread_price_units": 0.6,
+        "confirmation_universe": 110,
+        "entry_plans": 110,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 110,
+          "resolved_outcomes": 106,
+          "unresolved_or_unmodeled": 4,
+          "wins": 39,
+          "win_rate_pct": 36.79,
+          "mean_r": -0.0832,
+          "total_r": -8.815,
+          "pf": 0.8684
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 4,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 38,
+          "STOP_INTRAMINUTE": 67,
+          "TIMEOUT": 1
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 106,
+            "positive": 39,
+            "positive_rate_pct": 36.7925,
+            "total_reference_r": -8.815,
+            "mean_reference_r": -0.08316,
+            "pf_reference": 0.86843
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 47,
+            "positive": 16,
+            "positive_rate_pct": 34.0426,
+            "total_reference_r": -7.0,
+            "mean_reference_r": -0.14894,
+            "pf_reference": 0.77419
+          },
+          "from_cut": {
+            "resolved": 59,
+            "positive": 23,
+            "positive_rate_pct": 38.9831,
+            "total_reference_r": -1.815,
+            "mean_reference_r": -0.03076,
+            "pf_reference": 0.94958
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 2,
+              "positive": 2,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 3.0,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 25,
+              "positive": 9,
+              "positive_rate_pct": 36.0,
+              "total_reference_r": -2.5,
+              "mean_reference_r": -0.1,
+              "pf_reference": 0.84375
+            },
+            "2026-06": {
+              "resolved": 20,
+              "positive": 5,
+              "positive_rate_pct": 25.0,
+              "total_reference_r": -7.5,
+              "mean_reference_r": -0.375,
+              "pf_reference": 0.5
+            },
+            "2026-07": {
+              "resolved": 24,
+              "positive": 10,
+              "positive_rate_pct": 41.6667,
+              "total_reference_r": 0.685,
+              "mean_reference_r": 0.02854,
+              "pf_reference": 1.04893
+            },
+            "2026-08": {
+              "resolved": 16,
+              "positive": 8,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 4.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-09": {
+              "resolved": 19,
+              "positive": 5,
+              "positive_rate_pct": 26.3158,
+              "total_reference_r": -6.5,
+              "mean_reference_r": -0.34211,
+              "pf_reference": 0.53571
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 105,
+                "positive": 38,
+                "positive_rate_pct": 36.1905,
+                "total_reference_r": -10.315,
+                "mean_reference_r": -0.09824,
+                "pf_reference": 0.84604
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 104,
+                "positive": 37,
+                "positive_rate_pct": 35.5769,
+                "total_reference_r": -11.815,
+                "mean_reference_r": -0.11361,
+                "pf_reference": 0.82366
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 103,
+                "positive": 36,
+                "positive_rate_pct": 34.9515,
+                "total_reference_r": -13.315,
+                "mean_reference_r": -0.12927,
+                "pf_reference": 0.80127
+              }
+            }
+          },
+          "best_month": "2026-08",
+          "excluding_best_month": {
+            "resolved": 90,
+            "positive": 31,
+            "positive_rate_pct": 34.4444,
+            "total_reference_r": -12.815,
+            "mean_reference_r": -0.14239,
+            "pf_reference": 0.7828
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "1618148f442e9648f39394394d837e2be7938af23b48bc0a7d50470adc720c6d"
+      },
+      "1.2": {
+        "spread_price_units": 1.2,
+        "confirmation_universe": 110,
+        "entry_plans": 110,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 110,
+          "resolved_outcomes": 107,
+          "unresolved_or_unmodeled": 3,
+          "wins": 37,
+          "win_rate_pct": 34.58,
+          "mean_r": -0.1394,
+          "total_r": -14.915,
+          "pf": 0.7869
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 3,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 36,
+          "STOP_INTRAMINUTE": 70,
+          "TIMEOUT": 1
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 107,
+            "positive": 37,
+            "positive_rate_pct": 34.5794,
+            "total_reference_r": -14.915,
+            "mean_reference_r": -0.13939,
+            "pf_reference": 0.78693
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 48,
+            "positive": 15,
+            "positive_rate_pct": 31.25,
+            "total_reference_r": -10.5,
+            "mean_reference_r": -0.21875,
+            "pf_reference": 0.68182
+          },
+          "from_cut": {
+            "resolved": 59,
+            "positive": 22,
+            "positive_rate_pct": 37.2881,
+            "total_reference_r": -4.415,
+            "mean_reference_r": -0.07483,
+            "pf_reference": 0.88068
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 2,
+              "positive": 2,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 3.0,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 26,
+              "positive": 9,
+              "positive_rate_pct": 34.6154,
+              "total_reference_r": -3.5,
+              "mean_reference_r": -0.13462,
+              "pf_reference": 0.79412
+            },
+            "2026-06": {
+              "resolved": 20,
+              "positive": 4,
+              "positive_rate_pct": 20.0,
+              "total_reference_r": -10.0,
+              "mean_reference_r": -0.5,
+              "pf_reference": 0.375
+            },
+            "2026-07": {
+              "resolved": 24,
+              "positive": 9,
+              "positive_rate_pct": 37.5,
+              "total_reference_r": -1.915,
+              "mean_reference_r": -0.07979,
+              "pf_reference": 0.87233
+            },
+            "2026-08": {
+              "resolved": 16,
+              "positive": 8,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 4.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-09": {
+              "resolved": 19,
+              "positive": 5,
+              "positive_rate_pct": 26.3158,
+              "total_reference_r": -6.5,
+              "mean_reference_r": -0.34211,
+              "pf_reference": 0.53571
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 106,
+                "positive": 36,
+                "positive_rate_pct": 33.9623,
+                "total_reference_r": -16.415,
+                "mean_reference_r": -0.15486,
+                "pf_reference": 0.7655
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 105,
+                "positive": 35,
+                "positive_rate_pct": 33.3333,
+                "total_reference_r": -17.915,
+                "mean_reference_r": -0.17062,
+                "pf_reference": 0.74407
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 104,
+                "positive": 34,
+                "positive_rate_pct": 32.6923,
+                "total_reference_r": -19.415,
+                "mean_reference_r": -0.18668,
+                "pf_reference": 0.72264
+              }
+            }
+          },
+          "best_month": "2026-08",
+          "excluding_best_month": {
+            "resolved": 91,
+            "positive": 29,
+            "positive_rate_pct": 31.8681,
+            "total_reference_r": -18.915,
+            "mean_reference_r": -0.20786,
+            "pf_reference": 0.69492
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "646d9ea15590c59ea2b60d754b3a6dd103d12d8a9ffb732738678ae1f550ffc0"
+      },
+      "2.0": {
+        "spread_price_units": 2.0,
+        "confirmation_universe": 110,
+        "entry_plans": 110,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 110,
+          "resolved_outcomes": 108,
+          "unresolved_or_unmodeled": 2,
+          "wins": 30,
+          "win_rate_pct": 27.78,
+          "mean_r": -0.3106,
+          "total_r": -33.5483,
+          "pf": 0.5699
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 2,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 29,
+          "STOP_INTRAMINUTE": 78,
+          "TIMEOUT": 1
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 108,
+            "positive": 30,
+            "positive_rate_pct": 27.7778,
+            "total_reference_r": -33.54833,
+            "mean_reference_r": -0.31063,
+            "pf_reference": 0.56989
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 49,
+            "positive": 11,
+            "positive_rate_pct": 22.449,
+            "total_reference_r": -21.5,
+            "mean_reference_r": -0.43878,
+            "pf_reference": 0.43421
+          },
+          "from_cut": {
+            "resolved": 59,
+            "positive": 19,
+            "positive_rate_pct": 32.2034,
+            "total_reference_r": -12.04833,
+            "mean_reference_r": -0.20421,
+            "pf_reference": 0.69879
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 2,
+              "positive": 2,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 3.0,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 26,
+              "positive": 7,
+              "positive_rate_pct": 26.9231,
+              "total_reference_r": -8.5,
+              "mean_reference_r": -0.32692,
+              "pf_reference": 0.55263
+            },
+            "2026-06": {
+              "resolved": 21,
+              "positive": 2,
+              "positive_rate_pct": 9.5238,
+              "total_reference_r": -16.0,
+              "mean_reference_r": -0.7619,
+              "pf_reference": 0.15789
+            },
+            "2026-07": {
+              "resolved": 24,
+              "positive": 8,
+              "positive_rate_pct": 33.3333,
+              "total_reference_r": -4.54833,
+              "mean_reference_r": -0.18951,
+              "pf_reference": 0.71573
+            },
+            "2026-08": {
+              "resolved": 16,
+              "positive": 6,
+              "positive_rate_pct": 37.5,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -0.0625,
+              "pf_reference": 0.9
+            },
+            "2026-09": {
+              "resolved": 19,
+              "positive": 5,
+              "positive_rate_pct": 26.3158,
+              "total_reference_r": -6.5,
+              "mean_reference_r": -0.34211,
+              "pf_reference": 0.53571
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 107,
+                "positive": 29,
+                "positive_rate_pct": 27.1028,
+                "total_reference_r": -35.04833,
+                "mean_reference_r": -0.32755,
+                "pf_reference": 0.55066
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 106,
+                "positive": 28,
+                "positive_rate_pct": 26.4151,
+                "total_reference_r": -36.54833,
+                "mean_reference_r": -0.3448,
+                "pf_reference": 0.53143
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 105,
+                "positive": 27,
+                "positive_rate_pct": 25.7143,
+                "total_reference_r": -38.04833,
+                "mean_reference_r": -0.36237,
+                "pf_reference": 0.5122
+              }
+            }
+          },
+          "best_month": "2026-04",
+          "excluding_best_month": {
+            "resolved": 106,
+            "positive": 28,
+            "positive_rate_pct": 26.4151,
+            "total_reference_r": -36.54833,
+            "mean_reference_r": -0.3448,
+            "pf_reference": 0.53143
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "6524b0ba0f773f67e5e156bc29274a93d289db10a40a38bef5322fd052777814"
+      }
+    },
+    "ALL_CONFIRMATION_SWEEP_EXTREME": {
+      "0.6": {
+        "spread_price_units": 0.6,
+        "confirmation_universe": 110,
+        "entry_plans": 110,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 110,
+          "resolved_outcomes": 61,
+          "unresolved_or_unmodeled": 49,
+          "wins": 27,
+          "win_rate_pct": 44.26,
+          "mean_r": -0.0288,
+          "total_r": -1.7543,
+          "pf": 0.9389
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 45
+        },
+        "incomplete_after_entry": 4,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 13,
+          "STOP_INTRAMINUTE": 24,
+          "TIMEOUT": 24
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 61,
+            "positive": 27,
+            "positive_rate_pct": 44.2623,
+            "total_reference_r": -1.75432,
+            "mean_reference_r": -0.02876,
+            "pf_reference": 0.93887
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 22,
+            "positive": 8,
+            "positive_rate_pct": 36.3636,
+            "total_reference_r": -3.05424,
+            "mean_reference_r": -0.13883,
+            "pf_reference": 0.72505
+          },
+          "from_cut": {
+            "resolved": 39,
+            "positive": 19,
+            "positive_rate_pct": 48.7179,
+            "total_reference_r": 1.29992,
+            "mean_reference_r": 0.03333,
+            "pf_reference": 1.0739
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 1,
+              "positive": 1,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 11,
+              "positive": 4,
+              "positive_rate_pct": 36.3636,
+              "total_reference_r": -2.26581,
+              "mean_reference_r": -0.20598,
+              "pf_reference": 0.64548
+            },
+            "2026-06": {
+              "resolved": 10,
+              "positive": 3,
+              "positive_rate_pct": 30.0,
+              "total_reference_r": -2.28843,
+              "mean_reference_r": -0.22884,
+              "pf_reference": 0.51485
+            },
+            "2026-07": {
+              "resolved": 15,
+              "positive": 8,
+              "positive_rate_pct": 53.3333,
+              "total_reference_r": 1.56415,
+              "mean_reference_r": 0.10428,
+              "pf_reference": 1.22345
+            },
+            "2026-08": {
+              "resolved": 11,
+              "positive": 4,
+              "positive_rate_pct": 36.3636,
+              "total_reference_r": -2.83293,
+              "mean_reference_r": -0.25754,
+              "pf_reference": 0.4698
+            },
+            "2026-09": {
+              "resolved": 13,
+              "positive": 7,
+              "positive_rate_pct": 53.8462,
+              "total_reference_r": 2.5687,
+              "mean_reference_r": 0.19759,
+              "pf_reference": 1.48944
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 60,
+                "positive": 26,
+                "positive_rate_pct": 43.3333,
+                "total_reference_r": -3.25432,
+                "mean_reference_r": -0.05424,
+                "pf_reference": 0.88661
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 59,
+                "positive": 25,
+                "positive_rate_pct": 42.3729,
+                "total_reference_r": -4.75432,
+                "mean_reference_r": -0.08058,
+                "pf_reference": 0.83434
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 58,
+                "positive": 24,
+                "positive_rate_pct": 41.3793,
+                "total_reference_r": -6.25432,
+                "mean_reference_r": -0.10783,
+                "pf_reference": 0.78208
+              }
+            }
+          },
+          "best_month": "2026-09",
+          "excluding_best_month": {
+            "resolved": 48,
+            "positive": 20,
+            "positive_rate_pct": 41.6667,
+            "total_reference_r": -4.32302,
+            "mean_reference_r": -0.09006,
+            "pf_reference": 0.81566
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "7568c11bbf686f4ff5672047ecf8dc21b77c2b720298718fe30811e820c29988"
+      },
+      "1.2": {
+        "spread_price_units": 1.2,
+        "confirmation_universe": 110,
+        "entry_plans": 110,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 110,
+          "resolved_outcomes": 61,
+          "unresolved_or_unmodeled": 49,
+          "wins": 27,
+          "win_rate_pct": 44.26,
+          "mean_r": -0.0448,
+          "total_r": -2.7303,
+          "pf": 0.9053
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 45
+        },
+        "incomplete_after_entry": 4,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 13,
+          "STOP_INTRAMINUTE": 24,
+          "TIMEOUT": 24
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 61,
+            "positive": 27,
+            "positive_rate_pct": 44.2623,
+            "total_reference_r": -2.73025,
+            "mean_reference_r": -0.04476,
+            "pf_reference": 0.90528
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 22,
+            "positive": 8,
+            "positive_rate_pct": 36.3636,
+            "total_reference_r": -3.43389,
+            "mean_reference_r": -0.15609,
+            "pf_reference": 0.69288
+          },
+          "from_cut": {
+            "resolved": 39,
+            "positive": 19,
+            "positive_rate_pct": 48.7179,
+            "total_reference_r": 0.70364,
+            "mean_reference_r": 0.01804,
+            "pf_reference": 1.03988
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 1,
+              "positive": 1,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 11,
+              "positive": 4,
+              "positive_rate_pct": 36.3636,
+              "total_reference_r": -2.43517,
+              "mean_reference_r": -0.22138,
+              "pf_reference": 0.62038
+            },
+            "2026-06": {
+              "resolved": 10,
+              "positive": 3,
+              "positive_rate_pct": 30.0,
+              "total_reference_r": -2.49872,
+              "mean_reference_r": -0.24987,
+              "pf_reference": 0.47576
+            },
+            "2026-07": {
+              "resolved": 15,
+              "positive": 8,
+              "positive_rate_pct": 53.3333,
+              "total_reference_r": 1.309,
+              "mean_reference_r": 0.08727,
+              "pf_reference": 1.187
+            },
+            "2026-08": {
+              "resolved": 11,
+              "positive": 4,
+              "positive_rate_pct": 36.3636,
+              "total_reference_r": -2.98546,
+              "mean_reference_r": -0.27141,
+              "pf_reference": 0.44504
+            },
+            "2026-09": {
+              "resolved": 13,
+              "positive": 7,
+              "positive_rate_pct": 53.8462,
+              "total_reference_r": 2.3801,
+              "mean_reference_r": 0.18308,
+              "pf_reference": 1.45217
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 60,
+                "positive": 26,
+                "positive_rate_pct": 43.3333,
+                "total_reference_r": -4.23025,
+                "mean_reference_r": -0.0705,
+                "pf_reference": 0.85324
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 59,
+                "positive": 25,
+                "positive_rate_pct": 42.3729,
+                "total_reference_r": -5.73025,
+                "mean_reference_r": -0.09712,
+                "pf_reference": 0.8012
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 58,
+                "positive": 24,
+                "positive_rate_pct": 41.3793,
+                "total_reference_r": -7.23025,
+                "mean_reference_r": -0.12466,
+                "pf_reference": 0.74916
+              }
+            }
+          },
+          "best_month": "2026-09",
+          "excluding_best_month": {
+            "resolved": 48,
+            "positive": 20,
+            "positive_rate_pct": 41.6667,
+            "total_reference_r": -5.11035,
+            "mean_reference_r": -0.10647,
+            "pf_reference": 0.7831
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "f20be41a5b1365e1e97cd6cbde51671def6aab0ff518db3a19b71a474c1cd82c"
+      },
+      "2.0": {
+        "spread_price_units": 2.0,
+        "confirmation_universe": 110,
+        "entry_plans": 110,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 110,
+          "resolved_outcomes": 61,
+          "unresolved_or_unmodeled": 49,
+          "wins": 27,
+          "win_rate_pct": 44.26,
+          "mean_r": -0.0752,
+          "total_r": -4.5873,
+          "pf": 0.8417
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 45
+        },
+        "incomplete_after_entry": 4,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 12,
+          "STOP_INTRAMINUTE": 24,
+          "TIMEOUT": 25
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 61,
+            "positive": 27,
+            "positive_rate_pct": 44.2623,
+            "total_reference_r": -4.58729,
+            "mean_reference_r": -0.0752,
+            "pf_reference": 0.84171
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 22,
+            "positive": 8,
+            "positive_rate_pct": 36.3636,
+            "total_reference_r": -3.88668,
+            "mean_reference_r": -0.17667,
+            "pf_reference": 0.65518
+          },
+          "from_cut": {
+            "resolved": 39,
+            "positive": 19,
+            "positive_rate_pct": 48.7179,
+            "total_reference_r": -0.70061,
+            "mean_reference_r": -0.01796,
+            "pf_reference": 0.96044
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 1,
+              "positive": 1,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 11,
+              "positive": 4,
+              "positive_rate_pct": 36.3636,
+              "total_reference_r": -2.63738,
+              "mean_reference_r": -0.23976,
+              "pf_reference": 0.59068
+            },
+            "2026-06": {
+              "resolved": 10,
+              "positive": 3,
+              "positive_rate_pct": 30.0,
+              "total_reference_r": -2.7493,
+              "mean_reference_r": -0.27493,
+              "pf_reference": 0.43059
+            },
+            "2026-07": {
+              "resolved": 15,
+              "positive": 8,
+              "positive_rate_pct": 53.3333,
+              "total_reference_r": 1.00105,
+              "mean_reference_r": 0.06674,
+              "pf_reference": 1.14301
+            },
+            "2026-08": {
+              "resolved": 11,
+              "positive": 4,
+              "positive_rate_pct": 36.3636,
+              "total_reference_r": -3.17386,
+              "mean_reference_r": -0.28853,
+              "pf_reference": 0.41496
+            },
+            "2026-09": {
+              "resolved": 13,
+              "positive": 7,
+              "positive_rate_pct": 53.8462,
+              "total_reference_r": 1.4722,
+              "mean_reference_r": 0.11325,
+              "pf_reference": 1.27864
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 60,
+                "positive": 26,
+                "positive_rate_pct": 43.3333,
+                "total_reference_r": -6.08729,
+                "mean_reference_r": -0.10145,
+                "pf_reference": 0.78995
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 59,
+                "positive": 25,
+                "positive_rate_pct": 42.3729,
+                "total_reference_r": -7.58729,
+                "mean_reference_r": -0.1286,
+                "pf_reference": 0.73819
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 58,
+                "positive": 24,
+                "positive_rate_pct": 41.3793,
+                "total_reference_r": -9.08729,
+                "mean_reference_r": -0.15668,
+                "pf_reference": 0.68643
+              }
+            }
+          },
+          "best_month": "2026-04",
+          "excluding_best_month": {
+            "resolved": 60,
+            "positive": 26,
+            "positive_rate_pct": 43.3333,
+            "total_reference_r": -6.08729,
+            "mean_reference_r": -0.10145,
+            "pf_reference": 0.78995
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "b2fb7e24460babf8a51dd11be213a455cb9d7faa607fc4a36cd91112fb7ee278"
+      }
+    },
+    "ALL_RETEST_FIXED_6": {
+      "0.6": {
+        "spread_price_units": 0.6,
+        "confirmation_universe": 110,
+        "entry_plans": 74,
+        "no_entry_reasons": {
+          "EXPIRED": 33,
+          "UNKNOWN_HISTORY": 2,
+          "NO_POI": 1
+        },
+        "entry_outcomes": {
+          "candidates": 74,
+          "resolved_outcomes": 71,
+          "unresolved_or_unmodeled": 3,
+          "wins": 27,
+          "win_rate_pct": 38.03,
+          "mean_r": -0.0493,
+          "total_r": -3.5,
+          "pf": 0.9205
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 3,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 27,
+          "STOP_INTRAMINUTE": 44
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 71,
+            "positive": 27,
+            "positive_rate_pct": 38.0282,
+            "total_reference_r": -3.5,
+            "mean_reference_r": -0.0493,
+            "pf_reference": 0.92045
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 34,
+            "positive": 13,
+            "positive_rate_pct": 38.2353,
+            "total_reference_r": -1.5,
+            "mean_reference_r": -0.04412,
+            "pf_reference": 0.92857
+          },
+          "from_cut": {
+            "resolved": 37,
+            "positive": 14,
+            "positive_rate_pct": 37.8378,
+            "total_reference_r": -2.0,
+            "mean_reference_r": -0.05405,
+            "pf_reference": 0.91304
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 1,
+              "positive": 1,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 17,
+              "positive": 5,
+              "positive_rate_pct": 29.4118,
+              "total_reference_r": -4.5,
+              "mean_reference_r": -0.26471,
+              "pf_reference": 0.625
+            },
+            "2026-06": {
+              "resolved": 16,
+              "positive": 7,
+              "positive_rate_pct": 43.75,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 0.09375,
+              "pf_reference": 1.16667
+            },
+            "2026-07": {
+              "resolved": 17,
+              "positive": 10,
+              "positive_rate_pct": 58.8235,
+              "total_reference_r": 8.0,
+              "mean_reference_r": 0.47059,
+              "pf_reference": 2.14286
+            },
+            "2026-08": {
+              "resolved": 7,
+              "positive": 1,
+              "positive_rate_pct": 14.2857,
+              "total_reference_r": -4.5,
+              "mean_reference_r": -0.64286,
+              "pf_reference": 0.25
+            },
+            "2026-09": {
+              "resolved": 13,
+              "positive": 3,
+              "positive_rate_pct": 23.0769,
+              "total_reference_r": -5.5,
+              "mean_reference_r": -0.42308,
+              "pf_reference": 0.45
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 70,
+                "positive": 26,
+                "positive_rate_pct": 37.1429,
+                "total_reference_r": -5.0,
+                "mean_reference_r": -0.07143,
+                "pf_reference": 0.88636
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 69,
+                "positive": 25,
+                "positive_rate_pct": 36.2319,
+                "total_reference_r": -6.5,
+                "mean_reference_r": -0.0942,
+                "pf_reference": 0.85227
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 68,
+                "positive": 24,
+                "positive_rate_pct": 35.2941,
+                "total_reference_r": -8.0,
+                "mean_reference_r": -0.11765,
+                "pf_reference": 0.81818
+              }
+            }
+          },
+          "best_month": "2026-07",
+          "excluding_best_month": {
+            "resolved": 54,
+            "positive": 17,
+            "positive_rate_pct": 31.4815,
+            "total_reference_r": -11.5,
+            "mean_reference_r": -0.21296,
+            "pf_reference": 0.68919
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "038becd90f8c1a0fc0b6184fa7a3cb4158623500fa6bcf4693285e1a5c4c08b9"
+      },
+      "1.2": {
+        "spread_price_units": 1.2,
+        "confirmation_universe": 110,
+        "entry_plans": 74,
+        "no_entry_reasons": {
+          "EXPIRED": 33,
+          "UNKNOWN_HISTORY": 2,
+          "NO_POI": 1
+        },
+        "entry_outcomes": {
+          "candidates": 74,
+          "resolved_outcomes": 71,
+          "unresolved_or_unmodeled": 3,
+          "wins": 22,
+          "win_rate_pct": 30.99,
+          "mean_r": -0.2254,
+          "total_r": -16.0,
+          "pf": 0.6735
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 3,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 22,
+          "STOP_INTRAMINUTE": 49
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 71,
+            "positive": 22,
+            "positive_rate_pct": 30.9859,
+            "total_reference_r": -16.0,
+            "mean_reference_r": -0.22535,
+            "pf_reference": 0.67347
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 34,
+            "positive": 9,
+            "positive_rate_pct": 26.4706,
+            "total_reference_r": -11.5,
+            "mean_reference_r": -0.33824,
+            "pf_reference": 0.54
+          },
+          "from_cut": {
+            "resolved": 37,
+            "positive": 13,
+            "positive_rate_pct": 35.1351,
+            "total_reference_r": -4.5,
+            "mean_reference_r": -0.12162,
+            "pf_reference": 0.8125
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 1,
+              "positive": 1,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 17,
+              "positive": 3,
+              "positive_rate_pct": 17.6471,
+              "total_reference_r": -9.5,
+              "mean_reference_r": -0.55882,
+              "pf_reference": 0.32143
+            },
+            "2026-06": {
+              "resolved": 16,
+              "positive": 5,
+              "positive_rate_pct": 31.25,
+              "total_reference_r": -3.5,
+              "mean_reference_r": -0.21875,
+              "pf_reference": 0.68182
+            },
+            "2026-07": {
+              "resolved": 17,
+              "positive": 10,
+              "positive_rate_pct": 58.8235,
+              "total_reference_r": 8.0,
+              "mean_reference_r": 0.47059,
+              "pf_reference": 2.14286
+            },
+            "2026-08": {
+              "resolved": 7,
+              "positive": 1,
+              "positive_rate_pct": 14.2857,
+              "total_reference_r": -4.5,
+              "mean_reference_r": -0.64286,
+              "pf_reference": 0.25
+            },
+            "2026-09": {
+              "resolved": 13,
+              "positive": 2,
+              "positive_rate_pct": 15.3846,
+              "total_reference_r": -8.0,
+              "mean_reference_r": -0.61538,
+              "pf_reference": 0.27273
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 70,
+                "positive": 21,
+                "positive_rate_pct": 30.0,
+                "total_reference_r": -17.5,
+                "mean_reference_r": -0.25,
+                "pf_reference": 0.64286
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 69,
+                "positive": 20,
+                "positive_rate_pct": 28.9855,
+                "total_reference_r": -19.0,
+                "mean_reference_r": -0.27536,
+                "pf_reference": 0.61224
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 68,
+                "positive": 19,
+                "positive_rate_pct": 27.9412,
+                "total_reference_r": -20.5,
+                "mean_reference_r": -0.30147,
+                "pf_reference": 0.58163
+              }
+            }
+          },
+          "best_month": "2026-07",
+          "excluding_best_month": {
+            "resolved": 54,
+            "positive": 12,
+            "positive_rate_pct": 22.2222,
+            "total_reference_r": -24.0,
+            "mean_reference_r": -0.44444,
+            "pf_reference": 0.42857
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "faff7421bee04efa2a1c080945cf2f1d15e8ce6b378f92b411a16e7a5386277e"
+      },
+      "2.0": {
+        "spread_price_units": 2.0,
+        "confirmation_universe": 110,
+        "entry_plans": 74,
+        "no_entry_reasons": {
+          "EXPIRED": 33,
+          "UNKNOWN_HISTORY": 2,
+          "NO_POI": 1
+        },
+        "entry_outcomes": {
+          "candidates": 74,
+          "resolved_outcomes": 71,
+          "unresolved_or_unmodeled": 3,
+          "wins": 21,
+          "win_rate_pct": 29.58,
+          "mean_r": -0.2606,
+          "total_r": -18.5,
+          "pf": 0.63
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 3,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 21,
+          "STOP_INTRAMINUTE": 50
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 71,
+            "positive": 21,
+            "positive_rate_pct": 29.5775,
+            "total_reference_r": -18.5,
+            "mean_reference_r": -0.26056,
+            "pf_reference": 0.63
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 34,
+            "positive": 9,
+            "positive_rate_pct": 26.4706,
+            "total_reference_r": -11.5,
+            "mean_reference_r": -0.33824,
+            "pf_reference": 0.54
+          },
+          "from_cut": {
+            "resolved": 37,
+            "positive": 12,
+            "positive_rate_pct": 32.4324,
+            "total_reference_r": -7.0,
+            "mean_reference_r": -0.18919,
+            "pf_reference": 0.72
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 1,
+              "positive": 1,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 17,
+              "positive": 3,
+              "positive_rate_pct": 17.6471,
+              "total_reference_r": -9.5,
+              "mean_reference_r": -0.55882,
+              "pf_reference": 0.32143
+            },
+            "2026-06": {
+              "resolved": 16,
+              "positive": 5,
+              "positive_rate_pct": 31.25,
+              "total_reference_r": -3.5,
+              "mean_reference_r": -0.21875,
+              "pf_reference": 0.68182
+            },
+            "2026-07": {
+              "resolved": 17,
+              "positive": 9,
+              "positive_rate_pct": 52.9412,
+              "total_reference_r": 5.5,
+              "mean_reference_r": 0.32353,
+              "pf_reference": 1.6875
+            },
+            "2026-08": {
+              "resolved": 7,
+              "positive": 1,
+              "positive_rate_pct": 14.2857,
+              "total_reference_r": -4.5,
+              "mean_reference_r": -0.64286,
+              "pf_reference": 0.25
+            },
+            "2026-09": {
+              "resolved": 13,
+              "positive": 2,
+              "positive_rate_pct": 15.3846,
+              "total_reference_r": -8.0,
+              "mean_reference_r": -0.61538,
+              "pf_reference": 0.27273
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 70,
+                "positive": 20,
+                "positive_rate_pct": 28.5714,
+                "total_reference_r": -20.0,
+                "mean_reference_r": -0.28571,
+                "pf_reference": 0.6
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 69,
+                "positive": 19,
+                "positive_rate_pct": 27.5362,
+                "total_reference_r": -21.5,
+                "mean_reference_r": -0.31159,
+                "pf_reference": 0.57
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 68,
+                "positive": 18,
+                "positive_rate_pct": 26.4706,
+                "total_reference_r": -23.0,
+                "mean_reference_r": -0.33824,
+                "pf_reference": 0.54
+              }
+            }
+          },
+          "best_month": "2026-07",
+          "excluding_best_month": {
+            "resolved": 54,
+            "positive": 12,
+            "positive_rate_pct": 22.2222,
+            "total_reference_r": -24.0,
+            "mean_reference_r": -0.44444,
+            "pf_reference": 0.42857
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "9da3ea05b966bee94933a4fa9fdeebd0d300687e372d7c0fbd790da43224f434"
+      }
+    },
+    "ALL_RETEST_SWEEP_EXTREME": {
+      "0.6": {
+        "spread_price_units": 0.6,
+        "confirmation_universe": 110,
+        "entry_plans": 74,
+        "no_entry_reasons": {
+          "EXPIRED": 33,
+          "UNKNOWN_HISTORY": 2,
+          "NO_POI": 1
+        },
+        "entry_outcomes": {
+          "candidates": 74,
+          "resolved_outcomes": 43,
+          "unresolved_or_unmodeled": 31,
+          "wins": 14,
+          "win_rate_pct": 32.56,
+          "mean_r": -0.2427,
+          "total_r": -10.4377,
+          "pf": 0.6083
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 29
+        },
+        "incomplete_after_entry": 2,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 9,
+          "STOP_INTRAMINUTE": 26,
+          "TIMEOUT": 8
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 43,
+            "positive": 14,
+            "positive_rate_pct": 32.5581,
+            "total_reference_r": -10.4377,
+            "mean_reference_r": -0.24274,
+            "pf_reference": 0.60831
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 18,
+            "positive": 7,
+            "positive_rate_pct": 38.8889,
+            "total_reference_r": -1.86443,
+            "mean_reference_r": -0.10358,
+            "pf_reference": 0.80318
+          },
+          "from_cut": {
+            "resolved": 25,
+            "positive": 7,
+            "positive_rate_pct": 28.0,
+            "total_reference_r": -8.57327,
+            "mean_reference_r": -0.34293,
+            "pf_reference": 0.50084
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 1,
+              "positive": 1,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 8,
+              "positive": 2,
+              "positive_rate_pct": 25.0,
+              "total_reference_r": -3.0,
+              "mean_reference_r": -0.375,
+              "pf_reference": 0.5
+            },
+            "2026-06": {
+              "resolved": 9,
+              "positive": 4,
+              "positive_rate_pct": 44.4444,
+              "total_reference_r": -0.36443,
+              "mean_reference_r": -0.04049,
+              "pf_reference": 0.89506
+            },
+            "2026-07": {
+              "resolved": 11,
+              "positive": 4,
+              "positive_rate_pct": 36.3636,
+              "total_reference_r": -2.89799,
+              "mean_reference_r": -0.26345,
+              "pf_reference": 0.586
+            },
+            "2026-08": {
+              "resolved": 5,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -5.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-09": {
+              "resolved": 9,
+              "positive": 3,
+              "positive_rate_pct": 33.3333,
+              "total_reference_r": -0.67528,
+              "mean_reference_r": -0.07503,
+              "pf_reference": 0.86952
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 42,
+                "positive": 13,
+                "positive_rate_pct": 30.9524,
+                "total_reference_r": -11.9377,
+                "mean_reference_r": -0.28423,
+                "pf_reference": 0.55202
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 41,
+                "positive": 12,
+                "positive_rate_pct": 29.2683,
+                "total_reference_r": -13.4377,
+                "mean_reference_r": -0.32775,
+                "pf_reference": 0.49573
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 40,
+                "positive": 11,
+                "positive_rate_pct": 27.5,
+                "total_reference_r": -14.9377,
+                "mean_reference_r": -0.37344,
+                "pf_reference": 0.43944
+              }
+            }
+          },
+          "best_month": "2026-04",
+          "excluding_best_month": {
+            "resolved": 42,
+            "positive": 13,
+            "positive_rate_pct": 30.9524,
+            "total_reference_r": -11.9377,
+            "mean_reference_r": -0.28423,
+            "pf_reference": 0.55202
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "edc1ac0c2703b8888c210fc44a7a4de09b35662ee3b03600352cd662e32ff765"
+      },
+      "1.2": {
+        "spread_price_units": 1.2,
+        "confirmation_universe": 110,
+        "entry_plans": 74,
+        "no_entry_reasons": {
+          "EXPIRED": 33,
+          "UNKNOWN_HISTORY": 2,
+          "NO_POI": 1
+        },
+        "entry_outcomes": {
+          "candidates": 74,
+          "resolved_outcomes": 43,
+          "unresolved_or_unmodeled": 31,
+          "wins": 13,
+          "win_rate_pct": 30.23,
+          "mean_r": -0.2688,
+          "total_r": -11.5585,
+          "pf": 0.5674
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 29
+        },
+        "incomplete_after_entry": 2,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 8,
+          "STOP_INTRAMINUTE": 26,
+          "TIMEOUT": 9
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 43,
+            "positive": 13,
+            "positive_rate_pct": 30.2326,
+            "total_reference_r": -11.55853,
+            "mean_reference_r": -0.2688,
+            "pf_reference": 0.5674
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 18,
+            "positive": 6,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -2.00735,
+            "mean_reference_r": -0.11152,
+            "pf_reference": 0.78918
+          },
+          "from_cut": {
+            "resolved": 25,
+            "positive": 7,
+            "positive_rate_pct": 28.0,
+            "total_reference_r": -9.55118,
+            "mean_reference_r": -0.38205,
+            "pf_reference": 0.4446
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 1,
+              "positive": 1,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 8,
+              "positive": 2,
+              "positive_rate_pct": 25.0,
+              "total_reference_r": -3.0,
+              "mean_reference_r": -0.375,
+              "pf_reference": 0.5
+            },
+            "2026-06": {
+              "resolved": 9,
+              "positive": 3,
+              "positive_rate_pct": 33.3333,
+              "total_reference_r": -0.50735,
+              "mean_reference_r": -0.05637,
+              "pf_reference": 0.85594
+            },
+            "2026-07": {
+              "resolved": 11,
+              "positive": 4,
+              "positive_rate_pct": 36.3636,
+              "total_reference_r": -3.1752,
+              "mean_reference_r": -0.28865,
+              "pf_reference": 0.5464
+            },
+            "2026-08": {
+              "resolved": 5,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -5.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-09": {
+              "resolved": 9,
+              "positive": 3,
+              "positive_rate_pct": 33.3333,
+              "total_reference_r": -1.37598,
+              "mean_reference_r": -0.15289,
+              "pf_reference": 0.73523
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 42,
+                "positive": 12,
+                "positive_rate_pct": 28.5714,
+                "total_reference_r": -13.05853,
+                "mean_reference_r": -0.31092,
+                "pf_reference": 0.51126
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 41,
+                "positive": 11,
+                "positive_rate_pct": 26.8293,
+                "total_reference_r": -14.55853,
+                "mean_reference_r": -0.35509,
+                "pf_reference": 0.45512
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 40,
+                "positive": 10,
+                "positive_rate_pct": 25.0,
+                "total_reference_r": -16.05853,
+                "mean_reference_r": -0.40146,
+                "pf_reference": 0.39898
+              }
+            }
+          },
+          "best_month": "2026-04",
+          "excluding_best_month": {
+            "resolved": 42,
+            "positive": 12,
+            "positive_rate_pct": 28.5714,
+            "total_reference_r": -13.05853,
+            "mean_reference_r": -0.31092,
+            "pf_reference": 0.51126
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "4899012519aaa4f07b287bd44c9076990d4c1d905df83f43f9254123bbcea82a"
+      },
+      "2.0": {
+        "spread_price_units": 2.0,
+        "confirmation_universe": 110,
+        "entry_plans": 74,
+        "no_entry_reasons": {
+          "EXPIRED": 33,
+          "UNKNOWN_HISTORY": 2,
+          "NO_POI": 1
+        },
+        "entry_outcomes": {
+          "candidates": 74,
+          "resolved_outcomes": 43,
+          "unresolved_or_unmodeled": 31,
+          "wins": 12,
+          "win_rate_pct": 27.91,
+          "mean_r": -0.3175,
+          "total_r": -13.6509,
+          "pf": 0.4926
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 29
+        },
+        "incomplete_after_entry": 2,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 7,
+          "STOP_INTRAMINUTE": 26,
+          "TIMEOUT": 10
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 43,
+            "positive": 12,
+            "positive_rate_pct": 27.907,
+            "total_reference_r": -13.65094,
+            "mean_reference_r": -0.31746,
+            "pf_reference": 0.49256
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 18,
+            "positive": 5,
+            "positive_rate_pct": 27.7778,
+            "total_reference_r": -3.62669,
+            "mean_reference_r": -0.20148,
+            "pf_reference": 0.62525
+          },
+          "from_cut": {
+            "resolved": 25,
+            "positive": 7,
+            "positive_rate_pct": 28.0,
+            "total_reference_r": -10.02425,
+            "mean_reference_r": -0.40097,
+            "pf_reference": 0.41801
+          },
+          "monthly": {
+            "2026-04": {
+              "resolved": 1,
+              "positive": 1,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.5,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-05": {
+              "resolved": 8,
+              "positive": 2,
+              "positive_rate_pct": 25.0,
+              "total_reference_r": -4.44912,
+              "mean_reference_r": -0.55614,
+              "pf_reference": 0.25848
+            },
+            "2026-06": {
+              "resolved": 9,
+              "positive": 2,
+              "positive_rate_pct": 22.2222,
+              "total_reference_r": -0.67757,
+              "mean_reference_r": -0.07529,
+              "pf_reference": 0.81576
+            },
+            "2026-07": {
+              "resolved": 11,
+              "positive": 4,
+              "positive_rate_pct": 36.3636,
+              "total_reference_r": -3.49531,
+              "mean_reference_r": -0.31776,
+              "pf_reference": 0.50067
+            },
+            "2026-08": {
+              "resolved": 5,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -5.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-09": {
+              "resolved": 9,
+              "positive": 3,
+              "positive_rate_pct": 33.3333,
+              "total_reference_r": -1.52894,
+              "mean_reference_r": -0.16988,
+              "pf_reference": 0.70733
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 42,
+                "positive": 11,
+                "positive_rate_pct": 26.1905,
+                "total_reference_r": -15.15094,
+                "mean_reference_r": -0.36074,
+                "pf_reference": 0.4368
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 41,
+                "positive": 10,
+                "positive_rate_pct": 24.3902,
+                "total_reference_r": -16.65094,
+                "mean_reference_r": -0.40612,
+                "pf_reference": 0.38104
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 40,
+                "positive": 9,
+                "positive_rate_pct": 22.5,
+                "total_reference_r": -18.15094,
+                "mean_reference_r": -0.45377,
+                "pf_reference": 0.32529
+              }
+            }
+          },
+          "best_month": "2026-04",
+          "excluding_best_month": {
+            "resolved": 42,
+            "positive": 11,
+            "positive_rate_pct": 26.1905,
+            "total_reference_r": -15.15094,
+            "mean_reference_r": -0.36074,
+            "pf_reference": 0.4368
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "0109532294fc8bc315a937c70dd8c2b533d2adce1018fea792c830c7862106d6"
+      }
+    },
+    "VHF_PASS_CONFIRMATION_FIXED_6": {
+      "0.6": {
+        "spread_price_units": 0.6,
+        "confirmation_universe": 22,
+        "entry_plans": 22,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 22,
+          "resolved_outcomes": 21,
+          "unresolved_or_unmodeled": 1,
+          "wins": 10,
+          "win_rate_pct": 47.62,
+          "mean_r": 0.1905,
+          "total_r": 4.0,
+          "pf": 1.3636
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 1,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 10,
+          "STOP_INTRAMINUTE": 11
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 21,
+            "positive": 10,
+            "positive_rate_pct": 47.619,
+            "total_reference_r": 4.0,
+            "mean_reference_r": 0.19048,
+            "pf_reference": 1.36364
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 7,
+            "positive": 2,
+            "positive_rate_pct": 28.5714,
+            "total_reference_r": -2.0,
+            "mean_reference_r": -0.28571,
+            "pf_reference": 0.6
+          },
+          "from_cut": {
+            "resolved": 14,
+            "positive": 8,
+            "positive_rate_pct": 57.1429,
+            "total_reference_r": 6.0,
+            "mean_reference_r": 0.42857,
+            "pf_reference": 2.0
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 1.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-06": {
+              "resolved": 3,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -3.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-07": {
+              "resolved": 7,
+              "positive": 4,
+              "positive_rate_pct": 57.1429,
+              "total_reference_r": 3.0,
+              "mean_reference_r": 0.42857,
+              "pf_reference": 2.0
+            },
+            "2026-08": {
+              "resolved": 3,
+              "positive": 2,
+              "positive_rate_pct": 66.6667,
+              "total_reference_r": 2.0,
+              "mean_reference_r": 0.66667,
+              "pf_reference": 3.0
+            },
+            "2026-09": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 1.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 20,
+                "positive": 9,
+                "positive_rate_pct": 45.0,
+                "total_reference_r": 2.5,
+                "mean_reference_r": 0.125,
+                "pf_reference": 1.22727
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 19,
+                "positive": 8,
+                "positive_rate_pct": 42.1053,
+                "total_reference_r": 1.0,
+                "mean_reference_r": 0.05263,
+                "pf_reference": 1.09091
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 18,
+                "positive": 7,
+                "positive_rate_pct": 38.8889,
+                "total_reference_r": -0.5,
+                "mean_reference_r": -0.02778,
+                "pf_reference": 0.95455
+              }
+            }
+          },
+          "best_month": "2026-07",
+          "excluding_best_month": {
+            "resolved": 14,
+            "positive": 6,
+            "positive_rate_pct": 42.8571,
+            "total_reference_r": 1.0,
+            "mean_reference_r": 0.07143,
+            "pf_reference": 1.125
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "2e5b6810472a467e20f37c9074ee843e3325227cb92a2510e94696c8d5670bc7"
+      },
+      "1.2": {
+        "spread_price_units": 1.2,
+        "confirmation_universe": 22,
+        "entry_plans": 22,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 22,
+          "resolved_outcomes": 21,
+          "unresolved_or_unmodeled": 1,
+          "wins": 9,
+          "win_rate_pct": 42.86,
+          "mean_r": 0.0714,
+          "total_r": 1.5,
+          "pf": 1.125
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 1,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 9,
+          "STOP_INTRAMINUTE": 12
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 21,
+            "positive": 9,
+            "positive_rate_pct": 42.8571,
+            "total_reference_r": 1.5,
+            "mean_reference_r": 0.07143,
+            "pf_reference": 1.125
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 7,
+            "positive": 2,
+            "positive_rate_pct": 28.5714,
+            "total_reference_r": -2.0,
+            "mean_reference_r": -0.28571,
+            "pf_reference": 0.6
+          },
+          "from_cut": {
+            "resolved": 14,
+            "positive": 7,
+            "positive_rate_pct": 50.0,
+            "total_reference_r": 3.5,
+            "mean_reference_r": 0.25,
+            "pf_reference": 1.5
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 1.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-06": {
+              "resolved": 3,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -3.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-07": {
+              "resolved": 7,
+              "positive": 3,
+              "positive_rate_pct": 42.8571,
+              "total_reference_r": 0.5,
+              "mean_reference_r": 0.07143,
+              "pf_reference": 1.125
+            },
+            "2026-08": {
+              "resolved": 3,
+              "positive": 2,
+              "positive_rate_pct": 66.6667,
+              "total_reference_r": 2.0,
+              "mean_reference_r": 0.66667,
+              "pf_reference": 3.0
+            },
+            "2026-09": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 1.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 20,
+                "positive": 8,
+                "positive_rate_pct": 40.0,
+                "total_reference_r": 0.0,
+                "mean_reference_r": 0.0,
+                "pf_reference": 1.0
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 19,
+                "positive": 7,
+                "positive_rate_pct": 36.8421,
+                "total_reference_r": -1.5,
+                "mean_reference_r": -0.07895,
+                "pf_reference": 0.875
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 18,
+                "positive": 6,
+                "positive_rate_pct": 33.3333,
+                "total_reference_r": -3.0,
+                "mean_reference_r": -0.16667,
+                "pf_reference": 0.75
+              }
+            }
+          },
+          "best_month": "2026-08",
+          "excluding_best_month": {
+            "resolved": 18,
+            "positive": 7,
+            "positive_rate_pct": 38.8889,
+            "total_reference_r": -0.5,
+            "mean_reference_r": -0.02778,
+            "pf_reference": 0.95455
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "f8a1fddc8797d20c502e7f6ac5788cf7b18d8637768785a2334651f92bb34b23"
+      },
+      "2.0": {
+        "spread_price_units": 2.0,
+        "confirmation_universe": 22,
+        "entry_plans": 22,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 22,
+          "resolved_outcomes": 21,
+          "unresolved_or_unmodeled": 1,
+          "wins": 8,
+          "win_rate_pct": 38.1,
+          "mean_r": -0.0476,
+          "total_r": -1.0,
+          "pf": 0.9231
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 1,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 8,
+          "STOP_INTRAMINUTE": 13
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 21,
+            "positive": 8,
+            "positive_rate_pct": 38.0952,
+            "total_reference_r": -1.0,
+            "mean_reference_r": -0.04762,
+            "pf_reference": 0.92308
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 7,
+            "positive": 2,
+            "positive_rate_pct": 28.5714,
+            "total_reference_r": -2.0,
+            "mean_reference_r": -0.28571,
+            "pf_reference": 0.6
+          },
+          "from_cut": {
+            "resolved": 14,
+            "positive": 6,
+            "positive_rate_pct": 42.8571,
+            "total_reference_r": 1.0,
+            "mean_reference_r": 0.07143,
+            "pf_reference": 1.125
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 1.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-06": {
+              "resolved": 3,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -3.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-07": {
+              "resolved": 7,
+              "positive": 2,
+              "positive_rate_pct": 28.5714,
+              "total_reference_r": -2.0,
+              "mean_reference_r": -0.28571,
+              "pf_reference": 0.6
+            },
+            "2026-08": {
+              "resolved": 3,
+              "positive": 2,
+              "positive_rate_pct": 66.6667,
+              "total_reference_r": 2.0,
+              "mean_reference_r": 0.66667,
+              "pf_reference": 3.0
+            },
+            "2026-09": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 1.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 20,
+                "positive": 7,
+                "positive_rate_pct": 35.0,
+                "total_reference_r": -2.5,
+                "mean_reference_r": -0.125,
+                "pf_reference": 0.80769
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 19,
+                "positive": 6,
+                "positive_rate_pct": 31.5789,
+                "total_reference_r": -4.0,
+                "mean_reference_r": -0.21053,
+                "pf_reference": 0.69231
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 18,
+                "positive": 5,
+                "positive_rate_pct": 27.7778,
+                "total_reference_r": -5.5,
+                "mean_reference_r": -0.30556,
+                "pf_reference": 0.57692
+              }
+            }
+          },
+          "best_month": "2026-08",
+          "excluding_best_month": {
+            "resolved": 18,
+            "positive": 6,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -3.0,
+            "mean_reference_r": -0.16667,
+            "pf_reference": 0.75
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "e6d89370c1802cd0cb5383babb70e6f56a5f725d17b07b39ded28c210dfff9c2"
+      }
+    },
+    "VHF_PASS_CONFIRMATION_SWEEP_EXTREME": {
+      "0.6": {
+        "spread_price_units": 0.6,
+        "confirmation_universe": 22,
+        "entry_plans": 22,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 22,
+          "resolved_outcomes": 13,
+          "unresolved_or_unmodeled": 9,
+          "wins": 8,
+          "win_rate_pct": 61.54,
+          "mean_r": 0.1307,
+          "total_r": 1.6991,
+          "pf": 1.3611
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 8
+        },
+        "incomplete_after_entry": 1,
+        "exit_reason_counts": {
+          "TIMEOUT": 8,
+          "STOP_INTRAMINUTE": 4,
+          "TP_INTRAMINUTE": 1
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 13,
+            "positive": 8,
+            "positive_rate_pct": 61.5385,
+            "total_reference_r": 1.69907,
+            "mean_reference_r": 0.1307,
+            "pf_reference": 1.36109
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 4,
+            "positive": 2,
+            "positive_rate_pct": 50.0,
+            "total_reference_r": -0.57998,
+            "mean_reference_r": -0.145,
+            "pf_reference": 0.65991
+          },
+          "from_cut": {
+            "resolved": 9,
+            "positive": 6,
+            "positive_rate_pct": 66.6667,
+            "total_reference_r": 2.27905,
+            "mean_reference_r": 0.25323,
+            "pf_reference": 1.75968
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 3,
+              "positive": 2,
+              "positive_rate_pct": 66.6667,
+              "total_reference_r": 0.42002,
+              "mean_reference_r": 0.14001,
+              "pf_reference": 1.59546
+            },
+            "2026-06": {
+              "resolved": 1,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-07": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": -0.22569,
+              "mean_reference_r": -0.05642,
+              "pf_reference": 0.88716
+            },
+            "2026-08": {
+              "resolved": 2,
+              "positive": 2,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 2.00389,
+              "mean_reference_r": 1.00195,
+              "pf_reference": null
+            },
+            "2026-09": {
+              "resolved": 3,
+              "positive": 2,
+              "positive_rate_pct": 66.6667,
+              "total_reference_r": 0.50085,
+              "mean_reference_r": 0.16695,
+              "pf_reference": 1.50085
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 12,
+                "positive": 7,
+                "positive_rate_pct": 58.3333,
+                "total_reference_r": 0.19907,
+                "mean_reference_r": 0.01659,
+                "pf_reference": 1.04231
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 11,
+                "positive": 6,
+                "positive_rate_pct": 54.5455,
+                "total_reference_r": -1.11628,
+                "mean_reference_r": -0.10148,
+                "pf_reference": 0.76276
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 10,
+                "positive": 5,
+                "positive_rate_pct": 50.0,
+                "total_reference_r": -1.97848,
+                "mean_reference_r": -0.19785,
+                "pf_reference": 0.57953
+              }
+            }
+          },
+          "best_month": "2026-08",
+          "excluding_best_month": {
+            "resolved": 11,
+            "positive": 6,
+            "positive_rate_pct": 54.5455,
+            "total_reference_r": -0.30482,
+            "mean_reference_r": -0.02771,
+            "pf_reference": 0.93522
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "89478e15fc6d661a44b7a130f17e745e60371ef2c41165a0bb2d4c24fb2fc8b6"
+      },
+      "1.2": {
+        "spread_price_units": 1.2,
+        "confirmation_universe": 22,
+        "entry_plans": 22,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 22,
+          "resolved_outcomes": 13,
+          "unresolved_or_unmodeled": 9,
+          "wins": 8,
+          "win_rate_pct": 61.54,
+          "mean_r": 0.0959,
+          "total_r": 1.2469,
+          "pf": 1.2644
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 8
+        },
+        "incomplete_after_entry": 1,
+        "exit_reason_counts": {
+          "TIMEOUT": 8,
+          "STOP_INTRAMINUTE": 4,
+          "TP_INTRAMINUTE": 1
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 13,
+            "positive": 8,
+            "positive_rate_pct": 61.5385,
+            "total_reference_r": 1.24694,
+            "mean_reference_r": 0.09592,
+            "pf_reference": 1.26436
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 4,
+            "positive": 2,
+            "positive_rate_pct": 50.0,
+            "total_reference_r": -0.73723,
+            "mean_reference_r": -0.18431,
+            "pf_reference": 0.57057
+          },
+          "from_cut": {
+            "resolved": 9,
+            "positive": 6,
+            "positive_rate_pct": 66.6667,
+            "total_reference_r": 1.98417,
+            "mean_reference_r": 0.22046,
+            "pf_reference": 1.66139
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 3,
+              "positive": 2,
+              "positive_rate_pct": 66.6667,
+              "total_reference_r": 0.26277,
+              "mean_reference_r": 0.08759,
+              "pf_reference": 1.3666
+            },
+            "2026-06": {
+              "resolved": 1,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-07": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": -0.36224,
+              "mean_reference_r": -0.09056,
+              "pf_reference": 0.81888
+            },
+            "2026-08": {
+              "resolved": 2,
+              "positive": 2,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.97522,
+              "mean_reference_r": 0.98761,
+              "pf_reference": null
+            },
+            "2026-09": {
+              "resolved": 3,
+              "positive": 2,
+              "positive_rate_pct": 66.6667,
+              "total_reference_r": 0.37119,
+              "mean_reference_r": 0.12373,
+              "pf_reference": 1.37119
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 12,
+                "positive": 7,
+                "positive_rate_pct": 58.3333,
+                "total_reference_r": -0.25306,
+                "mean_reference_r": -0.02109,
+                "pf_reference": 0.94635
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 11,
+                "positive": 6,
+                "positive_rate_pct": 54.5455,
+                "total_reference_r": -1.45859,
+                "mean_reference_r": -0.1326,
+                "pf_reference": 0.69077
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 10,
+                "positive": 5,
+                "positive_rate_pct": 50.0,
+                "total_reference_r": -2.21695,
+                "mean_reference_r": -0.2217,
+                "pf_reference": 0.52999
+              }
+            }
+          },
+          "best_month": "2026-08",
+          "excluding_best_month": {
+            "resolved": 11,
+            "positive": 6,
+            "positive_rate_pct": 54.5455,
+            "total_reference_r": -0.72828,
+            "mean_reference_r": -0.06621,
+            "pf_reference": 0.8456
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "61c4aed8c03fdcb635dbde6c3191bdaa6d22de2d163c14896dd435203dda2ff1"
+      },
+      "2.0": {
+        "spread_price_units": 2.0,
+        "confirmation_universe": 22,
+        "entry_plans": 22,
+        "no_entry_reasons": {},
+        "entry_outcomes": {
+          "candidates": 22,
+          "resolved_outcomes": 13,
+          "unresolved_or_unmodeled": 9,
+          "wins": 8,
+          "win_rate_pct": 61.54,
+          "mean_r": 0.0538,
+          "total_r": 0.6999,
+          "pf": 1.1479
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 8
+        },
+        "incomplete_after_entry": 1,
+        "exit_reason_counts": {
+          "TIMEOUT": 8,
+          "STOP_INTRAMINUTE": 4,
+          "TP_INTRAMINUTE": 1
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 13,
+            "positive": 8,
+            "positive_rate_pct": 61.5385,
+            "total_reference_r": 0.69987,
+            "mean_reference_r": 0.05384,
+            "pf_reference": 1.14794
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 4,
+            "positive": 2,
+            "positive_rate_pct": 50.0,
+            "total_reference_r": -0.92467,
+            "mean_reference_r": -0.23117,
+            "pf_reference": 0.46572
+          },
+          "from_cut": {
+            "resolved": 9,
+            "positive": 6,
+            "positive_rate_pct": 66.6667,
+            "total_reference_r": 1.62454,
+            "mean_reference_r": 0.1805,
+            "pf_reference": 1.54151
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 3,
+              "positive": 2,
+              "positive_rate_pct": 66.6667,
+              "total_reference_r": 0.07533,
+              "mean_reference_r": 0.02511,
+              "pf_reference": 1.1031
+            },
+            "2026-06": {
+              "resolved": 1,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-07": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": -0.52756,
+              "mean_reference_r": -0.13189,
+              "pf_reference": 0.73622
+            },
+            "2026-08": {
+              "resolved": 2,
+              "positive": 2,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 1.93866,
+              "mean_reference_r": 0.96933,
+              "pf_reference": null
+            },
+            "2026-09": {
+              "resolved": 3,
+              "positive": 2,
+              "positive_rate_pct": 66.6667,
+              "total_reference_r": 0.21344,
+              "mean_reference_r": 0.07115,
+              "pf_reference": 1.21344
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 12,
+                "positive": 7,
+                "positive_rate_pct": 58.3333,
+                "total_reference_r": -0.80013,
+                "mean_reference_r": -0.06668,
+                "pf_reference": 0.83086
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 11,
+                "positive": 6,
+                "positive_rate_pct": 54.5455,
+                "total_reference_r": -1.87448,
+                "mean_reference_r": -0.17041,
+                "pf_reference": 0.60376
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 10,
+                "positive": 5,
+                "positive_rate_pct": 50.0,
+                "total_reference_r": -2.51932,
+                "mean_reference_r": -0.25193,
+                "pf_reference": 0.46745
+              }
+            }
+          },
+          "best_month": "2026-08",
+          "excluding_best_month": {
+            "resolved": 11,
+            "positive": 6,
+            "positive_rate_pct": 54.5455,
+            "total_reference_r": -1.23879,
+            "mean_reference_r": -0.11262,
+            "pf_reference": 0.73814
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "7ed137728b5f0d3e1fcd95734b909c795e51904420546fcdfc6eaabb275152a2"
+      }
+    },
+    "VHF_PASS_RETEST_FIXED_6": {
+      "0.6": {
+        "spread_price_units": 0.6,
+        "confirmation_universe": 22,
+        "entry_plans": 10,
+        "no_entry_reasons": {
+          "EXPIRED": 11,
+          "UNKNOWN_HISTORY": 1
+        },
+        "entry_outcomes": {
+          "candidates": 10,
+          "resolved_outcomes": 10,
+          "unresolved_or_unmodeled": 0,
+          "wins": 5,
+          "win_rate_pct": 50.0,
+          "mean_r": 0.25,
+          "total_r": 2.5,
+          "pf": 1.5
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 0,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 5,
+          "STOP_INTRAMINUTE": 5
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 10,
+            "positive": 5,
+            "positive_rate_pct": 50.0,
+            "total_reference_r": 2.5,
+            "mean_reference_r": 0.25,
+            "pf_reference": 1.5
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 4,
+            "positive": 3,
+            "positive_rate_pct": 75.0,
+            "total_reference_r": 3.5,
+            "mean_reference_r": 0.875,
+            "pf_reference": 4.5
+          },
+          "from_cut": {
+            "resolved": 6,
+            "positive": 2,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -1.0,
+            "mean_reference_r": -0.16667,
+            "pf_reference": 0.75
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 2,
+              "positive": 2,
+              "positive_rate_pct": 100.0,
+              "total_reference_r": 3.0,
+              "mean_reference_r": 1.5,
+              "pf_reference": null
+            },
+            "2026-06": {
+              "resolved": 2,
+              "positive": 1,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 0.5,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-07": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 1.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-09": {
+              "resolved": 2,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -2.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 9,
+                "positive": 4,
+                "positive_rate_pct": 44.4444,
+                "total_reference_r": 1.0,
+                "mean_reference_r": 0.11111,
+                "pf_reference": 1.2
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 8,
+                "positive": 3,
+                "positive_rate_pct": 37.5,
+                "total_reference_r": -0.5,
+                "mean_reference_r": -0.0625,
+                "pf_reference": 0.9
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 7,
+                "positive": 2,
+                "positive_rate_pct": 28.5714,
+                "total_reference_r": -2.0,
+                "mean_reference_r": -0.28571,
+                "pf_reference": 0.6
+              }
+            }
+          },
+          "best_month": "2026-05",
+          "excluding_best_month": {
+            "resolved": 8,
+            "positive": 3,
+            "positive_rate_pct": 37.5,
+            "total_reference_r": -0.5,
+            "mean_reference_r": -0.0625,
+            "pf_reference": 0.9
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "0aa47810ddbdda7c093664c86f1c6a9319360883aaece9b10fea797a933337af"
+      },
+      "1.2": {
+        "spread_price_units": 1.2,
+        "confirmation_universe": 22,
+        "entry_plans": 10,
+        "no_entry_reasons": {
+          "EXPIRED": 11,
+          "UNKNOWN_HISTORY": 1
+        },
+        "entry_outcomes": {
+          "candidates": 10,
+          "resolved_outcomes": 10,
+          "unresolved_or_unmodeled": 0,
+          "wins": 4,
+          "win_rate_pct": 40.0,
+          "mean_r": 0.0,
+          "total_r": 0.0,
+          "pf": 1.0
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 0,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 4,
+          "STOP_INTRAMINUTE": 6
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 10,
+            "positive": 4,
+            "positive_rate_pct": 40.0,
+            "total_reference_r": 0.0,
+            "mean_reference_r": 0.0,
+            "pf_reference": 1.0
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 4,
+            "positive": 2,
+            "positive_rate_pct": 50.0,
+            "total_reference_r": 1.0,
+            "mean_reference_r": 0.25,
+            "pf_reference": 1.5
+          },
+          "from_cut": {
+            "resolved": 6,
+            "positive": 2,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -1.0,
+            "mean_reference_r": -0.16667,
+            "pf_reference": 0.75
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 2,
+              "positive": 1,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 0.5,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-06": {
+              "resolved": 2,
+              "positive": 1,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 0.5,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-07": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 1.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-09": {
+              "resolved": 2,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -2.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 9,
+                "positive": 3,
+                "positive_rate_pct": 33.3333,
+                "total_reference_r": -1.5,
+                "mean_reference_r": -0.16667,
+                "pf_reference": 0.75
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 8,
+                "positive": 2,
+                "positive_rate_pct": 25.0,
+                "total_reference_r": -3.0,
+                "mean_reference_r": -0.375,
+                "pf_reference": 0.5
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 7,
+                "positive": 1,
+                "positive_rate_pct": 14.2857,
+                "total_reference_r": -4.5,
+                "mean_reference_r": -0.64286,
+                "pf_reference": 0.25
+              }
+            }
+          },
+          "best_month": "2026-07",
+          "excluding_best_month": {
+            "resolved": 6,
+            "positive": 2,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -1.0,
+            "mean_reference_r": -0.16667,
+            "pf_reference": 0.75
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "a3d848ab37fc63e9a44956a6c2072c9706c8c138d99aa0a4b9d2b7f2748e2014"
+      },
+      "2.0": {
+        "spread_price_units": 2.0,
+        "confirmation_universe": 22,
+        "entry_plans": 10,
+        "no_entry_reasons": {
+          "EXPIRED": 11,
+          "UNKNOWN_HISTORY": 1
+        },
+        "entry_outcomes": {
+          "candidates": 10,
+          "resolved_outcomes": 10,
+          "unresolved_or_unmodeled": 0,
+          "wins": 4,
+          "win_rate_pct": 40.0,
+          "mean_r": 0.0,
+          "total_r": 0.0,
+          "pf": 1.0
+        },
+        "stop_policy_skip_counts": {},
+        "incomplete_after_entry": 0,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 4,
+          "STOP_INTRAMINUTE": 6
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 10,
+            "positive": 4,
+            "positive_rate_pct": 40.0,
+            "total_reference_r": 0.0,
+            "mean_reference_r": 0.0,
+            "pf_reference": 1.0
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 4,
+            "positive": 2,
+            "positive_rate_pct": 50.0,
+            "total_reference_r": 1.0,
+            "mean_reference_r": 0.25,
+            "pf_reference": 1.5
+          },
+          "from_cut": {
+            "resolved": 6,
+            "positive": 2,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -1.0,
+            "mean_reference_r": -0.16667,
+            "pf_reference": 0.75
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 2,
+              "positive": 1,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 0.5,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-06": {
+              "resolved": 2,
+              "positive": 1,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 0.5,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-07": {
+              "resolved": 4,
+              "positive": 2,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 1.0,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-09": {
+              "resolved": 2,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -2.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 9,
+                "positive": 3,
+                "positive_rate_pct": 33.3333,
+                "total_reference_r": -1.5,
+                "mean_reference_r": -0.16667,
+                "pf_reference": 0.75
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 8,
+                "positive": 2,
+                "positive_rate_pct": 25.0,
+                "total_reference_r": -3.0,
+                "mean_reference_r": -0.375,
+                "pf_reference": 0.5
+              }
+            },
+            "3": {
+              "removed_positive_trades": 3,
+              "remaining": {
+                "resolved": 7,
+                "positive": 1,
+                "positive_rate_pct": 14.2857,
+                "total_reference_r": -4.5,
+                "mean_reference_r": -0.64286,
+                "pf_reference": 0.25
+              }
+            }
+          },
+          "best_month": "2026-07",
+          "excluding_best_month": {
+            "resolved": 6,
+            "positive": 2,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -1.0,
+            "mean_reference_r": -0.16667,
+            "pf_reference": 0.75
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "561b84414ad429f26bbef3fd5f81db09695aa45ad4b7410cac17ffbc45898b45"
+      }
+    },
+    "VHF_PASS_RETEST_SWEEP_EXTREME": {
+      "0.6": {
+        "spread_price_units": 0.6,
+        "confirmation_universe": 22,
+        "entry_plans": 10,
+        "no_entry_reasons": {
+          "EXPIRED": 11,
+          "UNKNOWN_HISTORY": 1
+        },
+        "entry_outcomes": {
+          "candidates": 10,
+          "resolved_outcomes": 7,
+          "unresolved_or_unmodeled": 3,
+          "wins": 2,
+          "win_rate_pct": 28.57,
+          "mean_r": -0.4224,
+          "total_r": -2.9569,
+          "pf": 0.4086
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 3
+        },
+        "incomplete_after_entry": 0,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 1,
+          "STOP_INTRAMINUTE": 5,
+          "TIMEOUT": 1
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 7,
+            "positive": 2,
+            "positive_rate_pct": 28.5714,
+            "total_reference_r": -2.95686,
+            "mean_reference_r": -0.42241,
+            "pf_reference": 0.40863
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 3,
+            "positive": 1,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -0.5,
+            "mean_reference_r": -0.16667,
+            "pf_reference": 0.75
+          },
+          "from_cut": {
+            "resolved": 4,
+            "positive": 1,
+            "positive_rate_pct": 25.0,
+            "total_reference_r": -2.45686,
+            "mean_reference_r": -0.61421,
+            "pf_reference": 0.18105
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 2,
+              "positive": 1,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 0.5,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-06": {
+              "resolved": 1,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-07": {
+              "resolved": 3,
+              "positive": 1,
+              "positive_rate_pct": 33.3333,
+              "total_reference_r": -1.45686,
+              "mean_reference_r": -0.48562,
+              "pf_reference": 0.27157
+            },
+            "2026-09": {
+              "resolved": 1,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 6,
+                "positive": 1,
+                "positive_rate_pct": 16.6667,
+                "total_reference_r": -4.45686,
+                "mean_reference_r": -0.74281,
+                "pf_reference": 0.10863
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 5,
+                "positive": 0,
+                "positive_rate_pct": 0.0,
+                "total_reference_r": -5.0,
+                "mean_reference_r": -1.0,
+                "pf_reference": 0.0
+              }
+            },
+            "3": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 5,
+                "positive": 0,
+                "positive_rate_pct": 0.0,
+                "total_reference_r": -5.0,
+                "mean_reference_r": -1.0,
+                "pf_reference": 0.0
+              }
+            }
+          },
+          "best_month": "2026-05",
+          "excluding_best_month": {
+            "resolved": 5,
+            "positive": 1,
+            "positive_rate_pct": 20.0,
+            "total_reference_r": -3.45686,
+            "mean_reference_r": -0.69137,
+            "pf_reference": 0.13578
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "d029eff117d3f5266507076c0e7c481ffdbd42367326ba309265820f790e8803"
+      },
+      "1.2": {
+        "spread_price_units": 1.2,
+        "confirmation_universe": 22,
+        "entry_plans": 10,
+        "no_entry_reasons": {
+          "EXPIRED": 11,
+          "UNKNOWN_HISTORY": 1
+        },
+        "entry_outcomes": {
+          "candidates": 10,
+          "resolved_outcomes": 7,
+          "unresolved_or_unmodeled": 3,
+          "wins": 2,
+          "win_rate_pct": 28.57,
+          "mean_r": -0.4268,
+          "total_r": -2.9873,
+          "pf": 0.4025
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 3
+        },
+        "incomplete_after_entry": 0,
+        "exit_reason_counts": {
+          "TP_INTRAMINUTE": 1,
+          "STOP_INTRAMINUTE": 5,
+          "TIMEOUT": 1
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 7,
+            "positive": 2,
+            "positive_rate_pct": 28.5714,
+            "total_reference_r": -2.98733,
+            "mean_reference_r": -0.42676,
+            "pf_reference": 0.40253
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 3,
+            "positive": 1,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -0.5,
+            "mean_reference_r": -0.16667,
+            "pf_reference": 0.75
+          },
+          "from_cut": {
+            "resolved": 4,
+            "positive": 1,
+            "positive_rate_pct": 25.0,
+            "total_reference_r": -2.48733,
+            "mean_reference_r": -0.62183,
+            "pf_reference": 0.17089
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 2,
+              "positive": 1,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": 0.5,
+              "mean_reference_r": 0.25,
+              "pf_reference": 1.5
+            },
+            "2026-06": {
+              "resolved": 1,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-07": {
+              "resolved": 3,
+              "positive": 1,
+              "positive_rate_pct": 33.3333,
+              "total_reference_r": -1.48733,
+              "mean_reference_r": -0.49578,
+              "pf_reference": 0.25633
+            },
+            "2026-09": {
+              "resolved": 1,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 6,
+                "positive": 1,
+                "positive_rate_pct": 16.6667,
+                "total_reference_r": -4.48733,
+                "mean_reference_r": -0.74789,
+                "pf_reference": 0.10253
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 5,
+                "positive": 0,
+                "positive_rate_pct": 0.0,
+                "total_reference_r": -5.0,
+                "mean_reference_r": -1.0,
+                "pf_reference": 0.0
+              }
+            },
+            "3": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 5,
+                "positive": 0,
+                "positive_rate_pct": 0.0,
+                "total_reference_r": -5.0,
+                "mean_reference_r": -1.0,
+                "pf_reference": 0.0
+              }
+            }
+          },
+          "best_month": "2026-05",
+          "excluding_best_month": {
+            "resolved": 5,
+            "positive": 1,
+            "positive_rate_pct": 20.0,
+            "total_reference_r": -3.48733,
+            "mean_reference_r": -0.69747,
+            "pf_reference": 0.12817
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "cbd0c8b97dae730ee3e737be018057fce105c918da8a5983e4a65be27787dab2"
+      },
+      "2.0": {
+        "spread_price_units": 2.0,
+        "confirmation_universe": 22,
+        "entry_plans": 10,
+        "no_entry_reasons": {
+          "EXPIRED": 11,
+          "UNKNOWN_HISTORY": 1
+        },
+        "entry_outcomes": {
+          "candidates": 10,
+          "resolved_outcomes": 7,
+          "unresolved_or_unmodeled": 3,
+          "wins": 2,
+          "win_rate_pct": 28.57,
+          "mean_r": -0.6393,
+          "total_r": -4.4752,
+          "pf": 0.105
+        },
+        "stop_policy_skip_counts": {
+          "STRUCTURE_BREACHED_BEFORE_ENTRY": 3
+        },
+        "incomplete_after_entry": 0,
+        "exit_reason_counts": {
+          "TIMEOUT": 2,
+          "STOP_INTRAMINUTE": 5
+        },
+        "stability": {
+          "all_resolved": {
+            "resolved": 7,
+            "positive": 2,
+            "positive_rate_pct": 28.5714,
+            "total_reference_r": -4.47525,
+            "mean_reference_r": -0.63932,
+            "pf_reference": 0.10495
+          },
+          "split_utc": "2026-07-01T00:00:00+00:00",
+          "before_cut": {
+            "resolved": 3,
+            "positive": 1,
+            "positive_rate_pct": 33.3333,
+            "total_reference_r": -1.94912,
+            "mean_reference_r": -0.64971,
+            "pf_reference": 0.02544
+          },
+          "from_cut": {
+            "resolved": 4,
+            "positive": 1,
+            "positive_rate_pct": 25.0,
+            "total_reference_r": -2.52613,
+            "mean_reference_r": -0.63153,
+            "pf_reference": 0.15796
+          },
+          "monthly": {
+            "2026-05": {
+              "resolved": 2,
+              "positive": 1,
+              "positive_rate_pct": 50.0,
+              "total_reference_r": -0.94912,
+              "mean_reference_r": -0.47456,
+              "pf_reference": 0.05088
+            },
+            "2026-06": {
+              "resolved": 1,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            },
+            "2026-07": {
+              "resolved": 3,
+              "positive": 1,
+              "positive_rate_pct": 33.3333,
+              "total_reference_r": -1.52613,
+              "mean_reference_r": -0.50871,
+              "pf_reference": 0.23694
+            },
+            "2026-09": {
+              "resolved": 1,
+              "positive": 0,
+              "positive_rate_pct": 0.0,
+              "total_reference_r": -1.0,
+              "mean_reference_r": -1.0,
+              "pf_reference": 0.0
+            }
+          },
+          "remove_top_positive_trades": {
+            "1": {
+              "removed_positive_trades": 1,
+              "remaining": {
+                "resolved": 6,
+                "positive": 1,
+                "positive_rate_pct": 16.6667,
+                "total_reference_r": -4.94912,
+                "mean_reference_r": -0.82485,
+                "pf_reference": 0.01018
+              }
+            },
+            "2": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 5,
+                "positive": 0,
+                "positive_rate_pct": 0.0,
+                "total_reference_r": -5.0,
+                "mean_reference_r": -1.0,
+                "pf_reference": 0.0
+              }
+            },
+            "3": {
+              "removed_positive_trades": 2,
+              "remaining": {
+                "resolved": 5,
+                "positive": 0,
+                "positive_rate_pct": 0.0,
+                "total_reference_r": -5.0,
+                "mean_reference_r": -1.0,
+                "pf_reference": 0.0
+              }
+            }
+          },
+          "best_month": "2026-05",
+          "excluding_best_month": {
+            "resolved": 5,
+            "positive": 1,
+            "positive_rate_pct": 20.0,
+            "total_reference_r": -3.52613,
+            "mean_reference_r": -0.70523,
+            "pf_reference": 0.11847
+          },
+          "out_of_sample": false,
+          "scope": "RESOLVED_ONLY_NO_UNKNOWN_OUTCOME_IMPUTATION"
+        },
+        "trades_detail_sha256": "a48300ecd65e298ed5d8d07623b853bafd466403c796a43911c1479c12614ac6"
+      }
+    }
+  },
+  "scenarios": 24,
+  "spread_values_price_units": [
+    0.6,
+    1.2,
+    2.0
+  ],
+  "period_utc": "2026-04-25 inclusive to 2026-09-25 exclusive",
+  "observed_at_utc": "2026-11-03T05:52:20.203196+00:00",
+  "execution_allowed": false,
+  "adopted": false,
+  "out_of_sample": false,
+  "formal_lsr02": false,
+  "net_expectancy_r": null,
+  "account_return_pct": null,
+  "account_max_dd_usd": null,
+  "assumptions": {
+    "reward_r": 1.5,
+    "horizon_minutes": 120,
+    "retest_wait_minutes": 60,
+    "h4_filter": false
+  },
+  "limitations": [
+    "Same inspected public quote history; synthetic bid/ask, not actual broker spreads.",
+    "Costs other than assumed spread unknown. No account margin, exposure, stops or net-profit claim.",
+    "Each spread changes entries, exits, structural stop validity and observed outcome population.",
+    "Winner/month removal is post-hoc sensitivity, not an implementable entry filter.",
+    "Resolved-only returns omit unknown outcomes; no-entry is not a zero-return trade."
+  ],
+  "engine_code_sha256": {
+    "orrery_public_xau_sequence_study.py": "a3b97fe9490f25759cf8ce14f37d7a7708e375f4e727742550fcaec9937fce43",
+    "orrery_xau_confirmation_entry_comparison.py": "a00642434f613071223d009b5f7809d2f7fb695c30d20ac950d67ff639b10f81",
+    "orrery_xau_structural_stop_comparison.py": "ce10a93dc79cda1d280a9d5af7900591e869c1532153804dc5a9989719ae7f1a",
+    "orrery_xau_hypothetical_pnl.py": "2a847da7c2653227c381687060dfea8eb5328a51d5d89c1471b32e58812ec4b0",
+    "lsr02_structure.py": "873fe9d8951d80dc2e79082f5bee9c3ba162a3b0c77ba7c212a4cc94d0c04a1b",
+    "lsr03_vhf.py": "20d7b8486434af192078cdeba8349900a407c9e9197183a0c4c8b1698c90b0ba",
+    "orrery_entry_universe_study.py": "0f1eeecb030b645d78c1e3a1535e8a2311118c7049f3d0868c5128093f7deee0",
+    "orrery_xau_tp_stability_split.py": "c780538e229f397d464f6de40edc4823379ffb447535520272ec8223cd511287",
+    "orrery_xau_h4_alignment.py": "8c2371ac7cf3ea272dda9a7b37d8ef43ad570a6d58af7986546821983a4dcbbb"
+  }
+}
