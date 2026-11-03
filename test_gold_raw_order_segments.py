@@ -40,6 +40,24 @@ class GoldRawSegmentsTests(unittest.TestCase):
         self.assertEqual(r['same_second_adjacent_pairs'],1)
         self.assertFalse(r['verified_execution_chronology'])
 
+    def test_segment_span_summary_does_not_claim_complete_minutes(self):
+        r=self.run_scan(['20261001 000000000','20261001 000600000',
+                         '20261001 000600000','20261001 002200000'])
+        d=r['distribution']
+        self.assertEqual(d['spans_at_least_5m'],0)
+        self.assertEqual(d['spans_at_least_15m'],0)
+        self.assertEqual(d['one_quote_segments'],2)
+        self.assertEqual(d['segments_with_same_second_pairs'],1)
+        self.assertTrue(d['span_thresholds_are_not_data_completeness'])
+        self.assertTrue(d['segment_chronology_is_not_broker_certified'])
+        self.assertFalse(r['valid_broker_backtest'])
+
+    def test_unbroken_long_span_is_not_execution_certified(self):
+        r=self.run_scan(['20261001 000000000','20261001 000300000'])
+        d=r['distribution']
+        self.assertEqual(d['spans_at_least_5m'],0)
+        self.assertFalse(r['verified_execution_chronology'])
+
     def test_source_bytes_preserved(self):
         r=self.run_scan(['20261001 000000000'])
         self.assertEqual(r['source_zip_sha256'],sha256(self.path.read_bytes()).hexdigest())
