@@ -48,6 +48,11 @@ class GoldMTFABTests(unittest.TestCase):
         m[-1]['high']=118
         self.assertIsNone(candidate(h,m,f,as_of=45000))
 
+    def test_dual_sweep_is_not_buy_or_sell(self):
+        h,m,f=fixtures()
+        m[-1].update(low=100,high=125,close=110)
+        self.assertIsNone(candidate(h,m,f,as_of=45000))
+
     def test_unclosed_h4_is_rejected(self):
         h,m,f=fixtures()
         h[-1]['close_time']=57600
