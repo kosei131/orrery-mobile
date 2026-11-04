@@ -16,6 +16,13 @@ from orrery_real_bars_lsr_bridge import load
 from orrery_gold_mtf_ab_hypotheses import candidate
 
 RAW_PIN='a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225'
+# Pinned normalized OHLC SHA256 from inspected public-XAU evidence,
+# not authenticated broker Bid/Ask. Reject source/aggregation drift.
+BARS_PINS={
+    'H4':'643c95d6c7ec72cb331d280b0c4c1c2d72702fe04fc85402e2666bbe0f19854c',
+    'M15':'8bba85eab3ed8da92341dea6b0b6c26fa884b882caf074e8bc9de6ac844a083d',
+    'M5':'ef68aad060022c4534a5cee2d7ff9d89b243177f5a479f938cf8ad582dc84b99'
+}
 MAX_M5_BARS=150000
 TF=('H4','M15','M5')
 STEPS={'H4':14400,'M15':900,'M5':300}
@@ -41,17 +48,25 @@ def _recent(bars,closes,at,tf):
     return _context(bars,closes,at,tf)[0]
 
 
-def run(source,bars_dir,*,expected_source_sha256=RAW_PIN):
+def run(source,bars_dir,*,expected_source_sha256=RAW_PIN,expected_bars_sha256=None):
     source=Path(source);bars_dir=Path(bars_dir)
     if sha256(source.read_bytes()).hexdigest()!=expected_source_sha256:
         raise ValueError('Pinned raw source has changed')
+    expected_bars_sha256=BARS_PINS if expected_bars_sha256 is None else expected_bars_sha256
+    if (not isinstance(expected_bars_sha256,dict) or set(expected_bars_sha256)!=set(TF)
+        or any(type(v) is not str or len(v)!=64 or any(ch not in '0123456789abcdef' for ch in v)
+               for v in expected_bars_sha256.values())):
+        raise ValueError('Explicit pinned H4/M15/M5 hashes required')
     frames={}
     hashes={}
     for tf in TF:
         path=bars_dir/f'XAUUSD_{tf}_UNVERIFIED_QUOTE.csv'
+        actual_hash=sha256(path.read_bytes()).hexdigest()
+        if actual_hash!=expected_bars_sha256[tf]:
+            raise ValueError(f'{tf} normalized OHLC SHA256 mismatch')
         result=load(path,tf)
         frames[tf]=result['bars']
-        hashes[tf]=sha256(path.read_bytes()).hexdigest()
+        hashes[tf]=actual_hash
     if len(frames['M5'])>MAX_M5_BARS:
         raise ValueError('M5 research budget exceeded')
     times={tf:[b['close_time'] for b in frames[tf]] for tf in TF}
