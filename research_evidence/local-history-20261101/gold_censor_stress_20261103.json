@@ -1,0 +1,123 @@
+{
+  "status": "CENSORED_OUTCOME_SCENARIO_ONLY",
+  "source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "evidence_file": "research_evidence/local-history-20261101/entry_stability_cost_20261102.json",
+  "assumed_spread_price_units": 0.6,
+  "unresolved_outcomes_are_not_zero": true,
+  "artificial_unknown_outcome_scenarios_r": [
+    -1,
+    1.5
+  ],
+  "gaps_can_exceed_minus_1r": true,
+  "not_a_probability_interval": true,
+  "results": [
+    {
+      "name": "ALL_CONFIRMATION_FIXED_6",
+      "candidates": 110,
+      "resolved": 106,
+      "unresolved": 4,
+      "wins": 39,
+      "reported_mean_r": -0.0832,
+      "total_resolved_r": -8.815,
+      "scenario_all_unknown_minus_1r_mean": -0.11649999999999999,
+      "scenario_all_unknown_plus_1_5r_mean": -0.025590909090909088,
+      "reference_positive_months": 3,
+      "reference_observed_months": 6
+    },
+    {
+      "name": "ALL_CONFIRMATION_SWEEP_EXTREME",
+      "candidates": 110,
+      "resolved": 61,
+      "unresolved": 49,
+      "wins": 27,
+      "reported_mean_r": -0.0288,
+      "total_resolved_r": -1.7543,
+      "scenario_all_unknown_minus_1r_mean": -0.4614027272727273,
+      "scenario_all_unknown_plus_1_5r_mean": 0.6522336363636364,
+      "reference_positive_months": 3,
+      "reference_observed_months": 6
+    },
+    {
+      "name": "ALL_RETEST_FIXED_6",
+      "candidates": 74,
+      "resolved": 71,
+      "unresolved": 3,
+      "wins": 27,
+      "reported_mean_r": -0.0493,
+      "total_resolved_r": -3.5,
+      "scenario_all_unknown_minus_1r_mean": -0.08783783783783784,
+      "scenario_all_unknown_plus_1_5r_mean": 0.013513513513513514,
+      "reference_positive_months": 3,
+      "reference_observed_months": 6
+    },
+    {
+      "name": "ALL_RETEST_SWEEP_EXTREME",
+      "candidates": 74,
+      "resolved": 43,
+      "unresolved": 31,
+      "wins": 14,
+      "reported_mean_r": -0.2427,
+      "total_resolved_r": -10.4377,
+      "scenario_all_unknown_minus_1r_mean": -0.5599689189189189,
+      "scenario_all_unknown_plus_1_5r_mean": 0.4873283783783784,
+      "reference_positive_months": 1,
+      "reference_observed_months": 6
+    },
+    {
+      "name": "VHF_PASS_CONFIRMATION_FIXED_6",
+      "candidates": 22,
+      "resolved": 21,
+      "unresolved": 1,
+      "wins": 10,
+      "reported_mean_r": 0.1905,
+      "total_resolved_r": 4,
+      "scenario_all_unknown_minus_1r_mean": 0.13636363636363635,
+      "scenario_all_unknown_plus_1_5r_mean": 0.25,
+      "reference_positive_months": 4,
+      "reference_observed_months": 5
+    },
+    {
+      "name": "VHF_PASS_CONFIRMATION_SWEEP_EXTREME",
+      "candidates": 22,
+      "resolved": 13,
+      "unresolved": 9,
+      "wins": 8,
+      "reported_mean_r": 0.1307,
+      "total_resolved_r": 1.6991,
+      "scenario_all_unknown_minus_1r_mean": -0.33185909090909094,
+      "scenario_all_unknown_plus_1_5r_mean": 0.6908681818181818,
+      "reference_positive_months": 3,
+      "reference_observed_months": 5
+    },
+    {
+      "name": "VHF_PASS_RETEST_FIXED_6",
+      "candidates": 10,
+      "resolved": 10,
+      "unresolved": 0,
+      "wins": 5,
+      "reported_mean_r": 0.25,
+      "total_resolved_r": 2.5,
+      "scenario_all_unknown_minus_1r_mean": 0.25,
+      "scenario_all_unknown_plus_1_5r_mean": 0.25,
+      "reference_positive_months": 3,
+      "reference_observed_months": 4
+    },
+    {
+      "name": "VHF_PASS_RETEST_SWEEP_EXTREME",
+      "candidates": 10,
+      "resolved": 7,
+      "unresolved": 3,
+      "wins": 2,
+      "reported_mean_r": -0.4224,
+      "total_resolved_r": -2.9569,
+      "scenario_all_unknown_minus_1r_mean": -0.59569,
+      "scenario_all_unknown_plus_1_5r_mean": 0.15431,
+      "reference_positive_months": 1,
+      "reference_observed_months": 4
+    }
+  ],
+  "actual_net_expectancy_r": null,
+  "account_return_pct": null,
+  "adoption_allowed": false,
+  "execution_allowed": false
+}
