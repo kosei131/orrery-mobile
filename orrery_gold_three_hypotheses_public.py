@@ -43,15 +43,17 @@ def run(raw, m15, *, expected_sha256=PIN):
                     v=Decimal(row[col])*SCALE
                 except (InvalidOperation,TypeError):
                     raise ValueError('Invalid decimal OHLC')
-                if not v.is_finite() or v!=v.to_integral_value():
-                    raise ValueError('Prices require exact six-decimal scale')
-                converted[key]=int(v)
+                if not v.is_finite() or abs(v-v.to_integral_value()) > Decimal('0.001'):
+                    raise ValueError('Price exceeds six-decimal normalization tolerance')
+                converted[key]=int(v.to_integral_value())
             candles.append(dict(close_time=open_stamp+900,**converted))
     result=scan(candles)
     result['raw_source_sha256']=actual
     result['m15_sha256']=sha256(m15.read_bytes()).hexdigest()
     result['input_candles']=len(candles)
     result['price_scale']=SCALE
+    result['rounding_tolerance_price_units']='0.000000001'
+    result['source_csv_passed_through_float_aggregation']=True
     result['quote_basis_verified']=False
     result['real_price_results_verified']=False
     result['no_bid_ask_spread_model']=True
