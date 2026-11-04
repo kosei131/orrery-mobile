@@ -33,7 +33,7 @@ class M15ReferenceTests(unittest.TestCase):
         self.assertEqual(x['state'],'CENSORED_NEXT_BAR_MISSING')
 
     def test_mid_trade_gap(self):
-        x=measure([bar(1),bar(2),bar(4)], [signal()])['candidates'][0]
+        x=measure([bar(1),bar(2,high=1002,low=997),bar(4)], [signal()])['candidates'][0]
         self.assertEqual(x['state'],'CENSORED_M15_GAP')
 
     def test_stop_gap_open_not_rounded(self):
