@@ -84,11 +84,13 @@ def candidate(h4,m15,m5,*,as_of):
     confirm=m5[-1]
     if confirm['close_time']<=sweep['close_time'] or confirm['close_time']-sweep['close_time']>3600:
         return None
-    prior_five=m5[-6:-1]
-    # Require the reference bars to have closed no later than signal time,
-    # but disallow an M5 structure confirmation already broken at sweep time.
-    earlier=[b for b in prior_five if b['close_time']<=sweep['close_time']]
-    if not earlier:return None
+    # Fix the structural reference at the sweep close, not at the later
+    # confirmation clock. This prevents drift and future-information leakage.
+    earlier=[b for b in m5[:-1] if b['close_time']<=sweep['close_time']][-5:]
+    if (len(earlier)!=5 or
+        any(b['close_time']-a['close_time']!=300
+            for a,b in zip(earlier,earlier[1:]))):
+        return None
     reference=max(b['high'] for b in earlier) if side=='BUY' else min(b['low'] for b in earlier)
     confirmed=(confirm['close']>reference and confirm['close']>confirm['open']
                if side=='BUY' else confirm['close']<reference and confirm['close']<confirm['open'])
