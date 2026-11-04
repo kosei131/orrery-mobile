@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Test offline HistData M1 import and timestamp handling
-        run: python -m unittest -v test_histdata_m1_import.py test_histdata_tick_audit.py test_gold_tick_chunk_audit.py test_gold_raw_order_segments.py test_gold_barrier_window.py test_gold_candidate_cohort.py test_gold_strategy_screen.py test_gold_censor_stress.py test_gold_three_hypotheses.py test_gold_three_hypotheses_public.py test_gold_m15_reference_outcomes.py test_gold_m15_report_audit.py test_gold_mtf_ab_hypotheses.py test_gold_mtf_ab_replay.py test_gold_mtf_ab_price_references.py test_gold_spread_target_diagnostic.py test_gold_expectancy_preflight.py test_orrery_second_barrier_diagnostic.py test_second_barrier_diagnostic.py test_m1_complete_bars.py test_session_complete_bars.py test_xau_session_coverage.py test_xau_h4_alignment.py test_lsr03_h4_session_history.py test_xau_h4_session_review.py test_h4_reconciliation_plan.py test_h4_reconciliation_batch.py test_h4_batch_verify.py test_h4_batch_resume.py test_h4_batch_chain.py test_h4_pc_workflow.py test_h4_pc_bootstrap.py test_xau_loss_excursions.py test_xau_profit_protection.py test_xau_structural_stops.py test_xau_entry_exit_diagnostic.py test_xau_confirmation_entry.py test_entry_universe_study.py test_entry_stability_cost.py test_paired_archive_study.py test_indicator_ablation.py test_halftrend_patterns.py test_pattern_robustness.py test_pattern_sr_room.py test_pattern_session_review.py test_pattern_session_spread.py test_pattern_entry_tradeability.py test_small_tp_barrier_study.py test_histdata_pipeline.py test_merge_m1_months.py test_real_bars_lsr_bridge.py
+        run: python -m unittest -v test_histdata_m1_import.py test_histdata_tick_audit.py test_gold_tick_chunk_audit.py test_gold_raw_order_segments.py test_gold_barrier_window.py test_gold_candidate_cohort.py test_gold_strategy_screen.py test_gold_censor_stress.py test_gold_three_hypotheses.py test_gold_three_hypotheses_public.py test_gold_m15_reference_outcomes.py test_gold_m15_report_audit.py test_gold_mtf_ab_hypotheses.py test_gold_mtf_ab_replay.py test_gold_mtf_ab_price_references.py test_gold_mtf_ab_cost_study.py test_gold_spread_target_diagnostic.py test_gold_expectancy_preflight.py test_orrery_second_barrier_diagnostic.py test_second_barrier_diagnostic.py test_m1_complete_bars.py test_session_complete_bars.py test_xau_session_coverage.py test_xau_h4_alignment.py test_lsr03_h4_session_history.py test_xau_h4_session_review.py test_h4_reconciliation_plan.py test_h4_reconciliation_batch.py test_h4_batch_verify.py test_h4_batch_resume.py test_h4_batch_chain.py test_h4_pc_workflow.py test_h4_pc_bootstrap.py test_xau_loss_excursions.py test_xau_profit_protection.py test_xau_structural_stops.py test_xau_entry_exit_diagnostic.py test_xau_confirmation_entry.py test_entry_universe_study.py test_entry_stability_cost.py test_paired_archive_study.py test_indicator_ablation.py test_halftrend_patterns.py test_pattern_robustness.py test_pattern_sr_room.py test_pattern_session_review.py test_pattern_session_spread.py test_pattern_entry_tradeability.py test_small_tp_barrier_study.py test_histdata_pipeline.py test_merge_m1_months.py test_real_bars_lsr_bridge.py
       - name: Run no-MT5 safety and HTTP tests
         run: python -m unittest -v test_mt5_local_dashboard.py test_mt5_safety.py test_mt5_quotes.py test_mt5_charts.py test_orrery_dashboard_analysis.py test_orrery_halftrend_panel.py test_orrery_entry_panel.py test_orrery_prospective_status.py test_orrery_prospective_panel.py test_orrery_history_app.py test_orrery_history_session_study.py test_orrery_h4_gap_requests.py test_orrery_m1_revision_compare.py test_orrery_duka_source_probe.py test_orrery_public_m1_gap_inventory.py
       - name: Verify FX storage safety and JavaScript syntax
@@ -98,6 +98,8 @@ jobs:
         run: python orrery_gold_mtf_ab_replay.py xauusd_public_m1.csv public_xau_bars public_xau_mtf_ab_candidates.json
       - name: Evaluate Gold A and B structural stop price references on pinned public M5
         run: python orrery_gold_mtf_ab_outcome_report.py xauusd_public_m1.csv public_xau_bars public_xau_mtf_ab_outcomes.json
+      - name: Compare hypothetical Gold A/B costs by structural stop distance
+        run: python orrery_gold_mtf_ab_cost_study.py xauusd_public_m1.csv public_xau_bars public_xau_mtf_ab_costs.json
       - name: Crosscheck original and normalized M1 before separate session diagnostics
         run: python orrery_history_app.py --bars public_xau_bars --source xauusd_public_m1.csv --output public_xau_history_session_review.json --session-review-dir public_xau_history_session_diagnostic
       - name: Compare post-publication complete and unverified weekly H4 with fixed LSR02 VHF03
@@ -197,6 +199,7 @@ jobs:
             public_xau_three_hypotheses_outcomes.json
             public_xau_mtf_ab_candidates.json
             public_xau_mtf_ab_outcomes.json
+            public_xau_mtf_ab_costs.json
             public_xau_m1_gap_inventory.json
             public_xau_history_session_review.json
             public_xau_history_session_diagnostic/report.json
