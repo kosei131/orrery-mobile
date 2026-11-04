@@ -83,3 +83,20 @@ PC接続後、brokerがDEMOを返すこと、USD評価、XAUUSD/USDJPYの実仕�
 - https://www.tradingview.com/support/solutions/43000537255-how-to-export-chart-data/
 - https://www.tradingview.com/pine-script-docs/concepts/strategies/
 - https://www.mql5.com/en/docs/python_metatrader5/mt5ordersend_py
+
+## 連続区間の口座リプレイ検査
+
+`orrery_account_coverage_study.replay_continuous_window` は、既存のUSD口座リプレイへ
+指定した半開区間の観測時刻を渡す研究用入口。UTCの開始・終了と許容観測間隔
+（1〜60,000ミリ秒）を呼び出し側で指定する。日次境界は10:00 UTC。
+
+先頭、途中、末尾の間隔が上限を超えた場合と空区間では、区間全体の口座結果を
+`None`とし、最初に検出した空白を返す。途中で決済済みでも部分成績を公開しない。
+観測間隔の上限は銘柄や提供元に合わせて別途検証する必要がある。
+この入口では保有状態にかかわらず観測間隔を検査するため、通常休場を含む長期履歴は
+セッション証拠で区間を分離してから扱う。ティック完全性は未認証。
+
+合成データで正常区間の従来結果との一致、保有中ギャップ、決済後の末尾欠損、
+空区間、開始遅れ、範囲外時刻を検査した。既存テストで日次停止、3連敗停止、
+持越し時の評価根拠を確認した。口座比較には同一提供元の確定足、Bid/Ask、
+履歴USD評価、契約仕様、費用、セッション証拠が必要。
