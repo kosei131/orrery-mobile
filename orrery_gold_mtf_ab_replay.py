@@ -22,17 +22,23 @@ STEPS={'H4':14400,'M15':900,'M5':300}
 WINDOWS={'H4':3,'M15':13,'M5':18}
 
 
-def _recent(bars,closes,at,tf):
+def _context(bars, closes, at, tf):
+    if tf not in WINDOWS:
+        raise ValueError('Known timeframe required')
     n=bisect_right(closes,at)
     window=bars[max(0,n-WINDOWS[tf]):n]
-    if not window or at-window[-1]['close_time']>=STEPS[tf]:
-        return []
     if len(window)<WINDOWS[tf]:
-        return []
+        return [], 'INSUFFICIENT_HISTORY'
+    if at-window[-1]['close_time']>=STEPS[tf]:
+        return [], 'STALE_LAST_CLOSE'
     if any(b['close_time']-a['close_time']!=STEPS[tf]
            for a,b in zip(window,window[1:])):
-        return []
-    return window
+        return [], 'NONCONTIGUOUS_BARS'
+    return window, 'READY'
+
+
+def _recent(bars,closes,at,tf):
+    return _context(bars,closes,at,tf)[0]
 
 
 def run(source,bars_dir,*,expected_source_sha256=RAW_PIN):
@@ -53,9 +59,13 @@ def run(source,bars_dir,*,expected_source_sha256=RAW_PIN):
     eligibility=Counter()
     for m5_idx,bar in enumerate(frames['M5']):
         at=bar['close_time']
-        windows={tf:_recent(frames[tf],times[tf],at,tf) for tf in TF}
-        if any(not windows[tf] for tf in TF):
+        context={tf:_context(frames[tf],times[tf],at,tf) for tf in TF}
+        windows={tf:context[tf][0] for tf in TF}
+        failed=[tf for tf in TF if context[tf][1]!='READY']
+        if failed:
             eligibility['MISSING_CONTIGUOUS_CONTEXT']+=1
+            for tf in failed:
+                eligibility[tf+'_'+context[tf][1]]+=1
             continue
         h4,m15,m5=(windows[tf] for tf in TF)
         try:
@@ -73,6 +83,9 @@ def run(source,bars_dir,*,expected_source_sha256=RAW_PIN):
         observed_bars={tf:len(frames[tf]) for tf in TF},
         examined_m5_bars=eligibility['CHECKED'],
         missing_or_gapped_context=eligibility['MISSING_CONTIGUOUS_CONTEXT'],
+        context_failure_counts={key:eligibility[key] for key in sorted(eligibility)
+                                if any(key.startswith(tf+'_') for tf in TF)},
+        context_failures_may_overlap_across_timeframes=True,
         candidate_counts={f:eligibility[f] for f in ('A_CONTINUATION','B_COUNTER_SWEEP')},
         candidates=found,quote_basis_verified=False,entry_fills_verified=False,
         out_of_sample=False,actual_win_rate_pct=None,net_expectancy_r=None,
