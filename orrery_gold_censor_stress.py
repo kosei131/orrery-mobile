@@ -7,6 +7,8 @@ def reconcile(source, scenario):
         or scenario.get('status') != 'CENSORED_OUTCOME_SCENARIO_ONLY'
         or scenario.get('assumed_spread_price_units') != 0.6
         or scenario.get('artificial_unknown_outcome_scenarios_r') != [-1, 1.5]
+        or scenario.get('nonresolved_candidate_slots_include_unentered_or_skipped_plans') is not True
+        or scenario.get('synthetic_scenarios_not_realizable_trade_portfolios') is not True
         or scenario.get('adoption_allowed') is not False
         or scenario.get('actual_net_expectancy_r') is not None):
         raise ValueError('Pinned source/scenario policy mismatch')
