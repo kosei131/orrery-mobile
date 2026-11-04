@@ -2,7 +2,7 @@ import hashlib
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest import TestCase, mock
-from orrery_gold_mtf_ab_replay import run, _recent
+from orrery_gold_mtf_ab_replay import run, _recent, _context
 
 def candle(t,lo,hi,op,cl):
     return dict(close_time=t,low=lo,high=hi,open=op,close=cl)
@@ -65,3 +65,34 @@ class MTFReplayTests(TestCase):
         b=self.replay(d)
         before=[x for x in b['candidates'] if x['known_at_utc']<=45000]
         self.assertEqual(before,a['candidates'])
+
+    def test_diagnostic_identifies_noncontiguous_m15(self):
+        d=fixtures()
+        d['M15'][-3]['close_time']-=900
+        r=self.replay(d)
+        self.assertGreater(r['context_failure_counts']['M15_NONCONTIGUOUS_BARS'],0)
+        self.assertTrue(r['context_failures_may_overlap_across_timeframes'])
+
+    def test_diagnostic_distinguishes_stale_h4(self):
+        d=fixtures()
+        d['H4']=[candle(-28800,80,110,105,105),
+                 candle(-14400,90,120,105,105),
+                 candle(0,100,130,105,105)]
+        r=self.replay(d)
+        self.assertGreater(r['context_failure_counts']['H4_STALE_LAST_CLOSE'],0)
+        self.assertEqual(r['candidate_counts']['A_CONTINUATION'],0)
+
+    def test_short_history_is_not_misreported_as_no_signal(self):
+        d=fixtures()
+        d['H4']=d['H4'][-2:]
+        r=self.replay(d)
+        self.assertGreater(r['context_failure_counts']['H4_INSUFFICIENT_HISTORY'],0)
+        self.assertEqual(r['examined_m5_bars'],0)
+
+    def test_context_reason_ready(self):
+        d=fixtures()
+        a=d['H4']
+        bars,status=_context(a,[b['close_time'] for b in a],45000,'H4')
+        self.assertEqual(status,'READY')
+        self.assertEqual(len(bars),3)
+
