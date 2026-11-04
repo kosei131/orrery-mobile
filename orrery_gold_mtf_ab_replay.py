@@ -16,7 +16,6 @@ from orrery_real_bars_lsr_bridge import load
 from orrery_gold_mtf_ab_hypotheses import candidate
 
 RAW_PIN='a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225'
-PERIOD_START=1770000000  # unused descriptive lower bound; full pinned history scanned
 MAX_M5_BARS=150000
 TF=('H4','M15','M5')
 STEPS={'H4':14400,'M15':900,'M5':300}
@@ -27,9 +26,7 @@ def _recent(bars,closes,at,tf):
     n=bisect_right(closes,at)
     window=bars[max(0,n-WINDOWS[tf]):n]
     if not window or at-window[-1]['close_time']>=STEPS[tf]:
-        # For H4/M15 a close slightly before the as-of is expected.
-        if tf=='M5' or not window or at-window[-1]['close_time']>=STEPS[tf]:
-            return []
+        return []
     if len(window)<WINDOWS[tf]:
         return []
     if any(b['close_time']-a['close_time']!=STEPS[tf]
