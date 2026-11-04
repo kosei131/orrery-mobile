@@ -65,7 +65,20 @@ def run(source,bars_dir,*,expected_source_sha256=RAW_PIN,expected_bars_sha256=No
         if actual_hash!=expected_bars_sha256[tf]:
             raise ValueError(f'{tf} normalized OHLC SHA256 mismatch')
         result=load(path,tf)
-        frames[tf]=result['bars']
+        # The CSV bridge includes open_time as metadata, whereas the
+        # strategy accepts only closed-bar OHLC. Verify then strip metadata.
+        normalized=[]
+        for b in result['bars']:
+            keys={'close_time','open','high','low','close'}
+            if (not isinstance(b,dict) or not keys.issubset(b)
+                or set(b)-keys-{'open_time'}):
+                raise ValueError(f'{tf} bridge OHLC schema mismatch')
+            if ('open_time' in b
+                and (type(b['open_time']) is not int
+                     or b['open_time']+STEPS[tf]!=b['close_time'])):
+                raise ValueError(f'{tf} bridge open/close clock mismatch')
+            normalized.append({key:b[key] for key in keys})
+        frames[tf]=normalized
         hashes[tf]=actual_hash
     if len(frames['M5'])>MAX_M5_BARS:
         raise ValueError('M5 research budget exceeded')
