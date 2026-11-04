@@ -23,3 +23,17 @@ class NestedWaveTests(unittest.TestCase):
                 1800: dict(close=104, low=99, high=105)}
         self.assertEqual(wait_for_resume(bars, 0, origin, 100), ('WAIT_INVALIDATED', None))
         self.assertEqual(wait_for_resume({1800: bars[1800]}, 0, origin, 100), ('WAIT_DATA_GAP', None))
+
+
+class ResumeRoomTests(unittest.TestCase):
+    def test_net_parity_checks_cost_and_capped_target(self):
+        from orrery_gold_nested_wave_study import resume_room_gate
+
+        def screen(entry, ceiling):
+            return resume_room_gate(signal_close=entry, stop=100, ceiling=ceiling)['decision']
+
+        self.assertEqual(screen(104, 109.08), 'PASS_RESEARCH_SCREEN')
+        self.assertEqual(screen(104, 109.07), 'NET_REWARD_BELOW_RISK')
+        self.assertEqual(screen(102, 200), 'NET_REWARD_BELOW_RISK')
+        self.assertEqual(screen(104, 104.54), 'TARGET_ROOM_DOES_NOT_COVER_COST')
+        self.assertEqual(screen(100, 110), 'INVALID_STOP')

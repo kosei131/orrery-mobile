@@ -254,6 +254,12 @@
         "target_r": 0.39393939393940214,
         "state": "TIMEOUT_REFERENCE",
         "reference_r": -0.1681521093285552
+      },
+      "resume_room_gate": {
+        "signal_close": 4741.8949999999995,
+        "assumed_cost_price": 0.54,
+        "planned_net_reward_to_risk": 0.3506044905009024,
+        "decision": "NET_REWARD_BELOW_RISK"
       }
     },
     {
@@ -281,6 +287,12 @@
         "target_r": 0.14764079147640025,
         "state": "TARGET_REFERENCE",
         "reference_r": 0.14764079147636544
+      },
+      "resume_room_gate": {
+        "signal_close": 4811.195,
+        "assumed_cost_price": 0.54,
+        "planned_net_reward_to_risk": 0.11703703703703704,
+        "decision": "NET_REWARD_BELOW_RISK"
       }
     },
     {
@@ -308,6 +320,12 @@
         "target_r": 0.5867000357526005,
         "state": "TIMEOUT_REFERENCE",
         "reference_r": -0.7057561673221561
+      },
+      "resume_room_gate": {
+        "signal_close": 4368.975000000005,
+        "assumed_cost_price": 0.54,
+        "planned_net_reward_to_risk": 0.556646790599809,
+        "decision": "NET_REWARD_BELOW_RISK"
       }
     }
   ],

@@ -3,6 +3,7 @@
 import argparse
 from collections import Counter, defaultdict
 from hashlib import sha256
+from decimal import Decimal
 import json
 from pathlib import Path
 
@@ -117,6 +118,26 @@ def compare_entries(early, late, target_ceiling):
                 immediate=immediate, delayed=delayed)
 
 
+def resume_room_gate(*, signal_close, stop, ceiling):
+    """Screen the confirmed M15 close, before any future entry quote."""
+    entry, stop, ceiling = (Decimal(str(value)) for value in (signal_close, stop, ceiling))
+    cost = Decimal('0.54')
+    risk = entry - stop
+    reward = min(ceiling - entry, Decimal('1.5') * risk)
+    net_ratio = (reward - cost) / (risk + cost) if risk > 0 else None
+    if risk <= 0:
+        reason = 'INVALID_STOP'
+    elif reward <= cost:
+        reason = 'TARGET_ROOM_DOES_NOT_COVER_COST'
+    elif net_ratio < 1:
+        reason = 'NET_REWARD_BELOW_RISK'
+    else:
+        reason = 'PASS_RESEARCH_SCREEN'
+    return dict(signal_close=float(entry), assumed_cost_price=float(cost),
+                planned_net_reward_to_risk=float(net_ratio) if net_ratio is not None else None,
+                decision=reason)
+
+
 def run(raw, bars_dir):
     if sha256(raw.read_bytes()).hexdigest() != RAW_PIN:
         raise ValueError('Original public M1 pin mismatch')
@@ -137,6 +158,11 @@ def run(raw, bars_dir):
                 for row, _, _ in pairs}
     entry_comparison = [compare_entries(immediate_by_id[r['candidate_id']], r,
                                         ceilings[r['candidate_id']]) for r in delayed]
+    m15_closes = {b['close_time']: b['close'] for b in bars['M15']}
+    for comparison, row in zip(entry_comparison, delayed):
+        comparison['resume_room_gate'] = resume_room_gate(
+            signal_close=m15_closes[row['known_at_utc']],
+            stop=row['structural_stop'], ceiling=ceilings[row['candidate_id']])
     matched = [r for r in delayed if r['reference_r'] is not None
                and immediate_by_id[r['candidate_id']]['reference_r'] is not None]
     return dict(status='EXPLORATORY_NESTED_WAVE_BUY_PUBLIC_OHLC', source_sha256=RAW_PIN,
