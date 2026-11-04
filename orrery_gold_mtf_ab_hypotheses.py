@@ -71,6 +71,10 @@ def candidate(h4,m15,m5,*,as_of):
         ceil=max(b['high'] for b in prev)
         low_sweep=sweep['low']<floor and sweep['close']>floor
         high_sweep=sweep['high']>ceil and sweep['close']<ceil
+        # A candle sweeping both boundaries is directionally unresolved.
+        # Do not arbitrarily prefer BUY over SELL on a volatile Gold bar.
+        if low_sweep and high_sweep:
+            return None
         if not (low_sweep or high_sweep):
             continue
         # No overlapping sweep variants: select latest eligible event.
