@@ -12,7 +12,7 @@ def fixtures(kind='A'):
     m5=[]
     if kind=='A':
         m15.append(bar(44100,100,114,110,108))
-        m5=[bar(t,105,110,108,108) for t in range(43500,44701,300)]
+        m5=[bar(t,105,110,108,108) for t in range(42900,44701,300)]
         m5.append(bar(45000,109,114,110,111))
     else:
         m15.append(bar(44100,105,125,112,110))
@@ -80,6 +80,19 @@ class GoldMTFABTests(unittest.TestCase):
         h,m,f=fixtures()
         f[-2]['low']=99
         self.assertIsNone(candidate(h,m,f,as_of=45000))
+
+    def test_reference_is_fixed_at_sweep_not_later_close(self):
+        h,m,f=fixtures()
+        # The structural high before sweep is 110. A newer pre-confirmation
+        # candle must not redefine the five-bar reference window.
+        f[-2].update(high=113,close=109)
+        result=candidate(h,m,f,as_of=45000)
+        self.assertIsNotNone(result)
+        self.assertEqual(result['confirmation_reference'],'110')
+
+    def test_insufficient_pre_sweep_m5_rejected(self):
+        h,m,f=fixtures()
+        self.assertIsNone(candidate(h,m,f[2:],as_of=45000))
 
     def test_snapshot_not_mutated(self):
         h,m,f=fixtures()
