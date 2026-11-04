@@ -15,7 +15,7 @@ def fixtures(kind='A'):
         m5=[bar(t,105,110,108,108) for t in range(42900,44701,300)]
         m5.append(bar(45000,109,114,110,111))
     else:
-        m15.append(bar(44100,105,125,112,110))
+        m15.append(bar(44100,105,135,112,110))
         m5=[bar(t,116,120,118,118) for t in range(43500,44701,300)]
         m5.append(bar(45000,113,119,118,114))
     return h4,m15,m5
@@ -36,6 +36,12 @@ class GoldMTFABTests(unittest.TestCase):
         self.assertIsNotNone(s)
         self.assertEqual(s['family'],'B_COUNTER_SWEEP')
         self.assertEqual(s['side'],'SELL')
+
+    def test_B_m15_local_sweep_not_h4_outer_rejected(self):
+        h,m,f=fixtures('B')
+        # Crosses local M15 ceiling 115 but fails to clear latest H4 high 130.
+        m[-1]['high']=125
+        self.assertIsNone(candidate(h,m,f,as_of=45000))
 
     def test_B_without_h4_extreme_touch_rejected(self):
         h,m,f=fixtures('B')
