@@ -93,6 +93,30 @@ def summarize(records):
                 states=dict(Counter(r['state'] for r in records)), scenarios=scenarios)
 
 
+def compare_entries(early, late, target_ceiling):
+    """Retain the entry geometry even when an exit is unresolved."""
+    def entry_details(row):
+        raw_entry = row['entry_open_reference']
+        entry = float(raw_entry) if raw_entry is not None else None
+        stop = float(row['structural_stop'])
+        target = row['target_reference']
+        risk = entry - stop if entry is not None else None
+        return dict(entry=entry, stop=stop, risk_price=risk,
+                    room_to_ceiling_price=target_ceiling-entry if entry is not None else None,
+                    target=float(target) if target is not None else None,
+                    target_r=(float(target)-entry)/risk if target is not None and risk > 0 else None,
+                    state=row['state'], reference_r=row['reference_r'])
+
+    immediate = entry_details(early)
+    delayed = entry_details(late)
+    change = (delayed['entry'] - immediate['entry']
+              if immediate['entry'] is not None and delayed['entry'] is not None else None)
+    return dict(candidate_id=early['candidate_id'], known_at_utc=early['known_at_utc'],
+                delay_minutes=(late['known_at_utc']-early['known_at_utc'])//60,
+                target_ceiling=target_ceiling, entry_change_price=change,
+                immediate=immediate, delayed=delayed)
+
+
 def run(raw, bars_dir):
     if sha256(raw.read_bytes()).hexdigest() != RAW_PIN:
         raise ValueError('Original public M1 pin mismatch')
@@ -109,6 +133,10 @@ def run(raw, bars_dir):
     delayed_ids = {r['candidate_id'] for r in delayed}
     missed = [r for r in immediate if r['candidate_id'] not in delayed_ids]
     immediate_by_id = {r['candidate_id']: r for r in immediate}
+    ceilings = {row['candidate_id']: row['indicative_close'] + row['known_room_price']
+                for row, _, _ in pairs}
+    entry_comparison = [compare_entries(immediate_by_id[r['candidate_id']], r,
+                                        ceilings[r['candidate_id']]) for r in delayed]
     matched = [r for r in delayed if r['reference_r'] is not None
                and immediate_by_id[r['candidate_id']]['reference_r'] is not None]
     return dict(status='EXPLORATORY_NESTED_WAVE_BUY_PUBLIC_OHLC', source_sha256=RAW_PIN,
@@ -117,7 +145,7 @@ def run(raw, bars_dir):
                 immediate=summarize(immediate), delayed=summarize(delayed),
                 immediate_on_both_resolved=summarize([immediate_by_id[r['candidate_id']] for r in matched]),
                 delayed_on_both_resolved=summarize(matched),
-                missed_immediate=summarize(missed),
+                missed_immediate=summarize(missed), paired_entry_geometry=entry_comparison,
                 missed_positive_reference=sum(r['reference_r'] > 0 for r in missed if r['reference_r'] is not None),
                 missed_negative_reference=sum(r['reference_r'] < 0 for r in missed if r['reference_r'] is not None),
                 actual_win_rate_pct=None, net_expectancy_r=None, account_return_pct=None,

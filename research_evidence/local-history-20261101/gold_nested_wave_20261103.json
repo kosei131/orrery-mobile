@@ -228,6 +228,89 @@
       }
     ]
   },
+  "paired_entry_geometry": [
+    {
+      "candidate_id": "GOLD_NESTED_WAVE_BUY:1775706300",
+      "known_at_utc": 1775706300,
+      "delay_minutes": 30,
+      "target_ceiling": 4748.525,
+      "entry_change_price": 6.869999999999891,
+      "immediate": {
+        "entry": 4735.025,
+        "stop": 4725.065,
+        "risk_price": 9.960000000000036,
+        "room_to_ceiling_price": 13.5,
+        "target": 4748.525,
+        "target_r": 1.355421686746983,
+        "state": "TIMEOUT_REFERENCE",
+        "reference_r": 0.872489959839257
+      },
+      "delayed": {
+        "entry": 4741.8949999999995,
+        "stop": 4725.065,
+        "risk_price": 16.829999999999927,
+        "room_to_ceiling_price": 6.630000000000109,
+        "target": 4748.525,
+        "target_r": 0.39393939393940214,
+        "state": "TIMEOUT_REFERENCE",
+        "reference_r": -0.1681521093285552
+      }
+    },
+    {
+      "candidate_id": "GOLD_NESTED_WAVE_BUY:1776105900",
+      "known_at_utc": 1776105900,
+      "delay_minutes": 45,
+      "target_ceiling": 4814.105,
+      "entry_change_price": 9.509999999999309,
+      "immediate": {
+        "entry": 4801.685,
+        "stop": 4791.485,
+        "risk_price": 10.200000000000728,
+        "room_to_ceiling_price": 12.419999999999163,
+        "target": 4814.105,
+        "target_r": 1.2176470588233606,
+        "state": "TARGET_REFERENCE",
+        "reference_r": 1.2176470588234474
+      },
+      "delayed": {
+        "entry": 4811.195,
+        "stop": 4791.485,
+        "risk_price": 19.710000000000036,
+        "room_to_ceiling_price": 2.9099999999998545,
+        "target": 4814.105,
+        "target_r": 0.14764079147640025,
+        "state": "TARGET_REFERENCE",
+        "reference_r": 0.14764079147636544
+      }
+    },
+    {
+      "candidate_id": "GOLD_NESTED_WAVE_BUY:1786113000",
+      "known_at_utc": 1786113000,
+      "delay_minutes": 45,
+      "target_ceiling": 4385.385000000005,
+      "entry_change_price": 6.4399999999996,
+      "immediate": {
+        "entry": 4362.535000000005,
+        "stop": 4341.005000000006,
+        "risk_price": 21.529999999999745,
+        "room_to_ceiling_price": 22.849999999999454,
+        "target": 4385.385000000005,
+        "target_r": 1.061309800278668,
+        "state": "TIMEOUT_REFERENCE",
+        "reference_r": -0.5299581978634478
+      },
+      "delayed": {
+        "entry": 4368.975000000005,
+        "stop": 4341.005000000006,
+        "risk_price": 27.969999999999345,
+        "room_to_ceiling_price": 16.409999999999854,
+        "target": 4385.385000000005,
+        "target_r": 0.5867000357526005,
+        "state": "TIMEOUT_REFERENCE",
+        "reference_r": -0.7057561673221561
+      }
+    }
+  ],
   "missed_positive_reference": 17,
   "missed_negative_reference": 20,
   "actual_win_rate_pct": null,
