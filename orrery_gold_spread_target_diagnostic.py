@@ -51,12 +51,18 @@ def summarize(audit, *, fixed_stop_price=STOP_PRICE_DISTANCE, target_rs=TARGET_R
     comparisons=[]
     for r in target_rs:
         target=fixed_stop_price*r
+        # These flags compare historical quote spread to a nominal reference
+        # target; they are not executable hours or opportunity probabilities.
+        median_hours=[h['utc_hour'] for h in hours if h['median']>=target]
+        p95_hours=[h['utc_hour'] for h in hours if h['p95']>=target]
         comparisons.append(dict(target_r=r,gross_target_price_distance=target,
+            hourly_median_at_or_above_target=median_hours,
+            hourly_p95_at_or_above_target=p95_hours,
+            hourly_p95_below_target=[h['utc_hour'] for h in hours if h['p95']<target],
+            quote_weighted_hour_coverage_not_trade_coverage=True,
             all_ticks_median_spread_to_target=summary['median']/target,
             all_ticks_p95_spread_to_target=summary['p95']/target,
-            utc_hours_where_p95_spread_exceeds_gross_target=[
-                h['utc_hour'] for h in hours if h['p95']>=target
-            ]))
+            utc_hours_where_p95_spread_exceeds_gross_target=p95_hours))
     return dict(status='HISTORICAL_SPREAD_TARGET_SIZE_DIAGNOSTIC_ONLY',
         symbol='XAUUSD',source_month_fixed_est='202610',source_zip_sha256=PINNED_ZIP_SHA256,
         source_ticks=ticks,spread_price_units='XAUUSD quoted price difference',
