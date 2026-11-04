@@ -16,7 +16,7 @@ def fixtures(kind='A'):
         m5.append(bar(45000,109,114,110,111))
     else:
         m15.append(bar(44100,105,135,112,110))
-        m5=[bar(t,116,120,118,118) for t in range(43500,44701,300)]
+        m5=[bar(t,116,120,118,118) for t in range(42900,44701,300)]
         m5.append(bar(45000,113,119,118,114))
     return h4,m15,m5
 
