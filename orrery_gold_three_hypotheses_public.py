@@ -32,7 +32,7 @@ def run(raw, m15, *, expected_sha256=PIN):
             raise ValueError('Missing expected OHLC fields')
         for row in reader:
             dt=datetime.fromisoformat(row['timestamp_utc'])
-            if dt.tzinfo is None or dt.utcoffset()!=timedelta(0):
+            if dt.tzinfo is None or dt.utcoffset()!=timedelta(0) or dt.second or dt.microsecond:
                 raise ValueError('Explicit UTC required')
             open_stamp=int(dt.timestamp())
             if open_stamp%900:raise ValueError('Unaligned M15 open')
