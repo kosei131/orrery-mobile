@@ -64,12 +64,22 @@ class GoldMTFABTests(unittest.TestCase):
 
     def test_room_requirement_rejects(self):
         h,m,f=fixtures()
-        h[-1]['high']=115
+        f[-1].update(open=111,close=114,high=115)
         self.assertIsNone(candidate(h,m,f,as_of=45000))
 
     def test_context_not_ready(self):
         h,m,f=fixtures()
         self.assertIsNone(candidate(h[:2],m,f,as_of=45000))
+
+    def test_earlier_m5_confirmation_prevents_duplicate(self):
+        h,m,f=fixtures()
+        f[-2].update(close=111,high=113)
+        self.assertIsNone(candidate(h,m,f,as_of=45000))
+
+    def test_structure_breached_before_confirmation(self):
+        h,m,f=fixtures()
+        f[-2]['low']=99
+        self.assertIsNone(candidate(h,m,f,as_of=45000))
 
     def test_snapshot_not_mutated(self):
         h,m,f=fixtures()
