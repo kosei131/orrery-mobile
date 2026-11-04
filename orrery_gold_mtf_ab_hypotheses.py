@@ -108,7 +108,7 @@ def candidate(h4,m15,m5,*,as_of):
     # Reversal B demands a sweep beyond an earlier H4 outer extreme, not
     # just a local M15 breakout.
     if family=='B_COUNTER_SWEEP':
-        outer=min(x['low'] for x in h4[-3:-1]) if side=='BUY' else max(x['high'] for x in h4[-3:-1])
+        outer=min(x['low'] for x in h4[-3:]) if side=='BUY' else max(x['high'] for x in h4[-3:])
         if not (sweep['low']<outer if side=='BUY' else sweep['high']>outer):
             return None
     entry=Decimal(str(confirm['close']))
