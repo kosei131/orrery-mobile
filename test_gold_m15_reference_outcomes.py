@@ -37,12 +37,12 @@ class M15ReferenceTests(unittest.TestCase):
         self.assertEqual(x['state'],'CENSORED_M15_GAP')
 
     def test_stop_gap_open_not_rounded(self):
-        x=measure([bar(1),bar(2,o=990,high=1000,low=989,close=990)], [signal()])['candidates'][0]
+        x=measure([bar(1),bar(2,high=1002,low=997),bar(3,o=990,high=1000,low=989,close=990)], [signal()])['candidates'][0]
         self.assertEqual(x['state'],'STOP_GAP_OPEN_REFERENCE')
         self.assertLess(x['reference_r'],-1)
 
     def test_favorable_gap_capped(self):
-        x=measure([bar(1),bar(2,o=1012,high=1013,low=1011,close=1012)], [signal()])['candidates'][0]
+        x=measure([bar(1),bar(2,high=1002,low=997),bar(3,o=1012,high=1013,low=1011,close=1012)], [signal()])['candidates'][0]
         self.assertEqual(x['state'],'TARGET_GAP_OPEN_REFERENCE_CAPPED')
         self.assertEqual(x['reference_r'],1.5)
 
