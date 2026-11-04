@@ -33,7 +33,7 @@ class WindowTests(unittest.TestCase):
 
     def test_entry_second_excluded(self):
         r=self.evaluate([(0,999,1003),(0,1100,1105),(1000,1002,1007)])
-        self.assertEqual(r['target_results']['small']['status'],'CENSORED_DATA_END')
+        self.assertEqual(r['target_results']['small']['status'],'CENSORED_ENTRY_SAME_SECOND_AMBIGUOUS')
 
     def test_no_post_entry_quotes(self):
         r=self.evaluate([(0,1000,1005)])
@@ -53,6 +53,21 @@ class WindowTests(unittest.TestCase):
         self.assertIsNone(r['account_return_pct'])
         self.assertFalse(r['execution_allowed'])
         self.assertFalse(r['backtest_ready'])
+
+    def test_missing_entry_censored(self):
+        r=self.evaluate([(1000,1000,1005),(2000,1040,1045)])
+        self.assertEqual(r['entry_status'],'ENTRY_UNOBSERVED')
+        self.assertEqual(r['target_results']['small']['status'],'CENSORED_ENTRY_UNOBSERVED')
+
+    def test_preentry_gap_unrelated(self):
+        r=compare_barriers([(1000,1000,1005),(100000,1000,1005),(101000,1011,1016)],
+                           entry_utc_ms=100000,side='BUY',stop=990,
+                           targets={'small':1010,'normal':1030})
+        self.assertEqual(r['target_results']['small']['status'],'TARGET_OBSERVED')
+
+    def test_equal_second_entry_duplicate_censored(self):
+        r=self.evaluate([(0,1000,1005),(0,1000,1005),(1000,1011,1016)])
+        self.assertEqual(r['entry_status'],'ENTRY_SAME_SECOND_AMBIGUOUS')
 
 if __name__ == '__main__':
     unittest.main()
