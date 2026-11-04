@@ -73,6 +73,20 @@ class MTFReplayTests(TestCase):
         with self.assertRaises(ValueError):
             self.replay(d)
 
+    def test_real_bridge_open_time_metadata_accepted(self):
+        d=fixtures()
+        for tf,seconds in (('H4',14400),('M15',900),('M5',300)):
+            for b in d[tf]:
+                b['open_time']=b['close_time']-seconds
+        r=self.replay(d)
+        self.assertEqual(r['candidate_counts']['A_CONTINUATION'],1)
+
+    def test_bridge_open_close_mismatch_rejected(self):
+        d=fixtures()
+        d['M15'][-1]['open_time']=0
+        with self.assertRaisesRegex(ValueError, 'M15 bridge open/close clock mismatch'):
+            self.replay(d)
+
     def test_zero_future_leakage(self):
         d=fixtures()
         a=self.replay(d)
