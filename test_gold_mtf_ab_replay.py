@@ -27,12 +27,15 @@ class MTFReplayTests(TestCase):
         self.pin=hashlib.sha256(self.source.read_bytes()).hexdigest()
         for tf in ('H4','M15','M5'):
             (self.root/f'XAUUSD_{tf}_UNVERIFIED_QUOTE.csv').write_bytes(tf.encode())
+        self.bars_pins={tf:hashlib.sha256(tf.encode()).hexdigest()
+                        for tf in ('H4','M15','M5')}
 
     def replay(self,data):
         def mock_load(path,tf):
             return dict(bars=data[tf])
         with mock.patch('orrery_gold_mtf_ab_replay.load',side_effect=mock_load):
-            return run(self.source,self.root,expected_source_sha256=self.pin)
+            return run(self.source,self.root,expected_source_sha256=self.pin,
+                       expected_bars_sha256=self.bars_pins)
 
     def test_A_candidate_once_without_filled_trade(self):
         x=self.replay(fixtures())
@@ -57,6 +60,18 @@ class MTFReplayTests(TestCase):
         h=fixtures()['H4']
         h[-2]['close_time']-=14400
         self.assertEqual(_recent(h,[b['close_time'] for b in h],45000,'H4'),[])
+
+    def test_changed_aggregated_m5_hash_rejected(self):
+        d=fixtures()
+        (self.root/'XAUUSD_M5_UNVERIFIED_QUOTE.csv').write_bytes(b'bad M5')
+        with self.assertRaisesRegex(ValueError, 'M5 normalized OHLC SHA256 mismatch'):
+            self.replay(d)
+
+    def test_missing_aggregated_hash_pin_rejected(self):
+        d=fixtures()
+        self.bars_pins.pop('M15')
+        with self.assertRaises(ValueError):
+            self.replay(d)
 
     def test_zero_future_leakage(self):
         d=fixtures()
