@@ -90,7 +90,13 @@ jobs:
         run: python orrery_public_m1_gap_inventory.py --source xauusd_public_m1.csv --output public_xau_m1_gap_inventory.json
       - name: Verify explicit UTC and generate complete M5 M15 H4 research bars
         run: python orrery_public_xau_to_bars.py xauusd_public_m1.csv --out public_xau_bars
-      - name: Count causal Gold M15 trend sweep and failed-break hypotheses\n        run: python orrery_gold_three_hypotheses_public.py xauusd_public_m1.csv public_xau_bars/XAUUSD_M15_UNVERIFIED_QUOTE.csv public_xau_three_hypotheses.json\n      - name: Evaluate three Gold M15 hypotheses with conservative OHLC reference outcomes\n        run: python orrery_gold_three_hypotheses_outcome_study.py xauusd_public_m1.csv public_xau_bars/XAUUSD_M15_UNVERIFIED_QUOTE.csv public_xau_three_hypotheses_outcomes.json\n      - name: Count Gold H4 M15 M5 causal A and B candidates on pinned public data\n        run: python orrery_gold_mtf_ab_replay.py xauusd_public_m1.csv public_xau_bars public_xau_mtf_ab_candidates.json\n      - name: Crosscheck original and normalized M1 before separate session diagnostics
+      - name: Count causal Gold M15 trend sweep and failed-break hypotheses
+        run: python orrery_gold_three_hypotheses_public.py xauusd_public_m1.csv public_xau_bars/XAUUSD_M15_UNVERIFIED_QUOTE.csv public_xau_three_hypotheses.json
+      - name: Evaluate three Gold M15 hypotheses with conservative OHLC reference outcomes
+        run: python orrery_gold_three_hypotheses_outcome_study.py xauusd_public_m1.csv public_xau_bars/XAUUSD_M15_UNVERIFIED_QUOTE.csv public_xau_three_hypotheses_outcomes.json
+      - name: Count Gold H4 M15 M5 causal A and B candidates on pinned public data
+        run: python orrery_gold_mtf_ab_replay.py xauusd_public_m1.csv public_xau_bars public_xau_mtf_ab_candidates.json
+      - name: Crosscheck original and normalized M1 before separate session diagnostics
         run: python orrery_history_app.py --bars public_xau_bars --source xauusd_public_m1.csv --output public_xau_history_session_review.json --session-review-dir public_xau_history_session_diagnostic
       - name: Compare post-publication complete and unverified weekly H4 with fixed LSR02 VHF03
         run: python -c "from pathlib import Path; from hashlib import sha256; from orrery_history_session_study import run; p=Path('xauusd_public_m1.csv'); run(p,Path('public_xau_bars'),Path('public_xau_paired_session_study'),expected_source_sha256=sha256(p.read_bytes()).hexdigest())"
@@ -184,7 +190,10 @@ jobs:
         with:
           name: xauusd-public-m1-audit
           path: |
-            public_xau_audit.json\n            public_xau_three_hypotheses.json\n            public_xau_three_hypotheses_outcomes.json\n            public_xau_mtf_ab_candidates.json
+            public_xau_audit.json
+            public_xau_three_hypotheses.json
+            public_xau_three_hypotheses_outcomes.json
+            public_xau_mtf_ab_candidates.json
             public_xau_m1_gap_inventory.json
             public_xau_history_session_review.json
             public_xau_history_session_diagnostic/report.json
