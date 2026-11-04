@@ -119,5 +119,8 @@
   "actual_net_expectancy_r": null,
   "account_return_pct": null,
   "adoption_allowed": false,
-  "execution_allowed": false
+  "execution_allowed": false,
+  "nonresolved_candidate_slots_include_unentered_or_skipped_plans": true,
+  "synthetic_scenarios_not_realizable_trade_portfolios": true,
+  "warning": "Nonresolved candidate slots can include structural skips and no-entry plans, not just open trades. Assigning -1R/+1.5R to every slot is an intentionally artificial denominator sensitivity; do not interpret as PnL bounds, actual failed entries, or confidence intervals."
 }
