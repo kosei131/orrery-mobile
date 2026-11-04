@@ -93,6 +93,15 @@ def candidate(h4,m15,m5,*,as_of):
     confirmed=(confirm['close']>reference and confirm['close']>confirm['open']
                if side=='BUY' else confirm['close']<reference and confirm['close']<confirm['open'])
     if not confirmed:return None
+    after_sweep=[b for b in m5[:-1] if sweep['close_time']<b['close_time']<as_of]
+    # No delayed duplicate candidate after an earlier confirming close; a
+    # structure failure before confirmation permanently invalidates this sweep.
+    if side=='BUY':
+        if any(b['close']>reference or b['low']<=sweep['low'] for b in after_sweep):
+            return None
+    else:
+        if any(b['close']<reference or b['high']>=sweep['high'] for b in after_sweep):
+            return None
     family='A_CONTINUATION' if (side=='BUY')==is_up else 'B_COUNTER_SWEEP'
     # Reversal B demands a sweep beyond an earlier H4 outer extreme, not
     # just a local M15 breakout.
