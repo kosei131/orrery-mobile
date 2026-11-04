@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 from orrery_gold_three_hypotheses_public import run as candidates_from_public, SCALE
 from orrery_gold_m15_reference_outcomes import measure
+from orrery_gold_m15_report_audit import audit
 
 
 def compare(raw,m15):
@@ -35,6 +36,7 @@ def compare(raw,m15):
     if sha256(m15.read_bytes()).hexdigest()!=before or len(bars)!=report['input_candles']:
         raise ValueError('M15 input changed during comparison')
     result=measure(bars,report['signals'])
+    result['cohort_integrity_audit']=audit(result)
     result['raw_source_sha256']=report['raw_source_sha256']
     result['m15_sha256']=before
     result['input_m15_bars']=len(bars)
