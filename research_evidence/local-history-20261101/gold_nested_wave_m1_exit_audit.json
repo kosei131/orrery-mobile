@@ -320,6 +320,95 @@
           }
         ]
       },
+      "payoff_audit": {
+        "resolved": 10,
+        "target_below_one_r": 6,
+        "median_target_r": 0.5826900705071458,
+        "mean_positive_reference_r": 0.26669615391679796,
+        "mean_negative_reference_r": -0.8625412376287114,
+        "records": [
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
+            "target_r": 1.5,
+            "risk_price": 10.3,
+            "realized_reference_r": -1.0,
+            "observed_pre_exit_minutes": 53,
+            "best_bid_move_before_exit_bar_r": 0.12524271844660195
+          },
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1788796800",
+            "target_r": 0.7324840764331267,
+            "risk_price": 6.28,
+            "realized_reference_r": -1.0,
+            "observed_pre_exit_minutes": 113,
+            "best_bid_move_before_exit_bar_r": 0.3471337579617834
+          },
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1788867000",
+            "target_r": 0.2716914986854243,
+            "risk_price": 11.41,
+            "realized_reference_r": 0.2716914986854243,
+            "observed_pre_exit_minutes": 6,
+            "best_bid_move_before_exit_bar_r": 0.26117440841367223
+          },
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1788928200",
+            "target_r": 0.3777120315581639,
+            "risk_price": 10.14,
+            "realized_reference_r": 0.3777120315581639,
+            "observed_pre_exit_minutes": 37,
+            "best_bid_move_before_exit_bar_r": 0.34516765285996054
+          },
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1789636500",
+            "target_r": 1.5,
+            "risk_price": 6.28,
+            "realized_reference_r": -1.0,
+            "observed_pre_exit_minutes": 11,
+            "best_bid_move_before_exit_bar_r": 0.0
+          },
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1790273700",
+            "target_r": 1.2701189643106634,
+            "risk_price": 14.29,
+            "realized_reference_r": -0.03778866340097971,
+            "observed_pre_exit_minutes": 119,
+            "best_bid_move_before_exit_bar_r": 0.7788663400979706
+          },
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1790339400",
+            "target_r": 0.432896064581165,
+            "risk_price": 9.91,
+            "realized_reference_r": -1.0,
+            "observed_pre_exit_minutes": 13,
+            "best_bid_move_before_exit_bar_r": -0.056508577194752774
+          },
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1791282600",
+            "target_r": 0.1506849315068057,
+            "risk_price": 5.84,
+            "realized_reference_r": 0.1506849315068057,
+            "observed_pre_exit_minutes": 1,
+            "best_bid_move_before_exit_bar_r": 0.11472602739726027
+          },
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1791776700",
+            "target_r": 1.5,
+            "risk_price": 5.31,
+            "realized_reference_r": -1.0,
+            "observed_pre_exit_minutes": 19,
+            "best_bid_move_before_exit_bar_r": 0.263653483992467
+          },
+          {
+            "candidate_id": "GOLD_NESTED_WAVE_BUY:1791953100",
+            "target_r": 0.11872146118720796,
+            "risk_price": 10.95,
+            "realized_reference_r": -1.0,
+            "observed_pre_exit_minutes": 60,
+            "best_bid_move_before_exit_bar_r": 0.053881278538812784
+          }
+        ]
+      },
       "comparisons": [
         {
           "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
@@ -485,6 +574,14 @@
           }
         ]
       },
+      "payoff_audit": {
+        "resolved": 0,
+        "target_below_one_r": 0,
+        "median_target_r": null,
+        "mean_positive_reference_r": null,
+        "mean_negative_reference_r": null,
+        "records": []
+      },
       "comparisons": []
     },
     "delayed_with_room_gate": {
@@ -549,6 +646,14 @@
             "pf": null
           }
         ]
+      },
+      "payoff_audit": {
+        "resolved": 0,
+        "target_below_one_r": 0,
+        "median_target_r": null,
+        "mean_positive_reference_r": null,
+        "mean_negative_reference_r": null,
+        "records": []
       },
       "comparisons": []
     }

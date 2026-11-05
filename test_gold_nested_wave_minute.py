@@ -1,6 +1,6 @@
 import unittest
 
-from orrery_gold_nested_wave_minute import minute_exit
+from orrery_gold_nested_wave_minute import audit_payoff, minute_exit
 
 
 class MinuteExitTests(unittest.TestCase):
@@ -23,3 +23,12 @@ class MinuteExitTests(unittest.TestCase):
             result = minute_exit(self.record, bid, end=900)
             self.assertEqual(result['state'], state)
             self.assertIsNone(result['reference_r'])
+
+    def test_payoff_audit_does_not_use_extreme_from_exit_bar(self):
+        bid = {300: dict(open=100, high=102, low=99, close=100),
+               360: dict(open=100, high=106, low=99, close=103)}
+        exit_record = dict(minute_exit(self.record, bid, end=900), candidate_id='demo')
+        audit = audit_payoff([exit_record], bid)
+        self.assertEqual(audit['median_target_r'], 1.0)
+        self.assertEqual(audit['records'][0]['observed_pre_exit_minutes'], 1)
+        self.assertAlmostEqual(audit['records'][0]['best_bid_move_before_exit_bar_r'], 1/3)

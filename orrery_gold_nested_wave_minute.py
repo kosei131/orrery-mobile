@@ -4,6 +4,7 @@ import argparse
 from decimal import Decimal
 import json
 from pathlib import Path
+from statistics import mean, median
 
 from orrery_gold_nested_wave_october import END, SOURCE, read_pinned
 from orrery_gold_nested_wave_paired import run as paired_replay
@@ -47,6 +48,34 @@ def minute_exit(record, bid, *, end):
     raise AssertionError('M1 exit horizon must terminate')
 
 
+def audit_payoff(records, bid):
+    rows = []
+    for record in records:
+        if record['reference_r'] is None:
+            continue
+        entry, stop, target = (Decimal(record[key]) for key in
+                               ('entry_open_reference', 'structural_stop', 'target_reference'))
+        risk = entry - stop
+        before_exit = range(record['known_at_utc'], record['exit_m1_close'] - 60, 60)
+        highs = [Decimal(str(bid[stamp]['high'])) for stamp in before_exit]
+        best = max(highs, default=None)
+        rows.append(dict(
+            candidate_id=record['candidate_id'], target_r=float((target - entry) / risk),
+            risk_price=float(risk), realized_reference_r=record['reference_r'],
+            observed_pre_exit_minutes=len(highs),
+            best_bid_move_before_exit_bar_r=float((best - entry) / risk) if best is not None else None,
+        ))
+    targets = [row['target_r'] for row in rows]
+    positive = [row['realized_reference_r'] for row in rows if row['realized_reference_r'] > 0]
+    negative = [row['realized_reference_r'] for row in rows if row['realized_reference_r'] < 0]
+    return dict(resolved=len(rows), target_below_one_r=sum(value < 1 for value in targets),
+                median_target_r=median(targets) if targets else None,
+                mean_positive_reference_r=mean(positive) if positive else None,
+                mean_negative_reference_r=mean(negative) if negative else None,
+                records=rows)
+
+
+
 def run(root):
     paired = paired_replay(root)
     sep, _ = read_pinned(root / 'bid_2026_09.csv', 'bid_2026_09.csv')
@@ -59,6 +88,7 @@ def run(root):
         reports[arm] = dict(
             previous_m5=paired['paired'][arm]['summary'],
             minute=summarize(minute),
+            payoff_audit=audit_payoff(minute, bid),
             comparisons=[dict(candidate_id=a['candidate_id'], m5_state=a['state'],
                               m5_reference_r=a['reference_r'], m5_close=a['exit_m5_close'],
                               m1_state=b['state'],
