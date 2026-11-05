@@ -64,3 +64,7 @@
 成立10件の入口価格差は中央値0.645、範囲0.42〜0.81。Ask入口・Bid出口の決着群は平均−0.524R、PF 0.133、プラス3/10。内訳はTP 3、SL 6、期限1。次M5欠損1件は未決着。即時案の従来Bid参照は費用ゼロで平均−0.488R、0.54仮定で−0.561R。両側価格の参照でもマイナスだった。待機案の成立は0件。第三者表記OHLCによる探索で、ブローカー約定・手数料・実口座利益率は未確認。
 
 再現は `python orrery_gold_nested_wave_paired.py ARCHIVE_DIR NEW_OUTPUT.json`。候補ごとの比較は `research_evidence/local-history-20261101/gold_nested_wave_paired_reference.json` に記録した。
+
+9〜10月の同じ11候補でAsk入口、SL、TPを固定し、Bidの確定M1で出口を再点検した。保有上限は同じ120分。欠損をまたがず、同じ1分足で両方に触れた場合は未決着。始値がSLを越えた場合は観測始値を使用し、TPを越えた場合はTP価格を上限とする。M5で入口が成立しなかった候補は今回も維持した。
+
+10件の決着種別とRはすべてM5と一致。うち8件は、決着を確認できる足の終値時刻が1〜4分早まった。追加費用なしの価格参照は平均−0.524R、PF 0.133。1件は未決着。再現は `python orrery_gold_nested_wave_minute.py ARCHIVE_DIR NEW_OUTPUT.json`。候補別の時刻は `research_evidence/local-history-20261101/gold_nested_wave_m1_exit_audit.json` に保存した。
