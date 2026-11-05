@@ -30,7 +30,7 @@ def complete_hours(bars):
     }
 
 
-def wait_for_resume(bars, at, origin, reversal_low):
+def wait_for_resume(bars, at, origin, reversal_low, *, trace=None):
     """BUY study only. First confirmed pullback then close above its high."""
     pullback = None
     previous = origin
@@ -41,9 +41,16 @@ def wait_for_resume(bars, at, origin, reversal_low):
             return 'WAIT_DATA_GAP', None
         if bar['low'] <= reversal_low:
             return 'WAIT_INVALIDATED', None
-        if pullback is not None and bar['close'] > pullback['high']:
+        resume = pullback is not None and bar['close'] > pullback['high']
+        new_pullback = bar['close'] < previous['close'] and bar['low'] < previous['low']
+        if trace is not None:
+            trace.append(dict(close_time=clock, high=bar['high'], low=bar['low'],
+                              close=bar['close'], prior_pullback_high=(
+                                  pullback['high'] if pullback is not None else None),
+                              new_pullback=new_pullback, resume=resume))
+        if resume:
             return 'RESUMED', clock
-        if bar['close'] < previous['close'] and bar['low'] < previous['low']:
+        if new_pullback:
             pullback = bar
         previous = bar
     return 'WAIT_EXPIRED', None

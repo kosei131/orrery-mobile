@@ -1,11 +1,13 @@
 # SPDX-License-Identifier: GPL-3.0-only
 """Exploratory replay on pinned September and October Bid-labeled OHLC."""
 import argparse
+from collections import Counter
 from datetime import datetime, timezone
 import json
 from pathlib import Path
 
-from orrery_gold_nested_wave_holdout import replay_window
+from orrery_gold_nested_wave_holdout import complete_m15, replay_window
+from orrery_gold_nested_wave_study import candidates, wait_for_resume
 from orrery_paired_archive_study import SOURCE_PINS, read_side
 
 SOURCE = 'bid_2026_10.csv'
@@ -45,6 +47,30 @@ def run(source):
                 cost_model='flat hypothetical friction; no Ask entry or broker fills',
                 out_of_sample=False, independent_source_authentication=False)
 
+def audit_expiries(bars):
+    m15 = complete_m15([row for row in bars if row['close_time'] < END])
+    by_close = {row['close_time']: row for row in m15}
+    details = []
+    for candidate, state, _ in candidates(m15):
+        if state != 'WAIT_EXPIRED':
+            continue
+        at = candidate['known_at_utc']
+        trace = []
+        result, _ = wait_for_resume(by_close, at, by_close[at],
+                                    candidate['structural_stop'], trace=trace)
+        if result != state:
+            raise ValueError('Wait replay mismatch')
+        ceiling = candidate['indicative_close'] + candidate['known_room_price']
+        details.append(dict(candidate_id=candidate['candidate_id'],
+                            stage=('PULLBACK_WITHOUT_RESUME' if any(row['new_pullback'] for row in trace)
+                                   else 'NO_PULLBACK'),
+                            ceiling=ceiling,
+                            ceiling_touched_while_waiting=any(row['high'] >= ceiling for row in trace),
+                            confirmed_m15_trace=trace))
+    return dict(counts=dict(Counter(row['stage'] for row in details)), records=details)
+
+
+
 def compare_months(september, october):
     sep, sep_audit = read_pinned(september, 'bid_2026_09.csv')
     oct_, oct_audit = read_pinned(october, SOURCE)
@@ -57,6 +83,7 @@ def compare_months(september, october):
         source_audits=dict(september=sep_audit, october=oct_audit),
         out_of_sample=False, independent_source_authentication=False,
         pooled=replay_window(bars, start=SEPTEMBER, end=END),
+        pooled_expiry_audit=audit_expiries(bars),
         september=replay_window(bars, start=SEPTEMBER, end=START),
         october_with_september_context=replay_window(bars, start=START, end=END),
     )

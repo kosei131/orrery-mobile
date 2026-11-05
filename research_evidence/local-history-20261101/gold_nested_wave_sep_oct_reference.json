@@ -885,5 +885,233 @@
     "net_expectancy_r": null,
     "execution_allowed": false,
     "adoption_allowed": false
+  },
+  "pooled_expiry_audit": {
+    "counts": {
+      "PULLBACK_WITHOUT_RESUME": 3,
+      "NO_PULLBACK": 2
+    },
+    "records": [
+      {
+        "candidate_id": "GOLD_NESTED_WAVE_BUY:1788796800",
+        "stage": "PULLBACK_WITHOUT_RESUME",
+        "ceiling": 4419.485,
+        "ceiling_touched_while_waiting": false,
+        "confirmed_m15_trace": [
+          {
+            "close_time": 1788797700,
+            "high": 4417.065,
+            "low": 4412.575,
+            "close": 4415.115,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1788798600,
+            "high": 4415.665,
+            "low": 4412.385,
+            "close": 4413.385,
+            "prior_pullback_high": null,
+            "new_pullback": true,
+            "resume": false
+          },
+          {
+            "close_time": 1788799500,
+            "high": 4413.965,
+            "low": 4411.555,
+            "close": 4413.905,
+            "prior_pullback_high": 4415.665,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1788800400,
+            "high": 4414.275,
+            "low": 4412.735,
+            "close": 4414.205,
+            "prior_pullback_high": 4415.665,
+            "new_pullback": false,
+            "resume": false
+          }
+        ]
+      },
+      {
+        "candidate_id": "GOLD_NESTED_WAVE_BUY:1788928200",
+        "stage": "NO_PULLBACK",
+        "ceiling": 4384.335,
+        "ceiling_touched_while_waiting": true,
+        "confirmed_m15_trace": [
+          {
+            "close_time": 1788929100,
+            "high": 4379.975,
+            "low": 4375.885,
+            "close": 4377.775,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1788930000,
+            "high": 4382.345,
+            "low": 4377.195,
+            "close": 4381.065,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1788930900,
+            "high": 4387.565,
+            "low": 4380.105,
+            "close": 4387.465,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1788931800,
+            "high": 4388.365,
+            "low": 4382.865,
+            "close": 4384.755,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          }
+        ]
+      },
+      {
+        "candidate_id": "GOLD_NESTED_WAVE_BUY:1790273700",
+        "stage": "PULLBACK_WITHOUT_RESUME",
+        "ceiling": 4288.325,
+        "ceiling_touched_while_waiting": false,
+        "confirmed_m15_trace": [
+          {
+            "close_time": 1790274600,
+            "high": 4275.105,
+            "low": 4266.665,
+            "close": 4274.375,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1790275500,
+            "high": 4281.305,
+            "low": 4267.245,
+            "close": 4271.145,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1790276400,
+            "high": 4276.895,
+            "low": 4270.075,
+            "close": 4271.535,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1790277300,
+            "high": 4272.235,
+            "low": 4266.535,
+            "close": 4267.305,
+            "prior_pullback_high": null,
+            "new_pullback": true,
+            "resume": false
+          }
+        ]
+      },
+      {
+        "candidate_id": "GOLD_NESTED_WAVE_BUY:1791282600",
+        "stage": "NO_PULLBACK",
+        "ceiling": 4155.455,
+        "ceiling_touched_while_waiting": true,
+        "confirmed_m15_trace": [
+          {
+            "close_time": 1791283500,
+            "high": 4160.605,
+            "low": 4153.935,
+            "close": 4160.025,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1791284400,
+            "high": 4160.545,
+            "low": 4157.685,
+            "close": 4158.185,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1791285300,
+            "high": 4160.575,
+            "low": 4155.805,
+            "close": 4160.255,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1791286200,
+            "high": 4165.725,
+            "low": 4160.295,
+            "close": 4164.565,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          }
+        ]
+      },
+      {
+        "candidate_id": "GOLD_NESTED_WAVE_BUY:1791953100",
+        "stage": "PULLBACK_WITHOUT_RESUME",
+        "ceiling": 4167.605,
+        "ceiling_touched_while_waiting": false,
+        "confirmed_m15_trace": [
+          {
+            "close_time": 1791954000,
+            "high": 4166.895,
+            "low": 4164.595,
+            "close": 4165.525,
+            "prior_pullback_high": null,
+            "new_pullback": false,
+            "resume": false
+          },
+          {
+            "close_time": 1791954900,
+            "high": 4165.948,
+            "low": 4157.785,
+            "close": 4162.365,
+            "prior_pullback_high": null,
+            "new_pullback": true,
+            "resume": false
+          },
+          {
+            "close_time": 1791955800,
+            "high": 4162.495,
+            "low": 4156.865,
+            "close": 4157.398,
+            "prior_pullback_high": 4165.948,
+            "new_pullback": true,
+            "resume": false
+          },
+          {
+            "close_time": 1791956700,
+            "high": 4162.925,
+            "low": 4156.525,
+            "close": 4157.545,
+            "prior_pullback_high": 4162.495,
+            "new_pullback": false,
+            "resume": false
+          }
+        ]
+      }
+    ]
   }
 }
