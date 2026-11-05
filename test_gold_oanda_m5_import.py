@@ -79,4 +79,9 @@ class OandaImportTests(unittest.TestCase):
                 self.assertEqual(immediate[0]['state'], 'TARGET_REFERENCE')
                 self.assertEqual(delayed[0]['state'], 'TARGET_REFERENCE')
                 self.assertEqual(filtered, delayed if should_pass else [])
+                rejected = report['room_gate_rejections']
+                self.assertEqual(rejected['resolved_count'], 0 if should_pass else 1)
+                cost_case = next(s for s in rejected['scenarios']
+                                 if s['assumed_round_trip_cost_price'] == 0.54)
+                self.assertEqual(cost_case['missed_profit_count'], 0 if should_pass else 1)
                 self.assertIsNone(report['account_return_pct'])

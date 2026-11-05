@@ -75,3 +75,22 @@ class HoldoutTests(unittest.TestCase):
             receipt['session_intervals'][1]['start_utc_epoch'] = start
             with self.assertRaisesRegex(ValueError, 'non-overlapping'):
                 study.classify_session_slots([], receipt)
+
+    def test_rejected_outcomes_preserve_unknowns_and_cost_can_flip_profit(self):
+        records = [
+            dict(candidate_id='small_tp', reference_r=0.1,
+                 entry_open_reference='104', structural_stop='100'),
+            dict(candidate_id='unknown', reference_r=None),
+            dict(candidate_id='passed', reference_r=1.0),
+        ]
+        screens = {key: {'decision': 'NET_REWARD_BELOW_RISK'}
+                   for key in ('small_tp', 'unknown')}
+        screens['passed'] = {'decision': 'PASS_RESEARCH_SCREEN'}
+        result = study.summarize_gate_rejections(records, screens)
+        self.assertEqual(result['unresolved_candidate_ids'], ['unknown'])
+        self.assertEqual(result['resolved_count'], 1)
+        self.assertEqual(result['scenarios'][0]['missed_profit_count'], 1)
+        cost_case = next(s for s in result['scenarios']
+                         if s['assumed_round_trip_cost_price'] == 0.54)
+        self.assertEqual(cost_case['avoided_loss_count'], 1)
+        self.assertAlmostEqual(cost_case['avoided_loss_r'], 0.035)

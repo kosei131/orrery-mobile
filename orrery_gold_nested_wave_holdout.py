@@ -5,10 +5,11 @@ from collections import Counter
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
+from math import fsum, isclose
 from pathlib import Path
 
 from orrery_gold_mtf_ab_price_references import evaluate
-from orrery_gold_nested_wave_study import candidates, resume_room_gate, summarize
+from orrery_gold_nested_wave_study import COSTS, candidates, resume_room_gate, summarize
 from orrery_real_bars_lsr_bridge import load
 
 START = int(datetime(2026, 12, 1, tzinfo=timezone.utc).timestamp())
@@ -31,6 +32,33 @@ def complete_m15(m5):
                            high=max(bar['high'] for bar in group),
                            low=min(bar['low'] for bar in group)))
     return result
+
+
+def summarize_gate_rejections(records, screens):
+    """Measure what the room gate excludes using the unchanged delayed outcomes."""
+    rejected = [row for row in records
+                if screens[row['candidate_id']]['decision'] != 'PASS_RESEARCH_SCREEN']
+    resolved = [row for row in rejected if row['reference_r'] is not None]
+    scenarios = []
+    for cost in COSTS:
+        values = []
+        for row in resolved:
+            width = abs(float(row['entry_open_reference']) - float(row['structural_stop']))
+            adjusted = row['reference_r'] - cost / width
+            values.append(0.0 if isclose(adjusted, 0.0, abs_tol=1e-12) else adjusted)
+        losses = [value for value in values if value < 0]
+        gains = [value for value in values if value > 0]
+        scenarios.append(dict(assumed_round_trip_cost_price=cost,
+                              avoided_loss_count=len(losses), missed_profit_count=len(gains),
+                              flat_count=len(values)-len(losses)-len(gains),
+                              avoided_loss_r=-fsum(losses) if losses else 0.0,
+                              missed_profit_r=fsum(gains)))
+    return dict(rejected_candidate_ids=[row['candidate_id'] for row in rejected],
+                resolved_count=len(resolved),
+                unresolved_candidate_ids=[row['candidate_id'] for row in rejected
+                                          if row['reference_r'] is None],
+                scenarios=scenarios)
+
 
 
 def replay(m5):
@@ -71,13 +99,15 @@ def replay(m5):
         rows = evaluate(exits, group)['records']
         return dict(summary=summarize(rows), records=rows)
 
+    delayed_results = assess(delayed)
     return dict(source_label='OANDA:XAUUSD (caller declaration)',
                 independent_source_authentication=False, start_utc_epoch=START, end_utc_epoch=END,
                 observed_m5=len(exits), observed_m15=sum(b['open_time'] >= START for b in m15),
                 first_observed_m5_open=exits[0]['close_time']-300,
                 last_observed_m5_close=exits[-1]['close_time'],
                 wait_states=dict(wait_states), room_decisions=screens,
-                immediate=assess(immediate), delayed=assess(delayed),
+                immediate=assess(immediate), delayed=delayed_results,
+                room_gate_rejections=summarize_gate_rejections(delayed_results['records'], screens),
                 delayed_with_room_gate=assess(approved),
                 actual_win_rate_pct=None, account_return_pct=None, net_expectancy_r=None,
                 execution_allowed=False, adoption_allowed=False)
