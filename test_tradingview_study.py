@@ -99,3 +99,46 @@ class StudyTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):prepare(paths,config,out)
             (out/'M5.csv').write_bytes(b'changed')
             with self.assertRaises(ValueError):verify(out,result['receipt_sha256'])
+
+
+class AlignedAccountTests(unittest.TestCase):
+    def run_comparison(self, *, h4_high=100):
+        from orrery_aligned_account_study import compare
+
+        catalog = fixture.fixtures.StudyTests()
+        catalog.setUp()
+        self.addCleanup(catalog.doCleanups)
+        catalog.start, catalog.end = 14400, 28800
+        catalog.build([catalog.q(at * 1000, 100, 100.1)
+                       for at in range(catalog.start, catalog.end, 60)])
+        settings = dict(symbol='XAUUSD', data_source='SYNTHETIC_STUDY',
+                        chart_type='STANDARD', price_basis='BID',
+                        time_format='UNIX_SECONDS', as_of_s=catalog.end,
+                        column_map={key: key for key in ('time','open','high','low','close')},
+                        strategy=dict(buffer=.1,target_r=2,period=2,min_vhf=0,
+                                      left=1,right=1,lifetime=6000))
+        raw = {}
+        for frame, interval in (('M5',300), ('M15',900), ('H4',14400)):
+            raw[frame] = export([
+                dict(close_time=at + interval, open=100, high=h4_high if frame=='H4' else 100,
+                     low=100, close=100) for at in range(catalog.start, catalog.end, interval)
+            ], interval)
+        return compare(raw, settings, path=catalog.path,
+                       expected_catalog_sha256=catalog.saved['catalog_sha256'],
+                       max_gap_msc=60000, price_tolerance=0,
+                       volume_min=.01, volume_max=100, volume_step=.01,
+                       pnl_quote=account_fixture.pnl, round_trip_cost_per_lot_usd=.01,
+                       cost_source='SYNTHETIC_USD_MODEL', slippage=0)
+
+    def test_matching_catalog_runs_two_independent_accounts(self):
+        result = self.run_comparison()
+        self.assertEqual(result['status'], 'ALIGNED_SESSION_MODEL_ACCOUNTS')
+        self.assertEqual(result['candidate_counts'], {'LSR02': 0, 'VHF03': 0})
+        self.assertEqual([row['initial_equity_usd'] for row in result['accounts'].values()],
+                         [3000, 3000])
+
+    def test_wrong_h4_blocks_both_accounts(self):
+        result = self.run_comparison(h4_high=101)
+        self.assertEqual(result['status'], 'BLOCKED_BAR_QUOTE_ALIGNMENT')
+        self.assertEqual(result['alignment']['frames']['H4']['mismatched_bars'], 1)
+        self.assertIsNone(result['accounts'])
