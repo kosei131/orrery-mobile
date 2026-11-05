@@ -40,3 +40,11 @@
 休場情報が確認できた場合は、取得票に `session_reference` と `session_intervals` を追加できる。各区間は `start_utc_epoch` 以上・`end_utc_epoch` 未満、UTCの5分境界、状態は `OPEN` または `CLOSED`。期間内で時刻順、重複なし。監査は未観測を「営業と記載」「休場と記載」「根拠なし」に分け、休場と記載された区間に足があれば矛盾として別に数える。区間の記載は取得票の申告として扱い、認証フラグは立てない。週末・祝日の推定補完は行わない。
 
 原本をローカルのJSONページとして確保できたら、`python orrery_gold_oanda_m5_import.py NEW_DIRECTORY PAGE1.json PAGE2.json` で取り込む。XAU_USD・M5・確定MID、UTCの5分境界、価格の整合、ページ間の重複、固定期間と直前3時間の範囲を照合する。対象外や未確定の足を含むページは拒否する。出力は `xauusd_m5_mid.csv` と `source_receipt.json`。各原本ページとCSVのSHA256を取得票に記録する。取得元の独立認証や取引時間の記録は別工程で、模擬JSONによる変換・監査接続を検査済み。
+
+## 10月の既閲覧履歴での探索再生
+
+固定ハッシュの第三者Bid表記M1（UTC 10月1日00:00〜19日13:59）から、連続5本がそろったM5を作り、同じ3案を探索再生した。評価には12月と同じく終了境界より前に閉じた足を使った。先行文脈の追加データは投入していない。OANDA MIDの前向き評価とは別に扱う。
+
+評価対象はM5 3,479本、M15 1,159本。即時4候補のうち3決着（TP 1、SL 2）、次のM5が欠損して1件未決着。往復0.54ドルを仮定した決着群の平均は−0.666R、PF 0.080。待機は期限切れ2、起点割れ1、欠損1で再上昇確認0件。したがって見送り条件の性能はこの期間から算出できない。
+
+再現は `python orrery_gold_nested_wave_october.py BID_ARCHIVE.csv NEW_OUTPUT.json`。証拠は `research_evidence/local-history-20261101/gold_nested_wave_october_reference.json`。結果はBid表記の価格参照と仮定費用による探索値。実Ask入口、約定費用、口座利益率は未確認。

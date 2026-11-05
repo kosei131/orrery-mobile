@@ -61,27 +61,27 @@ def summarize_gate_rejections(records, screens):
 
 
 
-def replay(m5):
-    context = [bar for bar in m5 if START - CONTEXT <= bar['open_time']
-               and bar['close_time'] < END]
-    if not any(bar['open_time'] >= START for bar in context):
+def replay_window(m5, *, start, end):
+    context = [bar for bar in m5 if start - CONTEXT <= bar['open_time']
+               and bar['close_time'] < end]
+    if not any(bar['open_time'] >= start for bar in context):
         raise ValueError('No confirmed M5 observations inside frozen period')
     m15 = complete_m15(context)
     closes = {bar['close_time']: bar['close'] for bar in m15}
-    pairs = [pair for pair in candidates(m15) if pair[0]['known_at_utc'] >= START]
+    pairs = [pair for pair in candidates(m15) if pair[0]['known_at_utc'] >= start]
     exits = [{k: v for k, v in bar.items() if k != 'open_time'}
-             for bar in context if bar['open_time'] >= START]
+             for bar in context if bar['open_time'] >= start]
     immediate, delayed, approved = [], [], []
     wait_states = Counter()
     screens = {}
     for early, state, late in pairs:
         immediate.append(early)
-        if state == 'WAIT_DATA_GAP' and early['known_at_utc'] + 4 * 900 >= END:
+        if state == 'WAIT_DATA_GAP' and early['known_at_utc'] + 4 * 900 >= end:
             # Preserve an actual gap before the boundary as a data gap.
             for offset in range(900, 3601, 900):
                 next_close = early['known_at_utc'] + offset
                 if next_close not in closes:
-                    if next_close >= END:
+                    if next_close >= end:
                         state = 'WAIT_PERIOD_END'
                     break
         wait_states[state] += 1
@@ -100,9 +100,8 @@ def replay(m5):
         return dict(summary=summarize(rows), records=rows)
 
     delayed_results = assess(delayed)
-    return dict(source_label='OANDA:XAUUSD (caller declaration)',
-                independent_source_authentication=False, start_utc_epoch=START, end_utc_epoch=END,
-                observed_m5=len(exits), observed_m15=sum(b['open_time'] >= START for b in m15),
+    return dict(start_utc_epoch=start, end_utc_epoch=end,
+                observed_m5=len(exits), observed_m15=sum(b['open_time'] >= start for b in m15),
                 first_observed_m5_open=exits[0]['close_time']-300,
                 last_observed_m5_close=exits[-1]['close_time'],
                 wait_states=dict(wait_states), room_decisions=screens,
@@ -111,6 +110,13 @@ def replay(m5):
                 delayed_with_room_gate=assess(approved),
                 actual_win_rate_pct=None, account_return_pct=None, net_expectancy_r=None,
                 execution_allowed=False, adoption_allowed=False)
+
+
+def replay(m5):
+    return dict(replay_window(m5, start=START, end=END),
+                source_label='OANDA:XAUUSD (caller declaration)',
+                independent_source_authentication=False)
+
 
 
 def classify_session_slots(slots, receipt):
