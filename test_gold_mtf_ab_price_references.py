@@ -80,5 +80,20 @@ class PriceReferenceTests(unittest.TestCase):
         self.assertFalse(r['adoption_allowed'])
         self.assertFalse(r['execution_allowed'])
 
+
+    def test_matched_ask_changes_entry_risk_but_bid_controls_exit(self):
+        candidate = dict(cand(), known_room_price='5')
+        bars = [bar(1), bar(2, hi=105, lo=99)]
+        row = evaluate(bars, [candidate], buy_ask_open_by_clock={300: 101})['records'][0]
+        self.assertEqual(row['entry_open_reference'], '101')
+        self.assertEqual(row['target_reference'], '105')
+        self.assertAlmostEqual(row['reference_r'], 4/7)
+        missing = evaluate(bars, [candidate], buy_ask_open_by_clock={})['records'][0]
+        self.assertEqual(missing['state'], 'CENSORED_NO_PAIRED_ASK_OPEN')
+        self.assertIsNone(missing['reference_r'])
+        with self.assertRaisesRegex(ValueError, 'Crossed'):
+            evaluate(bars, [candidate], buy_ask_open_by_clock={300: 99})
+
+
 if __name__=='__main__':
     unittest.main()

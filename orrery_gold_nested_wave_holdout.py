@@ -61,7 +61,7 @@ def summarize_gate_rejections(records, screens):
 
 
 
-def replay_window(m5, *, start, end):
+def replay_window(m5, *, start, end, buy_ask_open_by_clock=None):
     context = [bar for bar in m5 if start - CONTEXT <= bar['open_time']
                and bar['close_time'] < end]
     if not any(bar['open_time'] >= start for bar in context):
@@ -96,7 +96,7 @@ def replay_window(m5, *, start, end):
             approved.append(late)
 
     def assess(group):
-        rows = evaluate(exits, group)['records']
+        rows = evaluate(exits, group, buy_ask_open_by_clock=buy_ask_open_by_clock)['records']
         return dict(summary=summarize(rows), records=rows)
 
     delayed_results = assess(delayed)

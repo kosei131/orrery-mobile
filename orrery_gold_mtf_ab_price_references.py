@@ -31,7 +31,8 @@ def _price(x):
     return d
 
 
-def evaluate(bars,candidates):
+def evaluate(bars,candidates,*,buy_ask_open_by_clock=None):
+    """Use Bid exit bars with an optional Ask entry at the same M5 open clock."""
     if not isinstance(bars,(list,tuple)) or not isinstance(candidates,(list,tuple)):
         raise ValueError('Finite bar and candidate arrays required')
     if len(bars)>200000 or len(candidates)>10000:
@@ -68,8 +69,15 @@ def evaluate(bars,candidates):
         j=bisect_right(clocks,at)
         state='CENSORED_NO_NEXT_M5'
         value=None;entry=None;exit_clock=None;target=None;risk=None
-        if j<len(clocks) and clocks[j]==at+STEP:
-            entry=normalized[j]['open']
+        paired = buy_ask_open_by_clock is not None
+        if paired and side != 'BUY':
+            raise ValueError('Ask-entry comparison supports BUY only')
+        if j<len(clocks) and clocks[j]==at+STEP and paired and at not in buy_ask_open_by_clock:
+            state='CENSORED_NO_PAIRED_ASK_OPEN'
+        elif j<len(clocks) and clocks[j]==at+STEP:
+            entry=(_price(buy_ask_open_by_clock[at]) if paired else normalized[j]['open'])
+            if paired and entry < normalized[j]['open']:
+                raise ValueError('Crossed Ask/Bid entry reference')
             risk=(entry-stop if side=='BUY' else stop-entry)
             if risk<=0:
                 state='CENSORED_INVALID_OPEN_RISK'
@@ -95,7 +103,7 @@ def evaluate(bars,candidates):
                         favorable_open=b['open']>=target if side=='BUY' else b['open']<=target
                         stop_hit=b['low']<=stop if side=='BUY' else b['high']>=stop
                         target_hit=b['high']>=target if side=='BUY' else b['low']<=target
-                        if k>0 and adverse_open:
+                        if (k>0 or paired) and adverse_open:
                             state='ADVERSE_OPEN_REFERENCE'
                             value=((b['open']-entry)/risk if side=='BUY' else (entry-b['open'])/risk)
                             break
