@@ -36,3 +36,5 @@
 取得記録JSONに `instrument: OANDA:XAUUSD`、`timeframe: M5`、`price_basis: MID`、`timestamp_convention: UTC_BAR_OPEN`、`confirmed_only: true`、`csv_sha256`、`acquisition_reference` を記録する。参照欄は原本を追跡できる識別子を使用し、認証情報は含めない。正規化CSVの `bid_*` 列名は既存形式との互換用で、この入力の価格種別はMID。費用は従来の感度仮定を適用する。受領記録の内容とハッシュが合わなければ停止する。
 
 監査出力には、期間先頭・途中・末尾の未観測枠を含める。UTCの5分グリッド上の未観測枠であり、休場とデータ欠損の内訳は市場カレンダーとの照合まで未確定。終値時刻が終了境界と同じ足は従来ルールどおり評価対象外。
+
+休場情報が確認できた場合は、取得票に `session_reference` と `session_intervals` を追加できる。各区間は `start_utc_epoch` 以上・`end_utc_epoch` 未満、UTCの5分境界、状態は `OPEN` または `CLOSED`。期間内で時刻順、重複なし。監査は未観測を「営業と記載」「休場と記載」「根拠なし」に分け、休場と記載された区間に足があれば矛盾として別に数える。区間の記載は取得票の申告として扱い、認証フラグは立てない。週末・祝日の推定補完は行わない。

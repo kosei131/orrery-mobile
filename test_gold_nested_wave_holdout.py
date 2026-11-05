@@ -59,3 +59,19 @@ class HoldoutTests(unittest.TestCase):
             for invalid in (dict(receipt, price_basis='BID'), dict(receipt, csv_sha256='b'*64)):
                 with self.assertRaisesRegex(ValueError, 'Source receipt'):
                     study.audit_source([], invalid, digest)
+
+    def test_declared_sessions_keep_unknowns_and_flag_closed_observations(self):
+        start = study.START
+        receipt = dict(session_reference='test schedule', session_intervals=[
+            dict(start_utc_epoch=start, end_utc_epoch=start+300, state='OPEN'),
+            dict(start_utc_epoch=start+300, end_utc_epoch=start+900, state='CLOSED'),
+        ])
+        with patch.object(study, 'END', start+1500):
+            result = study.classify_session_slots([start+300], receipt)
+            self.assertEqual(result['unobserved_declared_open'], 1)
+            self.assertEqual(result['unobserved_declared_closed'], 1)
+            self.assertEqual(result['unobserved_unknown_session'], 1)
+            self.assertEqual(result['observed_declared_closed'], 1)
+            receipt['session_intervals'][1]['start_utc_epoch'] = start
+            with self.assertRaisesRegex(ValueError, 'non-overlapping'):
+                study.classify_session_slots([], receipt)

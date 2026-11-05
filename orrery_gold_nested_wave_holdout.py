@@ -83,8 +83,48 @@ def replay(m5):
                 execution_allowed=False, adoption_allowed=False)
 
 
+def classify_session_slots(slots, receipt):
+    """Classify against explicitly supplied intervals, leaving other slots unknown."""
+    schedule = receipt.get('session_intervals', [])
+    reference = receipt.get('session_reference')
+    if not isinstance(schedule, list) or len(schedule) > 256:
+        raise ValueError('Bounded session intervals required')
+    if schedule and (not isinstance(reference, str) or not reference.strip() or len(reference) > 512):
+        raise ValueError('Session intervals require a provenance reference')
+
+    declared = {}
+    previous_end = START
+    for interval in schedule:
+        if not isinstance(interval, dict):
+            raise ValueError('Invalid session interval')
+        start = interval.get('start_utc_epoch')
+        end = interval.get('end_utc_epoch')
+        state = interval.get('state')
+        if (type(start) is not int or type(end) is not int or start % 300 or end % 300
+                or not previous_end <= start < end <= END or state not in ('OPEN', 'CLOSED')):
+            raise ValueError('Expected sorted non-overlapping UTC M5 session intervals')
+        declared.update(dict.fromkeys(range(start, end, 300), state))
+        previous_end = end
+
+    counts = dict(unobserved_declared_open=0, unobserved_declared_closed=0,
+                  unobserved_unknown_session=0, observed_declared_closed=0)
+    observed = set(slots)
+    for stamp in range(START, END-300, 300):
+        state = declared.get(stamp)
+        if stamp in observed:
+            counts['observed_declared_closed'] += state == 'CLOSED'
+        elif state == 'OPEN':
+            counts['unobserved_declared_open'] += 1
+        elif state == 'CLOSED':
+            counts['unobserved_declared_closed'] += 1
+        else:
+            counts['unobserved_unknown_session'] += 1
+    return dict(counts, session_reference=reference if schedule else None)
+
+
+
 def audit_source(bars, receipt, expected_sha256):
-    """Check declared provenance and inventory the UTC grid without a session calendar."""
+    """Check declared provenance and inventory the UTC grid and any declared sessions."""
     required = dict(instrument='OANDA:XAUUSD', timeframe='M5', price_basis='MID',
                     timestamp_convention='UTC_BAR_OPEN', confirmed_only=True,
                     csv_sha256=expected_sha256)
@@ -110,7 +150,7 @@ def audit_source(bars, receipt, expected_sha256):
     return dict(declared_source=required, acquisition_reference=acquisition,
                 independent_source_authentication=False, session_calendar_verified=False,
                 observed_slots=len(slots), unobserved_slots=sum(g['unobserved_slots'] for g in gaps),
-                unobserved_intervals=gaps)
+                unobserved_intervals=gaps, session_classification=classify_session_slots(slots, receipt))
 
 
 
@@ -124,7 +164,7 @@ def run(path, expected_sha256, receipt_path=None):
     bars = load(path, 'M5')['bars']
     if sha256(path.read_bytes()).hexdigest() != expected_sha256:
         raise ValueError('M5 source changed during read')
-    if receipt_path is None or receipt_path.stat().st_size > 8192:
+    if receipt_path is None or receipt_path.stat().st_size > 32 * 1024:
         raise ValueError('Bounded source receipt required')
     receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
     source_audit = audit_source(bars, receipt, expected_sha256)
