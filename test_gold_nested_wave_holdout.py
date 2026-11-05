@@ -43,3 +43,19 @@ class HoldoutTests(unittest.TestCase):
         with patch.object(study, 'END', float('inf')):
             with self.assertRaisesRegex(ValueError, 'has not ended'):
                 study.run(Path('unused.csv'), '0' * 64)
+
+    def test_receipt_binds_price_basis_and_counts_all_grid_gaps(self):
+        start, end = study.START, study.START + 1500
+        digest = 'a' * 64
+        receipt = dict(instrument='OANDA:XAUUSD', timeframe='M5', price_basis='MID',
+                       timestamp_convention='UTC_BAR_OPEN', confirmed_only=True,
+                       csv_sha256=digest, acquisition_reference='offline fixture')
+        with patch.object(study, 'END', end):
+            audit = study.audit_source([bar(start+300), bar(start+900), bar(end-300)],
+                                       receipt, digest)
+            self.assertEqual(audit['observed_slots'], 2)
+            self.assertEqual(audit['unobserved_slots'], 2)
+            self.assertFalse(audit['session_calendar_verified'])
+            for invalid in (dict(receipt, price_basis='BID'), dict(receipt, csv_sha256='b'*64)):
+                with self.assertRaisesRegex(ValueError, 'Source receipt'):
+                    study.audit_source([], invalid, digest)

@@ -83,7 +83,38 @@ def replay(m5):
                 execution_allowed=False, adoption_allowed=False)
 
 
-def run(path, expected_sha256):
+def audit_source(bars, receipt, expected_sha256):
+    """Check declared provenance and inventory the UTC grid without a session calendar."""
+    required = dict(instrument='OANDA:XAUUSD', timeframe='M5', price_basis='MID',
+                    timestamp_convention='UTC_BAR_OPEN', confirmed_only=True,
+                    csv_sha256=expected_sha256)
+    if (not isinstance(receipt, dict) or receipt.get('confirmed_only') is not True
+            or any(receipt.get(k) != v for k, v in required.items())):
+        raise ValueError('Source receipt must bind confirmed OANDA XAUUSD M5 MID to CSV hash')
+    acquisition = receipt.get('acquisition_reference')
+    if not isinstance(acquisition, str) or not acquisition.strip() or len(acquisition) > 512:
+        raise ValueError('Bounded acquisition reference required')
+
+    slots = [bar['open_time'] for bar in bars
+             if START <= bar['open_time'] and bar['close_time'] < END]
+    gaps = []
+    cursor = START
+    for stamp in slots:
+        if stamp > cursor:
+            gaps.append(dict(start_open_utc_epoch=cursor, end_open_exclusive_utc_epoch=stamp,
+                             unobserved_slots=(stamp-cursor)//300))
+        cursor = stamp + 300
+    if cursor < END - 300:
+        gaps.append(dict(start_open_utc_epoch=cursor, end_open_exclusive_utc_epoch=END-300,
+                         unobserved_slots=(END-300-cursor)//300))
+    return dict(declared_source=required, acquisition_reference=acquisition,
+                independent_source_authentication=False, session_calendar_verified=False,
+                observed_slots=len(slots), unobserved_slots=sum(g['unobserved_slots'] for g in gaps),
+                unobserved_intervals=gaps)
+
+
+
+def run(path, expected_sha256, receipt_path=None):
     if datetime.now(timezone.utc).timestamp() < END:
         raise ValueError('Frozen evaluation period has not ended')
     if path.stat().st_size > 16 * 1024 * 1024:
@@ -93,8 +124,12 @@ def run(path, expected_sha256):
     bars = load(path, 'M5')['bars']
     if sha256(path.read_bytes()).hexdigest() != expected_sha256:
         raise ValueError('M5 source changed during read')
+    if receipt_path is None or receipt_path.stat().st_size > 8192:
+        raise ValueError('Bounded source receipt required')
+    receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
+    source_audit = audit_source(bars, receipt, expected_sha256)
     result = replay(bars)
-    return dict(result, source_sha256=expected_sha256)
+    return dict(result, source_sha256=expected_sha256, source_audit=source_audit)
 
 
 if __name__ == '__main__':
@@ -102,7 +137,8 @@ if __name__ == '__main__':
     parser.add_argument('m5_csv', type=Path)
     parser.add_argument('output', type=Path)
     parser.add_argument('--sha256', required=True)
+    parser.add_argument('--source-receipt', type=Path, required=True)
     args = parser.parse_args()
-    payload = json.dumps(run(args.m5_csv, args.sha256), indent=2, allow_nan=False)
+    payload = json.dumps(run(args.m5_csv, args.sha256, args.source_receipt), indent=2, allow_nan=False)
     with args.output.open('x', encoding='utf-8', newline='\n') as output:
         output.write(payload + '\n')
