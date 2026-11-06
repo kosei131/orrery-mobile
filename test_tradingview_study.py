@@ -102,13 +102,13 @@ class StudyTests(unittest.TestCase):
 
 
 class AlignedAccountTests(unittest.TestCase):
-    def run_comparison(self, *, h4_high=100):
+    def run_comparison(self, *, h4_high=100, quote_start=14400):
         from orrery_aligned_account_study import compare
 
         catalog = fixture.fixtures.StudyTests()
         catalog.setUp()
         self.addCleanup(catalog.doCleanups)
-        catalog.start, catalog.end = 14400, 28800
+        catalog.start, catalog.end = quote_start, 43200
         catalog.build([catalog.q(at * 1000, 100, 100.1)
                        for at in range(catalog.start, catalog.end, 60)])
         settings = dict(symbol='XAUUSD', data_source='SYNTHETIC_STUDY',
@@ -120,8 +120,8 @@ class AlignedAccountTests(unittest.TestCase):
         raw = {}
         for frame, interval in (('M5',300), ('M15',900), ('H4',14400)):
             raw[frame] = export([
-                dict(close_time=at + interval, open=100, high=h4_high if frame=='H4' else 100,
-                     low=100, close=100) for at in range(catalog.start, catalog.end, interval)
+                dict(close_time=at + interval, open=100, high=h4_high if frame == 'H4' and at == 14400 else 100,
+                     low=100, close=100) for at in range(14400, catalog.end, interval)
             ], interval)
         return compare(raw, settings, path=catalog.path,
                        expected_catalog_sha256=catalog.saved['catalog_sha256'],
@@ -141,4 +141,11 @@ class AlignedAccountTests(unittest.TestCase):
         result = self.run_comparison(h4_high=101)
         self.assertEqual(result['status'], 'BLOCKED_BAR_QUOTE_ALIGNMENT')
         self.assertEqual(result['alignment']['frames']['H4']['mismatched_bars'], 1)
+        self.assertIsNone(result['accounts'])
+
+    def test_partial_first_bar_is_not_verified_context(self):
+        result = self.run_comparison(quote_start=14460)
+        self.assertTrue(result['alignment']['aligned'])
+        self.assertEqual(result['status'], 'BLOCKED_BAR_CROSSES_SESSION_START')
+        self.assertEqual(result['crossing_frames'], ['H4', 'M15', 'M5'])
         self.assertIsNone(result['accounts'])

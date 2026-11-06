@@ -2,7 +2,7 @@
 from lsr03_tick_study import load_catalog_ticks
 from orrery_account_coverage_study import replay_continuous_window
 from orrery_bar_quote_alignment import audit_session
-from orrery_tradingview_study import study
+from orrery_tradingview_study import INTERVALS, study
 
 
 def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
@@ -32,6 +32,18 @@ def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
     result['alignment'] = alignment
     if not alignment['aligned']:
         return dict(result, status='BLOCKED_BAR_QUOTE_ALIGNMENT')
+
+    # Planning uses every confirmed bar. A bar that straddles the start
+    # closes during replay, but was excluded from the full-bar OHLC audit.
+    start_s = start // 1000
+    crossing = sorted(
+        frame for frame, audit in report['audit'].items()
+        if audit['first_open_s'] < start_s < audit['last_close_s']
+        and (start_s - audit['first_open_s']) % INTERVALS[frame]
+    )
+    if crossing:
+        return dict(result, status='BLOCKED_BAR_CROSSES_SESSION_START',
+                    crossing_frames=crossing)
 
     # Preserve exclusions for plans already known before this catalog began.
     plans = [p for p in compiled['plans'] if start <= p['known_at_msc'] < end]
