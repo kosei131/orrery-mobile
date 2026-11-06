@@ -76,6 +76,41 @@ def audit_payoff(records, bid):
 
 
 
+def audit_early_progress(records, bid, *, end):
+    """Measure at fixed landmarks, carrying forward exits already observed."""
+    reports = []
+    for minutes in (5, 15, 30):
+        rows = []
+        for record in records:
+            start = record['known_at_utc']
+            cutoff = start + minutes * 60
+            exit_at = record['exit_m1_close']
+            entry = record['entry_open_reference']
+            value = None
+            if (entry is None or record['target_reference'] is None
+                    or record['state'] == 'CENSORED_NO_TARGET_ROOM_AT_OPEN'):
+                status = 'NO_VALID_ENTRY'
+            elif exit_at is not None and exit_at <= cutoff:
+                value = record['reference_r']
+                status = 'EXITED' if value is not None else 'AMBIGUOUS_EXIT'
+            elif cutoff >= end or any(t not in bid for t in range(start, cutoff, 60)):
+                status = 'UNKNOWN_PATH'
+            else:
+                mark = Decimal(str(bid[cutoff-60]['close']))
+                entry_price = Decimal(entry)
+                risk = entry_price - Decimal(record['structural_stop'])
+                value = float((mark-entry_price)/risk)
+                status = 'OPEN_AT_LANDMARK'
+            rows.append(dict(candidate_id=record['candidate_id'], status=status, reference_r=value))
+        values = [row['reference_r'] for row in rows if row['reference_r'] is not None]
+        reports.append(dict(minutes=minutes, observed=len(values), unknown=len(rows)-len(values),
+                            exited=sum(row['status']=='EXITED' for row in rows),
+                            positive=sum(value > 0 for value in values),
+                            median_reference_r=median(values) if values else None, records=rows))
+    return reports
+
+
+
 def run(root):
     paired = paired_replay(root)
     sep, _ = read_pinned(root / 'bid_2026_09.csv', 'bid_2026_09.csv')
@@ -89,6 +124,7 @@ def run(root):
             previous_m5=paired['paired'][arm]['summary'],
             minute=summarize(minute),
             payoff_audit=audit_payoff(minute, bid),
+            early_progress=audit_early_progress(minute, bid, end=END),
             comparisons=[dict(candidate_id=a['candidate_id'], m5_state=a['state'],
                               m5_reference_r=a['reference_r'], m5_close=a['exit_m5_close'],
                               m1_state=b['state'],

@@ -409,6 +409,203 @@
           }
         ]
       },
+      "early_progress": [
+        {
+          "minutes": 5,
+          "observed": 10,
+          "unknown": 1,
+          "exited": 1,
+          "positive": 2,
+          "median_reference_r": -0.13153165700775205,
+          "records": [
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.16019417475728157
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788796800",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.17993630573248406
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788867000",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": 0.18492550394390886
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788928200",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.1992110453648915
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1789636500",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.7595541401273885
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1790273700",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.10286913925822254
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1790339400",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.5287588294651867
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791282600",
+              "status": "EXITED",
+              "reference_r": 0.1506849315068057
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791776700",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": 0.0
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791953100",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.07488584474885844
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1792098000",
+              "status": "NO_VALID_ENTRY",
+              "reference_r": null
+            }
+          ]
+        },
+        {
+          "minutes": 15,
+          "observed": 10,
+          "unknown": 1,
+          "exited": 4,
+          "positive": 4,
+          "median_reference_r": -0.11231546748237797,
+          "records": [
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.1533980582524272
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788796800",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": 0.03662420382165605
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788867000",
+              "status": "EXITED",
+              "reference_r": 0.2716914986854243
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788928200",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.2692307692307692
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1789636500",
+              "status": "EXITED",
+              "reference_r": -1.0
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1790273700",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": 0.2939118264520644
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1790339400",
+              "status": "EXITED",
+              "reference_r": -1.0
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791282600",
+              "status": "EXITED",
+              "reference_r": 0.1506849315068057
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791776700",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.7062146892655368
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791953100",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.07123287671232877
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1792098000",
+              "status": "NO_VALID_ENTRY",
+              "reference_r": null
+            }
+          ]
+        },
+        {
+          "minutes": 30,
+          "observed": 10,
+          "unknown": 1,
+          "exited": 5,
+          "positive": 4,
+          "median_reference_r": -0.2993354273914435,
+          "records": [
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.6679611650485436
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788796800",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.23885350318471338
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788867000",
+              "status": "EXITED",
+              "reference_r": 0.2716914986854243
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788928200",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": 0.055226824457593686
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1789636500",
+              "status": "EXITED",
+              "reference_r": -1.0
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1790273700",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": 0.06787963610916725
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1790339400",
+              "status": "EXITED",
+              "reference_r": -1.0
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791282600",
+              "status": "EXITED",
+              "reference_r": 0.1506849315068057
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791776700",
+              "status": "EXITED",
+              "reference_r": -1.0
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791953100",
+              "status": "OPEN_AT_LANDMARK",
+              "reference_r": -0.3598173515981735
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1792098000",
+              "status": "NO_VALID_ENTRY",
+              "reference_r": null
+            }
+          ]
+        }
+      ],
       "comparisons": [
         {
           "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
@@ -582,6 +779,35 @@
         "mean_negative_reference_r": null,
         "records": []
       },
+      "early_progress": [
+        {
+          "minutes": 5,
+          "observed": 0,
+          "unknown": 0,
+          "exited": 0,
+          "positive": 0,
+          "median_reference_r": null,
+          "records": []
+        },
+        {
+          "minutes": 15,
+          "observed": 0,
+          "unknown": 0,
+          "exited": 0,
+          "positive": 0,
+          "median_reference_r": null,
+          "records": []
+        },
+        {
+          "minutes": 30,
+          "observed": 0,
+          "unknown": 0,
+          "exited": 0,
+          "positive": 0,
+          "median_reference_r": null,
+          "records": []
+        }
+      ],
       "comparisons": []
     },
     "delayed_with_room_gate": {
@@ -655,6 +881,35 @@
         "mean_negative_reference_r": null,
         "records": []
       },
+      "early_progress": [
+        {
+          "minutes": 5,
+          "observed": 0,
+          "unknown": 0,
+          "exited": 0,
+          "positive": 0,
+          "median_reference_r": null,
+          "records": []
+        },
+        {
+          "minutes": 15,
+          "observed": 0,
+          "unknown": 0,
+          "exited": 0,
+          "positive": 0,
+          "median_reference_r": null,
+          "records": []
+        },
+        {
+          "minutes": 30,
+          "observed": 0,
+          "unknown": 0,
+          "exited": 0,
+          "positive": 0,
+          "median_reference_r": null,
+          "records": []
+        }
+      ],
       "comparisons": []
     }
   },
