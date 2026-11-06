@@ -606,6 +606,232 @@
           ]
         }
       ],
+      "early_exit_sensitivity": [
+        {
+          "minutes": 5,
+          "summary": {
+            "candidates": 11,
+            "resolved": 10,
+            "states": {
+              "EARLY_EXIT_BID_OPEN_REFERENCE": 7,
+              "TARGET_REFERENCE": 2,
+              "STOP_REFERENCE": 1,
+              "CENSORED_NO_NEXT_M5": 1
+            },
+            "scenarios": [
+              {
+                "cost_price": 0,
+                "mean_r": -0.2603889265008148,
+                "positive_pct": 20.0,
+                "pf": 0.13957017417939016
+              },
+              {
+                "cost_price": 0.3,
+                "mean_r": -0.2970965856757017,
+                "positive_pct": 20.0,
+                "pf": 0.10396475922586394
+              },
+              {
+                "cost_price": 0.54,
+                "mean_r": -0.32646271301561125,
+                "positive_pct": 20.0,
+                "pf": 0.07966365081058818
+              },
+              {
+                "cost_price": 0.7,
+                "mean_r": -0.34604013124221755,
+                "positive_pct": 20.0,
+                "pf": 0.06515182657024196
+              }
+            ]
+          },
+          "triggered": 7,
+          "comparable_triggers": 7,
+          "improved": 5,
+          "worsened": 2,
+          "baseline_winners_reduced": 1,
+          "changes": [
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
+              "decision_at_utc": 1788456900,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.1563106796116505
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788796800",
+              "decision_at_utc": 1788797100,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.16878980891719744
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788928200",
+              "decision_at_utc": 1788928500,
+              "baseline_r": 0.3777120315581639,
+              "early_exit_r": -0.20907297830374755
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1789636500",
+              "decision_at_utc": 1789636800,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.7691082802547771
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1790273700",
+              "decision_at_utc": 1790274000,
+              "baseline_r": -0.03778866340097971,
+              "early_exit_r": -0.1112666200139958
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1790339400",
+              "decision_at_utc": 1790339700,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.5368314833501514
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791953100",
+              "decision_at_utc": 1791953400,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.07488584474885844
+            }
+          ]
+        },
+        {
+          "minutes": 15,
+          "summary": {
+            "candidates": 11,
+            "resolved": 10,
+            "states": {
+              "EARLY_EXIT_BID_OPEN_REFERENCE": 4,
+              "STOP_REFERENCE": 3,
+              "TARGET_REFERENCE": 2,
+              "TIMEOUT_REFERENCE": 1,
+              "CENSORED_NO_NEXT_M5": 1
+            },
+            "scenarios": [
+              {
+                "cost_price": 0,
+                "mean_r": -0.37813595402475464,
+                "positive_pct": 20.0,
+                "pf": 0.100476441232831
+              },
+              {
+                "cost_price": 0.3,
+                "mean_r": -0.41484361319964147,
+                "positive_pct": 20.0,
+                "pf": 0.07671986101792914
+              },
+              {
+                "cost_price": 0.54,
+                "mean_r": -0.44420974053955103,
+                "positive_pct": 20.0,
+                "pf": 0.05981012475169028
+              },
+              {
+                "cost_price": 0.7,
+                "mean_r": -0.4637871587661574,
+                "positive_pct": 20.0,
+                "pf": 0.049428566893770357
+              }
+            ]
+          },
+          "triggered": 4,
+          "comparable_triggers": 4,
+          "improved": 3,
+          "worsened": 1,
+          "baseline_winners_reduced": 1,
+          "changes": [
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
+              "decision_at_utc": 1788457500,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.14757281553398058
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788928200",
+              "decision_at_utc": 1788929100,
+              "baseline_r": 0.3777120315581639,
+              "early_exit_r": -0.27909270216962523
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791776700",
+              "decision_at_utc": 1791777600,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.6610169491525424
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791953100",
+              "decision_at_utc": 1791954000,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.0782648401826484
+            }
+          ]
+        },
+        {
+          "minutes": 30,
+          "summary": {
+            "candidates": 11,
+            "resolved": 10,
+            "states": {
+              "EARLY_EXIT_BID_OPEN_REFERENCE": 3,
+              "TARGET_REFERENCE": 3,
+              "STOP_REFERENCE": 3,
+              "TIMEOUT_REFERENCE": 1,
+              "CENSORED_NO_NEXT_M5": 1
+            },
+            "scenarios": [
+              {
+                "cost_price": 0,
+                "mean_r": -0.34859825854996823,
+                "positive_pct": 30.0,
+                "pf": 0.18667176837017832
+              },
+              {
+                "cost_price": 0.3,
+                "mean_r": -0.3853059177248551,
+                "positive_pct": 30.0,
+                "pf": 0.1524099052599754
+              },
+              {
+                "cost_price": 0.54,
+                "mean_r": -0.4146720450647646,
+                "positive_pct": 30.0,
+                "pf": 0.12769705085624017
+              },
+              {
+                "cost_price": 0.7,
+                "mean_r": -0.43424946329137104,
+                "positive_pct": 30.0,
+                "pf": 0.11238846389442078
+              }
+            ]
+          },
+          "triggered": 3,
+          "comparable_triggers": 3,
+          "improved": 3,
+          "worsened": 0,
+          "baseline_winners_reduced": 0,
+          "changes": [
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
+              "decision_at_utc": 1788458400,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.658252427184466
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1788796800",
+              "decision_at_utc": 1788798600,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.22929936305732485
+            },
+            {
+              "candidate_id": "GOLD_NESTED_WAVE_BUY:1791953100",
+              "decision_at_utc": 1791954900,
+              "baseline_r": -1.0,
+              "early_exit_r": -0.3607305936073059
+            }
+          ]
+        }
+      ],
       "comparisons": [
         {
           "candidate_id": "GOLD_NESTED_WAVE_BUY:1788456600",
@@ -808,6 +1034,128 @@
           "records": []
         }
       ],
+      "early_exit_sensitivity": [
+        {
+          "minutes": 5,
+          "summary": {
+            "candidates": 0,
+            "resolved": 0,
+            "states": {},
+            "scenarios": [
+              {
+                "cost_price": 0,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.3,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.54,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.7,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              }
+            ]
+          },
+          "triggered": 0,
+          "comparable_triggers": 0,
+          "improved": 0,
+          "worsened": 0,
+          "baseline_winners_reduced": 0,
+          "changes": []
+        },
+        {
+          "minutes": 15,
+          "summary": {
+            "candidates": 0,
+            "resolved": 0,
+            "states": {},
+            "scenarios": [
+              {
+                "cost_price": 0,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.3,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.54,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.7,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              }
+            ]
+          },
+          "triggered": 0,
+          "comparable_triggers": 0,
+          "improved": 0,
+          "worsened": 0,
+          "baseline_winners_reduced": 0,
+          "changes": []
+        },
+        {
+          "minutes": 30,
+          "summary": {
+            "candidates": 0,
+            "resolved": 0,
+            "states": {},
+            "scenarios": [
+              {
+                "cost_price": 0,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.3,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.54,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.7,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              }
+            ]
+          },
+          "triggered": 0,
+          "comparable_triggers": 0,
+          "improved": 0,
+          "worsened": 0,
+          "baseline_winners_reduced": 0,
+          "changes": []
+        }
+      ],
       "comparisons": []
     },
     "delayed_with_room_gate": {
@@ -908,6 +1256,128 @@
           "positive": 0,
           "median_reference_r": null,
           "records": []
+        }
+      ],
+      "early_exit_sensitivity": [
+        {
+          "minutes": 5,
+          "summary": {
+            "candidates": 0,
+            "resolved": 0,
+            "states": {},
+            "scenarios": [
+              {
+                "cost_price": 0,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.3,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.54,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.7,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              }
+            ]
+          },
+          "triggered": 0,
+          "comparable_triggers": 0,
+          "improved": 0,
+          "worsened": 0,
+          "baseline_winners_reduced": 0,
+          "changes": []
+        },
+        {
+          "minutes": 15,
+          "summary": {
+            "candidates": 0,
+            "resolved": 0,
+            "states": {},
+            "scenarios": [
+              {
+                "cost_price": 0,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.3,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.54,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.7,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              }
+            ]
+          },
+          "triggered": 0,
+          "comparable_triggers": 0,
+          "improved": 0,
+          "worsened": 0,
+          "baseline_winners_reduced": 0,
+          "changes": []
+        },
+        {
+          "minutes": 30,
+          "summary": {
+            "candidates": 0,
+            "resolved": 0,
+            "states": {},
+            "scenarios": [
+              {
+                "cost_price": 0,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.3,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.54,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              },
+              {
+                "cost_price": 0.7,
+                "mean_r": null,
+                "positive_pct": null,
+                "pf": null
+              }
+            ]
+          },
+          "triggered": 0,
+          "comparable_triggers": 0,
+          "improved": 0,
+          "worsened": 0,
+          "baseline_winners_reduced": 0,
+          "changes": []
         }
       ],
       "comparisons": []

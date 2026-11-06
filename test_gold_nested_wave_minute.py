@@ -1,6 +1,6 @@
 import unittest
 
-from orrery_gold_nested_wave_minute import audit_early_progress, audit_payoff, minute_exit
+from orrery_gold_nested_wave_minute import audit_early_exit, audit_early_progress, audit_payoff, minute_exit
 
 
 class MinuteExitTests(unittest.TestCase):
@@ -41,3 +41,13 @@ class MinuteExitTests(unittest.TestCase):
             self.assertEqual(report['exited'], 1)
             self.assertEqual(report['unknown'], 1)
             self.assertEqual(report['median_reference_r'], 1)
+
+    def test_early_exit_uses_next_open_and_requires_observation(self):
+        row = dict(self.record, candidate_id='one', reference_r=1)
+        progress = [dict(minutes=5, records=[dict(candidate_id='one',
+                                                   status='OPEN_AT_LANDMARK', reference_r=-0.1)])]
+        observed = audit_early_exit([row], progress, {600: dict(open=99)}, end=1200)[0]
+        self.assertAlmostEqual(observed['changes'][0]['early_exit_r'], -2/3)
+        self.assertEqual(observed['baseline_winners_reduced'], 1)
+        missing = audit_early_exit([row], progress, {}, end=1200)[0]
+        self.assertEqual(missing['summary']['resolved'], 0)

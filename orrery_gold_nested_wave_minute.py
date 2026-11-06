@@ -111,6 +111,49 @@ def audit_early_progress(records, bid, *, end):
 
 
 
+def audit_early_exit(records, progress, bid, *, end):
+    """Compare a single below-entry check per arm, at the next observed open."""
+    baseline = {row['candidate_id']: row for row in records}
+    scenarios = []
+    for landmark in progress:
+        minutes = landmark['minutes']
+        updated, changes = [], []
+        for mark in landmark['records']:
+            original = baseline[mark['candidate_id']]
+            if mark['status'] != 'OPEN_AT_LANDMARK' or mark['reference_r'] >= 0:
+                updated.append(original)
+                continue
+            stamp = original['known_at_utc'] + minutes * 60
+            if stamp not in bid or stamp + 60 >= end:
+                alternative = dict(original, state='CENSORED_EARLY_EXIT_OPEN',
+                                   reference_r=None)
+            else:
+                entry = Decimal(original['entry_open_reference'])
+                stop = Decimal(original['structural_stop'])
+                target = Decimal(original['target_reference'])
+                # An existing TP still caps a favorable opening gap.
+                opening = min(Decimal(str(bid[stamp]['open'])), target)
+                alternative = dict(original, state='EARLY_EXIT_BID_OPEN_REFERENCE',
+                                   reference_r=float((opening-entry)/(entry-stop)))
+            updated.append(alternative)
+            changes.append(dict(candidate_id=mark['candidate_id'], decision_at_utc=stamp,
+                                baseline_r=original['reference_r'],
+                                early_exit_r=alternative['reference_r']))
+        comparable = [row for row in changes
+                      if row['baseline_r'] is not None and row['early_exit_r'] is not None]
+        scenarios.append(dict(
+            minutes=minutes, summary=summarize(updated), triggered=len(changes),
+            comparable_triggers=len(comparable),
+            improved=sum(row['early_exit_r'] > row['baseline_r'] for row in comparable),
+            worsened=sum(row['early_exit_r'] < row['baseline_r'] for row in comparable),
+            baseline_winners_reduced=sum(row['baseline_r'] > 0 and row['early_exit_r'] < row['baseline_r']
+                                        for row in comparable),
+            changes=changes,
+        ))
+    return scenarios
+
+
+
 def run(root):
     paired = paired_replay(root)
     sep, _ = read_pinned(root / 'bid_2026_09.csv', 'bid_2026_09.csv')
@@ -120,11 +163,13 @@ def run(root):
     for arm in ('immediate', 'delayed', 'delayed_with_room_gate'):
         previous = paired['paired'][arm]['records']
         minute = [minute_exit(record, bid, end=END) for record in previous]
+        progress = audit_early_progress(minute, bid, end=END)
         reports[arm] = dict(
             previous_m5=paired['paired'][arm]['summary'],
             minute=summarize(minute),
             payoff_audit=audit_payoff(minute, bid),
-            early_progress=audit_early_progress(minute, bid, end=END),
+            early_progress=progress,
+            early_exit_sensitivity=audit_early_exit(minute, progress, bid, end=END),
             comparisons=[dict(candidate_id=a['candidate_id'], m5_state=a['state'],
                               m5_reference_r=a['reference_r'], m5_close=a['exit_m5_close'],
                               m1_state=b['state'],
