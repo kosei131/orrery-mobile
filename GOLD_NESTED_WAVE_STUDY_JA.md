@@ -108,3 +108,17 @@
 | 30分 | 5 | 4／1 | −0.177 | 0.608 |
 
 平均損失は各案で縮小したが、全案でマイナス。5分・15分案ではPFが低下。再現は `python orrery_gold_nested_wave_early_exit_public.py PINNED_PUBLIC_M1.csv NEW_OUTPUT.json`。証拠は `research_evidence/local-history-20261101/gold_nested_wave_early_exit_public_reference.json`。
+
+## 既存A/Bとの同条件比較
+
+同じ固定公開OHLCを使い、戦略A・Bと3波の即時案を、次M5始値・120分上限・同じM5出口判定で再生した。各戦略の入口、構造SL、利確上限は固有の定義を使った。往復0.54ドルを仮定した決着群の平均Rを比較し、買いと売りを分けた。
+
+| 戦略 | 3〜8月 買い | 3〜8月 売り | 9月 買い | 9月 売り |
+|---|---:|---:|---:|---:|
+| A 継続 | −0.362R（8件） | +0.407R（10件） | +0.042R（4件） | −0.876R（2件） |
+| B 反転 | −0.312R（17件） | +0.402R（17件） | +0.089R（2件） | −0.292R（2件） |
+| 3波 即時 | −0.257R（32件） | 対象外 | −0.607R（8件） | 対象外 |
+
+3〜8月のA/B全体のプラスは売り群による。9月は両戦略の売り群がマイナスに転じた。3波の買いは両期間でマイナス。未決着は3〜8月のB 3件、3波3件。9月は9月1日以上26日未満UTCの既存履歴。少数かつ既閲覧の比較で、売り限定ルールの採用根拠にはしない。
+
+再現は `python orrery_gold_entry_family_comparison.py PINNED_M1.csv COMPLETE_BARS_DIR NEW_OUTPUT.json`。証拠は `research_evidence/local-history-20261101/gold_entry_family_comparison.json`。
