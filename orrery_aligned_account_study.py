@@ -7,7 +7,8 @@ from orrery_tradingview_study import INTERVALS, study
 
 def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
             price_tolerance, volume_min, volume_max, volume_step, pnl_quote,
-            round_trip_cost_per_lot_usd, cost_source, slippage, max_ticks=500000):
+            round_trip_cost_per_lot_usd, cost_source, slippage, max_ticks=500000,
+            expected_start_s=None):
     """Run independent, single-session LSR02 and VHF03 model accounts."""
     report = study(raw_csvs, settings)
     result = dict(planning=report, alignment=None, accounts=None,
@@ -24,6 +25,9 @@ def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
     start, end = loaded['start_msc'], loaded['end_msc']
     if start % 1000 or end % 1000:
         raise ValueError('Whole-second catalog boundaries required')
+    if expected_start_s is not None and start != expected_start_s * 1000:
+        return dict(result, status='BLOCKED_CATALOG_START_MISMATCH',
+                    actual_start_s=start // 1000)
     ticks = loaded['ticks']
     alignment = audit_session(raw_csvs, settings, ticks, start_s=start // 1000,
                               end_s=end // 1000, max_gap_msc=max_gap_msc,
@@ -64,3 +68,38 @@ def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
     return dict(result, status='ALIGNED_SESSION_MODEL_ACCOUNTS', accounts=accounts,
                 candidate_counts=dict(LSR02=len(plans), VHF03=len(selected)),
                 out_of_window_candidates=len(compiled['plans']) - len(plans))
+
+
+def compare_sessions(sessions, settings, **account_inputs):
+    """Run a predeclared sequence of independent session comparisons.
+
+    An absent dataset stays in the result. No balances, drawdowns, positions
+    or risk stops are combined across independently initialized accounts.
+    """
+    if not isinstance(sessions, (list, tuple)) or not 1 <= len(sessions) <= 200:
+        raise ValueError('Declare 1–200 ordered sessions')
+    previous_end = 0
+    required = {'start_s', 'end_s', 'raw_csvs', 'path', 'catalog_sha256'}
+    for session in sessions:
+        if not isinstance(session, dict) or session.keys() != required:
+            raise ValueError('Exact session inputs required')
+        start, end = session['start_s'], session['end_s']
+        if type(start) is not int or type(end) is not int or not previous_end <= start < end:
+            raise ValueError('Ordered, non-overlapping UTC sessions required')
+        previous_end = end
+
+    rows = []
+    for session in sessions:
+        start, end = session['start_s'], session['end_s']
+        digest = session['catalog_sha256']
+        if any(session[key] is None for key in ('raw_csvs', 'path', 'catalog_sha256')):
+            result = dict(status='BLOCKED_MISSING_SESSION_INPUT', accounts=None)
+        else:
+            result = compare(session['raw_csvs'], dict(settings, as_of_s=end),
+                             path=session['path'], expected_catalog_sha256=digest,
+                             expected_start_s=start, **account_inputs)
+        rows.append(dict(start_s=start, end_s=end, catalog_sha256=digest, result=result))
+    completed = sum(row['result']['accounts'] is not None for row in rows)
+    return dict(sessions=rows, completed_sessions=completed,
+                blocked_sessions=len(rows) - completed, combined_accounts=None,
+                execution_allowed=False)

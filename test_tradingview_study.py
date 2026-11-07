@@ -102,7 +102,7 @@ class StudyTests(unittest.TestCase):
 
 
 class AlignedAccountTests(unittest.TestCase):
-    def run_comparison(self, *, h4_high=100, quote_start=14400):
+    def run_comparison(self, *, h4_high=100, quote_start=14400, expected_start=None):
         from orrery_aligned_account_study import compare
 
         catalog = fixture.fixtures.StudyTests()
@@ -125,6 +125,7 @@ class AlignedAccountTests(unittest.TestCase):
             ], interval)
         return compare(raw, settings, path=catalog.path,
                        expected_catalog_sha256=catalog.saved['catalog_sha256'],
+                       expected_start_s=expected_start,
                        max_gap_msc=60000, price_tolerance=0,
                        volume_min=.01, volume_max=100, volume_step=.01,
                        pnl_quote=account_fixture.pnl, round_trip_cost_per_lot_usd=.01,
@@ -149,3 +150,34 @@ class AlignedAccountTests(unittest.TestCase):
         self.assertEqual(result['status'], 'BLOCKED_BAR_CROSSES_SESSION_START')
         self.assertEqual(result['crossing_frames'], ['H4', 'M15', 'M5'])
         self.assertIsNone(result['accounts'])
+
+    def test_catalog_start_must_match_declared_session(self):
+        result = self.run_comparison(expected_start=0)
+        self.assertEqual(result['status'], 'BLOCKED_CATALOG_START_MISMATCH')
+        self.assertEqual(result['actual_start_s'], 14400)
+        self.assertIsNone(result['accounts'])
+
+    def test_session_batch_retains_missing_and_does_not_combine_accounts(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import compare_sessions
+
+        missing = dict(start_s=0, end_s=14400, raw_csvs=None, path=None, catalog_sha256=None)
+        ready = dict(missing, start_s=14400, end_s=43200, raw_csvs={}, path='catalog',
+                     catalog_sha256='digest')
+        with patch('orrery_aligned_account_study.compare',
+                   return_value={'accounts': {'LSR02': {}, 'VHF03': {}}}) as replay:
+            result = compare_sessions([missing, ready], {'symbol': 'XAUUSD'}, slippage=.1)
+            replay.assert_called_once_with({}, {'symbol': 'XAUUSD', 'as_of_s': 43200},
+                                           path='catalog', expected_catalog_sha256='digest',
+                                           expected_start_s=14400, slippage=.1)
+        self.assertEqual(result['completed_sessions'], 1)
+        self.assertEqual(result['blocked_sessions'], 1)
+        self.assertEqual(result['sessions'][0]['result']['status'], 'BLOCKED_MISSING_SESSION_INPUT')
+        self.assertIsNone(result['combined_accounts'])
+
+    def test_session_batch_rejects_overlap(self):
+        from orrery_aligned_account_study import compare_sessions
+
+        session = dict(start_s=0, end_s=14400, raw_csvs=None, path=None, catalog_sha256=None)
+        with self.assertRaisesRegex(ValueError, 'non-overlapping'):
+            compare_sessions([session, dict(session, start_s=14399)], {})
