@@ -1,0 +1,105 @@
+"""Compare TradingView plans on the exact catalog observations used for alignment."""
+from lsr03_tick_study import load_catalog_ticks
+from orrery_account_coverage_study import replay_continuous_window
+from orrery_bar_quote_alignment import audit_session
+from orrery_tradingview_study import INTERVALS, study
+
+
+def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
+            price_tolerance, volume_min, volume_max, volume_step, pnl_quote,
+            round_trip_cost_per_lot_usd, cost_source, slippage, max_ticks=500000,
+            expected_start_s=None):
+    """Run independent, single-session LSR02 and VHF03 model accounts."""
+    report = study(raw_csvs, settings)
+    result = dict(planning=report, alignment=None, accounts=None,
+                  catalog_sha256=expected_catalog_sha256, execution_allowed=False)
+    compiled = report['plans']
+    if compiled is None:
+        return dict(result, status=report['status'])
+
+    loaded = load_catalog_ticks(path, expected_catalog_sha256=expected_catalog_sha256,
+                                bar_source=settings['data_source'], as_of=settings['as_of_s'],
+                                max_ticks=max_ticks)
+    if loaded['blocked']:
+        return dict(result, status='BLOCKED_GLOBAL_TICK_QUALITY', tick_audit=loaded['audit'])
+    start, end = loaded['start_msc'], loaded['end_msc']
+    if start % 1000 or end % 1000:
+        raise ValueError('Whole-second catalog boundaries required')
+    if expected_start_s is not None and start != expected_start_s * 1000:
+        return dict(result, status='BLOCKED_CATALOG_START_MISMATCH',
+                    actual_start_s=start // 1000)
+    ticks = loaded['ticks']
+    alignment = audit_session(raw_csvs, settings, ticks, start_s=start // 1000,
+                              end_s=end // 1000, max_gap_msc=max_gap_msc,
+                              quote_symbol=loaded['symbol'], quote_source=settings['data_source'],
+                              price_tolerance=price_tolerance)
+    result['alignment'] = alignment
+    if not alignment['aligned']:
+        return dict(result, status='BLOCKED_BAR_QUOTE_ALIGNMENT')
+
+    # Planning uses every confirmed bar. A bar that straddles the start
+    # closes during replay, but was excluded from the full-bar OHLC audit.
+    start_s = start // 1000
+    crossing = sorted(
+        frame for frame, audit in report['audit'].items()
+        if audit['first_open_s'] < start_s < audit['last_close_s']
+        and (start_s - audit['first_open_s']) % INTERVALS[frame]
+    )
+    if crossing:
+        return dict(result, status='BLOCKED_BAR_CROSSES_SESSION_START',
+                    crossing_frames=crossing)
+
+    # Preserve exclusions for plans already known before this catalog began.
+    plans = [p for p in compiled['plans'] if start <= p['known_at_msc'] < end]
+    selected = [p for p in plans if compiled['groups'][p['id']] == 'VHF_PASS']
+    accounts = {}
+    for name, subset in (('LSR02', plans), ('VHF03', selected)):
+        ids = {p['id'] for p in subset}
+        replay = replay_continuous_window(
+            ticks, subset, start_msc=start, end_msc=end, max_gap_msc=max_gap_msc,
+            symbol=loaded['symbol'], initial_equity=3000, max_quotes=max_ticks,
+            volume_min=volume_min, volume_max=volume_max, volume_step=volume_step,
+            pnl_quote=pnl_quote, round_trip_cost_per_lot_usd=round_trip_cost_per_lot_usd,
+            cost_source=cost_source, slippage=slippage,
+            cancellations=[e for e in compiled['cancellations'] if e['id'] in ids])
+        if replay['account'] is None:
+            return dict(result, status=replay['status'], gap=replay['gap'])
+        accounts[name] = replay['account']
+    return dict(result, status='ALIGNED_SESSION_MODEL_ACCOUNTS', accounts=accounts,
+                candidate_counts=dict(LSR02=len(plans), VHF03=len(selected)),
+                out_of_window_candidates=len(compiled['plans']) - len(plans))
+
+
+def compare_sessions(sessions, settings, **account_inputs):
+    """Run a predeclared sequence of independent session comparisons.
+
+    An absent dataset stays in the result. No balances, drawdowns, positions
+    or risk stops are combined across independently initialized accounts.
+    """
+    if not isinstance(sessions, (list, tuple)) or not 1 <= len(sessions) <= 200:
+        raise ValueError('Declare 1–200 ordered sessions')
+    previous_end = 0
+    required = {'start_s', 'end_s', 'raw_csvs', 'path', 'catalog_sha256'}
+    for session in sessions:
+        if not isinstance(session, dict) or session.keys() != required:
+            raise ValueError('Exact session inputs required')
+        start, end = session['start_s'], session['end_s']
+        if type(start) is not int or type(end) is not int or not previous_end <= start < end:
+            raise ValueError('Ordered, non-overlapping UTC sessions required')
+        previous_end = end
+
+    rows = []
+    for session in sessions:
+        start, end = session['start_s'], session['end_s']
+        digest = session['catalog_sha256']
+        if any(session[key] is None for key in ('raw_csvs', 'path', 'catalog_sha256')):
+            result = dict(status='BLOCKED_MISSING_SESSION_INPUT', accounts=None)
+        else:
+            result = compare(session['raw_csvs'], dict(settings, as_of_s=end),
+                             path=session['path'], expected_catalog_sha256=digest,
+                             expected_start_s=start, **account_inputs)
+        rows.append(dict(start_s=start, end_s=end, catalog_sha256=digest, result=result))
+    completed = sum(row['result']['accounts'] is not None for row in rows)
+    return dict(sessions=rows, completed_sessions=completed,
+                blocked_sessions=len(rows) - completed, combined_accounts=None,
+                execution_allowed=False)

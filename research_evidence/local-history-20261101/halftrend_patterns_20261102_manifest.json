@@ -1,0 +1,39 @@
+{
+  "status": "M5_HALFTREND_SEQUENCE_HYPOTHESES_NOT_FORMAL_LSR02",
+  "configuration": {
+    "amplitude": 2,
+    "channel_deviation": 2,
+    "atr_period": 100,
+    "interval": 300,
+    "wait_bars": 6,
+    "line_slope_bars": 3,
+    "touch_atr": 0.5,
+    "max_entry_distance_atr": 1,
+    "target_r": 1.5,
+    "horizon_minutes": 120
+  },
+  "gzip_sha256": "00fdc820d43b55f3e7665baf60e26c9a5f3fe5782ea60c47ca3fbe27f14b70d3",
+  "uncompressed_sha256": "87a7814a97834e9973fd20bc6372f08346808fec8eeaeee8966faa3b10f95ab4",
+  "uncompressed_bytes": 680324,
+  "gzip_bytes": 67803,
+  "csv_sha256": "4f44f52f2b163cdacd8fa9e13dbbaa429fe25f74b44197e2ecfdbef268d79dba",
+  "code_sha256": "4a45174a1769491b23869f106f05cb0962ae5ec59d92cc4abca76c4c7786ea70",
+  "source_pins": {
+    "bid_2026_09.csv": "09cc828da25ee817719c3fb5b3be22058f62d6f7b991ca00f7102a381953e325",
+    "ask_2026_09.csv": "697c9079a8ed80eb2716604f27900e4352206db0a62847510530efdcfaf3645d",
+    "bid_2026_10.csv": "05cdf7ebea1932a6a4748ed47ad74fe2de0023bb11f9b835c38bba424358dd7d",
+    "ask_2026_10.csv": "43d37686754e87fd343d14012832fd476b47551d390a15520fb62963f2ff74c0"
+  },
+  "engine_code_sha256": {
+    "lsr05_halftrend.py": "052690beabb382e60f58bcd0dd51156535a8ead504b5369536803a28cf71357c",
+    "lsr05_session_clock.py": "2beb2d41c9cffaeaba42d65b166da18f30b1bd319690769a6911e3868bcdc34a",
+    "orrery_paired_archive_study.py": "e1fa03147235097f05a9a5d7a05a05bbc68472b13cc006c3c7dbaa6973d20fd3",
+    "orrery_m1_complete_bars.py": "91f9b8579bb39f2ae175a7812c1e7025429bcdaa06c3e97087ec813cfdf55418",
+    "orrery_real_bars_lsr_bridge.py": "5042cede47d7c5b2b9e27e98ed7dd43f79cc2cee10ea71968ca719640528af79",
+    "lsr03_learning_rollup.py": "043cd1b31fd9db81846854bd6a7d62e6c723ea32bdb15ca0d7fe3d8e0011f80f"
+  },
+  "execution_allowed": false,
+  "adopted": false,
+  "formal_lsr02": false,
+  "wt_x_reproduced": false
+}

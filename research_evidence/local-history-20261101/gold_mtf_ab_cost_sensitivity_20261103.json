@@ -1,0 +1,716 @@
+{
+  "status": "FIXED_OHLC_EXITS_HYPOTHETICAL_COST_SENSITIVITY",
+  "raw_source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "bars_sha256": {
+    "H4": "643c95d6c7ec72cb331d280b0c4c1c2d72702fe04fc85402e2666bbe0f19854c",
+    "M15": "8bba85eab3ed8da92341dea6b0b6c26fa884b882caf074e8bc9de6ac844a083d",
+    "M5": "ef68aad060022c4534a5cee2d7ff9d89b243177f5a479f938cf8ad582dc84b99"
+  },
+  "cost_model": "Subtract flat round-trip price friction divided by each indicative entry-to-stop width. Outcome sequence held fixed.",
+  "cohorts": {
+    "A_CONTINUATION": {
+      "overall": {
+        "candidates": 24,
+        "resolved": 24,
+        "unresolved_ids": [],
+        "break_even_flat_cost_price": 0.3712389287496088,
+        "scenarios": [
+          {
+            "assumed_round_trip_cost_price": 0.0,
+            "mean_cost_r": 0.0,
+            "mean_adjusted_reference_r": 0.03786017665433549,
+            "positive_reference_pct": 45.833333333333336,
+            "unresolved_average_r_for_all_candidate_break_even": null,
+            "adjusted_reference_pf": 1.0776483354838768
+          },
+          {
+            "assumed_round_trip_cost_price": 0.3,
+            "mean_cost_r": 0.030594994535073028,
+            "mean_adjusted_reference_r": 0.007265182119262459,
+            "positive_reference_pct": 45.833333333333336,
+            "unresolved_average_r_for_all_candidate_break_even": null,
+            "adjusted_reference_pf": 1.0143399884697348
+          },
+          {
+            "assumed_round_trip_cost_price": 0.54,
+            "mean_cost_r": 0.05507099016313146,
+            "mean_adjusted_reference_r": -0.01721081350879596,
+            "positive_reference_pct": 45.833333333333336,
+            "unresolved_average_r_for_all_candidate_break_even": null,
+            "adjusted_reference_pf": 0.9670215208406292
+          },
+          {
+            "assumed_round_trip_cost_price": 0.7,
+            "mean_cost_r": 0.07138832058183707,
+            "mean_adjusted_reference_r": -0.033528143927501565,
+            "positive_reference_pct": 45.833333333333336,
+            "unresolved_average_r_for_all_candidate_break_even": null,
+            "adjusted_reference_pf": 0.9369821032430511
+          }
+        ]
+      },
+      "by_signal_month_utc": {
+        "2026-03": {
+          "candidates": 1,
+          "resolved": 1,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": 4.150000000000424,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": 0.15949269792469253,
+              "positive_reference_pct": 100.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": null
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.011529592621060932,
+              "mean_adjusted_reference_r": 0.1479631053036316,
+              "positive_reference_pct": 100.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": null
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.02075326671790968,
+              "mean_adjusted_reference_r": 0.13873943120678287,
+              "positive_reference_pct": 100.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": null
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.026902382782475507,
+              "mean_adjusted_reference_r": 0.13259031514221703,
+              "positive_reference_pct": 100.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": null
+            }
+          ]
+        },
+        "2026-04": {
+          "candidates": 4,
+          "resolved": 4,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": 2.0731079076936627,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": 0.25,
+              "positive_reference_pct": 50.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.5
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.03617756688962596,
+              "mean_adjusted_reference_r": 0.21382243311037408,
+              "positive_reference_pct": 50.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.4076430175925005
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.06511962040132674,
+              "mean_adjusted_reference_r": 0.18488037959867332,
+              "positive_reference_pct": 50.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.339753484556698
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.08441432274246057,
+              "mean_adjusted_reference_r": 0.16558567725753942,
+              "positive_reference_pct": 50.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.297150629235984
+            }
+          ]
+        },
+        "2026-05": {
+          "candidates": 4,
+          "resolved": 4,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": -3.0604442492209487,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": -0.20356901217861975,
+              "positive_reference_pct": 25.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.6481508551381376
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.019954849257303668,
+              "mean_adjusted_reference_r": -0.2235238614359234,
+              "positive_reference_pct": 25.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.6243783619888034
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.035918728663146604,
+              "mean_adjusted_reference_r": -0.23948774084176636,
+              "positive_reference_pct": 25.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.6062893973132678
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.046561314933708554,
+              "mean_adjusted_reference_r": -0.25013032711232824,
+              "positive_reference_pct": 25.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.5946602303441438
+            }
+          ]
+        },
+        "2026-06": {
+          "candidates": 5,
+          "resolved": 5,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": 0.44057344175505064,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": 0.05186789388196274,
+              "positive_reference_pct": 40.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.0946266297905807
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.03531844339641346,
+              "mean_adjusted_reference_r": 0.016549450485549254,
+              "positive_reference_pct": 40.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.029101631658224
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.06357319811354424,
+              "mean_adjusted_reference_r": -0.011705304231581537,
+              "positive_reference_pct": 40.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.9799948405985922
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.08240970125829808,
+              "mean_adjusted_reference_r": -0.030541807376335363,
+              "positive_reference_pct": 40.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.9487615421340696
+            }
+          ]
+        },
+        "2026-07": {
+          "candidates": 1,
+          "resolved": 1,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": -8.760000000000218,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": -1.0,
+              "positive_reference_pct": 0.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.0
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.0342465753424649,
+              "mean_adjusted_reference_r": -1.034246575342465,
+              "positive_reference_pct": 0.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.0
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.061643835616436826,
+              "mean_adjusted_reference_r": -1.0616438356164368,
+              "positive_reference_pct": 0.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.0
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.07990867579908476,
+              "mean_adjusted_reference_r": -1.0799086757990848,
+              "positive_reference_pct": 0.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.0
+            }
+          ]
+        },
+        "2026-08": {
+          "candidates": 3,
+          "resolved": 3,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": 11.397122316364033,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": 0.8299808225306324,
+              "positive_reference_pct": 100.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": null
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.021847115425065042,
+              "mean_adjusted_reference_r": 0.8081337071055673,
+              "positive_reference_pct": 100.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": null
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.03932480776511708,
+              "mean_adjusted_reference_r": 0.7906560147655153,
+              "positive_reference_pct": 100.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": null
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.0509766026584851,
+              "mean_adjusted_reference_r": 0.7790042198721473,
+              "positive_reference_pct": 100.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": null
+            }
+          ]
+        },
+        "2026-09": {
+          "candidates": 6,
+          "resolved": 6,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": -1.6036582463428428,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": -0.19764239108464543,
+              "positive_reference_pct": 33.333333333333336,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.6748507230286594
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.03697341217220764,
+              "mean_adjusted_reference_r": -0.23461580325685308,
+              "positive_reference_pct": 33.333333333333336,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.6298688240763394
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.06655214190997376,
+              "mean_adjusted_reference_r": -0.2641945329946192,
+              "positive_reference_pct": 33.333333333333336,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.5964577645304026
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.08627129506848451,
+              "mean_adjusted_reference_r": -0.28391368615312995,
+              "positive_reference_pct": 33.333333333333336,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.5753396076063664
+            }
+          ]
+        }
+      }
+    },
+    "B_COUNTER_SWEEP": {
+      "overall": {
+        "candidates": 41,
+        "resolved": 38,
+        "unresolved_ids": [
+          "B_COUNTER_SWEEP:1774988700:SELL",
+          "B_COUNTER_SWEEP:1775676900:BUY",
+          "B_COUNTER_SWEEP:1781811900:BUY"
+        ],
+        "break_even_flat_cost_price": 1.0022566343048092,
+        "scenarios": [
+          {
+            "assumed_round_trip_cost_price": 0.0,
+            "mean_cost_r": 0.0,
+            "mean_adjusted_reference_r": 0.06424424792373076,
+            "positive_reference_pct": 47.36842105263158,
+            "unresolved_average_r_for_all_candidate_break_even": -0.8137604737005897,
+            "adjusted_reference_pf": 1.1812626292464117
+          },
+          {
+            "assumed_round_trip_cost_price": 0.3,
+            "mean_cost_r": 0.019229879571201508,
+            "mean_adjusted_reference_r": 0.045014368352529276,
+            "positive_reference_pct": 47.36842105263158,
+            "unresolved_average_r_for_all_candidate_break_even": -0.5701819991320375,
+            "adjusted_reference_pf": 1.123596618962867
+          },
+          {
+            "assumed_round_trip_cost_price": 0.54,
+            "mean_cost_r": 0.03461378322816272,
+            "mean_adjusted_reference_r": 0.02963046469556806,
+            "positive_reference_pct": 47.36842105263158,
+            "unresolved_average_r_for_all_candidate_break_even": -0.37531921947719543,
+            "adjusted_reference_pf": 1.0796462362402377
+          },
+          {
+            "assumed_round_trip_cost_price": 0.7,
+            "mean_cost_r": 0.044869718999470176,
+            "mean_adjusted_reference_r": 0.01937452892426059,
+            "positive_reference_pct": 47.36842105263158,
+            "unresolved_average_r_for_all_candidate_break_even": -0.2454106997073008,
+            "adjusted_reference_pf": 1.05135854379015
+          }
+        ]
+      },
+      "by_signal_month_utc": {
+        "2026-03": {
+          "candidates": 1,
+          "resolved": 0,
+          "unresolved_ids": [
+            "B_COUNTER_SWEEP:1774988700:SELL"
+          ],
+          "break_even_flat_cost_price": null,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": null,
+              "mean_adjusted_reference_r": null,
+              "positive_reference_pct": null,
+              "unresolved_average_r_for_all_candidate_break_even": -0.0,
+              "adjusted_reference_pf": null
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": null,
+              "mean_adjusted_reference_r": null,
+              "positive_reference_pct": null,
+              "unresolved_average_r_for_all_candidate_break_even": -0.0,
+              "adjusted_reference_pf": null
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": null,
+              "mean_adjusted_reference_r": null,
+              "positive_reference_pct": null,
+              "unresolved_average_r_for_all_candidate_break_even": -0.0,
+              "adjusted_reference_pf": null
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": null,
+              "mean_adjusted_reference_r": null,
+              "positive_reference_pct": null,
+              "unresolved_average_r_for_all_candidate_break_even": -0.0,
+              "adjusted_reference_pf": null
+            }
+          ]
+        },
+        "2026-04": {
+          "candidates": 6,
+          "resolved": 5,
+          "unresolved_ids": [
+            "B_COUNTER_SWEEP:1775676900:BUY"
+          ],
+          "break_even_flat_cost_price": 11.034408358548493,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": 0.6598873841544171,
+              "positive_reference_pct": 80.0,
+              "unresolved_average_r_for_all_candidate_break_even": -3.2994369207720853,
+              "adjusted_reference_pf": 5.094925358984832
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.01794080922272178,
+              "mean_adjusted_reference_r": 0.6419465749316953,
+              "positive_reference_pct": 80.0,
+              "unresolved_average_r_for_all_candidate_break_even": -3.209732874658476,
+              "adjusted_reference_pf": 4.932976368651829
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.032293456600899204,
+              "mean_adjusted_reference_r": 0.6275939275535178,
+              "positive_reference_pct": 80.0,
+              "unresolved_average_r_for_all_candidate_break_even": -3.137969637767589,
+              "adjusted_reference_pf": 4.806350592059384
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.04186188818635082,
+              "mean_adjusted_reference_r": 0.6180254959680662,
+              "positive_reference_pct": 80.0,
+              "unresolved_average_r_for_all_candidate_break_even": -3.090127479840331,
+              "adjusted_reference_pf": 4.723339774751383
+            }
+          ]
+        },
+        "2026-05": {
+          "candidates": 10,
+          "resolved": 10,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": -4.339908366530728,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": -0.31922683719568046,
+              "positive_reference_pct": 30.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.4048025966401362
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.022066837147361247,
+              "mean_adjusted_reference_r": -0.3412936743430417,
+              "positive_reference_pct": 30.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.38218515147656085
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.03972030686525024,
+              "mean_adjusted_reference_r": -0.3589471440609307,
+              "positive_reference_pct": 30.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.36501781420336266
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.05148928667717624,
+              "mean_adjusted_reference_r": -0.3707161238728567,
+              "positive_reference_pct": 30.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.35400058907754883
+            }
+          ]
+        },
+        "2026-06": {
+          "candidates": 6,
+          "resolved": 5,
+          "unresolved_ids": [
+            "B_COUNTER_SWEEP:1781811900:BUY"
+          ],
+          "break_even_flat_cost_price": -3.027028262412029,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": -0.18475370036009156,
+              "positive_reference_pct": 20.0,
+              "unresolved_average_r_for_all_candidate_break_even": 0.9237685018004578,
+              "adjusted_reference_pf": 0.6188709849499856
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.018310403902163187,
+              "mean_adjusted_reference_r": -0.20306410426225474,
+              "positive_reference_pct": 20.0,
+              "unresolved_average_r_for_all_candidate_break_even": 1.0153205213112737,
+              "adjusted_reference_pf": 0.5930322504791476
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.03295872702389374,
+              "mean_adjusted_reference_r": -0.2177124273839853,
+              "positive_reference_pct": 20.0,
+              "unresolved_average_r_for_all_candidate_break_even": 1.0885621369199265,
+              "adjusted_reference_pf": 0.5733976351356166
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.0427242757717141,
+              "mean_adjusted_reference_r": -0.22747797613180562,
+              "positive_reference_pct": 20.0,
+              "unresolved_average_r_for_all_candidate_break_even": 1.1373898806590281,
+              "adjusted_reference_pf": 0.5607869051228896
+            }
+          ]
+        },
+        "2026-07": {
+          "candidates": 5,
+          "resolved": 5,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": 3.1928217615504426,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": 0.2122548829011265,
+              "positive_reference_pct": 60.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.9814955173926114
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.01994363281945826,
+              "mean_adjusted_reference_r": 0.19231125008166824,
+              "positive_reference_pct": 60.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.8641547162413967
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.03589853907502488,
+              "mean_adjusted_reference_r": 0.17635634382610163,
+              "positive_reference_pct": 60.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.7749494132383101
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.046535143245402616,
+              "mean_adjusted_reference_r": 0.16571973965572387,
+              "positive_reference_pct": 60.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.7176376740684198
+            }
+          ]
+        },
+        "2026-08": {
+          "candidates": 9,
+          "resolved": 9,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": 4.384783694101517,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": 0.27755581413858604,
+              "positive_reference_pct": 55.55555555555556,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.9791674875285459
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.018989932012743887,
+              "mean_adjusted_reference_r": 0.25856588212584214,
+              "positive_reference_pct": 55.55555555555556,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.8902859043744569
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.034181877622939,
+              "mean_adjusted_reference_r": 0.243373936515647,
+              "positive_reference_pct": 55.55555555555556,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.822194018965364
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.044309841363069064,
+              "mean_adjusted_reference_r": 0.23324597277551698,
+              "positive_reference_pct": 55.55555555555556,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 1.778206782319409
+            }
+          ]
+        },
+        "2026-09": {
+          "candidates": 4,
+          "resolved": 4,
+          "unresolved_ids": [],
+          "break_even_flat_cost_price": -1.5540266957251572,
+          "scenarios": [
+            {
+              "assumed_round_trip_cost_price": 0.0,
+              "mean_cost_r": 0.0,
+              "mean_adjusted_reference_r": -0.07534884191649002,
+              "positive_reference_pct": 50.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.7575032690687618
+            },
+            {
+              "assumed_round_trip_cost_price": 0.3,
+              "mean_cost_r": 0.014545858598908412,
+              "mean_adjusted_reference_r": -0.08989470051539844,
+              "positive_reference_pct": 50.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.7186407507715943
+            },
+            {
+              "assumed_round_trip_cost_price": 0.54,
+              "mean_cost_r": 0.026182545478035144,
+              "mean_adjusted_reference_r": -0.10153138739452519,
+              "positive_reference_pct": 50.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.6890555810199842
+            },
+            {
+              "assumed_round_trip_cost_price": 0.7,
+              "mean_cost_r": 0.033940336730786294,
+              "mean_adjusted_reference_r": -0.10928917864727633,
+              "positive_reference_pct": 50.0,
+              "unresolved_average_r_for_all_candidate_break_even": null,
+              "adjusted_reference_pf": 0.6700292995883377
+            }
+          ]
+        }
+      }
+    }
+  },
+  "unresolved": [
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1774988700:SELL",
+      "family": "B_COUNTER_SWEEP",
+      "side": "SELL",
+      "known_at_utc": 1774988700,
+      "entry_open_reference": "4767.165",
+      "structural_stop": "4782.165",
+      "target_reference": "4744.6650",
+      "state": "CENSORED_M5_GAP",
+      "reference_r": null,
+      "exit_m5_close": 1774990800
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1775676900:BUY",
+      "family": "B_COUNTER_SWEEP",
+      "side": "BUY",
+      "known_at_utc": 1775676900,
+      "entry_open_reference": "4732.62",
+      "structural_stop": "4714.31",
+      "target_reference": "4760.085",
+      "state": "CENSORED_M5_GAP",
+      "reference_r": null,
+      "exit_m5_close": 1775682000
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1781811900:BUY",
+      "family": "B_COUNTER_SWEEP",
+      "side": "BUY",
+      "known_at_utc": 1781811900,
+      "entry_open_reference": "4230.2500000000055",
+      "structural_stop": "4217.220000000006",
+      "target_reference": "4249.79500000000475",
+      "state": "CENSORED_M5_GAP",
+      "reference_r": null,
+      "exit_m5_close": 1781816400
+    }
+  ],
+  "actual_win_rate_pct": null,
+  "net_expectancy_r": null,
+  "account_return_pct": null,
+  "portfolio_drawdown": null,
+  "out_of_sample": false,
+  "execution_allowed": false,
+  "adoption_allowed": false,
+  "full_hour_breakdown_available_in_reproducible_cli_output": true
+}

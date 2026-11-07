@@ -1,0 +1,37 @@
+{
+  "symbol": "USDJPY",
+  "source": "HistData Generic ASCII ticks",
+  "requested_source_month": "202610",
+  "request_started_at_utc": "2026-11-03T20:53:51.117734+00:00",
+  "source_url": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/usdjpy/2026/10",
+  "download_endpoint": "https://www.histdata.com/get.php",
+  "attempts": 1,
+  "raw_data_acquired": true,
+  "execution_allowed": false,
+  "paid_route_used": false,
+  "source_is_user_mt5": false,
+  "actual_profit_usd": null,
+  "http_status": 200,
+  "downloaded_bytes": 9510817,
+  "content_type": "application/octet-stream",
+  "members": [
+    {
+      "name": "DAT_ASCII_USDJPY_T_202610.csv",
+      "bytes": 107630333,
+      "compressed_bytes": 9509736
+    },
+    {
+      "name": "DAT_ASCII_USDJPY_T_202610.txt",
+      "bytes": 3182,
+      "compressed_bytes": 759
+    }
+  ],
+  "status": "ZIP_RECEIVED_AND_DIAGNOSTIC_AUDIT_COMPLETED",
+  "zip_sha256": "da3b22b6eb2c5c048ba6a7dc09a286b1a17b0c0a23a343cca6829ea9a94d92aa",
+  "audited_tick_count": 2503031,
+  "audit_evidence": "usdjpy_histdata_tick_audit_20261103.json",
+  "strict_order_audit_passed": false,
+  "strategy_win_rate_pct": null,
+  "net_expectancy_r": null,
+  "account_return_pct": null
+}

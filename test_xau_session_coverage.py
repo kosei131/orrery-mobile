@@ -3,7 +3,7 @@ import datetime as dt
 import tempfile
 import unittest
 from pathlib import Path
-from orrery_xau_session_coverage import crosscheck, weekly_open
+from orrery_xau_session_coverage import crosscheck, weekly_open, classify_gap_intervals
 
 class SessionCoverageTests(unittest.TestCase):
     def test_published_weekly_boundaries(self):
@@ -54,5 +54,39 @@ class SessionCoverageTests(unittest.TestCase):
         for stamps in ([], ['2026-10-26T00:10:00'], ['2026-10-26T00:10:00+00:00']*2):
             with self.subTest(stamps=stamps), self.assertRaises(ValueError):
                 self.run_case(stamps)
+
+class GapPartitionTests(unittest.TestCase):
+    def gap(self,a,b,n):
+        return dict(after_utc=a,before_utc=b,missing_minutes=n)
+
+    def test_open_and_closed_minutes_partition_exactly(self):
+        r=classify_gap_intervals([self.gap('2026-10-26T20:58:00Z','2026-10-26T22:02:00Z',63)])
+        self.assertEqual(r['weekly_closed_candidate_minutes'],60)
+        self.assertEqual(r['weekly_open_unexplained_minutes'],3)
+        self.assertEqual(r['gaps'][0]['classification'],'MIXED_WEEKLY_OPEN_AND_CLOSED')
+        self.assertTrue(r['publication_preknown_for_all_minutes'])
+        self.assertFalse(r['calendar_authenticated'])
+        self.assertFalse(r['continuity_restored'])
+        self.assertIsNone(r['actual_profit_usd'])
+
+    def test_weekend_candidate_and_publication_timing(self):
+        r=classify_gap_intervals([self.gap('2026-08-21T20:44:00Z','2026-08-23T22:00:00Z',2955)])
+        self.assertEqual(r['weekly_closed_candidate_minutes'],2955)
+        self.assertEqual(r['weekly_open_unexplained_minutes'],0)
+        self.assertGreater(r['minutes_before_schedule_publication'],0)
+        self.assertFalse(r['publication_preknown_for_all_minutes'])
+        self.assertEqual(r['gaps'][0]['session_reason'],'UNVERIFIED')
+
+    def test_interior_open_gap_stays_unexplained(self):
+        r=classify_gap_intervals([self.gap('2026-10-26T12:00:00Z','2026-10-26T12:02:00Z',1)])
+        self.assertEqual(r['gaps'][0]['classification'],'UNEXPLAINED_WEEKLY_OPEN')
+
+    def test_malformed_overlap_and_unbounded_gaps_rejected(self):
+        good=self.gap('2026-10-26T12:00:00Z','2026-10-26T12:02:00Z',1)
+        for gaps in ([dict(good,missing_minutes=0)], [good,good],
+            [dict(good,after_utc='2026-10-26T12:00:00')],
+            [self.gap('2024-01-01T00:00:00Z','2026-01-01T00:00:00Z',1052639)]):
+            with self.subTest(gaps=gaps),self.assertRaises(ValueError):
+                classify_gap_intervals(gaps)
 
 if __name__=='__main__': unittest.main()

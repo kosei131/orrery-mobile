@@ -1,0 +1,33 @@
+{
+  "base_commit": "af93769001ada0cd19c08d8d64532294453824c6",
+  "python": "3.12.14",
+  "git": "2.53.0.windows.3",
+  "unittest": {
+    "run": 984,
+    "passed": 979,
+    "skipped": 5,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 79.333
+  },
+  "browser_checks": [
+    "test_mt5_poll.cjs",
+    "test_mt5_chart_browser.cjs",
+    "verify_history_chart.cjs",
+    "test_fx.cjs",
+    "test_weekly_plan.cjs"
+  ],
+  "execution_allowed": false,
+  "actual_profit_usd": null,
+  "source_sha256": {
+    "mt5_local_dashboard.py": "a7a7a1ed47b17d8409975f738a5bcf92ed1402815f96b6b3daf79ed8740c30a7",
+    "orrery_dashboard_analysis.py": "3db5b65580969c1f2dd02745837bb6372afc02c1ead8748cf0e8addaf4cdad42",
+    "orrery_history_app.py": "94663b4055f81e6f2fc1ed5fc7633a6612ec09aec31f51995d9b9b16a6201a53",
+    "lsr02_overlay_export.py": "0ddc069577297eefbcd3f9e38726d939b5a5eea25d64a6b679a0b6e82be4fbf2",
+    "test_orrery_dashboard_analysis.py": "a37f53d91ccd0a563bac12fd1ca09cb007b4f5fd4e5333d109a77cbe44cbd0b3",
+    "test_orrery_history_app.py": "62132656547361400e17a6a1e7b6ddd666a33144868764c13766185af37d4d71",
+    "test_mt5_chart_browser.cjs": "b6d4ff66ca170ebfd3786a0d0823fc65bab57ebf09bf78430b046441fdda08c8",
+    "verify_history_chart.cjs": "94305aab3d10701b95f657dcc005984f550e99801a0330cf2df8f4a249520b09",
+    "START_HISTORY_RESEARCH.cmd": "b0eadc6af4060f74fcd7ec28b936ead650a63d6e80247cb4ea5dde68a75f8436"
+  }
+}

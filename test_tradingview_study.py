@@ -99,3 +99,85 @@ class StudyTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):prepare(paths,config,out)
             (out/'M5.csv').write_bytes(b'changed')
             with self.assertRaises(ValueError):verify(out,result['receipt_sha256'])
+
+
+class AlignedAccountTests(unittest.TestCase):
+    def run_comparison(self, *, h4_high=100, quote_start=14400, expected_start=None):
+        from orrery_aligned_account_study import compare
+
+        catalog = fixture.fixtures.StudyTests()
+        catalog.setUp()
+        self.addCleanup(catalog.doCleanups)
+        catalog.start, catalog.end = quote_start, 43200
+        catalog.build([catalog.q(at * 1000, 100, 100.1)
+                       for at in range(catalog.start, catalog.end, 60)])
+        settings = dict(symbol='XAUUSD', data_source='SYNTHETIC_STUDY',
+                        chart_type='STANDARD', price_basis='BID',
+                        time_format='UNIX_SECONDS', as_of_s=catalog.end,
+                        column_map={key: key for key in ('time','open','high','low','close')},
+                        strategy=dict(buffer=.1,target_r=2,period=2,min_vhf=0,
+                                      left=1,right=1,lifetime=6000))
+        raw = {}
+        for frame, interval in (('M5',300), ('M15',900), ('H4',14400)):
+            raw[frame] = export([
+                dict(close_time=at + interval, open=100, high=h4_high if frame == 'H4' and at == 14400 else 100,
+                     low=100, close=100) for at in range(14400, catalog.end, interval)
+            ], interval)
+        return compare(raw, settings, path=catalog.path,
+                       expected_catalog_sha256=catalog.saved['catalog_sha256'],
+                       expected_start_s=expected_start,
+                       max_gap_msc=60000, price_tolerance=0,
+                       volume_min=.01, volume_max=100, volume_step=.01,
+                       pnl_quote=account_fixture.pnl, round_trip_cost_per_lot_usd=.01,
+                       cost_source='SYNTHETIC_USD_MODEL', slippage=0)
+
+    def test_matching_catalog_runs_two_independent_accounts(self):
+        result = self.run_comparison()
+        self.assertEqual(result['status'], 'ALIGNED_SESSION_MODEL_ACCOUNTS')
+        self.assertEqual(result['candidate_counts'], {'LSR02': 0, 'VHF03': 0})
+        self.assertEqual([row['initial_equity_usd'] for row in result['accounts'].values()],
+                         [3000, 3000])
+
+    def test_wrong_h4_blocks_both_accounts(self):
+        result = self.run_comparison(h4_high=101)
+        self.assertEqual(result['status'], 'BLOCKED_BAR_QUOTE_ALIGNMENT')
+        self.assertEqual(result['alignment']['frames']['H4']['mismatched_bars'], 1)
+        self.assertIsNone(result['accounts'])
+
+    def test_partial_first_bar_is_not_verified_context(self):
+        result = self.run_comparison(quote_start=14460)
+        self.assertTrue(result['alignment']['aligned'])
+        self.assertEqual(result['status'], 'BLOCKED_BAR_CROSSES_SESSION_START')
+        self.assertEqual(result['crossing_frames'], ['H4', 'M15', 'M5'])
+        self.assertIsNone(result['accounts'])
+
+    def test_catalog_start_must_match_declared_session(self):
+        result = self.run_comparison(expected_start=0)
+        self.assertEqual(result['status'], 'BLOCKED_CATALOG_START_MISMATCH')
+        self.assertEqual(result['actual_start_s'], 14400)
+        self.assertIsNone(result['accounts'])
+
+    def test_session_batch_retains_missing_and_does_not_combine_accounts(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import compare_sessions
+
+        missing = dict(start_s=0, end_s=14400, raw_csvs=None, path=None, catalog_sha256=None)
+        ready = dict(missing, start_s=14400, end_s=43200, raw_csvs={}, path='catalog',
+                     catalog_sha256='digest')
+        with patch('orrery_aligned_account_study.compare',
+                   return_value={'accounts': {'LSR02': {}, 'VHF03': {}}}) as replay:
+            result = compare_sessions([missing, ready], {'symbol': 'XAUUSD'}, slippage=.1)
+            replay.assert_called_once_with({}, {'symbol': 'XAUUSD', 'as_of_s': 43200},
+                                           path='catalog', expected_catalog_sha256='digest',
+                                           expected_start_s=14400, slippage=.1)
+        self.assertEqual(result['completed_sessions'], 1)
+        self.assertEqual(result['blocked_sessions'], 1)
+        self.assertEqual(result['sessions'][0]['result']['status'], 'BLOCKED_MISSING_SESSION_INPUT')
+        self.assertIsNone(result['combined_accounts'])
+
+    def test_session_batch_rejects_overlap(self):
+        from orrery_aligned_account_study import compare_sessions
+
+        session = dict(start_s=0, end_s=14400, raw_csvs=None, path=None, catalog_sha256=None)
+        with self.assertRaisesRegex(ValueError, 'non-overlapping'):
+            compare_sessions([session, dict(session, start_s=14399)], {})

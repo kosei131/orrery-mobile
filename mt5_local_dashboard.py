@@ -13,28 +13,44 @@ from urllib.parse import urlsplit, parse_qs
 
 PARSER = argparse.ArgumentParser(description='ORRERY FX local DEMO-only dashboard')
 PARSER.add_argument('--test-data', action='store_true', help='Simulated data, no MT5 required')
+PARSER.add_argument('--terminal-path', help='Absolute path to an already logged-in DEMO terminal')
+PARSER.add_argument('--history-dir', help='Offline public OHLC directory; never connects to MT5')
+PARSER.add_argument('--research-results', help='Matching local history comparison JSON')
+PARSER.add_argument('--halftrend-report', help='Separate archived TradingView cohort JSON (offline history only)')
+PARSER.add_argument('--halftrend-report-sha256', help='Required SHA256 of archived cohort JSON')
+PARSER.add_argument('--entry-report', help='Separate archived exploratory entry comparison (history only)')
+PARSER.add_argument('--entry-report-sha256', help='Required SHA256 of entry archive')
+PARSER.add_argument('--prospective-manifest', help='Explicit new-period ZIP manifest; replay once in offline history mode')
+PARSER.add_argument('--prospective-manifest-sha256', help='Required SHA256 of prospective ZIP manifest')
 ARGS = argparse.Namespace(test_data=False)
+HISTORY_SNAPSHOT = None
 mt5 = None
 
 HOST, PORT = "127.0.0.1", 8765
 TOKEN = secrets.token_urlsafe(24)
 HTML = """<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ORRERY MT5 Local</title>
-<style>body{background:#0b0c10;color:#eee0c4;font:16px system-ui;margin:0;padding:20px}main{max-width:800px;margin:auto}h1{color:#ddb66e}section{background:#17181b;border:1px solid #806238;border-radius:12px;margin:12px 0;padding:16px}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #42372b;padding:9px;text-align:left}.muted{color:#bbb;font-size:13px}.big{font-size:25px;font-weight:700}button{background:#d4ae69;padding:10px;border:0;border-radius:8px}</style>
-<main><h1>ORRERY FX · LOCAL MT5</h1><p class="muted">Windowsパソコン専用 · DEMO限定 · 読み取り専用 · 1秒間隔で更新要求（取得中は待機） · 外部送信なし</p><section id="state">MT5接続を確認中...</section><section><div id="summary"></div></section><section><h3>MT5 DEMO · BID / ASK</h3><p class="muted">ブローカー配信の最終ティック。ローソク足チャートではありません。価格時刻が10秒超過・未来の場合は利用不可。未対応銘柄は代替価格を使いません。</p><div id="quotes" style="white-space:pre-line">未取得</div></section><section><h3>MT5 DEMO · 確定足チャート</h3><p class="muted">内部取得最大100本・表示は直近70本・未確定足なし。価格表示は1秒間隔で取得要求しますが、確定足の追加は選択時間足ごとです。欠損・古い履歴は描画しません。LSR判定とは未接続。</p><label for="chartFrame">時間足</label><select id="chartFrame"><option value="5m">5分足</option><option value="15m">15分足</option><option value="4H">4時間足</option></select><div id="charts"></div></section><section><h3>POSITIONS</h3><table><thead><tr><th>Symbol</th><th>Side</th><th>Lot</th><th>P/L</th></tr></thead><tbody id="pos"></tbody></table></section><button id="refresh">今すぐ更新</button><p class="muted">この画面は同じWindows PCでのみ利用できます。iPhone同期は未実装です。</p></main>
+<style>body{background:#0b0c10;color:#eee0c4;font:16px system-ui;margin:0;padding:20px}main{max-width:1150px;margin:auto}h1{color:#ddb66e}section{background:#17181b;border:1px solid #806238;border-radius:12px;margin:12px 0;padding:16px}select{background:#242428;color:#eee0c4;padding:8px}svg{max-height:380px}.analysis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.tile{padding:12px;border:1px solid #53442e;border-radius:8px;overflow-wrap:anywhere}#halftrendArchive,#entryArchive,#prospectiveStatus,#prospectiveArchive{overflow-wrap:anywhere}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #42372b;padding:9px;text-align:left}.muted{color:#bbb;font-size:13px}.big{font-size:25px;font-weight:700}button{background:#d4ae69;padding:10px;border:0;border-radius:8px}@media(min-width:900px){main{display:grid;grid-template-columns:1.3fr 1fr;gap:12px}main>h1,main>p,main>button,main>section{grid-column:1/-1}main>section.chart-panel,main>section.analysis-panel{grid-column:auto}section{margin:0}}</style>
+<main><h1 id="appTitle">ORRERY FX · LOCAL MT5</h1><p class="muted">Windowsパソコン専用 · DEMO限定 · 読み取り専用 · 1秒間隔で更新要求（取得中は待機） · 外部送信なし</p><section id="state">MT5接続を確認中...</section><section><div id="summary"></div></section><section id="quotePanel"><h3>MT5 DEMO · BID / ASK</h3><p class="muted">ブローカー配信の最終ティック。ローソク足チャートではありません。価格時刻が10秒超過・未来の場合は利用不可。未対応銘柄は代替価格を使いません。</p><div id="quotes" style="white-space:pre-line">未取得</div></section><section class="chart-panel"><h3 id="chartTitle">MT5 DEMO · 確定足チャート</h3><p class="muted">内部取得最大100本・表示は直近70本・未確定足なし。価格表示は1秒間隔で取得要求しますが、確定足の追加は選択時間足ごとです。欠損・古い履歴は描画しません。重要価格帯と指標は同じ取得結果から計算。SL/TPは参考シナリオであり、売買シグナルではありません。</p><label for="chartFrame">時間足</label><select id="chartFrame"><option value="5m">5分足</option><option value="15m">15分足</option><option value="4H">4時間足</option></select><div id="charts"></div></section><section class="analysis-panel"><h3>分析 · 重要価格帯 / SL・TP / リスク</h3><p class="muted">確定足ベース · 注文機能は無効 · 参考RRは勝率・期待値ではありません</p><div id="analysis" class="analysis-grid">未取得</div></section><section><h3>LSR02 / VHF03 · PUBLIC HISTORY RESEARCH</h3><div id="results">UNKNOWN</div></section><section><h3>TradingView · 保存済みHalfTrend比較</h3><div id="halftrendArchive">未読込</div></section><section><h3>Confirmation / Retest · 保存済み探索比較</h3><div id="entryArchive">未読込</div></section><section><h3>HalfTrend · 固定期間の取得状況</h3><div id="prospectiveStatus">未読込</div></section><section><h3>HalfTrend · 追加期間ZIPの再検証</h3><div id="prospectiveArchive">未読込</div></section><section id="positionsPanel"><h3>POSITIONS</h3><table><thead><tr><th>Symbol</th><th>Side</th><th>Lot</th><th>P/L</th></tr></thead><tbody id="pos"></tbody></table></section><button id="refresh">今すぐ更新</button><p class="muted">この画面は同じWindows PCでのみ利用できます。iPhone同期は未実装です。</p></main>
 <script>
 const auth=location.hash.slice(1);history.replaceState({},'',location.pathname);
 const $=id=>document.getElementById(id);
-const fmt=(x,c)=>new Intl.NumberFormat('en-US',{style:'currency',currency:c||'USD'}).format(x);
+const fmt=(x,c)=>!Number.isFinite(x)?'UNKNOWN':new Intl.NumberFormat('en-US',{style:'currency',currency:c||'USD'}).format(x);
 let lastChartData={charts:[]};
-function drawCharts(j){lastChartData=j;const host=$('charts');host.replaceChildren();if(j.status==='SIMULATED_TEST_DATA'){host.textContent='SIMULATED TEST DATA — 市場チャート未接続';return}for(const c of j.charts||[]){if(c.timeframe!==($('chartFrame').value||'5m'))continue;const title=document.createElement('p');title.textContent=c.symbol+' / '+c.timeframe+' / '+c.status+(c.last_close_utc?' / '+c.last_close_utc:'');host.appendChild(title);if(c.status!=='CLOSED_BARS_AVAILABLE'||!Array.isArray(c.bars)||c.bars.length<2||c.bars.length>100)continue;const bars=c.bars.slice(-70);if(!bars.every(b=>['open','high','low','close'].every(k=>Number.isFinite(b[k])&&b[k]>0)&&b.low<=Math.min(b.open,b.close)&&b.high>=Math.max(b.open,b.close)))continue;const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 700 220');svg.setAttribute('role','img');svg.setAttribute('aria-label',c.symbol+' '+c.timeframe+' 確定足');svg.style.width='100%';const low=Math.min(...bars.map(b=>b.low)),high=Math.max(...bars.map(b=>b.high)),range=Math.max(high-low,.000001),y=v=>10+200*(high-v)/range,step=680/bars.length;bars.forEach((b,i)=>{const color=b.close>=b.open?'#4db59a':'#ce424d',x=10+i*step;const line=document.createElementNS(ns,'line');for(const [k,v]of Object.entries({x1:x+step*.4,x2:x+step*.4,y1:y(b.high),y2:y(b.low),stroke:color}))line.setAttribute(k,String(v));svg.appendChild(line);const rect=document.createElementNS(ns,'rect');for(const [k,v]of Object.entries({x,y:Math.min(y(b.open),y(b.close)),width:step*.8,height:Math.max(1,Math.abs(y(b.open)-y(b.close))),fill:color}))rect.setAttribute(k,String(v));svg.appendChild(rect)});host.appendChild(svg)}}
+function drawCharts(j){if(j.status==='PUBLIC_HISTORY_RESEARCH'){$('appTitle').textContent='ORRERY FX / PUBLIC HISTORY RESEARCH';$('chartTitle').textContent='XAUUSD / historical closed candles / NOT CURRENT';$('quotePanel').hidden=true;$('positionsPanel').hidden=true}lastChartData=j;drawAnalysis(j);drawResearch(j);drawHalftrendArchive(j);drawEntryArchive(j);drawProspectiveStatus(j);drawProspectiveArchive(j);const host=$('charts');host.replaceChildren();if(j.status==='SIMULATED_TEST_DATA'){host.textContent='SIMULATED TEST DATA — 市場チャート未接続';return}for(const c of j.charts||[]){if(c.timeframe!==($('chartFrame').value||'5m'))continue;const title=document.createElement('p');title.textContent=c.symbol+' / '+c.timeframe+' / '+c.status+(c.last_close_utc?' / '+c.last_close_utc:'');host.appendChild(title);if(c.status!=='CLOSED_BARS_AVAILABLE'||!Array.isArray(c.bars)||c.bars.length<2||c.bars.length>100)continue;const bars=c.bars.slice(-70);if(!bars.every(b=>['open','high','low','close'].every(k=>Number.isFinite(b[k])&&b[k]>0)&&b.low<=Math.min(b.open,b.close)&&b.high>=Math.max(b.open,b.close)))continue;const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 700 220');svg.setAttribute('role','img');svg.setAttribute('aria-label',c.symbol+' '+c.timeframe+' 確定足');svg.style.width='100%';const low=Math.min(...bars.map(b=>b.low)),high=Math.max(...bars.map(b=>b.high)),range=Math.max(high-low,.000001),y=v=>10+200*(high-v)/range,step=680/bars.length;bars.forEach((b,i)=>{const color=b.close>=b.open?'#4db59a':'#ce424d',x=10+i*step;const line=document.createElementNS(ns,'line');for(const [k,v]of Object.entries({x1:x+step*.4,x2:x+step*.4,y1:y(b.high),y2:y(b.low),stroke:color}))line.setAttribute(k,String(v));svg.appendChild(line);const rect=document.createElementNS(ns,'rect');for(const [k,v]of Object.entries({x,y:Math.min(y(b.open),y(b.close)),width:step*.8,height:Math.max(1,Math.abs(y(b.open)-y(b.close))),fill:color}))rect.setAttribute(k,String(v));svg.appendChild(rect)});for(const level of (j.analysis?.charts||[]).find(a=>a.symbol===c.symbol&&a.timeframe===c.timeframe)?.levels||[]){if(!Number.isFinite(level.price)||level.price<low||level.price>high)continue;const line=document.createElementNS(ns,'line');for(const [k,v]of Object.entries({x1:10,x2:690,y1:y(level.price),y2:y(level.price),stroke:'#d4ae69','stroke-dasharray':'4 4'}))line.setAttribute(k,String(v));svg.appendChild(line);const label=document.createElementNS(ns,'text');label.setAttribute('x','12');label.setAttribute('y',String(Math.max(12,y(level.price)-3)));label.setAttribute('fill','#eee0c4');label.setAttribute('font-size','10');label.textContent=level.kind+' '+level.price.toFixed(3);svg.appendChild(label)}host.appendChild(svg)}}
+function drawAnalysis(j){const host=$('analysis');host.replaceChildren();if(!['READ_ONLY_DEMO','PUBLIC_HISTORY_RESEARCH'].includes(j.status)){host.textContent='SIMULATED TEST DATA — MT5分析未接続';return}const rows=(j.analysis?.charts||[]).filter(c=>c.timeframe===($('chartFrame').value||'5m'));if(!rows.length){host.textContent='分析未取得';return}const number=v=>Number.isFinite(v)?v.toFixed(3):'未検証';for(const row of rows){const tile=document.createElement('div');tile.className='tile';const heading=document.createElement('h4');heading.textContent=row.symbol+' / '+row.timeframe+' / '+row.status;tile.appendChild(heading);const lines=(row.reasons||[]).map(r=>'Reason: '+r);if(row.status==='RESEARCH_LEVELS_ONLY'){for(const l of row.levels)lines.push(l.kind+': '+number(l.price));const i=row.indicators||{};lines.push('ADX14 '+number(i.adx)+' / ATR14 '+number(i.atr),'EMA20 '+number(i.ema_fast)+' / EMA50 '+number(i.ema_slow));for(const p of row.reference_plans||[])lines.push(p.side+' 参考終値 '+number(p.reference_entry)+' / 構造SL '+number(p.structural_sl)+' / 構造TP '+number(p.structural_tp)+' / 費用前RR '+number(p.gross_reward_risk));if(!(row.reference_plans||[]).length)lines.push('構造SL/TP: 有効な支持・抵抗の組がないため未算出')}lines.push('純期待値: 未検証（長期評価・費用不足）','口座合計SLリスク: 未検証（建玉SL・仕様不足）','注文: 無効 / 将来も本人の最終承認が必要');for(const text of lines){const p=document.createElement('p');p.textContent=text;tile.appendChild(p)}host.appendChild(tile)}}
+function drawResearch(j){const host=$('results');host.replaceChildren();const r=j.research_results;if(!r){host.textContent='UNKNOWN: no verified matching research report';return}const note=document.createElement('p');note.textContent='PUBLIC OHLC / gross reference only / costs UNKNOWN / holdout NOT independent / gap resets';host.appendChild(note);for(const [name,v]of Object.entries(r.summaries||{})){const p=document.createElement('p');const n=x=>Number.isFinite(x)?x.toFixed(3):'UNKNOWN';p.textContent=name+' | candidates '+v.candidates+' / closed '+v.closed_reference+' / wins '+v.reference_wins+' / censored '+v.censored+' / ambiguous '+v.ambiguous+' / mean R '+n(v.mean_closed_gross_reference_r)+' / PF '+n(v.profit_factor_closed_gross_reference)+' / DD(R, closed exits) '+n(v.closed_reference_sequence?.max_drawdown_at_exit_batches_r);host.appendChild(p)}}
+function drawProspectiveArchive(j){const host=$('prospectiveArchive');host.replaceChildren();const r=j.prospective_archive;if(!r){host.textContent='未読込：新期間の元ZIPとhash付きmanifestが必要';return}const add=t=>{const p=document.createElement('p');p.textContent=t;host.appendChild(p)};add('元ZIPを固定計画で起動時に再検証 / 現在のチャートとは別データ / 更新には再起動が必要');add('再検証時刻 UTC: '+r.observed_at_utc+' / 部分期間: '+r.partial_period);for(const v of r.segments)add('ZIP '+v.zip_sha256+' / UTC '+v.common_range.start_open_utc+' ～ '+v.common_range.end_nominal_close_utc);const show=(label,groups)=>{add(label);for(const [name,v]of Object.entries(groups))add(name+' | 候補 '+v.candidates+' / 決着 '+v.closed_reference+' / TP参照 '+v.reference_wins+' / SL参照 '+v.reference_losses+' / 未決着 '+v.censored+' / 同一足曖昧 '+v.ambiguous+' / 決着分平均R '+v.mean_closed_gross_reference_r+' / 決着分PF '+v.profit_factor_closed_gross_reference)};show('追加期間（費用前の価格参照）',r.summaries);show('既存探索期間（別集計・合算禁止）',r.discovery_summaries);add('提出共通区間の長さ '+r.submitted_common_span_seconds+'秒 / 計画 '+r.planned_period_seconds+'秒。実足収録率ではありません。');for(const g of r.unsubmitted_common_span_gaps)add('未提出の共通区間 UTC: '+g.start_open_utc+' ～ '+g.end_close_utc);add('ZIP境界で状態リセット / 連続再生と同等ではありません / 提供元真正性・休場・欠損・完全性・未使用独立性は未確認。費用控除後期待値・口座利益率・口座DDは不明。HalfTrend採用保留・注文無効。');add('manifest SHA256: '+r.manifest_sha256+' / 計画 SHA256: '+r.plan_sha256+' / batchコード SHA256: '+r.batch_code_sha256)}
+function drawProspectiveStatus(j){const host=$('prospectiveStatus');host.replaceChildren();const r=j.prospective_readiness;if(!r){host.textContent='未読込：固定期間の取得状況は公開履歴モードで表示';return}const add=t=>{const p=document.createElement('p');p.textContent=t;host.appendChild(p)};add(j.prospective_archive?'明示された新期間ZIPを起動時に再検証済み / 以下に群別結果を表示 / 純期待値は未算出・採用保留':'新期間データはこの画面に未添付 / 候補数・勝率・純期待値は未算出 / 採用保留');add('期間 HST: '+r.start_hst+' ～ '+r.end_hst);add('期間 UTC: '+r.start_open_utc+' ～ '+r.end_close_utc+' / '+r.phase);add('経過カレンダー時間: '+r.elapsed_calendar_seconds+' / '+r.planned_calendar_seconds+'秒（取得済み足数・収録率ではありません）');add('確定足cutoffの時刻上限 UTC: '+(r.closed_bar_cutoff_upper_bound_utc||'期間開始前'));for(const [frame,v]of Object.entries(r.frames))add(frame+' / 評価足始値の時刻上限 UTC: '+(v.latest_possible_nominal_open_utc||'該当なし')+' / 実取得本数は不明');add('同一OANDA:XAUUSD via TradingView MCPの確定5m/15m/4H・UTC・8ファイルZIPが必要。上限は時刻計算のみで、実際の足・配信時刻格子・休場・完全性を保証しません。28日予備研究で6か月検証とは別です。');add('固定計画 SHA256: '+r.plan_sha256)}
+function drawEntryArchive(j){const host=$('entryArchive');host.replaceChildren();const r=j.entry_archive;if(!r){host.textContent='未読込：入口比較の保存済み探索資料は別途指定が必要';return}const add=t=>{const p=document.createElement('p');p.textContent=t;host.appendChild(p)};add('既閲覧の公開XAUUSD OHLC / H4フィルターなし / 正式LSR02とは別研究 / 現在のチャートとは別データ');add('比較期間 UTC: '+r.comparison_period_utc+' / 確認母集団 '+r.confirmation_universe);add('仮定spread '+r.assumptions.spread_price_units+' / 目標 '+r.assumptions.reward_r+'R / 各入口から保有上限 '+r.assumptions.exit_horizon_minutes+'分 / Retest待ち '+r.assumptions.retest_wait_minutes+'分');for(const [name,v]of Object.entries(r.results)){const o=v.entry_outcomes;add(name+' | 取引案 '+v.entry_plans+' / モデル決着 '+o.resolved_outcomes+' / プラス '+o.wins+' / 未評価 '+o.unresolved_or_unmodeled);add('決着分のみ: 勝率 '+o.win_rate_pct+'% / 平均 '+o.mean_r+'R / PF '+o.pf+'（timeout終値評価を含む）');add('非エントリー理由: '+JSON.stringify(v.no_entry_reasons)+' / 構造見送り: '+JSON.stringify(v.stop_policy_skip_counts)+' / 履歴不足 '+v.incomplete_after_entry)}add('実Bid/Ask・手数料・滑り・口座停止は未検証。口座利益率/DD/純期待値は不明。固定SLも参考比較のみ。HalfTrendとは合算せず、採用保留・注文無効。');add('元M1 SHA256: '+r.source_sha256+' / 研究JSON SHA256: '+r.report_sha256)}
+function drawHalftrendArchive(j){const host=$('halftrendArchive');host.replaceChildren();const r=j.halftrend_archive;if(!r){host.textContent='未読込：TradingViewの保存済み研究は別途指定が必要';return}const add=text=>{const p=document.createElement('p');p.textContent=text;host.appendChild(p)};add('保存済みTradingView研究 / 現在のチャートとは別データ / リアルタイムではありません');add('銘柄: OANDA:XAUUSD（受領ZIPの申告。提供元真正性は未確認）');add('期間 UTC: '+r.common_range.start_open_utc+' ～ '+r.common_range.end_nominal_close_utc);add('出典ZIP SHA256: '+r.zip_sha256);add('研究JSON SHA256: '+r.report_sha256);add('費用・Bid/Ask未確認 / 未使用期間の独立検証なし / 口座損益・DDは未検証');add('HalfTrend: 候補群比較のみ・採用保留 / Reversal04: 外部観測不足で未評価 / LSR01独立経路・2.6: 未比較');for(const [name,v]of Object.entries(r.summaries)){add(name+' | 候補 '+v.candidates+' / TP参照 '+v.reference_wins+' / SL参照 '+v.reference_losses+' / 未決着 '+v.censored+' / 同一足曖昧 '+v.ambiguous)}add('少数標本・費用前の価格参照結果です。利益率・収益性証明ではありません。注文は無効。')}
 function cell(tr,v){const td=document.createElement('td');td.textContent=String(v);tr.appendChild(td)}
 let refreshing=false;
-async function refresh(){if(refreshing)return;refreshing=true;$('refresh').disabled=true;const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),5000);try{let r=await fetch('/api/snapshot',{headers:{'X-Orrery-Token':auth},cache:'no-store',signal:controller.signal});let j=await r.json();if(!r.ok)throw Error(j.error||'Connection failed');$('state').textContent=(j.status==='SIMULATED_TEST_DATA'?'⚠️ TEST DATA — NOT REAL MT5 | ':'DEMO | ')+j.broker_server+' | ACCOUNT ****'+j.account_last4+' | '+j.checked_at_utc;
-$('summary').textContent='BALANCE: '+fmt(j.balance,j.currency)+'　 EQUITY: '+fmt(j.equity,j.currency)+'　 FREE MARGIN: '+fmt(j.margin_free,j.currency)+'　 DEALS (7d): '+j.history_7d_count;
+async function refresh(){if(refreshing)return;refreshing=true;$('refresh').disabled=true;const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),5000);try{let r=await fetch('/api/snapshot',{headers:{'X-Orrery-Token':auth},cache:'no-store',signal:controller.signal});let j=await r.json();if(!r.ok)throw Error(j.error||'Connection failed');$('state').textContent=(j.status==='SIMULATED_TEST_DATA'?'⚠️ TEST DATA — NOT REAL MT5 | ':j.status==='PUBLIC_HISTORY_RESEARCH'?'PUBLIC HISTORY / OFFLINE / NOT CURRENT | ':'DEMO | ')+j.broker_server+' | ACCOUNT ****'+j.account_last4+' | '+j.checked_at_utc;
+$('summary').textContent='BALANCE: '+fmt(j.balance,j.currency)+'　 EQUITY: '+fmt(j.equity,j.currency)+'　 FREE MARGIN: '+fmt(j.margin_free,j.currency)+'　 DEALS (7d): '+(Number.isInteger(j.history_7d_count)?j.history_7d_count:'UNKNOWN');
 $('quotes').textContent=j.status==='SIMULATED_TEST_DATA'?'SIMULATED TEST DATA — 市場価格は接続しません':(j.quotes||[]).map(q=>q.symbol+' | '+q.status+(q.status==='AVAILABLE'?' | Bid '+q.bid+' / Ask '+q.ask+' / Spread '+q.spread+' | '+q.tick_at_utc:'')).join('\\n');
 drawCharts(j);
 $('pos').replaceChildren();for(let p of j.positions){let tr=document.createElement('tr');[p.symbol,p.side,p.lots,fmt(p.pnl,j.currency)].forEach(v=>cell(tr,v));$('pos').appendChild(tr)}
-}catch(e){$('state').textContent='ERROR: '+e.message;$('summary').textContent='';$('quotes').textContent='取得失敗：価格は利用不可';lastChartData={charts:[]};$('charts').replaceChildren();$('pos').replaceChildren()}finally{clearTimeout(timeout);refreshing=false;$('refresh').disabled=false}}
+}catch(e){$('state').textContent='ERROR: '+e.message;$('summary').textContent='';$('results').textContent='UNKNOWN: request failed';$('prospectiveArchive').textContent='取得失敗：追加期間結果は表示できません';$('prospectiveStatus').textContent='取得失敗：期間状況は表示できません';$('entryArchive').textContent='取得失敗：探索比較は表示できません';$('halftrendArchive').textContent='取得失敗：保存済み研究は表示できません';$('quotes').textContent='取得失敗：価格は利用不可';lastChartData={charts:[]};$('charts').replaceChildren();$('analysis').textContent='取得失敗：分析は利用不可';$('pos').replaceChildren()}finally{clearTimeout(timeout);refreshing=false;$('refresh').disabled=false}}
 $('chartFrame').onchange=()=>drawCharts(lastChartData);
 $('refresh').onclick=refresh;refresh();setInterval(refresh,1000);
 </script></html>"""
@@ -90,12 +106,22 @@ def read_closed_charts(now):
     return charts
 
 def snapshot():
+    if HISTORY_SNAPSHOT is not None:
+        from orrery_prospective_status import current_status
+        readiness = current_status()
+        panel = HISTORY_SNAPSHOT.get('prospective_archive')
+        if panel is not None:
+            readiness.update(status='PROSPECTIVE_INPUT_REPLAYED', data_acquired=True,
+                prospective_candidates=panel['summaries']['LSR02']['candidates'],
+                limitation='Explicit input ZIPs replayed at startup; coverage and independence remain unverified.')
+        return dict(HISTORY_SNAPSHOT, prospective_readiness=readiness)
     if ARGS.test_data:
         return dict(status='SIMULATED_TEST_DATA', broker_server='SIMULATED-NO-BROKER',
             account_last4='0000', currency='USD', balance=10000.00, equity=10024.50,
             margin_free=9500.00, history_7d_count=3, checked_at_utc=datetime.now(timezone.utc).isoformat(),
             positions=[dict(symbol='XAUUSD-TEST', side='BUY', lots=0.01, pnl=24.50)])
-    if not mt5.initialize():
+    terminal_path = getattr(ARGS, 'terminal_path', None)
+    if not (mt5.initialize(terminal_path) if terminal_path else mt5.initialize()):
         raise RuntimeError("MT5 not available; open the DEMO terminal and retry")
     try:
         account = mt5.account_info()
@@ -113,13 +139,16 @@ def snapshot():
         current=mt5.account_info()
         if current is None or current.trade_mode!=mt5.ACCOUNT_TRADE_MODE_DEMO or current.login!=account.login or current.server!=account.server:
             raise RuntimeError('Account changed during read; discard snapshot')
-        return dict(charts=charts,quotes=quotes,status="READ_ONLY_DEMO", broker_server=account.server,
+        from orrery_dashboard_analysis import analyze
+        payload = dict(charts=charts,quotes=quotes,status="READ_ONLY_DEMO", broker_server=account.server,
             account_last4=str(account.login)[-4:], currency=account.currency,
             balance=round(account.balance,2), equity=round(account.equity,2),
             margin_free=round(account.margin_free,2), history_7d_count=len(history),
             checked_at_utc=end.isoformat(),
             positions=[dict(symbol=p.symbol,side="BUY" if p.type==mt5.POSITION_TYPE_BUY else "SELL",
                 lots=p.volume,pnl=round(p.profit,2)) for p in positions])
+        payload['analysis'] = analyze(payload, datetime.now(timezone.utc).timestamp())
+        return payload
     finally:
         mt5.shutdown()
 
@@ -179,14 +208,60 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     ARGS = PARSER.parse_args()
-    if not ARGS.test_data:
+    if bool(ARGS.halftrend_report) != bool(ARGS.halftrend_report_sha256):
+        PARSER.error('Both archived report and its SHA256 are required')
+    if ARGS.halftrend_report and not ARGS.history_dir:
+        PARSER.error('Archived TradingView study is offline history only')
+    if bool(ARGS.entry_report) != bool(ARGS.entry_report_sha256):
+        PARSER.error('Both entry archive and its SHA256 are required')
+    if ARGS.entry_report and not ARGS.history_dir:
+        PARSER.error('Archived entry comparison is offline history only')
+    if bool(ARGS.prospective_manifest) != bool(ARGS.prospective_manifest_sha256):
+        PARSER.error('Both prospective manifest and its SHA256 are required')
+    if ARGS.prospective_manifest and not ARGS.history_dir:
+        PARSER.error('Prospective ZIP replay is offline history only')
+    if ARGS.history_dir:
+        if ARGS.test_data or ARGS.terminal_path:
+            PARSER.error('History mode cannot be combined with MT5 or test-data')
+        from pathlib import Path
+        from hashlib import sha256
+        from orrery_history_app import snapshot as history_snapshot
+        folder = Path(ARGS.history_dir)
+        comparison = None
+        if ARGS.research_results:
+            report_path = Path(ARGS.research_results)
+            if report_path.stat().st_size > 8*1024*1024:
+                PARSER.error('Research report too large')
+            comparison = json.loads(report_path.read_text(encoding='utf-8'))
+            required = {f'XAUUSD_{frame}_UNVERIFIED_QUOTE.csv' for frame in ('M5','M15','H4')}
+            if set(comparison.get('bars_sha256',{})) != required | {'XAUUSD_M1_UNVERIFIED_QUOTE.csv'}:
+                PARSER.error('Exact history file pins required')
+            for name, pin in comparison['bars_sha256'].items():
+                if Path(name).name != name or sha256((folder/name).read_bytes()).hexdigest() != pin:
+                    PARSER.error('Research result does not match history files')
+            if comparison.get('execution_allowed') is not False or comparison.get('actual_profit_usd') is not None:
+                PARSER.error('Research-only result required')
+        HISTORY_SNAPSHOT = history_snapshot(folder, comparison)
+        if ARGS.halftrend_report:
+            from orrery_halftrend_panel import load_panel
+            HISTORY_SNAPSHOT['halftrend_archive'] = load_panel(ARGS.halftrend_report, ARGS.halftrend_report_sha256)
+        if ARGS.entry_report:
+            from orrery_entry_panel import load_panel as load_entry_panel
+            HISTORY_SNAPSHOT['entry_archive'] = load_entry_panel(ARGS.entry_report, ARGS.entry_report_sha256)
+        if ARGS.prospective_manifest:
+            from orrery_prospective_panel import load_panel as load_prospective_panel
+            HISTORY_SNAPSHOT['prospective_archive'] = load_prospective_panel(ARGS.prospective_manifest, ARGS.prospective_manifest_sha256)
+    elif not ARGS.test_data:
+        from pathlib import Path
+        if not ARGS.terminal_path or not Path(ARGS.terminal_path).is_absolute() or not Path(ARGS.terminal_path).is_file():
+            PARSER.error('--terminal-path must name an existing absolute DEMO terminal path')
         try:
             import MetaTrader5 as mt5
         except ImportError:
             print('Install first: py -m pip install MetaTrader5')
             sys.exit(2)
     server = HTTPServer((HOST,PORT),Handler)
-    print("ORRERY FX LOCAL — " + ("SIMULATED TEST DATA" if ARGS.test_data else "DEMO READ-ONLY"))
+    print("ORRERY FX LOCAL — " + ('PUBLIC HISTORY / OFFLINE / NOT MT5' if ARGS.history_dir else "SIMULATED TEST DATA" if ARGS.test_data else "DEMO READ-ONLY"))
     print("Open in Windows browser: http://%s:%s/#%s" % (HOST,PORT,TOKEN))
     print("Ctrl+C to stop; keep this address private. NO ORDERS, NO CLOUD SYNC.")
     try:

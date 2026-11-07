@@ -1,0 +1,624 @@
+{
+  "status": "H4_INTERRUPTION_EVIDENCE_PRIORITY_ONLY",
+  "start_open_utc": "2026-08-23T00:00:00+00:00",
+  "end_close_utc": "2026-09-25T20:00:00+00:00",
+  "rows": [
+    {
+      "gap_start_utc": "2026-09-02T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-03T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-02T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-02T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 18,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 23,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 1
+    },
+    {
+      "gap_start_utc": "2026-08-25T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-08-26T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-08-25T22:00:00+00:00",
+          "end_utc_exclusive": "2026-08-25T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 11,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 16,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 2
+    },
+    {
+      "gap_start_utc": "2026-08-27T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-08-28T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-08-27T22:00:00+00:00",
+          "end_utc_exclusive": "2026-08-27T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 6,
+      "adjacent_observed_h4_bars": 11,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 3
+    },
+    {
+      "gap_start_utc": "2026-09-03T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-04T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-03T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-03T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 6,
+      "adjacent_observed_h4_bars": 11,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 4
+    },
+    {
+      "gap_start_utc": "2026-09-10T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-11T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-10T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-10T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 6,
+      "adjacent_observed_h4_bars": 11,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 5
+    },
+    {
+      "gap_start_utc": "2026-09-17T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-18T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-17T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-17T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 6,
+      "adjacent_observed_h4_bars": 11,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 6
+    },
+    {
+      "gap_start_utc": "2026-08-26T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-08-27T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-08-26T22:00:00+00:00",
+          "end_utc_exclusive": "2026-08-26T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 7
+    },
+    {
+      "gap_start_utc": "2026-09-08T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-09T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-08T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-08T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 8
+    },
+    {
+      "gap_start_utc": "2026-09-09T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-10T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-09T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-09T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 9
+    },
+    {
+      "gap_start_utc": "2026-09-14T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-15T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-14T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-14T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 10
+    },
+    {
+      "gap_start_utc": "2026-09-15T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-16T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-15T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-15T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 11
+    },
+    {
+      "gap_start_utc": "2026-09-21T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-22T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-21T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-21T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 12
+    },
+    {
+      "gap_start_utc": "2026-09-22T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-23T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-22T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-22T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 13
+    },
+    {
+      "gap_start_utc": "2026-09-23T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-24T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-23T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-23T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 14
+    },
+    {
+      "gap_start_utc": "2026-09-24T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-25T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-24T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-24T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 15
+    },
+    {
+      "gap_start_utc": "2026-09-16T20:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-17T00:00:00+00:00",
+      "absent_h4_slots": 1,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 2,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-16T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-16T22:01:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-16T23:01:00+00:00",
+          "end_utc_exclusive": "2026-09-16T23:02:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 5,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 16
+    },
+    {
+      "gap_start_utc": "2026-09-07T16:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-08T00:00:00+00:00",
+      "absent_h4_slots": 2,
+      "weekly_closed_h4_slots": 0,
+      "unexplained_open_minutes": 44,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-07T18:49:00+00:00",
+          "end_utc_exclusive": "2026-09-07T18:51:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T18:53:00+00:00",
+          "end_utc_exclusive": "2026-09-07T18:54:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T18:56:00+00:00",
+          "end_utc_exclusive": "2026-09-07T18:58:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:01:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:02:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:03:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:04:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:05:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:07:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:08:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:09:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:10:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:12:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:13:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:19:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:23:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:24:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:25:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:27:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:28:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:29:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:33:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:34:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:37:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:38:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:40:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:42:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:43:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:44:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:45:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:46:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:49:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:50:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:51:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:52:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:53:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:55:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T19:58:00+00:00",
+          "end_utc_exclusive": "2026-09-07T19:59:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T20:03:00+00:00",
+          "end_utc_exclusive": "2026-09-07T20:04:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T20:15:00+00:00",
+          "end_utc_exclusive": "2026-09-07T20:16:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T20:17:00+00:00",
+          "end_utc_exclusive": "2026-09-07T20:21:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T20:33:00+00:00",
+          "end_utc_exclusive": "2026-09-07T20:34:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T20:38:00+00:00",
+          "end_utc_exclusive": "2026-09-07T20:40:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T20:58:00+00:00",
+          "end_utc_exclusive": "2026-09-07T20:59:00+00:00"
+        },
+        {
+          "start_utc": "2026-09-07T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-07T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 4,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 9,
+      "source_edge_truncation": false,
+      "review_class": "M1_OR_EXCEPTION_EVIDENCE_NEEDED",
+      "quote_retrieval_priority_eligible": true,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 17
+    },
+    {
+      "gap_start_utc": "2026-08-29T00:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-08-30T20:00:00+00:00",
+      "absent_h4_slots": 11,
+      "weekly_closed_h4_slots": 11,
+      "unexplained_open_minutes": 0,
+      "missing_open_intervals": [],
+      "prior_contiguous_h4_bars": 6,
+      "following_contiguous_h4_bars": 18,
+      "adjacent_observed_h4_bars": 24,
+      "source_edge_truncation": false,
+      "review_class": "CALENDAR_OR_EDGE_REVIEW_ONLY",
+      "quote_retrieval_priority_eligible": false,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 18
+    },
+    {
+      "gap_start_utc": "2026-09-12T00:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-14T00:00:00+00:00",
+      "absent_h4_slots": 12,
+      "weekly_closed_h4_slots": 11,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-13T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-13T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 6,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 11,
+      "source_edge_truncation": false,
+      "review_class": "CALENDAR_OR_EDGE_REVIEW_ONLY",
+      "quote_retrieval_priority_eligible": false,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 19
+    },
+    {
+      "gap_start_utc": "2026-09-19T00:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-21T00:00:00+00:00",
+      "absent_h4_slots": 12,
+      "weekly_closed_h4_slots": 11,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-20T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-20T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 6,
+      "following_contiguous_h4_bars": 5,
+      "adjacent_observed_h4_bars": 11,
+      "source_edge_truncation": false,
+      "review_class": "CALENDAR_OR_EDGE_REVIEW_ONLY",
+      "quote_retrieval_priority_eligible": false,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 20
+    },
+    {
+      "gap_start_utc": "2026-09-05T00:00:00+00:00",
+      "gap_end_utc_exclusive": "2026-09-07T00:00:00+00:00",
+      "absent_h4_slots": 12,
+      "weekly_closed_h4_slots": 11,
+      "unexplained_open_minutes": 1,
+      "missing_open_intervals": [
+        {
+          "start_utc": "2026-09-06T22:00:00+00:00",
+          "end_utc_exclusive": "2026-09-06T22:01:00+00:00"
+        }
+      ],
+      "prior_contiguous_h4_bars": 6,
+      "following_contiguous_h4_bars": 4,
+      "adjacent_observed_h4_bars": 10,
+      "source_edge_truncation": false,
+      "review_class": "CALENDAR_OR_EDGE_REVIEW_ONLY",
+      "quote_retrieval_priority_eligible": false,
+      "calendar_authenticated": false,
+      "continuity_restoration_claimed": false,
+      "evidence_review_rank": 21
+    }
+  ],
+  "interruption_count": 21,
+  "quote_evidence_targets": 17,
+  "source_edge_slots": [],
+  "study_boundary_open_slots": [
+    {
+      "open_utc": "2026-08-23T20:00:00+00:00",
+      "unexplained_open_minutes": 1
+    }
+  ],
+  "all_absent_expected_open_h4_slots": 22,
+  "ranking_basis": "ELIGIBLE_THEN_OBSERVED_ADJACENT_BARS_DESC_THEN_MISSING_MINUTES_ASC",
+  "input_sha256": {
+    "normalized": "741531ca37f0fddc904238da0fc1d646127928da0c87f5f81b4aab0579bfae91",
+    "h4": "f20d05e6d43212c71906b3e10ef7a5a49a55871ceebd675c947fee41f97226c9",
+    "calendar": "d3f08df6aeb9331bc4370554f63a2d65edbe7a58168f047cbe898bd2c7d182de"
+  },
+  "skipped_market_closures_filled": false,
+  "history_acquired": false,
+  "continuity_restored": false,
+  "profit_improvement_estimated": false,
+  "actual_profit_usd": null,
+  "execution_allowed": false,
+  "original_source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "strategy_outcomes_unchanged": true,
+  "code_sha256": {
+    "orrery_h4_gap_requests.py": "c9803c72881aa4ba00fcebdc389b25b9211a3dc771e339f6bf81ec53cdb20f07",
+    "orrery_history_session_study.py": "234d8e52388ade427a7a343755f104b79865fd8441023ca238bf50cf07ed9a66",
+    "orrery_history_app.py": "79c3a355bd6ca412e31e00d3ee6ac7e3263fc99b0094f9daa8ca74eef22eeb3e",
+    "orrery_xau_session_coverage.py": "bb5cfe5b64af494b6decf5993e51780ff54e0fdb69173d35564cd13e60d6fb84",
+    "orrery_m1_complete_bars.py": "91f9b8579bb39f2ae175a7812c1e7025429bcdaa06c3e97087ec813cfdf55418",
+    "orrery_tradingview_window_replay.py": "8e0b2c04349150e9ff76ab7edee3cf7f65340c7bd78eb07a1d4730a08245bbd7",
+    "lsr03_account_study.py": "91e219d3f32ebadaef705ba162d34987fd84d2e97db0a2c48503c0c77e588995",
+    "lsr03_adapter.py": "6470b4122d1731446d9836929a7c8dfd95abf94ef2ff454a482f2ee4f7bc70ff",
+    "lsr02_replay.py": "3b654c0b1680a6e0a9f6f70980ed912ab58ce9b592c2f0b5dd695c90cd30dd1e",
+    "lsr02_structure.py": "873fe9d8951d80dc2e79082f5bee9c3ba162a3b0c77ba7c212a4cc94d0c04a1b",
+    "lsr02_sequence.py": "043f037cffdf1b30cb89be3a95176672900447fbccce4891c4f0d1d722a2f1da",
+    "lsr03_vhf.py": "20d7b8486434af192078cdeba8349900a407c9e9197183a0c4c8b1698c90b0ba",
+    "lsr02_exits.py": "dfc36f3ba68b47e3d37a8a85848a488a83d041562af0c7385320482e0fddb59a",
+    "lsr02.py": "1f90a07671350e44d44d4258ea91157afcf614e5c7a70069c70543f5830381cc",
+    "lsr02_regime.py": "8b4a504caeea2fd7f7654b2cbe673b9c4a4c5ebd35fbb69d873a89d1c6c8bab9",
+    "lsr03_learning_rollup.py": "043cd1b31fd9db81846854bd6a7d62e6c723ea32bdb15ca0d7fe3d8e0011f80f"
+  },
+  "tests": {
+    "total": 1020,
+    "passed": 1015,
+    "skipped": 5,
+    "failures": 0
+  }
+}

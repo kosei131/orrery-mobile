@@ -2,12 +2,14 @@
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import tempfile
 import unittest
 
 
-@unittest.skipUnless(os.name == 'nt', 'Windows CMD integration only')
+@unittest.skipUnless(os.name == 'nt' and shutil.which('py') and shutil.which('curl'),
+                     'Windows CMD integration requires py launcher and curl')
 class WindowsLauncherTests(unittest.TestCase):
     def run_launcher(self, corrupt_hash=False):
         source = Path('VERIFY_MT5_WINDOWS.cmd').read_text(encoding='utf-8')

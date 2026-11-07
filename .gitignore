@@ -9,3 +9,6 @@ orrery-halts.sqlite3*
 # Local DEMO identity and reservation state must not enter source control.
 demo_account_context.local.json
 demo_claims.local.sqlite*
+
+# Acquired market CSVs and local run output stay on the research PC.
+research_artifacts_20261101/

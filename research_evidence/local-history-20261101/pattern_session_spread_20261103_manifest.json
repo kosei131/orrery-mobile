@@ -1,0 +1,15 @@
+{
+  "gzip_sha256": "3bfd4d4f1b5bec65fa5c1fe5cfb6d9cb5e3649ec05bcb90d478f65ff640fa551",
+  "uncompressed_sha256": "fca349d689778c5a0514db34648ddb18555fd53141233e0d34c6ece1ec058e0a",
+  "gzip_bytes": 150562,
+  "uncompressed_bytes": 2172788,
+  "engine_code_sha256": {
+    "orrery_pattern_session_spread.py": "57798661570f3d9b24e3499199b2b2ad4e15d27f76b025a2bfd24ca46edd0c5a",
+    "orrery_pattern_session_review.py": "5e4ce8694547f5f8ff083e9bb03c58aefbd4199c07072ce2bb26ff676bfbca03",
+    "orrery_pattern_robustness.py": "81a2408ace41aa375be40bb8baf4d8361a5723b0189d6e70a71816d25d32edf9",
+    "orrery_paired_archive_study.py": "e1fa03147235097f05a9a5d7a05a05bbc68472b13cc006c3c7dbaa6973d20fd3",
+    "orrery_halftrend_patterns.py": "4a45174a1769491b23869f106f05cb0962ae5ec59d92cc4abca76c4c7786ea70",
+    "lsr03_learning_rollup.py": "043cd1b31fd9db81846854bd6a7d62e6c723ea32bdb15ca0d7fe3d8e0011f80f"
+  },
+  "specification_sha256": "dca305711cba2334180f2be14a8b7c90b3b3fcfad9f02a4d7d5547b6151ab5de"
+}

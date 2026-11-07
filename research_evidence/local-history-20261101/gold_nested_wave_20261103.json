@@ -1,0 +1,340 @@
+{
+  "status": "EXPLORATORY_NESTED_WAVE_BUY_PUBLIC_OHLC",
+  "source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "wait_status": {
+    "WAIT_EXPIRED": 16,
+    "WAIT_INVALIDATED": 22,
+    "RESUMED": 3,
+    "WAIT_DATA_GAP": 2
+  },
+  "wait_by_candidate": {
+    "GOLD_NESTED_WAVE_BUY:1775148300": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1775556900": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1775706300": "RESUMED",
+    "GOLD_NESTED_WAVE_BUY:1775754900": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1776064500": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1776105900": "RESUMED",
+    "GOLD_NESTED_WAVE_BUY:1776954600": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1777021200": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1777036500": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1777318200": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1777405500": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1778122800": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1778513400": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1778871600": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1780546500": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1781586900": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1782096300": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1782476100": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1782959400": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1784197800": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1784267100": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1785513600": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1785850200": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1785916800": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1785947400": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1786043700": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1786089600": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1786113000": "RESUMED",
+    "GOLD_NESTED_WAVE_BUY:1786509900": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1786543200": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1786623300": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1787000400": "WAIT_DATA_GAP",
+    "GOLD_NESTED_WAVE_BUY:1787042700": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1787336100": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1787605200": "WAIT_DATA_GAP",
+    "GOLD_NESTED_WAVE_BUY:1788456600": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1788796800": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1788867000": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1788928200": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1789636500": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1789697700": "WAIT_INVALIDATED",
+    "GOLD_NESTED_WAVE_BUY:1790273700": "WAIT_EXPIRED",
+    "GOLD_NESTED_WAVE_BUY:1790339400": "WAIT_INVALIDATED"
+  },
+  "immediate": {
+    "candidates": 43,
+    "resolved": 40,
+    "states": {
+      "TIMEOUT_REFERENCE": 5,
+      "STOP_REFERENCE": 20,
+      "TARGET_REFERENCE": 15,
+      "AMBIGUOUS_SAME_M5": 1,
+      "CENSORED_NO_NEXT_M5": 2
+    },
+    "scenarios": [
+      {
+        "cost_price": 0,
+        "mean_r": -0.26116378503750803,
+        "positive_pct": 47.5,
+        "pf": 0.49115573929480805
+      },
+      {
+        "cost_price": 0.3,
+        "mean_r": -0.29796717735161365,
+        "positive_pct": 45.0,
+        "pf": 0.44430029294348494
+      },
+      {
+        "cost_price": 0.54,
+        "mean_r": -0.32740989120289815,
+        "positive_pct": 45.0,
+        "pf": 0.4098150187029742
+      },
+      {
+        "cost_price": 0.7,
+        "mean_r": -0.34703836710375446,
+        "positive_pct": 45.0,
+        "pf": 0.38807855624699683
+      }
+    ]
+  },
+  "delayed": {
+    "candidates": 3,
+    "resolved": 3,
+    "states": {
+      "TIMEOUT_REFERENCE": 2,
+      "TARGET_REFERENCE": 1
+    },
+    "scenarios": [
+      {
+        "cost_price": 0,
+        "mean_r": -0.24208916172478193,
+        "positive_pct": 33.333333333333336,
+        "pf": 0.16894312071537385
+      },
+      {
+        "cost_price": 0.3,
+        "mean_r": -0.2566797582961298,
+        "positive_pct": 33.333333333333336,
+        "pf": 0.14673246938518755
+      },
+      {
+        "cost_price": 0.54,
+        "mean_r": -0.26835223555320814,
+        "positive_pct": 33.333333333333336,
+        "pf": 0.12995082707449152
+      },
+      {
+        "cost_price": 0.7,
+        "mean_r": -0.276133887057927,
+        "positive_pct": 33.333333333333336,
+        "pf": 0.11921589338736041
+      }
+    ]
+  },
+  "immediate_on_both_resolved": {
+    "candidates": 3,
+    "resolved": 3,
+    "states": {
+      "TIMEOUT_REFERENCE": 2,
+      "TARGET_REFERENCE": 1
+    },
+    "scenarios": [
+      {
+        "cost_price": 0,
+        "mean_r": 0.5200596069330855,
+        "positive_pct": 66.66666666666667,
+        "pf": 3.9439658204914907
+      },
+      {
+        "cost_price": 0.3,
+        "mean_r": 0.49557084288259445,
+        "positive_pct": 66.66666666666667,
+        "pf": 3.7334688934062066
+      },
+      {
+        "cost_price": 0.54,
+        "mean_r": 0.47597983164220165,
+        "positive_pct": 66.66666666666667,
+        "pf": 3.5726809477631556
+      },
+      {
+        "cost_price": 0.7,
+        "mean_r": 0.46291915748193974,
+        "positive_pct": 66.66666666666667,
+        "pf": 3.4690295938693962
+      }
+    ]
+  },
+  "delayed_on_both_resolved": {
+    "candidates": 3,
+    "resolved": 3,
+    "states": {
+      "TIMEOUT_REFERENCE": 2,
+      "TARGET_REFERENCE": 1
+    },
+    "scenarios": [
+      {
+        "cost_price": 0,
+        "mean_r": -0.24208916172478193,
+        "positive_pct": 33.333333333333336,
+        "pf": 0.16894312071537385
+      },
+      {
+        "cost_price": 0.3,
+        "mean_r": -0.2566797582961298,
+        "positive_pct": 33.333333333333336,
+        "pf": 0.14673246938518755
+      },
+      {
+        "cost_price": 0.54,
+        "mean_r": -0.26835223555320814,
+        "positive_pct": 33.333333333333336,
+        "pf": 0.12995082707449152
+      },
+      {
+        "cost_price": 0.7,
+        "mean_r": -0.276133887057927,
+        "positive_pct": 33.333333333333336,
+        "pf": 0.11921589338736041
+      }
+    ]
+  },
+  "missed_immediate": {
+    "candidates": 40,
+    "resolved": 37,
+    "states": {
+      "TIMEOUT_REFERENCE": 3,
+      "STOP_REFERENCE": 20,
+      "TARGET_REFERENCE": 14,
+      "AMBIGUOUS_SAME_M5": 1,
+      "CENSORED_NO_NEXT_M5": 2
+    },
+    "scenarios": [
+      {
+        "cost_price": 0,
+        "mean_r": -0.3245062222243129,
+        "positive_pct": 45.945945945945944,
+        "pf": 0.3996634888850211
+      },
+      {
+        "cost_price": 0.3,
+        "mean_r": -0.36230809791114404,
+        "positive_pct": 43.24324324324324,
+        "pf": 0.35872155482908846
+      },
+      {
+        "cost_price": 0.54,
+        "mean_r": -0.39254959846060894,
+        "positive_pct": 43.24324324324324,
+        "pf": 0.32867370066439605
+      },
+      {
+        "cost_price": 0.7,
+        "mean_r": -0.41271059882691885,
+        "positive_pct": 43.24324324324324,
+        "pf": 0.3097451461887474
+      }
+    ]
+  },
+  "paired_entry_geometry": [
+    {
+      "candidate_id": "GOLD_NESTED_WAVE_BUY:1775706300",
+      "known_at_utc": 1775706300,
+      "delay_minutes": 30,
+      "target_ceiling": 4748.525,
+      "entry_change_price": 6.869999999999891,
+      "immediate": {
+        "entry": 4735.025,
+        "stop": 4725.065,
+        "risk_price": 9.960000000000036,
+        "room_to_ceiling_price": 13.5,
+        "target": 4748.525,
+        "target_r": 1.355421686746983,
+        "state": "TIMEOUT_REFERENCE",
+        "reference_r": 0.872489959839257
+      },
+      "delayed": {
+        "entry": 4741.8949999999995,
+        "stop": 4725.065,
+        "risk_price": 16.829999999999927,
+        "room_to_ceiling_price": 6.630000000000109,
+        "target": 4748.525,
+        "target_r": 0.39393939393940214,
+        "state": "TIMEOUT_REFERENCE",
+        "reference_r": -0.1681521093285552
+      },
+      "resume_room_gate": {
+        "signal_close": 4741.8949999999995,
+        "assumed_cost_price": 0.54,
+        "planned_net_reward_to_risk": 0.3506044905009024,
+        "decision": "NET_REWARD_BELOW_RISK"
+      }
+    },
+    {
+      "candidate_id": "GOLD_NESTED_WAVE_BUY:1776105900",
+      "known_at_utc": 1776105900,
+      "delay_minutes": 45,
+      "target_ceiling": 4814.105,
+      "entry_change_price": 9.509999999999309,
+      "immediate": {
+        "entry": 4801.685,
+        "stop": 4791.485,
+        "risk_price": 10.200000000000728,
+        "room_to_ceiling_price": 12.419999999999163,
+        "target": 4814.105,
+        "target_r": 1.2176470588233606,
+        "state": "TARGET_REFERENCE",
+        "reference_r": 1.2176470588234474
+      },
+      "delayed": {
+        "entry": 4811.195,
+        "stop": 4791.485,
+        "risk_price": 19.710000000000036,
+        "room_to_ceiling_price": 2.9099999999998545,
+        "target": 4814.105,
+        "target_r": 0.14764079147640025,
+        "state": "TARGET_REFERENCE",
+        "reference_r": 0.14764079147636544
+      },
+      "resume_room_gate": {
+        "signal_close": 4811.195,
+        "assumed_cost_price": 0.54,
+        "planned_net_reward_to_risk": 0.11703703703703704,
+        "decision": "NET_REWARD_BELOW_RISK"
+      }
+    },
+    {
+      "candidate_id": "GOLD_NESTED_WAVE_BUY:1786113000",
+      "known_at_utc": 1786113000,
+      "delay_minutes": 45,
+      "target_ceiling": 4385.385000000005,
+      "entry_change_price": 6.4399999999996,
+      "immediate": {
+        "entry": 4362.535000000005,
+        "stop": 4341.005000000006,
+        "risk_price": 21.529999999999745,
+        "room_to_ceiling_price": 22.849999999999454,
+        "target": 4385.385000000005,
+        "target_r": 1.061309800278668,
+        "state": "TIMEOUT_REFERENCE",
+        "reference_r": -0.5299581978634478
+      },
+      "delayed": {
+        "entry": 4368.975000000005,
+        "stop": 4341.005000000006,
+        "risk_price": 27.969999999999345,
+        "room_to_ceiling_price": 16.409999999999854,
+        "target": 4385.385000000005,
+        "target_r": 0.5867000357526005,
+        "state": "TIMEOUT_REFERENCE",
+        "reference_r": -0.7057561673221561
+      },
+      "resume_room_gate": {
+        "signal_close": 4368.975000000005,
+        "assumed_cost_price": 0.54,
+        "planned_net_reward_to_risk": 0.556646790599809,
+        "decision": "NET_REWARD_BELOW_RISK"
+      }
+    }
+  ],
+  "missed_positive_reference": 17,
+  "missed_negative_reference": 20,
+  "actual_win_rate_pct": null,
+  "net_expectancy_r": null,
+  "account_return_pct": null,
+  "out_of_sample": false,
+  "execution_allowed": false,
+  "adoption_allowed": false
+}

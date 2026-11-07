@@ -1,0 +1,32 @@
+{
+  "status": "VERIFIED_CI_PUBLIC_XAU_MTF_AB_SIGNAL_COUNTS_ONLY",
+  "run_url": "https://github.com/kosei131/orrery-mobile/actions/runs/41783713024",
+  "run_number": 1138,
+  "source_commit": "5aaeebf99fd7d53f45ef1fdc5d5ee30e2b2b919a",
+  "raw_source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "h4_sha256": "643c95d6c7ec72cb331d280b0c4c1c2d72702fe04fc85402e2666bbe0f19854c",
+  "m15_sha256": "8bba85eab3ed8da92341dea6b0b6c26fa884b882caf074e8bc9de6ac844a083d",
+  "m5_sha256": "ef68aad060022c4534a5cee2d7ff9d89b243177f5a479f938cf8ad582dc84b99",
+  "candidate_counts": {
+    "A_CONTINUATION": 24,
+    "B_COUNTER_SWEEP": 41
+  },
+  "examined_m5_bars": 13973,
+  "missing_or_gapped_context": 21920,
+  "source": "GitHub Actions public XAUUSD M1 audit job log; source publisher OHLC, not authenticated broker Bid/Ask",
+  "result_type": "candidate frequency; not executed trades",
+  "out_of_sample": false,
+  "win_rate_pct": null,
+  "net_expectancy_r": null,
+  "profit_factor": null,
+  "account_return_pct": null,
+  "max_drawdown_pct": null,
+  "trade_execution_allowed": false,
+  "adoption_allowed": false,
+  "limitations": [
+    "No authenticated broker Bid/Ask",
+    "No fees, slippage, swaps, portfolio exposure, or execution fills",
+    "Locked HalfTrend future study is untouched",
+    "Context failure total is not interpreted as losing trades"
+  ]
+}
