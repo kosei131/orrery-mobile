@@ -80,6 +80,12 @@ def run(source,bars_dir,*,expected_source_sha256=RAW_PIN,expected_bars_sha256=No
             normalized.append({key:b[key] for key in keys})
         frames[tf]=normalized
         hashes[tf]=actual_hash
+    return dict(scan_frames(frames), raw_source_sha256=expected_source_sha256,
+                bars_sha256=hashes)
+
+
+def scan_frames(frames):
+    """Apply the same scanner to validated, chronological closed bars."""
     if len(frames['M5'])>MAX_M5_BARS:
         raise ValueError('M5 research budget exceeded')
     times={tf:[b['close_time'] for b in frames[tf]] for tf in TF}
@@ -107,7 +113,6 @@ def run(source,bars_dir,*,expected_source_sha256=RAW_PIN,expected_bars_sha256=No
     if len({x['candidate_id'] for x in found})!=len(found):
         raise ValueError('Duplicate signal IDs')
     return dict(status='PUBLIC_XAU_MTF_AB_CANDIDATE_COUNTS_ONLY',
-        raw_source_sha256=expected_source_sha256,bars_sha256=hashes,
         observed_bars={tf:len(frames[tf]) for tf in TF},
         examined_m5_bars=eligibility['CHECKED'],
         missing_or_gapped_context=eligibility['MISSING_CONTIGUOUS_CONTEXT'],
