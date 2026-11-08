@@ -1,4 +1,7 @@
 """Compare TradingView plans on the exact catalog observations used for alignment."""
+from hashlib import sha256
+
+from lsr04_tick_archive import _encode
 from lsr03_tick_study import load_catalog_ticks
 from orrery_account_coverage_study import replay_continuous_window
 from orrery_bar_quote_alignment import audit_session
@@ -103,3 +106,40 @@ def compare_sessions(sessions, settings, **account_inputs):
     return dict(sessions=rows, completed_sessions=completed,
                 blocked_sessions=len(rows) - completed, combined_accounts=None,
                 execution_allowed=False)
+
+
+def session_plan_sha256(sessions, settings, *, development_end_s,
+                        valuation_source, **account_assumptions):
+    """Fingerprint a protocol before holdout inputs are available."""
+    if type(development_end_s) is not int or development_end_s < 0:
+        raise ValueError('Declare the exclusive end of the development period')
+    if not isinstance(valuation_source, str) or not valuation_source.strip():
+        raise ValueError('Declare historical USD valuation source and version')
+    windows = []
+    previous_end = development_end_s
+    for session in sessions:
+        start, end = session['start_s'], session['end_s']
+        if type(start) is not int or type(end) is not int or not previous_end <= start < end:
+            raise ValueError('Holdout sessions must be ordered and follow development')
+        windows.append([start, end])
+        previous_end = end
+    if not 1 <= len(windows) <= 200:
+        raise ValueError('Declare 1–200 holdout sessions')
+    # The replay derives its as-of timestamp from each declared window.
+    config = {key: value for key, value in settings.items() if key != 'as_of_s'}
+    protocol = dict(version=1, development_end_s=development_end_s, windows=windows,
+                    settings=config, valuation_source=valuation_source,
+                    account_assumptions=account_assumptions)
+    return sha256(_encode(protocol)).hexdigest()
+
+
+def compare_holdout(sessions, settings, *, expected_plan_sha256,
+                    development_end_s, valuation_source, pnl_quote, **account_assumptions):
+    """Replay only the declared protocol, using the separately supplied data."""
+    digest = session_plan_sha256(sessions, settings, development_end_s=development_end_s,
+                                valuation_source=valuation_source, **account_assumptions)
+    if digest != expected_plan_sha256:
+        raise ValueError('Holdout protocol SHA256 mismatch')
+    result = compare_sessions(sessions, settings, pnl_quote=pnl_quote, **account_assumptions)
+    return dict(result, plan_sha256=digest, development_end_s=development_end_s,
+                valuation_source=valuation_source)

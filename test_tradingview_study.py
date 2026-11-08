@@ -181,3 +181,34 @@ class AlignedAccountTests(unittest.TestCase):
         session = dict(start_s=0, end_s=14400, raw_csvs=None, path=None, catalog_sha256=None)
         with self.assertRaisesRegex(ValueError, 'non-overlapping'):
             compare_sessions([session, dict(session, start_s=14399)], {})
+
+    def test_holdout_protocol_keeps_missing_session_and_refuses_changed_cost(self):
+        from orrery_aligned_account_study import compare_holdout, session_plan_sha256
+
+        session = dict(start_s=14400, end_s=28800, raw_csvs=None, path=None, catalog_sha256=None)
+        settings = dict(symbol='XAUUSD', strategy={'target_r': 2})
+        assumptions = dict(development_end_s=14400, valuation_source='fixture/v1', slippage=.1)
+        digest = session_plan_sha256([session], settings, **assumptions)
+        self.assertEqual(digest, session_plan_sha256(
+            [dict(session, path='received', catalog_sha256='fixture')], settings, **assumptions))
+        result = compare_holdout([session], settings, expected_plan_sha256=digest,
+                                 pnl_quote=account_fixture.pnl, **assumptions)
+        self.assertEqual(result['plan_sha256'], digest)
+        self.assertEqual(result['blocked_sessions'], 1)
+        with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+            compare_holdout([session], settings, expected_plan_sha256=digest,
+                            pnl_quote=account_fixture.pnl, **dict(assumptions, slippage=.2))
+        with self.assertRaisesRegex(ValueError, 'follow development'):
+            session_plan_sha256([dict(session, start_s=14399)], settings, **assumptions)
+
+    def test_holdout_protocol_refuses_dropped_session(self):
+        from orrery_aligned_account_study import compare_holdout, session_plan_sha256
+
+        first = dict(start_s=14400, end_s=28800, raw_csvs=None, path=None, catalog_sha256=None)
+        second = dict(first, start_s=43200, end_s=57600)
+        settings = {'symbol': 'XAUUSD'}
+        assumptions = dict(development_end_s=14400, valuation_source='fixture/v1')
+        digest = session_plan_sha256([first, second], settings, **assumptions)
+        with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+            compare_holdout([second], settings, expected_plan_sha256=digest,
+                            pnl_quote=account_fixture.pnl, **assumptions)
