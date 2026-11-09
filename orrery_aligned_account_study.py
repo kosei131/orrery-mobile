@@ -1,5 +1,6 @@
 """Compare TradingView plans on the exact catalog observations used for alignment."""
 from hashlib import sha256
+from math import isfinite
 
 from lsr04_tick_archive import _encode
 from lsr03_tick_study import load_catalog_ticks
@@ -11,7 +12,7 @@ from orrery_tradingview_study import INTERVALS, study
 def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
             price_tolerance, volume_min, volume_max, volume_step, pnl_quote,
             round_trip_cost_per_lot_usd, cost_source, slippage, max_ticks=500000,
-            expected_start_s=None):
+            expected_start_s=None, expected_contract_size=None):
     """Run independent, single-session LSR02 and VHF03 model accounts."""
     report = study(raw_csvs, settings)
     result = dict(planning=report, alignment=None, accounts=None,
@@ -25,6 +26,9 @@ def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
                                 max_ticks=max_ticks)
     if loaded['blocked']:
         return dict(result, status='BLOCKED_GLOBAL_TICK_QUALITY', tick_audit=loaded['audit'])
+    if (expected_contract_size is not None
+            and loaded['audit']['broker_spec']['trade_contract_size'] != expected_contract_size):
+        return dict(result, status='BLOCKED_CATALOG_CONTRACT_MISMATCH')
     start, end = loaded['start_msc'], loaded['end_msc']
     if start % 1000 or end % 1000:
         raise ValueError('Whole-second catalog boundaries required')
@@ -143,3 +147,41 @@ def compare_holdout(sessions, settings, *, expected_plan_sha256,
     result = compare_sessions(sessions, settings, pnl_quote=pnl_quote, **account_assumptions)
     return dict(result, plan_sha256=digest, development_end_s=development_end_s,
                 valuation_source=valuation_source)
+
+
+def xauusd_valuation_source(spec):
+    """Validate and fingerprint an effective-dated linear USD contract record."""
+    fields = {'source', 'start_s', 'end_s', 'contract_size'}
+    if not isinstance(spec, dict) or spec.keys() != fields:
+        raise ValueError('Exact XAUUSD contract evidence required')
+    start, end, size = spec['start_s'], spec['end_s'], spec['contract_size']
+    if (type(start) is not int or type(end) is not int or not 0 <= start < end
+            or type(size) not in (int, float) or not isfinite(size) or size <= 0
+            or not isinstance(spec['source'], str) or not spec['source'].strip()):
+        raise ValueError('Effective UTC interval, positive contract size and source required')
+    return 'XAUUSD_LINEAR_USD_V1:' + sha256(_encode(spec)).hexdigest()
+
+
+def compare_xauusd_holdout(sessions, settings, *, contract_spec, expected_plan_sha256,
+                           development_end_s, **account_assumptions):
+    """Use one pinned linear USD contract for the full declared holdout."""
+    spec = dict(contract_spec)
+    source = xauusd_valuation_source(spec)
+    if settings['symbol'] != 'XAUUSD':
+        raise ValueError('Linear USD valuation here is limited to XAUUSD')
+    if any(not spec['start_s'] <= row['start_s'] < row['end_s'] <= spec['end_s']
+           for row in sessions):
+        raise ValueError('XAUUSD contract evidence must cover all declared sessions')
+    size = spec['contract_size']
+
+    def pnl_quote(symbol, side, lots, entry, exit_price, at):
+        if symbol != 'XAUUSD' or side not in ('BUY', 'SELL'):
+            raise ValueError('XAUUSD and a known side required')
+        direction = 1 if side == 'BUY' else -1
+        return direction * (exit_price - entry) * lots * size
+
+    result = compare_holdout(
+        sessions, settings, expected_plan_sha256=expected_plan_sha256,
+        development_end_s=development_end_s, valuation_source=source,
+        pnl_quote=pnl_quote, expected_contract_size=size, **account_assumptions)
+    return dict(result, contract_spec=spec, broker_spec_authenticity_verified=False)

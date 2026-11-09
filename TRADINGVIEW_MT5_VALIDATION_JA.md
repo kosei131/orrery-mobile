@@ -137,3 +137,12 @@ SHA256を別途保存する。`compare_holdout` は照合前にこのSHA256を�
 区間削除や条件変更を拒否する。データは到着後に追加でき、元CSVとBid/Askの
 SHA256は従来どおり区間ごとに扱う。SHA256は事前登録時刻やUSD評価関数の
 実装、データの未閲覧を証明しないため、その根拠は別途保管する。
+
+XAUUSDの線形USD建て契約には `compare_xauusd_holdout` を使用できる。
+契約資料の参照先、適用開始・終了UTC、1ロットの契約数量を記録し、
+`xauusd_valuation_source(contract_spec)` と
+`expected_contract_size=contract_spec['contract_size']` を計画SHAの入力にする。
+全検証区間が適用期間内にあり、カタログの契約数量が一致することを要求する。
+方向別の価格差×ロット×契約数量でUSDの価格損益を計算し、費用・滑りは
+既存の口座モデルが別に扱う。資料の真正性は別途確認する。USDJPYの履歴換算や、
+期間内に契約仕様が変わるケースにはこの入口を使わない。

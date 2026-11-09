@@ -102,7 +102,7 @@ class StudyTests(unittest.TestCase):
 
 
 class AlignedAccountTests(unittest.TestCase):
-    def run_comparison(self, *, h4_high=100, quote_start=14400, expected_start=None):
+    def run_comparison(self, *, h4_high=100, quote_start=14400, expected_start=None, expected_size=None):
         from orrery_aligned_account_study import compare
 
         catalog = fixture.fixtures.StudyTests()
@@ -126,6 +126,7 @@ class AlignedAccountTests(unittest.TestCase):
         return compare(raw, settings, path=catalog.path,
                        expected_catalog_sha256=catalog.saved['catalog_sha256'],
                        expected_start_s=expected_start,
+                       expected_contract_size=expected_size,
                        max_gap_msc=60000, price_tolerance=0,
                        volume_min=.01, volume_max=100, volume_step=.01,
                        pnl_quote=account_fixture.pnl, round_trip_cost_per_lot_usd=.01,
@@ -212,3 +213,35 @@ class AlignedAccountTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
             compare_holdout([second], settings, expected_plan_sha256=digest,
                             pnl_quote=account_fixture.pnl, **assumptions)
+
+    def test_catalog_contract_disagreement_blocks_both_accounts(self):
+        result = self.run_comparison(expected_size=10)
+        self.assertEqual(result['status'], 'BLOCKED_CATALOG_CONTRACT_MISMATCH')
+        self.assertIsNone(result['accounts'])
+
+    def test_xauusd_holdout_binds_effective_contract_and_fixed_valuation(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import (
+            compare_xauusd_holdout, session_plan_sha256, xauusd_valuation_source,
+        )
+
+        spec = dict(source='synthetic statement', start_s=14400, end_s=28800, contract_size=100)
+        session = dict(start_s=14400, end_s=28800, raw_csvs=None, path=None, catalog_sha256=None)
+        settings = dict(symbol='XAUUSD')
+        digest = session_plan_sha256(
+            [session], settings, development_end_s=14400,
+            valuation_source=xauusd_valuation_source(spec), expected_contract_size=100)
+        inputs = dict(contract_spec=spec, expected_plan_sha256=digest, development_end_s=14400)
+
+        with patch('orrery_aligned_account_study.compare_sessions', return_value={}) as replay:
+            report = compare_xauusd_holdout([session], settings, **inputs)
+            evaluator = replay.call_args.kwargs['pnl_quote']
+            self.assertEqual(evaluator('XAUUSD', 'BUY', .25, 100, 102, 14400000), 50)
+            self.assertEqual(evaluator('XAUUSD', 'SELL', .25, 100, 102, 14400000), -50)
+            self.assertEqual(replay.call_args.kwargs['expected_contract_size'], 100)
+        self.assertFalse(report['broker_spec_authenticity_verified'])
+        with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+            compare_xauusd_holdout([session], settings,
+                                   **dict(inputs, contract_spec=dict(spec, contract_size=10)))
+        with self.assertRaisesRegex(ValueError, 'cover all'):
+            compare_xauusd_holdout([dict(session, end_s=28801)], settings, **inputs)
