@@ -95,5 +95,19 @@ class PriceReferenceTests(unittest.TestCase):
             evaluate(bars, [candidate], buy_ask_open_by_clock={300: 99})
 
 
+    def test_sell_uses_bid_entry_with_ask_exit_bars(self):
+        candidate = dict(cand('SELL', 'B_COUNTER_SWEEP'), known_room_price='5')
+        bars = [bar(1), bar(2, hi=102, lo=95)]
+        row = evaluate(bars, [candidate], sell_bid_open_by_clock={300: 99})['records'][0]
+        self.assertEqual(row['entry_open_reference'], '99')
+        self.assertEqual(row['target_reference'], '95')
+        self.assertAlmostEqual(row['reference_r'], 4/7)
+        missing = evaluate(bars, [candidate], sell_bid_open_by_clock={})['records'][0]
+        self.assertEqual(missing['state'], 'CENSORED_NO_PAIRED_BID_OPEN')
+        self.assertIsNone(missing['reference_r'])
+        with self.assertRaisesRegex(ValueError, 'Crossed'):
+            evaluate(bars, [candidate], sell_bid_open_by_clock={300: 101})
+
+
 if __name__=='__main__':
     unittest.main()

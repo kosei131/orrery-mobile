@@ -136,3 +136,16 @@
 往復0.54ドルの仮定で、Aは6候補・6決着、平均−0.180R・PF 0.725。Bは9候補・8決着、平均−0.209R・PF 0.442。9月はA −0.180R（6決着）、B −0.288R（5決着）。10月はA 0候補、B −0.076R（3決着・1未決着）。既閲覧の価格系列で、9月は以前の公開履歴と期間が重なる。買い・売りの約定価格は同じBid表記のOHLCを参照しており、実Bid/Ask成績ではない。
 
 再現は `python orrery_gold_ab_archive_comparison.py ARCHIVE_DIR NEW_OUTPUT.json`。候補と集計は `research_evidence/local-history-20261101/gold_ab_paired_archive_reference.json`。既存の公開系列比較は再実行し、記録と一致した。
+
+### A/Bの同一候補でBid/Ask表記を反映
+
+9月1日〜10月19日14:00 UTC未満の固定4CSVを復元し、前回の15候補と同じIDで再生した。買いはAsk始値とBidの出口、売りはBid始値とAskの出口を使用。入口時に両側の完全M5が必要で、構造SLと上位足の利確上限は元の候補から維持し、1.5Rまでの目標を入口価格で再計算する。同足の両接触は未決着。引用価格差は入口・出口に含まれるため、比較表の両側参照には固定0.54ドルを追加していない。手数料・滑りは未評価。
+
+| 戦略 | 候補／決着 | Bidのみ＋0.54ドル仮定の平均R | Bid/Ask表記・追加費用なしの平均R | Bid/Ask PF |
+|---|---:|---:|---:|---:|
+| A 継続 | 6／6 | −0.180 | −0.287 | 0.535 |
+| B 反転 | 9／8 | −0.209 | −0.207 | 0.433 |
+
+Aの買い1件が利確から保有期限に変化。Bは1件がM5欠損で未決着。既閲覧の第三者OHLCによる価格参照であり、実約定や口座利益率は未評価。従来のBidのみの再計算結果は既存証拠と一致した。
+
+再現は `python orrery_gold_ab_archive_sides.py ARCHIVE_DIR NEW_OUTPUT.json`。候補ごとの変化と4原本のハッシュは `research_evidence/local-history-20261101/gold_ab_archive_side_comparison.json` に保存した。
