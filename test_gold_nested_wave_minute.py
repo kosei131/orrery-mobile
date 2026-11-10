@@ -51,3 +51,14 @@ class MinuteExitTests(unittest.TestCase):
         self.assertEqual(observed['baseline_winners_reduced'], 1)
         missing = audit_early_exit([row], progress, {}, end=1200)[0]
         self.assertEqual(missing['summary']['resolved'], 0)
+
+    def test_sell_respects_ask_order_and_adverse_open(self):
+        record = dict(self.record, side='SELL', structural_stop='104', target_reference='98')
+        ask = {300: dict(open=102, high=103, low=98, close=99),
+               360: dict(open=105, high=106, low=104, close=105)}
+        result = minute_exit(record, ask, end=900)
+        self.assertEqual(result['state'], 'TARGET_REFERENCE')
+        self.assertEqual(result['reference_r'], 1)
+        adverse = minute_exit(record, {300: ask[360]}, end=900)
+        self.assertEqual(adverse['state'], 'ADVERSE_OPEN_REFERENCE')
+        self.assertAlmostEqual(adverse['reference_r'], -4/3)

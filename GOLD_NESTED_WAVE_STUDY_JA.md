@@ -149,3 +149,7 @@
 Aの買い1件が利確から保有期限に変化。Bは1件がM5欠損で未決着。既閲覧の第三者OHLCによる価格参照であり、実約定や口座利益率は未評価。従来のBidのみの再計算結果は既存証拠と一致した。
 
 再現は `python orrery_gold_ab_archive_sides.py ARCHIVE_DIR NEW_OUTPUT.json`。候補ごとの変化と4原本のハッシュは `research_evidence/local-history-20261101/gold_ab_archive_side_comparison.json` に保存した。
+
+同じA/Bの15候補で、Ask/Bid入口・構造SL・TPを固定し、買いはBid、売りはAskのM1で出口を照合した。保有上限は120分。同一M1内の両接触は未決着とし、欠損は補わない。決着14件の理由とRはすべてM5と一致し、4件は決着を確認できる足の時刻が早まった。Bの売り1件はAsk M1でも欠損により未決着。平均はA −0.287R、B −0.207Rで、追加費用は未評価。特にBの8決着中6件は保有期限、2件はSLで、TP決着はなかった。
+
+再現は `python orrery_gold_ab_archive_minutes.py ARCHIVE_DIR NEW_OUTPUT.json`。候補ごとの比較は `research_evidence/local-history-20261101/gold_ab_archive_m1_exit_audit.json`。

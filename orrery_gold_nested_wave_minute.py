@@ -11,8 +11,12 @@ from orrery_gold_nested_wave_paired import run as paired_replay
 from orrery_gold_nested_wave_study import summarize
 
 
-def minute_exit(record, bid, *, end):
-    """Keep the Ask entry and bracket fixed, then inspect each completed M1."""
+def minute_exit(record, exit_bars, *, end):
+    """Keep the entry and bracket fixed, then inspect the applicable M1 side."""
+    side = record.get('side', 'BUY')
+    if side not in ('BUY', 'SELL'):
+        raise ValueError('Unsupported position direction')
+    sign = 1 if side == 'BUY' else -1
     result = dict(record, reference_r=None, exit_m5_close=None, exit_m1_close=None)
     if any(record[key] is None for key in ('entry_open_reference', 'target_reference')):
         return result
@@ -24,21 +28,23 @@ def minute_exit(record, bid, *, end):
     for stamp in range(start, start + 7200, 60):
         if stamp + 60 >= end:
             return dict(result, state='CENSORED_PERIOD_END_M1')
-        if stamp not in bid:
+        if stamp not in exit_bars:
             return dict(result, state='CENSORED_M1_GAP')
-        row = bid[stamp]
+        row = exit_bars[stamp]
         opening, high, low, close = (Decimal(str(row[key])) for key in
                                      ('open', 'high', 'low', 'close'))
+        stop_hit = low <= stop if side == 'BUY' else high >= stop
+        target_hit = high >= target if side == 'BUY' else low <= target
         price = None
-        if opening <= stop:
+        if sign*(opening-stop) <= 0:
             state, price = 'ADVERSE_OPEN_REFERENCE', opening
-        elif opening >= target:
+        elif sign*(opening-target) >= 0:
             state, price = 'FAVORABLE_OPEN_CAPPED_REFERENCE', target
-        elif low <= stop and high >= target:
+        elif stop_hit and target_hit:
             return dict(result, state='AMBIGUOUS_SAME_M1', exit_m1_close=stamp + 60)
-        elif low <= stop:
+        elif stop_hit:
             state, price = 'STOP_REFERENCE', stop
-        elif high >= target:
+        elif target_hit:
             state, price = 'TARGET_REFERENCE', target
         elif stamp + 60 == start + 7200:
             state, price = 'TIMEOUT_REFERENCE', close
