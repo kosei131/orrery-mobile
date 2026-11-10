@@ -162,8 +162,29 @@ def xauusd_valuation_source(spec):
     return 'XAUUSD_LINEAR_USD_V1:' + sha256(_encode(spec)).hexdigest()
 
 
+def xauusd_cost_assumptions(spec):
+    """Convert a dated fee record and a declared slippage model to replay inputs."""
+    fields = {'fee_source', 'slippage_source', 'start_s', 'end_s',
+              'round_trip_cost_per_lot_usd', 'slippage'}
+    if not isinstance(spec, dict) or spec.keys() != fields:
+        raise ValueError('Exact XAUUSD cost record required')
+    start, end = spec['start_s'], spec['end_s']
+    if type(start) is not int or type(end) is not int or not 0 <= start < end:
+        raise ValueError('Effective UTC cost interval required')
+    for key in ('fee_source', 'slippage_source'):
+        if not isinstance(spec[key], str) or not spec[key].strip():
+            raise ValueError('Fee and slippage sources required')
+    for key in ('round_trip_cost_per_lot_usd', 'slippage'):
+        value = spec[key]
+        if type(value) not in (int, float) or not isfinite(value) or value < 0:
+            raise ValueError('Explicit finite nonnegative fee and slippage required')
+    return dict(cost_source='XAUUSD_COST_V1:' + sha256(_encode(spec)).hexdigest(),
+                round_trip_cost_per_lot_usd=spec['round_trip_cost_per_lot_usd'],
+                slippage=spec['slippage'])
+
+
 def compare_xauusd_holdout(sessions, settings, *, contract_spec, expected_plan_sha256,
-                           development_end_s, **account_assumptions):
+                           development_end_s, cost_spec=None, **account_assumptions):
     """Use one pinned linear USD contract for the full declared holdout."""
     spec = dict(contract_spec)
     source = xauusd_valuation_source(spec)
@@ -172,6 +193,14 @@ def compare_xauusd_holdout(sessions, settings, *, contract_spec, expected_plan_s
     if any(not spec['start_s'] <= row['start_s'] < row['end_s'] <= spec['end_s']
            for row in sessions):
         raise ValueError('XAUUSD contract evidence must cover all declared sessions')
+    if cost_spec is not None:
+        cost_inputs = xauusd_cost_assumptions(cost_spec)
+        if cost_inputs.keys() & account_assumptions.keys():
+            raise ValueError('Replay inputs cannot override the pinned cost record')
+        if any(not cost_spec['start_s'] <= row['start_s'] < row['end_s'] <= cost_spec['end_s']
+               for row in sessions):
+            raise ValueError('XAUUSD cost record must cover all declared sessions')
+        account_assumptions.update(cost_inputs)
     size = spec['contract_size']
 
     def pnl_quote(symbol, side, lots, entry, exit_price, at):
@@ -184,4 +213,5 @@ def compare_xauusd_holdout(sessions, settings, *, contract_spec, expected_plan_s
         sessions, settings, expected_plan_sha256=expected_plan_sha256,
         development_end_s=development_end_s, valuation_source=source,
         pnl_quote=pnl_quote, expected_contract_size=size, **account_assumptions)
-    return dict(result, contract_spec=spec, broker_spec_authenticity_verified=False)
+    return dict(result, contract_spec=spec, cost_spec=None if cost_spec is None else dict(cost_spec),
+                broker_spec_authenticity_verified=False, cost_source_authenticity_verified=False)

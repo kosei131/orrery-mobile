@@ -245,3 +245,36 @@ class AlignedAccountTests(unittest.TestCase):
                                    **dict(inputs, contract_spec=dict(spec, contract_size=10)))
         with self.assertRaisesRegex(ValueError, 'cover all'):
             compare_xauusd_holdout([dict(session, end_s=28801)], settings, **inputs)
+
+    def test_xauusd_holdout_rejects_missing_or_changed_cost_evidence(self):
+        from orrery_aligned_account_study import (
+            compare_xauusd_holdout, session_plan_sha256, xauusd_cost_assumptions,
+            xauusd_valuation_source,
+        )
+
+        spec = dict(source='synthetic contract', start_s=14400, end_s=28800, contract_size=100)
+        costs = dict(fee_source='synthetic tariff', slippage_source='synthetic model',
+                     start_s=14400, end_s=28800, round_trip_cost_per_lot_usd=0, slippage=.1)
+        session = dict(start_s=14400, end_s=28800, raw_csvs=None, path=None, catalog_sha256=None)
+        settings = dict(symbol='XAUUSD')
+        digest = session_plan_sha256(
+            [session], settings, development_end_s=14400,
+            valuation_source=xauusd_valuation_source(spec), expected_contract_size=100,
+            **xauusd_cost_assumptions(costs))
+        inputs = dict(contract_spec=spec, expected_plan_sha256=digest, development_end_s=14400)
+        result = compare_xauusd_holdout([session], settings, cost_spec=costs, **inputs)
+        self.assertEqual(result['cost_spec'], costs)
+        self.assertEqual(result['blocked_sessions'], 1)
+        self.assertFalse(result['cost_source_authenticity_verified'])
+        for updated, reason in (
+            (dict(costs, slippage=None), 'nonnegative'),
+            (dict(costs, fee_source=''), 'sources required'),
+            (dict(costs, end_s=28799), 'cover all'),
+            (dict(costs, slippage=.2), 'SHA256 mismatch'),
+        ):
+            with self.subTest(reason=reason), self.assertRaisesRegex(ValueError, reason):
+                compare_xauusd_holdout([session], settings, cost_spec=updated, **inputs)
+        with self.assertRaisesRegex(ValueError, 'cannot override'):
+            compare_xauusd_holdout([session], settings, cost_spec=costs, slippage=0, **inputs)
+        with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+            compare_xauusd_holdout([session], settings, **inputs)
