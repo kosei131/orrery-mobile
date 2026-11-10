@@ -62,3 +62,19 @@ class MinuteExitTests(unittest.TestCase):
         adverse = minute_exit(record, {300: ask[360]}, end=900)
         self.assertEqual(adverse['state'], 'ADVERSE_OPEN_REFERENCE')
         self.assertAlmostEqual(adverse['reference_r'], -4/3)
+
+    def test_timeout_audit_uses_ask_low_for_sell_and_rejects_gaps(self):
+        from orrery_gold_ab_archive_minutes import audit_timeout
+
+        record = dict(self.record, candidate_id='sell', side='SELL',
+                      structural_stop='104', target_reference='98',
+                      exit_m1_close=7500, reference_r=0)
+        prices = {t: dict(open=101, high=102, low=100, close=101)
+                  for t in range(300, 7500, 60)}
+        prices[360]['low'] = 99
+        result = audit_timeout(record, prices)
+        self.assertEqual(result['peak_minute_close'], 2)
+        self.assertAlmostEqual(result['target_fraction_at_peak'], 2/3)
+        del prices[300]
+        with self.assertRaisesRegex(ValueError, 'Complete'):
+            audit_timeout(record, prices)

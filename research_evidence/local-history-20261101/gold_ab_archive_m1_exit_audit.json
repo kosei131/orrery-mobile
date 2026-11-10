@@ -864,6 +864,104 @@
       "m1_close": 1791992100
     }
   ],
+  "b_timeout_paths": [
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1788963900:SELL",
+      "side": "SELL",
+      "target_r": 1.5,
+      "peak_reference_r": 1.4347100542344597,
+      "target_fraction_at_peak": 0.9564733694896398,
+      "peak_minute_close": 59,
+      "timeout_reference_r": 0.4547350855235711,
+      "peak_to_exit_giveback_r": 0.9799749687108886,
+      "mark_reference_r": {
+        "30": -0.4063412599082186,
+        "60": 1.0775969962453067,
+        "90": 0.34376303712974554,
+        "120": 0.4547350855235711
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1789395300:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.5535670848246864,
+      "target_fraction_at_peak": 0.3690447232164576,
+      "peak_minute_close": 90,
+      "timeout_reference_r": 0.41640893769329673,
+      "peak_to_exit_giveback_r": 0.13715814713138966,
+      "mark_reference_r": {
+        "30": -0.1914723563957327,
+        "60": -0.1841748618688536,
+        "90": 0.4138721895958578,
+        "120": 0.41640893769329673
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1790185800:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.20304271503803395,
+      "target_fraction_at_peak": 0.13536181002535597,
+      "peak_minute_close": 13,
+      "timeout_reference_r": -0.27150380339379754,
+      "peak_to_exit_giveback_r": 0.4745465184318315,
+      "mark_reference_r": {
+        "30": -0.08191925102399064,
+        "60": -0.26916325336454067,
+        "90": -0.4382679929783499,
+        "120": -0.27150380339379754
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791378300:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.7265812650120096,
+      "target_fraction_at_peak": 0.4843875100080064,
+      "peak_minute_close": 96,
+      "timeout_reference_r": 0.39031224979983986,
+      "peak_to_exit_giveback_r": 0.33626901521216973,
+      "mark_reference_r": {
+        "30": -0.15172137710168135,
+        "60": 0.20056044835868694,
+        "90": 0.5688550840672538,
+        "120": 0.39031224979983986
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791810900:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.19093484419263457,
+      "target_fraction_at_peak": 0.12728989612842304,
+      "peak_minute_close": 29,
+      "timeout_reference_r": -0.08725212464589235,
+      "peak_to_exit_giveback_r": 0.2781869688385269,
+      "mark_reference_r": {
+        "30": 0.059490084985835696,
+        "60": -0.13314447592067988,
+        "90": -0.33541076487252125,
+        "120": -0.08725212464589235
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791984900:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.22090988626421698,
+      "target_fraction_at_peak": 0.14727325750947798,
+      "peak_minute_close": 1,
+      "timeout_reference_r": -0.5549868766404199,
+      "peak_to_exit_giveback_r": 0.7758967629046369,
+      "mark_reference_r": {
+        "30": -0.5438320209973754,
+        "60": -0.23753280839895013,
+        "90": -0.6036745406824147,
+        "120": -0.5549868766404199
+      }
+    }
+  ],
   "actual_broker_profit": null,
   "out_of_sample": false,
   "execution_allowed": false,
