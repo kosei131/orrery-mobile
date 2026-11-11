@@ -22,3 +22,14 @@ class ChannelBreakoutTests(unittest.TestCase):
         self.assertEqual(result['entry'], 101)
         self.assertEqual(result['initial_risk_price'], 3)
         self.assertEqual(result['r'], 1.5)
+
+
+class OpeningSpreadTests(unittest.TestCase):
+    def test_opening_spread_boundary_and_unknown_risk(self):
+        from orrery_gold_breakout_spread_review import spread_group
+
+        self.assertEqual(spread_group(dict(initial_risk_price=10, stop_range_price=9)), 'PASS')
+        self.assertEqual(spread_group(dict(initial_risk_price=10, stop_range_price=8.9)), 'FILTERED')
+        self.assertEqual(spread_group(dict(stop_range_price=9)), 'UNKNOWN')
+        with self.assertRaisesRegex(ValueError, 'Negative implied'):
+            spread_group(dict(initial_risk_price=10, stop_range_price=11))
