@@ -33,3 +33,11 @@ class OpeningSpreadTests(unittest.TestCase):
         self.assertEqual(spread_group(dict(stop_range_price=9)), 'UNKNOWN')
         with self.assertRaisesRegex(ValueError, 'Negative implied'):
             spread_group(dict(initial_risk_price=10, stop_range_price=11))
+
+    def test_reentry_waits_until_exit_minute_closes(self):
+        from orrery_gold_breakout_frequency import next_eligible_clock
+
+        row = dict(status='RESOLVED_REFERENCE', at_utc=900, exit_at=1800, exit_reason='TP_TOUCH')
+        self.assertEqual(next_eligible_clock(row), 1860)
+        self.assertEqual(next_eligible_clock(dict(row, exit_reason='TIMEOUT_CLOSE')), 1800)
+        self.assertEqual(next_eligible_clock(dict(row, status='CENSORED_AT_SIDE_GAP')), 8100)
