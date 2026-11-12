@@ -54,7 +54,7 @@ def hourly_directions(h1):
             yield at, 'SELL'
 
 
-def signals(m5, m15, h1, ask):
+def entry_opportunities(m5, m15, h1, ask):
     directions = dict(hourly_directions(h1))
     clock = sorted(directions)
     by_close = {row['close_time']: row for row in m5}
@@ -76,6 +76,8 @@ def signals(m5, m15, h1, ask):
         ):
             continue
         stop = pullback['low'] if buy else max(ask[t]['high'] for t in range(setup-900, setup, 60))
+        early = dict(at_utc=setup, side=side, setup_at_utc=setup, stop=stop)
+        waiting = None
         previous = by_close[setup]
         for at in range(setup+300, setup+901, 300):
             current = by_close.get(at)
@@ -83,9 +85,16 @@ def signals(m5, m15, h1, ask):
                 break
             resumed = current['close'] > previous['high'] if buy else current['close'] < previous['low']
             if resumed:
-                yield dict(at_utc=at, side=side, setup_at_utc=setup, stop=stop)
+                waiting = dict(early, at_utc=at)
                 break
             previous = current
+        yield early, waiting
+
+
+def signals(m5, m15, h1, ask):
+    for _, waiting in entry_opportunities(m5, m15, h1, ask):
+        if waiting is not None:
+            yield waiting
 
 
 def evaluate_pullback(plan, bid, ask, *, structural_stop, structural_known_at,
@@ -180,7 +189,7 @@ def describe(rows, start, end):
     return result
 
 
-def run(root, *, exclude_suspect_flat=True):
+def load_archive(root, *, exclude_suspect_flat=True):
     manifest = json.loads(PINS.read_text(encoding='utf-8'))
     inputs = {'bid': {}, 'ask': {}}
     audits = {}
@@ -211,6 +220,19 @@ def run(root, *, exclude_suspect_flat=True):
     m5 = complete_m5(paired_bid, START, END)
     m15 = aggregate_complete(m5, 900)
     h1 = aggregate_complete(m5, 3600)
+    audit = dict(
+        source_audits=audits, paired_minutes=len(shared),
+        unpaired_minutes=unpaired_minutes,
+        paired_minutes_before_filter=paired_before_filter,
+        suspect_flat_paired_minutes_excluded=paired_before_filter-len(shared),
+        long_flat_source_files=[name for name, audit in audits.items()
+                                if audit['longest_identical_flat_minutes'] >= 60]
+    )
+    return bid, ask, m5, m15, h1, audit
+
+
+def run(root, *, exclude_suspect_flat=True):
+    bid, ask, m5, m15, h1, audit = load_archive(root, exclude_suspect_flat=exclude_suspect_flat)
     found = sorted((row for row in signals(m5, m15, h1, ask) if row['at_utc'] < END),
                    key=lambda row: row['at_utc'])
     # A boundary clock can be reached by adjacent setups. Keep the oldest setup.
@@ -233,13 +255,7 @@ def run(root, *, exclude_suspect_flat=True):
         )
         records[key] = rows
     return dict(
-        status='RETROSPECTIVE_GOLD_PULLBACK', source_revision=REVISION,
-        source_audits=audits, paired_minutes=len(shared),
-        unpaired_minutes=unpaired_minutes,
-        paired_minutes_before_filter=paired_before_filter,
-        suspect_flat_paired_minutes_excluded=paired_before_filter-len(shared),
-        long_flat_source_files=[name for name, audit in audits.items()
-                                if audit['longest_identical_flat_minutes'] >= 60],
+        status='RETROSPECTIVE_GOLD_PULLBACK', source_revision=REVISION, **audit,
         start_utc=iso(START), end_utc_exclusive=iso(END),
         complete_bars=dict(M5=len(m5), M15=len(m15), H1=len(h1)),
         raw_resumption_signals=len(unique),
