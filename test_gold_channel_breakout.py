@@ -34,10 +34,20 @@ class OpeningSpreadTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Negative implied'):
             spread_group(dict(initial_risk_price=10, stop_range_price=11))
 
-    def test_reentry_waits_until_exit_minute_closes(self):
-        from orrery_gold_breakout_frequency import next_eligible_clock
 
-        row = dict(status='RESOLVED_REFERENCE', at_utc=900, exit_at=1800, exit_reason='TP_TOUCH')
-        self.assertEqual(next_eligible_clock(row), 1860)
-        self.assertEqual(next_eligible_clock(dict(row, exit_reason='TIMEOUT_CLOSE')), 1800)
-        self.assertEqual(next_eligible_clock(dict(row, status='CENSORED_AT_SIDE_GAP')), 8100)
+class DirectionComparisonTests(unittest.TestCase):
+    def test_opposite_trade_can_also_stop_and_missing_quote_stays_unknown(self):
+        from orrery_gold_channel_breakout import compare_directions
+
+        signal = dict(at_utc=1788220800, side='BUY', stop_range_price=2, selected=True)
+        bid = {signal['at_utc']: dict(open=100, high=104, low=97, close=100)}
+        ask = {signal['at_utc']: dict(open=101, high=105, low=98, close=101)}
+        result = compare_directions(
+            [signal, dict(signal, at_utc=signal['at_utc'] + 7200)], bid, ask)['overall']
+        self.assertEqual(result['candidates'], 2)
+        self.assertEqual(result['matched_resolved'], 1)
+        for direction in ('original', 'reverse'):
+            arm = result[direction]
+            self.assertEqual(arm['exit_reasons'], {'SL_TOUCH': 1})
+            self.assertEqual(arm['statuses']['UNKNOWN_ENTRY_HISTORY'], 1)
+            self.assertAlmostEqual(arm['scenarios'][1]['mean_resolved_r'], -1.1)

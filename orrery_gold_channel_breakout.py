@@ -81,7 +81,36 @@ def summarize(rows):
                 scenarios=scenarios)
 
 
-def run(root):
+def compare_directions(signals, bid, ask):
+    """Use identical candidate clocks and stop widths for both directions."""
+    pairs = []
+    for signal in signals:
+        reverse_side = {'BUY': 'SELL', 'SELL': 'BUY'}[signal['side']]
+        original = evaluate_signal(signal, bid, ask)
+        reverse = evaluate_signal(dict(signal, side=reverse_side), bid, ask)
+        pairs.append((original, reverse))
+
+    def summary(rows):
+        matched = [pair for pair in rows
+                   if all(row['status'] == 'RESOLVED_REFERENCE' for row in pair)]
+        return dict(candidates=len(rows), matched_resolved=len(matched),
+                    both_stop=sum(all(row['exit_reason'] == 'SL_TOUCH' for row in pair)
+                                  for pair in matched),
+                    original=summarize([original for original, _ in rows]),
+                    reverse=summarize([reverse for _, reverse in rows]),
+                    matched_original=summarize([original for original, _ in matched]),
+                    matched_reverse=summarize([reverse for _, reverse in matched]))
+
+    return dict(overall=summary(pairs),
+                by_utc_month={
+                    month: summary([pair for pair in pairs if
+                                    datetime.fromtimestamp(pair[0]['at_utc'], timezone.utc)
+                                    .strftime('%Y-%m') == month])
+                    for month in ('2026-09', '2026-10')
+                })
+
+
+def run(root, *, compare_reverse=False):
     inputs, audits = {}, {}
     for side in ('bid', 'ask'):
         inputs[side] = {}
@@ -94,8 +123,9 @@ def run(root):
     bid, ask = inputs['bid'], inputs['ask']
     bars = aggregate_complete(complete_m5(bid, SEPTEMBER, END), 900)
     found = list(signals([bar for bar in bars if bar['close_time'] < END]))
-    records = [evaluate_signal(signal, bid, ask) for signal in found if signal['selected']]
-    return dict(
+    selected = [signal for signal in found if signal['selected']]
+    records = [evaluate_signal(signal, bid, ask) for signal in selected]
+    result = dict(
         status='EXPLORATORY_XAUUSD_STANDALONE_CHANNEL_BREAKOUT',
         rules=dict(timeframe='M15', channel_lookback=LOOKBACK, prior_true_range_average=RANGE_PERIOD,
                    stop_range_multiplier=1, target_r=1.5, max_hold_minutes=HOLD_MINUTES,
@@ -113,12 +143,17 @@ def run(root):
         code_sha256=sha256(Path(__file__).read_bytes()).hexdigest(),
     )
 
+    if compare_reverse:
+        result['direction_comparison'] = compare_directions(selected, bid, ask)
+    return result
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('archive_directory', type=Path)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--compare-reverse', action='store_true')
     args = parser.parse_args()
-    payload = json.dumps(run(args.archive_directory), indent=2, allow_nan=False)
+    payload = json.dumps(run(args.archive_directory, compare_reverse=args.compare_reverse), indent=2, allow_nan=False)
     with args.output.open('x', encoding='utf-8', newline='\n') as output:
         output.write(payload + '\n')
