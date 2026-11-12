@@ -98,7 +98,7 @@ def signals(m5, m15, h1, ask):
 
 
 def evaluate_pullback(plan, bid, ask, *, structural_stop, structural_known_at,
-                      horizon=HOLD_MINUTES, target_r=1.5):
+                      horizon=HOLD_MINUTES, target_r=1.5, target_price=None):
     """Paired archive barrier semantics, with a configurable target for this study."""
     t = plan['first_poi_touch_close']
     side = plan['side']
@@ -129,7 +129,9 @@ def evaluate_pullback(plan, bid, ask, *, structural_stop, structural_known_at,
     risk = direction*(entry-stop)
     if risk <= 0 or direction*(exit_side[t]['open']-stop) <= 0:
         return output('STOP_INVALID_AT_ENTRY')
-    target = entry+direction*target_r*risk
+    target = entry+direction*target_r*risk if target_price is None else target_price
+    if not isfinite(target) or direction*(target-entry) <= 0:
+        return output('TARGET_INVALID_AT_ENTRY')
 
     def resolved(stamp, price, reason):
         return output('RESOLVED_REFERENCE', r=direction*(price-entry)/risk,
@@ -167,7 +169,7 @@ def replay(found, bid, ask, target):
         row = evaluate_pullback(
             {'first_poi_touch_close': at, 'side': signal['side']}, bid, ask,
             structural_stop=signal['stop'], structural_known_at=signal['setup_at_utc'],
-            horizon=HOLD_MINUTES, target_r=target,
+            horizon=HOLD_MINUTES, target_r=target, target_price=signal.get('target_price'),
         )
         rows.append({**signal, **row})
         if row['status'] == 'RESOLVED_REFERENCE':
