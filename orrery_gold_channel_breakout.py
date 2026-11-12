@@ -17,7 +17,7 @@ HOLD_MINUTES = 120
 ADDITIONAL_COSTS = (0, 0.30, 0.60)
 
 
-def signals(bars):
+def signals(bars, *, record_breakout_strength=False):
     next_allowed = 0
     for index in range(LOOKBACK, len(bars)):
         previous = bars[index-LOOKBACK:index]
@@ -25,10 +25,12 @@ def signals(bars):
         at = current['close_time']
         if any(at-row['close_time'] != (LOOKBACK-i)*900 for i, row in enumerate(previous)):
             continue
-        if current['close'] > max(row['high'] for row in previous):
-            side = 'BUY'
-        elif current['close'] < min(row['low'] for row in previous):
-            side = 'SELL'
+        upper = max(row['high'] for row in previous)
+        lower = min(row['low'] for row in previous)
+        if current['close'] > upper:
+            side, penetration = 'BUY', current['close'] - upper
+        elif current['close'] < lower:
+            side, penetration = 'SELL', lower - current['close']
         else:
             continue
         window = previous[-RANGE_PERIOD-1:]
@@ -40,7 +42,10 @@ def signals(bars):
         selected = at >= next_allowed
         if selected:
             next_allowed = at + HOLD_MINUTES*60
-        yield dict(at_utc=at, side=side, stop_range_price=distance, selected=selected)
+        signal = dict(at_utc=at, side=side, stop_range_price=distance, selected=selected)
+        if record_breakout_strength:
+            signal['breakout_strength'] = penetration / distance
+        yield signal
 
 
 def evaluate_signal(signal, bid, ask):
@@ -110,7 +115,25 @@ def compare_directions(signals, bid, ask):
                 })
 
 
-def run(root, *, compare_reverse=False):
+MIN_BREAKOUT_STRENGTH = 0.25
+
+
+def compare_breakout_strength(rows):
+    def cohort_summary(cohort):
+        passed = [row for row in cohort if row['breakout_strength'] >= MIN_BREAKOUT_STRENGTH]
+        filtered = [row for row in cohort if row['breakout_strength'] < MIN_BREAKOUT_STRENGTH]
+        return dict(baseline=summarize(cohort), passed=summarize(passed), filtered=summarize(filtered))
+
+    return dict(min_breakout_strength=MIN_BREAKOUT_STRENGTH, overall=cohort_summary(rows),
+                by_utc_month={
+                    month: cohort_summary([row for row in rows if
+                                           datetime.fromtimestamp(row['at_utc'], timezone.utc)
+                                           .strftime('%Y-%m') == month])
+                    for month in ('2026-09', '2026-10')
+                })
+
+
+def run(root, *, compare_reverse=False, compare_strength=False):
     inputs, audits = {}, {}
     for side in ('bid', 'ask'):
         inputs[side] = {}
@@ -122,7 +145,8 @@ def run(root, *, compare_reverse=False):
             inputs[side].update({stamp: row for stamp, row in rows.items() if SEPTEMBER <= stamp < END})
     bid, ask = inputs['bid'], inputs['ask']
     bars = aggregate_complete(complete_m5(bid, SEPTEMBER, END), 900)
-    found = list(signals([bar for bar in bars if bar['close_time'] < END]))
+    found = list(signals([bar for bar in bars if bar['close_time'] < END],
+                         record_breakout_strength=compare_strength))
     selected = [signal for signal in found if signal['selected']]
     records = [evaluate_signal(signal, bid, ask) for signal in selected]
     result = dict(
@@ -145,6 +169,8 @@ def run(root, *, compare_reverse=False):
 
     if compare_reverse:
         result['direction_comparison'] = compare_directions(selected, bid, ask)
+    if compare_strength:
+        result['strength_comparison'] = compare_breakout_strength(records)
     return result
 
 
@@ -153,7 +179,10 @@ if __name__ == '__main__':
     parser.add_argument('archive_directory', type=Path)
     parser.add_argument('output', type=Path)
     parser.add_argument('--compare-reverse', action='store_true')
+    parser.add_argument('--compare-strength', action='store_true')
     args = parser.parse_args()
-    payload = json.dumps(run(args.archive_directory, compare_reverse=args.compare_reverse), indent=2, allow_nan=False)
+    result = run(args.archive_directory, compare_reverse=args.compare_reverse,
+                 compare_strength=args.compare_strength)
+    payload = json.dumps(result, indent=2, allow_nan=False)
     with args.output.open('x', encoding='utf-8', newline='\n') as output:
         output.write(payload + '\n')

@@ -51,3 +51,19 @@ class DirectionComparisonTests(unittest.TestCase):
             self.assertEqual(arm['exit_reasons'], {'SL_TOUCH': 1})
             self.assertEqual(arm['statuses']['UNKNOWN_ENTRY_HISTORY'], 1)
             self.assertAlmostEqual(arm['scenarios'][1]['mean_resolved_r'], -1.1)
+
+
+class BreakoutStrengthTests(unittest.TestCase):
+    def test_strength_uses_prior_channel_and_includes_exact_threshold(self):
+        from orrery_gold_channel_breakout import compare_breakout_strength
+
+        prior = [dict(close_time=900*(i+1), open=100, close=100, high=101, low=99)
+                 for i in range(20)]
+        for close, expected in ((101.5, 'passed'), (98.6, 'filtered')):
+            with self.subTest(close=close):
+                current = dict(close_time=18900, open=100, close=close, high=104, low=96)
+                row, = signals(prior + [current], record_breakout_strength=True)
+                result = compare_breakout_strength(
+                    [dict(row, status='UNKNOWN_ENTRY_HISTORY')])['overall']
+                self.assertEqual(result[expected]['candidates'], 1)
+                self.assertEqual(result[expected]['resolved'], 0)
