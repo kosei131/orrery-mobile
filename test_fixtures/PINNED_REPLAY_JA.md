@@ -1,0 +1,10 @@
+# 旧bootstrap用の固定ソースfixture
+
+pinned_lsr02_replay.py.txt は旧bootstrapが固定しているソースのLFバイト列。
+SHA256: bd7d3e43428126794923bebe1e4e51a012b49340abf8788c4f2ead826f817383
+旧REVISION 145bec6190b1a6533f3e4be6eaff227df990cdf4 と
+44fe7cb35fe682a8f048d0a6bb375f1dda3bca96 のPINSに対応する。
+取得: ec341151ab402e25d98436cceef89471d4f1e443 の同ファイルからhash一致を確認して保存。
+最新エンジンの変更を旧revisionのダウンロードとして模擬しないために使用する。
+本番bootstrapのPINSはそのままで、fixtureもprepareの実hash検証を通る必要がある。
+実行用コードや新エンジンのテスト入力ではなく、固定ダウンロードのテスト専用。

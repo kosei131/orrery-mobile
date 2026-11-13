@@ -99,3 +99,210 @@ class StudyTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):prepare(paths,config,out)
             (out/'M5.csv').write_bytes(b'changed')
             with self.assertRaises(ValueError):verify(out,result['receipt_sha256'])
+
+
+class AlignedAccountTests(unittest.TestCase):
+    def run_comparison(self, *, h4_high=100, quote_start=14400, expected_start=None, expected_size=None):
+        from orrery_aligned_account_study import compare
+
+        catalog = fixture.fixtures.StudyTests()
+        catalog.setUp()
+        self.addCleanup(catalog.doCleanups)
+        catalog.start, catalog.end = quote_start, 43200
+        catalog.build([catalog.q(at * 1000, 100, 100.1)
+                       for at in range(catalog.start, catalog.end, 60)])
+        settings = dict(symbol='XAUUSD', data_source='SYNTHETIC_STUDY',
+                        chart_type='STANDARD', price_basis='BID',
+                        time_format='UNIX_SECONDS', as_of_s=catalog.end,
+                        column_map={key: key for key in ('time','open','high','low','close')},
+                        strategy=dict(buffer=.1,target_r=2,period=2,min_vhf=0,
+                                      left=1,right=1,lifetime=6000))
+        raw = {}
+        for frame, interval in (('M5',300), ('M15',900), ('H4',14400)):
+            raw[frame] = export([
+                dict(close_time=at + interval, open=100, high=h4_high if frame == 'H4' and at == 14400 else 100,
+                     low=100, close=100) for at in range(14400, catalog.end, interval)
+            ], interval)
+        return compare(raw, settings, path=catalog.path,
+                       expected_catalog_sha256=catalog.saved['catalog_sha256'],
+                       expected_start_s=expected_start,
+                       expected_contract_size=expected_size,
+                       max_gap_msc=60000, price_tolerance=0,
+                       volume_min=.01, volume_max=100, volume_step=.01,
+                       pnl_quote=account_fixture.pnl, round_trip_cost_per_lot_usd=.01,
+                       cost_source='SYNTHETIC_USD_MODEL', slippage=0)
+
+    def test_matching_catalog_runs_two_independent_accounts(self):
+        result = self.run_comparison()
+        self.assertEqual(result['status'], 'ALIGNED_SESSION_MODEL_ACCOUNTS')
+        self.assertEqual(result['candidate_counts'], {'LSR02': 0, 'VHF03': 0})
+        self.assertEqual([row['initial_equity_usd'] for row in result['accounts'].values()],
+                         [3000, 3000])
+
+    def test_wrong_h4_blocks_both_accounts(self):
+        result = self.run_comparison(h4_high=101)
+        self.assertEqual(result['status'], 'BLOCKED_BAR_QUOTE_ALIGNMENT')
+        self.assertEqual(result['alignment']['frames']['H4']['mismatched_bars'], 1)
+        self.assertIsNone(result['accounts'])
+
+    def test_partial_first_bar_is_not_verified_context(self):
+        result = self.run_comparison(quote_start=14460)
+        self.assertTrue(result['alignment']['aligned'])
+        self.assertEqual(result['status'], 'BLOCKED_BAR_CROSSES_SESSION_START')
+        self.assertEqual(result['crossing_frames'], ['H4', 'M15', 'M5'])
+        self.assertIsNone(result['accounts'])
+
+    def test_catalog_start_must_match_declared_session(self):
+        result = self.run_comparison(expected_start=0)
+        self.assertEqual(result['status'], 'BLOCKED_CATALOG_START_MISMATCH')
+        self.assertEqual(result['actual_start_s'], 14400)
+        self.assertIsNone(result['accounts'])
+
+    def test_session_batch_retains_missing_and_does_not_combine_accounts(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import compare_sessions
+
+        missing = dict(start_s=0, end_s=14400, raw_csvs=None, path=None, catalog_sha256=None)
+        ready = dict(missing, start_s=14400, end_s=43200, raw_csvs={}, path='catalog',
+                     catalog_sha256='digest')
+        with patch('orrery_aligned_account_study.compare',
+                   return_value={'accounts': {'LSR02': {}, 'VHF03': {}}}) as replay:
+            result = compare_sessions([missing, ready], {'symbol': 'XAUUSD'}, slippage=.1)
+            replay.assert_called_once_with({}, {'symbol': 'XAUUSD', 'as_of_s': 43200},
+                                           path='catalog', expected_catalog_sha256='digest',
+                                           expected_start_s=14400, slippage=.1)
+        self.assertEqual(result['completed_sessions'], 1)
+        self.assertEqual(result['blocked_sessions'], 1)
+        self.assertEqual(result['sessions'][0]['result']['status'], 'BLOCKED_MISSING_SESSION_INPUT')
+        self.assertIsNone(result['combined_accounts'])
+
+    def test_session_batch_rejects_overlap(self):
+        from orrery_aligned_account_study import compare_sessions
+
+        session = dict(start_s=0, end_s=14400, raw_csvs=None, path=None, catalog_sha256=None)
+        with self.assertRaisesRegex(ValueError, 'non-overlapping'):
+            compare_sessions([session, dict(session, start_s=14399)], {})
+
+    def test_holdout_protocol_keeps_missing_session_and_refuses_changed_cost(self):
+        from orrery_aligned_account_study import compare_holdout, session_plan_sha256
+
+        session = dict(start_s=14400, end_s=28800, raw_csvs=None, path=None, catalog_sha256=None)
+        settings = dict(symbol='XAUUSD', strategy={'target_r': 2})
+        assumptions = dict(development_end_s=14400, valuation_source='fixture/v1', slippage=.1)
+        digest = session_plan_sha256([session], settings, **assumptions)
+        self.assertEqual(digest, session_plan_sha256(
+            [dict(session, path='received', catalog_sha256='fixture')], settings, **assumptions))
+        result = compare_holdout([session], settings, expected_plan_sha256=digest,
+                                 pnl_quote=account_fixture.pnl, **assumptions)
+        self.assertEqual(result['plan_sha256'], digest)
+        self.assertEqual(result['blocked_sessions'], 1)
+        with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+            compare_holdout([session], settings, expected_plan_sha256=digest,
+                            pnl_quote=account_fixture.pnl, **dict(assumptions, slippage=.2))
+        with self.assertRaisesRegex(ValueError, 'follow development'):
+            session_plan_sha256([dict(session, start_s=14399)], settings, **assumptions)
+
+    def test_holdout_protocol_refuses_dropped_session(self):
+        from orrery_aligned_account_study import compare_holdout, session_plan_sha256
+
+        first = dict(start_s=14400, end_s=28800, raw_csvs=None, path=None, catalog_sha256=None)
+        second = dict(first, start_s=43200, end_s=57600)
+        settings = {'symbol': 'XAUUSD'}
+        assumptions = dict(development_end_s=14400, valuation_source='fixture/v1')
+        digest = session_plan_sha256([first, second], settings, **assumptions)
+        with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+            compare_holdout([second], settings, expected_plan_sha256=digest,
+                            pnl_quote=account_fixture.pnl, **assumptions)
+
+    def test_catalog_contract_disagreement_blocks_both_accounts(self):
+        result = self.run_comparison(expected_size=10)
+        self.assertEqual(result['status'], 'BLOCKED_CATALOG_CONTRACT_MISMATCH')
+        self.assertIsNone(result['accounts'])
+
+    def test_xauusd_holdout_binds_effective_contract_and_fixed_valuation(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import (
+            compare_xauusd_holdout, session_plan_sha256, xauusd_valuation_source,
+        )
+
+        spec = dict(source='synthetic statement', start_s=14400, end_s=28800, contract_size=100)
+        session = dict(start_s=14400, end_s=28800, raw_csvs=None, path=None, catalog_sha256=None)
+        settings = dict(symbol='XAUUSD')
+        digest = session_plan_sha256(
+            [session], settings, development_end_s=14400,
+            valuation_source=xauusd_valuation_source(spec), expected_contract_size=100)
+        inputs = dict(contract_spec=spec, expected_plan_sha256=digest, development_end_s=14400)
+
+        with patch('orrery_aligned_account_study.compare_sessions', return_value={}) as replay:
+            report = compare_xauusd_holdout([session], settings, **inputs)
+            evaluator = replay.call_args.kwargs['pnl_quote']
+            self.assertEqual(evaluator('XAUUSD', 'BUY', .25, 100, 102, 14400000), 50)
+            self.assertEqual(evaluator('XAUUSD', 'SELL', .25, 100, 102, 14400000), -50)
+            self.assertEqual(replay.call_args.kwargs['expected_contract_size'], 100)
+        self.assertFalse(report['broker_spec_authenticity_verified'])
+        with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+            compare_xauusd_holdout([session], settings,
+                                   **dict(inputs, contract_spec=dict(spec, contract_size=10)))
+        with self.assertRaisesRegex(ValueError, 'cover all'):
+            compare_xauusd_holdout([dict(session, end_s=28801)], settings, **inputs)
+
+    def test_xauusd_holdout_rejects_missing_or_changed_cost_evidence(self):
+        from orrery_aligned_account_study import (
+            compare_xauusd_holdout, session_plan_sha256, xauusd_cost_assumptions,
+            xauusd_valuation_source,
+        )
+
+        spec = dict(source='synthetic contract', start_s=14400, end_s=28800, contract_size=100)
+        costs = dict(fee_source='synthetic tariff', slippage_source='synthetic model',
+                     start_s=14400, end_s=28800, round_trip_cost_per_lot_usd=0, slippage=.1)
+        session = dict(start_s=14400, end_s=28800, raw_csvs=None, path=None, catalog_sha256=None)
+        settings = dict(symbol='XAUUSD')
+        digest = session_plan_sha256(
+            [session], settings, development_end_s=14400,
+            valuation_source=xauusd_valuation_source(spec), expected_contract_size=100,
+            **xauusd_cost_assumptions(costs))
+        inputs = dict(contract_spec=spec, expected_plan_sha256=digest, development_end_s=14400)
+        result = compare_xauusd_holdout([session], settings, cost_spec=costs, **inputs)
+        self.assertEqual(result['cost_spec'], costs)
+        self.assertEqual(result['blocked_sessions'], 1)
+        self.assertFalse(result['cost_source_authenticity_verified'])
+        for updated, reason in (
+            (dict(costs, slippage=None), 'nonnegative'),
+            (dict(costs, fee_source=''), 'sources required'),
+            (dict(costs, end_s=28799), 'cover all'),
+            (dict(costs, slippage=.2), 'SHA256 mismatch'),
+        ):
+            with self.subTest(reason=reason), self.assertRaisesRegex(ValueError, reason):
+                compare_xauusd_holdout([session], settings, cost_spec=updated, **inputs)
+        with self.assertRaisesRegex(ValueError, 'cannot override'):
+            compare_xauusd_holdout([session], settings, cost_spec=costs, slippage=0, **inputs)
+        with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+            compare_xauusd_holdout([session], settings, **inputs)
+
+    def test_holdout_data_pin_rejects_changed_csv_before_replay(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import (
+            compare_holdout, holdout_data_sha256, session_plan_sha256,
+        )
+
+        raw = {frame: b'original' for frame in ('H4', 'M15', 'M5')}
+        session = dict(start_s=14400, end_s=28800, raw_csvs=raw,
+                       path='catalog', catalog_sha256='fixture')
+        settings = {'symbol': 'XAUUSD'}
+        protocol = dict(development_end_s=14400, valuation_source='fixture/v1')
+        plan = session_plan_sha256([session], settings, **protocol)
+        digest = holdout_data_sha256([session])
+        with patch('orrery_aligned_account_study.compare_sessions', return_value={}) as replay:
+            result = compare_holdout([dict(session, path='relocated')], settings,
+                                     expected_plan_sha256=plan, expected_data_sha256=digest,
+                                     pnl_quote=account_fixture.pnl, **protocol)
+            self.assertEqual(result['data_sha256'], digest)
+            self.assertEqual(replay.call_count, 1)
+            for updated in (dict(session, raw_csvs=dict(raw, M5=b'changed')),
+                            dict(session, catalog_sha256='changed'),
+                            dict(session, path=None)):
+                with self.assertRaisesRegex(ValueError, 'data SHA256 mismatch'):
+                    compare_holdout([updated], settings, expected_plan_sha256=plan,
+                                    expected_data_sha256=digest, pnl_quote=account_fixture.pnl,
+                                    **protocol)
+            self.assertEqual(replay.call_count, 1)

@@ -35,6 +35,7 @@ class SessionCmdTests(unittest.TestCase):
         result=self.call(); self.assertEqual(result.returncode,1)
         self.assertFalse(self.marker.exists()); self.assertIn(b'SETUP NEEDED',result.stdout)
 
+    @unittest.skipUnless(shutil.which('py'), 'Windows integration requires py launcher')
     def test_python_312_quoted_paths_and_failure_code_are_preserved(self):
         self.config.write_text('{}')
         result=self.call(); self.assertEqual(result.returncode,2)

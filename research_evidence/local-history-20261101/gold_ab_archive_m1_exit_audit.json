@@ -1,0 +1,969 @@
+{
+  "status": "GOLD_AB_SIDE_LABELED_M1_EXIT_ORDER_AUDIT",
+  "source_audits": {
+    "bid_2026_09.csv": {
+      "sha256": "09cc828da25ee817719c3fb5b3be22058f62d6f7b991ca00f7102a381953e325",
+      "rows": 30208,
+      "first_open_utc": "2026-09-01T00:00:00+00:00",
+      "last_open_utc": "2026-09-30T23:59:00+00:00",
+      "gaps": 23,
+      "unobserved_minutes": 12992,
+      "gap_examples": [
+        {
+          "after": 1788296340,
+          "before": 1788300000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788382740,
+          "before": 1788386400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788469140,
+          "before": 1788472800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788555540,
+          "before": 1788732000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1788805680,
+          "before": 1788818400,
+          "unobserved_minutes": 211
+        },
+        {
+          "after": 1788901140,
+          "before": 1788904800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788987540,
+          "before": 1788991200,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789073940,
+          "before": 1789077600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789160340,
+          "before": 1789336800,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1789419540,
+          "before": 1789423200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    },
+    "bid_2026_10.csv": {
+      "sha256": "05cdf7ebea1932a6a4748ed47ad74fe2de0023bb11f9b835c38bba424358dd7d",
+      "rows": 17400,
+      "first_open_utc": "2026-10-01T00:00:00+00:00",
+      "last_open_utc": "2026-10-19T13:59:00+00:00",
+      "gaps": 12,
+      "unobserved_minutes": 9360,
+      "gap_examples": [
+        {
+          "after": 1790888340,
+          "before": 1790892000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1790974740,
+          "before": 1791151200,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791233940,
+          "before": 1791237600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791320340,
+          "before": 1791324000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791406740,
+          "before": 1791410400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791493140,
+          "before": 1791496800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791579540,
+          "before": 1791756000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791838740,
+          "before": 1791842400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791925140,
+          "before": 1791928800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1792011540,
+          "before": 1792015200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    },
+    "ask_2026_09.csv": {
+      "sha256": "697c9079a8ed80eb2716604f27900e4352206db0a62847510530efdcfaf3645d",
+      "rows": 30208,
+      "first_open_utc": "2026-09-01T00:00:00+00:00",
+      "last_open_utc": "2026-09-30T23:59:00+00:00",
+      "gaps": 23,
+      "unobserved_minutes": 12992,
+      "gap_examples": [
+        {
+          "after": 1788296340,
+          "before": 1788300000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788382740,
+          "before": 1788386400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788469140,
+          "before": 1788472800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788555540,
+          "before": 1788732000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1788805680,
+          "before": 1788818400,
+          "unobserved_minutes": 211
+        },
+        {
+          "after": 1788901140,
+          "before": 1788904800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788987540,
+          "before": 1788991200,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789073940,
+          "before": 1789077600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789160340,
+          "before": 1789336800,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1789419540,
+          "before": 1789423200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    },
+    "ask_2026_10.csv": {
+      "sha256": "43d37686754e87fd343d14012832fd476b47551d390a15520fb62963f2ff74c0",
+      "rows": 17400,
+      "first_open_utc": "2026-10-01T00:00:00+00:00",
+      "last_open_utc": "2026-10-19T13:59:00+00:00",
+      "gaps": 12,
+      "unobserved_minutes": 9360,
+      "gap_examples": [
+        {
+          "after": 1790888340,
+          "before": 1790892000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1790974740,
+          "before": 1791151200,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791233940,
+          "before": 1791237600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791320340,
+          "before": 1791324000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791406740,
+          "before": 1791410400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791493140,
+          "before": 1791496800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791579540,
+          "before": 1791756000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791838740,
+          "before": 1791842400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791925140,
+          "before": 1791928800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1792011540,
+          "before": 1792015200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    }
+  },
+  "m5": {
+    "A_CONTINUATION": {
+      "all": {
+        "candidates": 6,
+        "resolved": 6,
+        "states": {
+          "TIMEOUT_REFERENCE": 2,
+          "STOP_REFERENCE": 3,
+          "TARGET_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.28680048043308987,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.5354737718625004
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.32472900802303845,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.4942495274670505
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.35507183009499727,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.46348291635708816
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.37530037814296985,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.44397138612710896
+          }
+        ]
+      },
+      "buy": {
+        "candidates": 4,
+        "resolved": 4,
+        "states": {
+          "TIMEOUT_REFERENCE": 1,
+          "STOP_REFERENCE": 2,
+          "TARGET_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.004094303850504882,
+            "positive_pct": 50.0,
+            "pf": 0.9918113922989902
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.04642522699735155,
+            "positive_pct": 50.0,
+            "pf": 0.9111380369920024
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.08028996551482882,
+            "positive_pct": 50.0,
+            "pf": 0.8514237541806731
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.10286645785981373,
+            "positive_pct": 50.0,
+            "pf": 0.8137707966222731
+          }
+        ]
+      },
+      "sell": {
+        "candidates": 2,
+        "resolved": 2,
+        "states": {
+          "STOP_REFERENCE": 1,
+          "TIMEOUT_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.8522128335982598,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.8813365700744122,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.9046355592553341,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.9201682187092821,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          }
+        ]
+      },
+      "candidate_ids": [
+        "A_CONTINUATION:1788368700:BUY",
+        "A_CONTINUATION:1788456300:BUY",
+        "A_CONTINUATION:1788464700:BUY",
+        "A_CONTINUATION:1789474200:SELL",
+        "A_CONTINUATION:1789482300:SELL",
+        "A_CONTINUATION:1789580100:BUY"
+      ]
+    },
+    "B_COUNTER_SWEEP": {
+      "all": {
+        "candidates": 9,
+        "resolved": 8,
+        "states": {
+          "STOP_REFERENCE": 2,
+          "TIMEOUT_REFERENCE": 6,
+          "CENSORED_M5_GAP": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.20653581645792526,
+            "positive_pct": 37.5,
+            "pf": 0.4329332949327348
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.22055501491736051,
+            "positive_pct": 37.5,
+            "pf": 0.41007292272428153
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.23177037368490874,
+            "positive_pct": 37.5,
+            "pf": 0.3926171484839096
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.2392472795299409,
+            "positive_pct": 37.5,
+            "pf": 0.3813671507994716
+          }
+        ]
+      },
+      "buy": {
+        "candidates": 6,
+        "resolved": 6,
+        "states": {
+          "TIMEOUT_REFERENCE": 5,
+          "STOP_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.18450360286449552,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.4215410689044934
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.19839695873081564,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.3971738300222668
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.20951164342387174,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.37873657549933126
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.21692143321924243,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.3669307417167929
+          }
+        ]
+      },
+      "sell": {
+        "candidates": 3,
+        "resolved": 2,
+        "states": {
+          "STOP_REFERENCE": 1,
+          "TIMEOUT_REFERENCE": 1,
+          "CENSORED_M5_GAP": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.27263245723821444,
+            "positive_pct": 50.0,
+            "pf": 0.4547350855235711
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.28702918347699524,
+            "positive_pct": 50.0,
+            "pf": 0.4351363746416424
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.2985465644680198,
+            "positive_pct": 50.0,
+            "pf": 0.4199037234427412
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.30622481846203625,
+            "positive_pct": 50.0,
+            "pf": 0.4099609613951572
+          }
+        ]
+      },
+      "candidate_ids": [
+        "B_COUNTER_SWEEP:1788442500:SELL",
+        "B_COUNTER_SWEEP:1788963900:SELL",
+        "B_COUNTER_SWEEP:1789395300:BUY",
+        "B_COUNTER_SWEEP:1790185800:BUY",
+        "B_COUNTER_SWEEP:1790603400:BUY",
+        "B_COUNTER_SWEEP:1791315000:SELL",
+        "B_COUNTER_SWEEP:1791378300:BUY",
+        "B_COUNTER_SWEEP:1791810900:BUY",
+        "B_COUNTER_SWEEP:1791984900:BUY"
+      ]
+    }
+  },
+  "m1": {
+    "A_CONTINUATION": {
+      "all": {
+        "candidates": 6,
+        "resolved": 6,
+        "states": {
+          "TIMEOUT_REFERENCE": 2,
+          "STOP_REFERENCE": 3,
+          "TARGET_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.28680048043308987,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.5354737718625004
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.32472900802303845,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.4942495274670505
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.35507183009499727,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.46348291635708816
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.37530037814296985,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.44397138612710896
+          }
+        ]
+      },
+      "buy": {
+        "candidates": 4,
+        "resolved": 4,
+        "states": {
+          "TIMEOUT_REFERENCE": 1,
+          "STOP_REFERENCE": 2,
+          "TARGET_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.004094303850504882,
+            "positive_pct": 50.0,
+            "pf": 0.9918113922989902
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.04642522699735155,
+            "positive_pct": 50.0,
+            "pf": 0.9111380369920024
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.08028996551482882,
+            "positive_pct": 50.0,
+            "pf": 0.8514237541806731
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.10286645785981373,
+            "positive_pct": 50.0,
+            "pf": 0.8137707966222731
+          }
+        ]
+      },
+      "sell": {
+        "candidates": 2,
+        "resolved": 2,
+        "states": {
+          "STOP_REFERENCE": 1,
+          "TIMEOUT_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.8522128335982598,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.8813365700744122,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.9046355592553341,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.9201682187092821,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          }
+        ]
+      },
+      "candidate_ids": [
+        "A_CONTINUATION:1788368700:BUY",
+        "A_CONTINUATION:1788456300:BUY",
+        "A_CONTINUATION:1788464700:BUY",
+        "A_CONTINUATION:1789474200:SELL",
+        "A_CONTINUATION:1789482300:SELL",
+        "A_CONTINUATION:1789580100:BUY"
+      ]
+    },
+    "B_COUNTER_SWEEP": {
+      "all": {
+        "candidates": 9,
+        "resolved": 8,
+        "states": {
+          "STOP_REFERENCE": 2,
+          "TIMEOUT_REFERENCE": 6,
+          "CENSORED_M1_GAP": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.20653581645792526,
+            "positive_pct": 37.5,
+            "pf": 0.4329332949327348
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.22055501491736051,
+            "positive_pct": 37.5,
+            "pf": 0.41007292272428153
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.23177037368490874,
+            "positive_pct": 37.5,
+            "pf": 0.3926171484839096
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.2392472795299409,
+            "positive_pct": 37.5,
+            "pf": 0.3813671507994716
+          }
+        ]
+      },
+      "buy": {
+        "candidates": 6,
+        "resolved": 6,
+        "states": {
+          "TIMEOUT_REFERENCE": 5,
+          "STOP_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.18450360286449552,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.4215410689044934
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.19839695873081564,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.3971738300222668
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.20951164342387174,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.37873657549933126
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.21692143321924243,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.3669307417167929
+          }
+        ]
+      },
+      "sell": {
+        "candidates": 3,
+        "resolved": 2,
+        "states": {
+          "STOP_REFERENCE": 1,
+          "TIMEOUT_REFERENCE": 1,
+          "CENSORED_M1_GAP": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.27263245723821444,
+            "positive_pct": 50.0,
+            "pf": 0.4547350855235711
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.28702918347699524,
+            "positive_pct": 50.0,
+            "pf": 0.4351363746416424
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.2985465644680198,
+            "positive_pct": 50.0,
+            "pf": 0.4199037234427412
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.30622481846203625,
+            "positive_pct": 50.0,
+            "pf": 0.4099609613951572
+          }
+        ]
+      },
+      "candidate_ids": [
+        "B_COUNTER_SWEEP:1788442500:SELL",
+        "B_COUNTER_SWEEP:1788963900:SELL",
+        "B_COUNTER_SWEEP:1789395300:BUY",
+        "B_COUNTER_SWEEP:1790185800:BUY",
+        "B_COUNTER_SWEEP:1790603400:BUY",
+        "B_COUNTER_SWEEP:1791315000:SELL",
+        "B_COUNTER_SWEEP:1791378300:BUY",
+        "B_COUNTER_SWEEP:1791810900:BUY",
+        "B_COUNTER_SWEEP:1791984900:BUY"
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "candidate_id": "A_CONTINUATION:1788368700:BUY",
+      "exit_side": "bid",
+      "m5_state": "TIMEOUT_REFERENCE",
+      "m1_state": "TIMEOUT_REFERENCE",
+      "m5_r": 0.5474137931034483,
+      "m1_r": 0.5474137931034483,
+      "m5_close": 1788375900,
+      "m1_close": 1788375900
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1788442500:SELL",
+      "exit_side": "ask",
+      "m5_state": "STOP_REFERENCE",
+      "m1_state": "STOP_REFERENCE",
+      "m5_r": -1.0,
+      "m1_r": -1.0,
+      "m5_close": 1788447900,
+      "m1_close": 1788447900
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1788456300:BUY",
+      "exit_side": "bid",
+      "m5_state": "STOP_REFERENCE",
+      "m1_state": "STOP_REFERENCE",
+      "m5_r": -1.0,
+      "m1_r": -1.0,
+      "m5_close": 1788459900,
+      "m1_close": 1788459840
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1788464700:BUY",
+      "exit_side": "bid",
+      "m5_state": "STOP_REFERENCE",
+      "m1_state": "STOP_REFERENCE",
+      "m5_r": -1.0,
+      "m1_r": -1.0,
+      "m5_close": 1788465900,
+      "m1_close": 1788465660
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1788963900:SELL",
+      "exit_side": "ask",
+      "m5_state": "TIMEOUT_REFERENCE",
+      "m1_state": "TIMEOUT_REFERENCE",
+      "m5_r": 0.4547350855235711,
+      "m1_r": 0.4547350855235711,
+      "m5_close": 1788971100,
+      "m1_close": 1788971100
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1789395300:BUY",
+      "exit_side": "bid",
+      "m5_state": "TIMEOUT_REFERENCE",
+      "m1_state": "TIMEOUT_REFERENCE",
+      "m5_r": 0.41640893769329673,
+      "m1_r": 0.41640893769329673,
+      "m5_close": 1789402500,
+      "m1_close": 1789402500
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1789474200:SELL",
+      "exit_side": "ask",
+      "m5_state": "STOP_REFERENCE",
+      "m1_state": "STOP_REFERENCE",
+      "m5_r": -1.0,
+      "m1_r": -1.0,
+      "m5_close": 1789476600,
+      "m1_close": 1789476540
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1789482300:SELL",
+      "exit_side": "ask",
+      "m5_state": "TIMEOUT_REFERENCE",
+      "m1_state": "TIMEOUT_REFERENCE",
+      "m5_r": -0.7044256671965197,
+      "m1_r": -0.7044256671965197,
+      "m5_close": 1789489500,
+      "m1_close": 1789489500
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1789580100:BUY",
+      "exit_side": "bid",
+      "m5_state": "TARGET_REFERENCE",
+      "m1_state": "TARGET_REFERENCE",
+      "m5_r": 1.4362089914945322,
+      "m1_r": 1.4362089914945322,
+      "m5_close": 1789581600,
+      "m1_close": 1789581600
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1790185800:BUY",
+      "exit_side": "bid",
+      "m5_state": "TIMEOUT_REFERENCE",
+      "m1_state": "TIMEOUT_REFERENCE",
+      "m5_r": -0.27150380339379754,
+      "m1_r": -0.27150380339379754,
+      "m5_close": 1790193000,
+      "m1_close": 1790193000
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1790603400:BUY",
+      "exit_side": "bid",
+      "m5_state": "STOP_REFERENCE",
+      "m1_state": "STOP_REFERENCE",
+      "m5_r": -1.0,
+      "m1_r": -1.0,
+      "m5_close": 1790606100,
+      "m1_close": 1790605980
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791315000:SELL",
+      "exit_side": "ask",
+      "m5_state": "CENSORED_M5_GAP",
+      "m1_state": "CENSORED_M1_GAP",
+      "m5_r": null,
+      "m1_r": null,
+      "m5_close": 1791320400,
+      "m1_close": null
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791378300:BUY",
+      "exit_side": "bid",
+      "m5_state": "TIMEOUT_REFERENCE",
+      "m1_state": "TIMEOUT_REFERENCE",
+      "m5_r": 0.39031224979983986,
+      "m1_r": 0.39031224979983986,
+      "m5_close": 1791385500,
+      "m1_close": 1791385500
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791810900:BUY",
+      "exit_side": "bid",
+      "m5_state": "TIMEOUT_REFERENCE",
+      "m1_state": "TIMEOUT_REFERENCE",
+      "m5_r": -0.08725212464589235,
+      "m1_r": -0.08725212464589235,
+      "m5_close": 1791818100,
+      "m1_close": 1791818100
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791984900:BUY",
+      "exit_side": "bid",
+      "m5_state": "TIMEOUT_REFERENCE",
+      "m1_state": "TIMEOUT_REFERENCE",
+      "m5_r": -0.5549868766404199,
+      "m1_r": -0.5549868766404199,
+      "m5_close": 1791992100,
+      "m1_close": 1791992100
+    }
+  ],
+  "b_timeout_paths": [
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1788963900:SELL",
+      "side": "SELL",
+      "target_r": 1.5,
+      "peak_reference_r": 1.4347100542344597,
+      "target_fraction_at_peak": 0.9564733694896398,
+      "peak_minute_close": 59,
+      "timeout_reference_r": 0.4547350855235711,
+      "peak_to_exit_giveback_r": 0.9799749687108886,
+      "mark_reference_r": {
+        "30": -0.4063412599082186,
+        "60": 1.0775969962453067,
+        "90": 0.34376303712974554,
+        "120": 0.4547350855235711
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1789395300:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.5535670848246864,
+      "target_fraction_at_peak": 0.3690447232164576,
+      "peak_minute_close": 90,
+      "timeout_reference_r": 0.41640893769329673,
+      "peak_to_exit_giveback_r": 0.13715814713138966,
+      "mark_reference_r": {
+        "30": -0.1914723563957327,
+        "60": -0.1841748618688536,
+        "90": 0.4138721895958578,
+        "120": 0.41640893769329673
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1790185800:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.20304271503803395,
+      "target_fraction_at_peak": 0.13536181002535597,
+      "peak_minute_close": 13,
+      "timeout_reference_r": -0.27150380339379754,
+      "peak_to_exit_giveback_r": 0.4745465184318315,
+      "mark_reference_r": {
+        "30": -0.08191925102399064,
+        "60": -0.26916325336454067,
+        "90": -0.4382679929783499,
+        "120": -0.27150380339379754
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791378300:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.7265812650120096,
+      "target_fraction_at_peak": 0.4843875100080064,
+      "peak_minute_close": 96,
+      "timeout_reference_r": 0.39031224979983986,
+      "peak_to_exit_giveback_r": 0.33626901521216973,
+      "mark_reference_r": {
+        "30": -0.15172137710168135,
+        "60": 0.20056044835868694,
+        "90": 0.5688550840672538,
+        "120": 0.39031224979983986
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791810900:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.19093484419263457,
+      "target_fraction_at_peak": 0.12728989612842304,
+      "peak_minute_close": 29,
+      "timeout_reference_r": -0.08725212464589235,
+      "peak_to_exit_giveback_r": 0.2781869688385269,
+      "mark_reference_r": {
+        "30": 0.059490084985835696,
+        "60": -0.13314447592067988,
+        "90": -0.33541076487252125,
+        "120": -0.08725212464589235
+      }
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791984900:BUY",
+      "side": "BUY",
+      "target_r": 1.5,
+      "peak_reference_r": 0.22090988626421698,
+      "target_fraction_at_peak": 0.14727325750947798,
+      "peak_minute_close": 1,
+      "timeout_reference_r": -0.5549868766404199,
+      "peak_to_exit_giveback_r": 0.7758967629046369,
+      "mark_reference_r": {
+        "30": -0.5438320209973754,
+        "60": -0.23753280839895013,
+        "90": -0.6036745406824147,
+        "120": -0.5549868766404199
+      }
+    }
+  ],
+  "actual_broker_profit": null,
+  "out_of_sample": false,
+  "execution_allowed": false,
+  "adoption_allowed": false
+}

@@ -1,0 +1,1288 @@
+{
+  "status": "EXPLORATORY_GOLD_AB_ON_PINNED_ALTERNATE_ARCHIVE",
+  "start_utc": "2026-09-01T00:00:00+00:00",
+  "end_utc_exclusive": "2026-10-19T14:00:00+00:00",
+  "source_audits": [
+    {
+      "sha256": "09cc828da25ee817719c3fb5b3be22058f62d6f7b991ca00f7102a381953e325",
+      "rows": 30208,
+      "first_open_utc": "2026-09-01T00:00:00+00:00",
+      "last_open_utc": "2026-09-30T23:59:00+00:00",
+      "gaps": 23,
+      "unobserved_minutes": 12992,
+      "gap_examples": [
+        {
+          "after": 1788296340,
+          "before": 1788300000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788382740,
+          "before": 1788386400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788469140,
+          "before": 1788472800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788555540,
+          "before": 1788732000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1788805680,
+          "before": 1788818400,
+          "unobserved_minutes": 211
+        },
+        {
+          "after": 1788901140,
+          "before": 1788904800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788987540,
+          "before": 1788991200,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789073940,
+          "before": 1789077600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789160340,
+          "before": 1789336800,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1789419540,
+          "before": 1789423200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    },
+    {
+      "sha256": "05cdf7ebea1932a6a4748ed47ad74fe2de0023bb11f9b835c38bba424358dd7d",
+      "rows": 17400,
+      "first_open_utc": "2026-10-01T00:00:00+00:00",
+      "last_open_utc": "2026-10-19T13:59:00+00:00",
+      "gaps": 12,
+      "unobserved_minutes": 9360,
+      "gap_examples": [
+        {
+          "after": 1790888340,
+          "before": 1790892000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1790974740,
+          "before": 1791151200,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791233940,
+          "before": 1791237600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791320340,
+          "before": 1791324000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791406740,
+          "before": 1791410400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791493140,
+          "before": 1791496800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791579540,
+          "before": 1791756000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791838740,
+          "before": 1791842400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791925140,
+          "before": 1791928800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1792011540,
+          "before": 1792015200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    }
+  ],
+  "price_basis": "third-party Bid-labeled OHLC; hypothetical flat friction",
+  "scan": {
+    "status": "PUBLIC_XAU_MTF_AB_CANDIDATE_COUNTS_ONLY",
+    "observed_bars": {
+      "H4": 172,
+      "M15": 3171,
+      "M5": 9519
+    },
+    "examined_m5_bars": 3699,
+    "missing_or_gapped_context": 5820,
+    "context_failure_counts": {
+      "H4_INSUFFICIENT_HISTORY": 143,
+      "H4_NONCONTIGUOUS_BARS": 3264,
+      "H4_STALE_LAST_CLOSE": 1816,
+      "M15_INSUFFICIENT_HISTORY": 38,
+      "M15_NONCONTIGUOUS_BARS": 1227,
+      "M15_STALE_LAST_CLOSE": 70,
+      "M5_INSUFFICIENT_HISTORY": 17,
+      "M5_NONCONTIGUOUS_BARS": 583
+    },
+    "context_failures_may_overlap_across_timeframes": true,
+    "candidate_counts": {
+      "A_CONTINUATION": 6,
+      "B_COUNTER_SWEEP": 9
+    },
+    "candidates": [
+      {
+        "candidate_id": "A_CONTINUATION:1788368700:BUY",
+        "family": "A_CONTINUATION",
+        "side": "BUY",
+        "known_at_utc": 1788368700,
+        "sweep_known_at_utc": 1788368400,
+        "h4_direction": "UP",
+        "confirmation_reference": "4370.395",
+        "indicative_close": "4370.705",
+        "structural_stop": "4364.065",
+        "initial_risk_price": "6.640",
+        "known_room_price": "26.770",
+        "indicative_room_r": "4.031626506024096385542168675",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "B_COUNTER_SWEEP:1788442500:SELL",
+        "family": "B_COUNTER_SWEEP",
+        "side": "SELL",
+        "known_at_utc": 1788442500,
+        "sweep_known_at_utc": 1788441300,
+        "h4_direction": "UP",
+        "confirmation_reference": "4479.255",
+        "indicative_close": "4477.555",
+        "structural_stop": "4495.985",
+        "initial_risk_price": "18.430",
+        "known_room_price": "95.410",
+        "indicative_room_r": "5.176885512750949538795442214",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "A_CONTINUATION:1788456300:BUY",
+        "family": "A_CONTINUATION",
+        "side": "BUY",
+        "known_at_utc": 1788456300,
+        "sweep_known_at_utc": 1788455700,
+        "h4_direction": "UP",
+        "confirmation_reference": "4490.125",
+        "indicative_close": "4490.655",
+        "structural_stop": "4482.885",
+        "initial_risk_price": "7.770",
+        "known_room_price": "19.980",
+        "indicative_room_r": "2.571428571428571428571428571",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "A_CONTINUATION:1788464700:BUY",
+        "family": "A_CONTINUATION",
+        "side": "BUY",
+        "known_at_utc": 1788464700,
+        "sweep_known_at_utc": 1788463800,
+        "h4_direction": "UP",
+        "confirmation_reference": "4476.935",
+        "indicative_close": "4477.335",
+        "structural_stop": "4472.295",
+        "initial_risk_price": "5.040",
+        "known_room_price": "33.300",
+        "indicative_room_r": "6.607142857142857142857142857",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "B_COUNTER_SWEEP:1788963900:SELL",
+        "family": "B_COUNTER_SWEEP",
+        "side": "SELL",
+        "known_at_utc": 1788963900,
+        "sweep_known_at_utc": 1788961500,
+        "h4_direction": "UP",
+        "confirmation_reference": "4412.445",
+        "indicative_close": "4409.795",
+        "structural_stop": "4433.885",
+        "initial_risk_price": "24.090",
+        "known_room_price": "68.830",
+        "indicative_room_r": "2.857202158572021585720215857",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "B_COUNTER_SWEEP:1789395300:BUY",
+        "family": "B_COUNTER_SWEEP",
+        "side": "BUY",
+        "known_at_utc": 1789395300,
+        "sweep_known_at_utc": 1789391700,
+        "h4_direction": "DOWN",
+        "confirmation_reference": "4278.875",
+        "indicative_close": "4281.305",
+        "structural_stop": "4253.338",
+        "initial_risk_price": "27.967",
+        "known_room_price": "73.972",
+        "indicative_room_r": "2.644974434154539278435298745",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "A_CONTINUATION:1789474200:SELL",
+        "family": "A_CONTINUATION",
+        "side": "SELL",
+        "known_at_utc": 1789474200,
+        "sweep_known_at_utc": 1789473600,
+        "h4_direction": "DOWN",
+        "confirmation_reference": "4280.115",
+        "indicative_close": "4277.665",
+        "structural_stop": "4286.645",
+        "initial_risk_price": "8.980",
+        "known_room_price": "16.560",
+        "indicative_room_r": "1.844097995545657015590200445",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "A_CONTINUATION:1789482300:SELL",
+        "family": "A_CONTINUATION",
+        "side": "SELL",
+        "known_at_utc": 1789482300,
+        "sweep_known_at_utc": 1789481700,
+        "h4_direction": "DOWN",
+        "confirmation_reference": "4291.925",
+        "indicative_close": "4288.395",
+        "structural_stop": "4300.468",
+        "initial_risk_price": "12.073",
+        "known_room_price": "27.290",
+        "indicative_room_r": "2.260415803859852563571606063",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "A_CONTINUATION:1789580100:BUY",
+        "family": "A_CONTINUATION",
+        "side": "BUY",
+        "known_at_utc": 1789580100,
+        "sweep_known_at_utc": 1789578900,
+        "h4_direction": "UP",
+        "confirmation_reference": "4347.225",
+        "indicative_close": "4348.785",
+        "structural_stop": "4341.285",
+        "initial_risk_price": "7.500",
+        "known_room_price": "12.550",
+        "indicative_room_r": "1.673333333333333333333333333",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "B_COUNTER_SWEEP:1790185800:BUY",
+        "family": "B_COUNTER_SWEEP",
+        "side": "BUY",
+        "known_at_utc": 1790185800,
+        "sweep_known_at_utc": 1790185500,
+        "h4_direction": "DOWN",
+        "confirmation_reference": "4289.345",
+        "indicative_close": "4290.345",
+        "structural_stop": "4274.115",
+        "initial_risk_price": "16.230",
+        "known_room_price": "56.640",
+        "indicative_room_r": "3.489833641404805914972273567",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "B_COUNTER_SWEEP:1790603400:BUY",
+        "family": "B_COUNTER_SWEEP",
+        "side": "BUY",
+        "known_at_utc": 1790603400,
+        "sweep_known_at_utc": 1790603100,
+        "h4_direction": "DOWN",
+        "confirmation_reference": "4151.215",
+        "indicative_close": "4158.075",
+        "structural_stop": "4135.975",
+        "initial_risk_price": "22.100",
+        "known_room_price": "102.540",
+        "indicative_room_r": "4.639819004524886877828054299",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "B_COUNTER_SWEEP:1791315000:SELL",
+        "family": "B_COUNTER_SWEEP",
+        "side": "SELL",
+        "known_at_utc": 1791315000,
+        "sweep_known_at_utc": 1791314100,
+        "h4_direction": "UP",
+        "confirmation_reference": "4171.685",
+        "indicative_close": "4171.665",
+        "structural_stop": "4184.235",
+        "initial_risk_price": "12.570",
+        "known_room_price": "58.490",
+        "indicative_room_r": "4.653142402545743834526650756",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "B_COUNTER_SWEEP:1791378300:BUY",
+        "family": "B_COUNTER_SWEEP",
+        "side": "BUY",
+        "known_at_utc": 1791378300,
+        "sweep_known_at_utc": 1791378000,
+        "h4_direction": "DOWN",
+        "confirmation_reference": "4088.456",
+        "indicative_close": "4089.175",
+        "structural_stop": "4065.445",
+        "initial_risk_price": "23.730",
+        "known_room_price": "80.250",
+        "indicative_room_r": "3.381795195954487989886219975",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "B_COUNTER_SWEEP:1791810900:BUY",
+        "family": "B_COUNTER_SWEEP",
+        "side": "BUY",
+        "known_at_utc": 1791810900,
+        "sweep_known_at_utc": 1791809100,
+        "h4_direction": "DOWN",
+        "confirmation_reference": "4171.215",
+        "indicative_close": "4171.415",
+        "structural_stop": "4154.335",
+        "initial_risk_price": "17.080",
+        "known_room_price": "45.470",
+        "indicative_room_r": "2.662177985948477751756440281",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      },
+      {
+        "candidate_id": "B_COUNTER_SWEEP:1791984900:BUY",
+        "family": "B_COUNTER_SWEEP",
+        "side": "BUY",
+        "known_at_utc": 1791984900,
+        "sweep_known_at_utc": 1791984600,
+        "h4_direction": "DOWN",
+        "confirmation_reference": "4095.465",
+        "indicative_close": "4101.775",
+        "structural_stop": "4079.355",
+        "initial_risk_price": "22.420",
+        "known_room_price": "68.390",
+        "indicative_room_r": "3.050401427297056199821587868",
+        "entry_quote_verified": false,
+        "fill_verified": false,
+        "net_expectancy_r": null,
+        "execution_allowed": false
+      }
+    ],
+    "quote_basis_verified": false,
+    "entry_fills_verified": false,
+    "out_of_sample": false,
+    "actual_win_rate_pct": null,
+    "net_expectancy_r": null,
+    "actual_profit_usd": null,
+    "account_return_pct": null,
+    "execution_allowed": false,
+    "adoption_allowed": false
+  },
+  "families": {
+    "A_CONTINUATION": {
+      "all": {
+        "candidates": 6,
+        "resolved": 6,
+        "states": {
+          "TARGET_REFERENCE": 2,
+          "STOP_REFERENCE": 3,
+          "TIMEOUT_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.10736495719345213,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.8232282651116876
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.14787314886212044,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.7665737902670889
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.18027970219705516,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.7245071947526172
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.20188407108701165,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.6979244829455183
+          }
+        ]
+      },
+      "buy": {
+        "candidates": 4,
+        "resolved": 4,
+        "states": {
+          "TARGET_REFERENCE": 2,
+          "STOP_REFERENCE": 2
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": 0.25,
+            "positive_pct": 50.0,
+            "pf": 1.5
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": 0.2037995807350737,
+            "positive_pct": 50.0,
+            "pf": 1.388466737479638
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": 0.1668392453231326,
+            "positive_pct": 50.0,
+            "pf": 1.3065061036752867
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": 0.1421990217151719,
+            "positive_pct": 50.0,
+            "pf": 1.2550839736423591
+          }
+        ]
+      },
+      "sell": {
+        "candidates": 2,
+        "resolved": 2,
+        "states": {
+          "STOP_REFERENCE": 1,
+          "TIMEOUT_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.8220948715803564,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.8512186080565087,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.8745175972374307,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.8900502566913786,
+            "positive_pct": 0.0,
+            "pf": 0.0
+          }
+        ]
+      },
+      "candidate_ids": [
+        "A_CONTINUATION:1788368700:BUY",
+        "A_CONTINUATION:1788456300:BUY",
+        "A_CONTINUATION:1788464700:BUY",
+        "A_CONTINUATION:1789474200:SELL",
+        "A_CONTINUATION:1789482300:SELL",
+        "A_CONTINUATION:1789580100:BUY"
+      ]
+    },
+    "B_COUNTER_SWEEP": {
+      "all": {
+        "candidates": 9,
+        "resolved": 8,
+        "states": {
+          "STOP_REFERENCE": 2,
+          "TIMEOUT_REFERENCE": 6,
+          "CENSORED_M5_GAP": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.1826825643237275,
+            "positive_pct": 37.5,
+            "pf": 0.48663824723562654
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.19704639664750837,
+            "positive_pct": 37.5,
+            "pf": 0.4612535899723446
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.20853746250653304,
+            "positive_pct": 37.5,
+            "pf": 0.44191378492813016
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.21619817307921618,
+            "positive_pct": 37.5,
+            "pf": 0.4294694460639795
+          }
+        ]
+      },
+      "buy": {
+        "candidates": 6,
+        "resolved": 6,
+        "states": {
+          "TIMEOUT_REFERENCE": 5,
+          "STOP_REFERENCE": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.1570588828724655,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.4897492119277698
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.17141175055791302,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.46145500645743703
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.1828940447062711,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.4401266933657184
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.19054890747184314,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.42650577366769593
+          }
+        ]
+      },
+      "sell": {
+        "candidates": 3,
+        "resolved": 2,
+        "states": {
+          "STOP_REFERENCE": 1,
+          "TIMEOUT_REFERENCE": 1,
+          "CENSORED_M5_GAP": 1
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.25955360867751354,
+            "positive_pct": 50.0,
+            "pf": 0.48089278264497287
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.27395033491629434,
+            "positive_pct": 50.0,
+            "pf": 0.46087510170770934
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.2854677159073189,
+            "positive_pct": 50.0,
+            "pf": 0.44531681558546304
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.29314596990133535,
+            "positive_pct": 50.0,
+            "pf": 0.4351615028456242
+          }
+        ]
+      },
+      "candidate_ids": [
+        "B_COUNTER_SWEEP:1788442500:SELL",
+        "B_COUNTER_SWEEP:1788963900:SELL",
+        "B_COUNTER_SWEEP:1789395300:BUY",
+        "B_COUNTER_SWEEP:1790185800:BUY",
+        "B_COUNTER_SWEEP:1790603400:BUY",
+        "B_COUNTER_SWEEP:1791315000:SELL",
+        "B_COUNTER_SWEEP:1791378300:BUY",
+        "B_COUNTER_SWEEP:1791810900:BUY",
+        "B_COUNTER_SWEEP:1791984900:BUY"
+      ]
+    }
+  },
+  "by_signal_month": {
+    "2026-09": {
+      "A_CONTINUATION": {
+        "all": {
+          "candidates": 6,
+          "resolved": 6,
+          "states": {
+            "TARGET_REFERENCE": 2,
+            "STOP_REFERENCE": 3,
+            "TIMEOUT_REFERENCE": 1
+          },
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": -0.10736495719345213,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.8232282651116876
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": -0.14787314886212044,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.7665737902670889
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": -0.18027970219705516,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.7245071947526172
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": -0.20188407108701165,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.6979244829455183
+            }
+          ]
+        },
+        "buy": {
+          "candidates": 4,
+          "resolved": 4,
+          "states": {
+            "TARGET_REFERENCE": 2,
+            "STOP_REFERENCE": 2
+          },
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": 0.25,
+              "positive_pct": 50.0,
+              "pf": 1.5
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": 0.2037995807350737,
+              "positive_pct": 50.0,
+              "pf": 1.388466737479638
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": 0.1668392453231326,
+              "positive_pct": 50.0,
+              "pf": 1.3065061036752867
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": 0.1421990217151719,
+              "positive_pct": 50.0,
+              "pf": 1.2550839736423591
+            }
+          ]
+        },
+        "sell": {
+          "candidates": 2,
+          "resolved": 2,
+          "states": {
+            "STOP_REFERENCE": 1,
+            "TIMEOUT_REFERENCE": 1
+          },
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": -0.8220948715803564,
+              "positive_pct": 0.0,
+              "pf": 0.0
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": -0.8512186080565087,
+              "positive_pct": 0.0,
+              "pf": 0.0
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": -0.8745175972374307,
+              "positive_pct": 0.0,
+              "pf": 0.0
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": -0.8900502566913786,
+              "positive_pct": 0.0,
+              "pf": 0.0
+            }
+          ]
+        },
+        "candidate_ids": [
+          "A_CONTINUATION:1788368700:BUY",
+          "A_CONTINUATION:1788456300:BUY",
+          "A_CONTINUATION:1788464700:BUY",
+          "A_CONTINUATION:1789474200:SELL",
+          "A_CONTINUATION:1789482300:SELL",
+          "A_CONTINUATION:1789580100:BUY"
+        ]
+      },
+      "B_COUNTER_SWEEP": {
+        "all": {
+          "candidates": 5,
+          "resolved": 5,
+          "states": {
+            "STOP_REFERENCE": 2,
+            "TIMEOUT_REFERENCE": 3
+          },
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": -0.2622972364327801,
+              "positive_pct": 40.0,
+              "pf": 0.4143745553185202
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": -0.27658729864140935,
+              "positive_pct": 40.0,
+              "pf": 0.3955026956864705
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": -0.2880193484083128,
+              "positive_pct": 40.0,
+              "pf": 0.38096923530194593
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": -0.29564071491958177,
+              "positive_pct": 40.0,
+              "pf": 0.37154545255292654
+            }
+          ]
+        },
+        "buy": {
+          "candidates": 3,
+          "resolved": 3,
+          "states": {
+            "TIMEOUT_REFERENCE": 2,
+            "STOP_REFERENCE": 1
+          },
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": -0.26412632160295774,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.36070755771704016
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": -0.2783452744581527,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.3432508907770726
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": -0.2897204367423087,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.32990584322723704
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": -0.29730387826507937,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.3212980515432745
+            }
+          ]
+        },
+        "sell": {
+          "candidates": 2,
+          "resolved": 2,
+          "states": {
+            "STOP_REFERENCE": 1,
+            "TIMEOUT_REFERENCE": 1
+          },
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": -0.25955360867751354,
+              "positive_pct": 50.0,
+              "pf": 0.48089278264497287
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": -0.27395033491629434,
+              "positive_pct": 50.0,
+              "pf": 0.46087510170770934
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": -0.2854677159073189,
+              "positive_pct": 50.0,
+              "pf": 0.44531681558546304
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": -0.29314596990133535,
+              "positive_pct": 50.0,
+              "pf": 0.4351615028456242
+            }
+          ]
+        },
+        "candidate_ids": [
+          "B_COUNTER_SWEEP:1788442500:SELL",
+          "B_COUNTER_SWEEP:1788963900:SELL",
+          "B_COUNTER_SWEEP:1789395300:BUY",
+          "B_COUNTER_SWEEP:1790185800:BUY",
+          "B_COUNTER_SWEEP:1790603400:BUY"
+        ]
+      }
+    },
+    "2026-10": {
+      "A_CONTINUATION": {
+        "all": {
+          "candidates": 0,
+          "resolved": 0,
+          "states": {},
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            }
+          ]
+        },
+        "buy": {
+          "candidates": 0,
+          "resolved": 0,
+          "states": {},
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            }
+          ]
+        },
+        "sell": {
+          "candidates": 0,
+          "resolved": 0,
+          "states": {},
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            }
+          ]
+        },
+        "candidate_ids": []
+      },
+      "B_COUNTER_SWEEP": {
+        "all": {
+          "candidates": 4,
+          "resolved": 3,
+          "states": {
+            "CENSORED_M5_GAP": 1,
+            "TIMEOUT_REFERENCE": 3
+          },
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": -0.04999144414197323,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.7530802879409587
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": -0.06447822665767336,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.6969306191525694
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": -0.07606765267023351,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.6557760374786454
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": -0.0837939366786069,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.6300018544359814
+            }
+          ]
+        },
+        "buy": {
+          "candidates": 3,
+          "resolved": 3,
+          "states": {
+            "TIMEOUT_REFERENCE": 3
+          },
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": -0.04999144414197323,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.7530802879409587
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": -0.06447822665767336,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.6969306191525694
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": -0.07606765267023351,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.6557760374786454
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": -0.0837939366786069,
+              "positive_pct": 33.333333333333336,
+              "pf": 0.6300018544359814
+            }
+          ]
+        },
+        "sell": {
+          "candidates": 1,
+          "resolved": 0,
+          "states": {
+            "CENSORED_M5_GAP": 1
+          },
+          "scenarios": [
+            {
+              "cost_price": 0,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.3,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.54,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            },
+            {
+              "cost_price": 0.7,
+              "mean_r": null,
+              "positive_pct": null,
+              "pf": null
+            }
+          ]
+        },
+        "candidate_ids": [
+          "B_COUNTER_SWEEP:1791315000:SELL",
+          "B_COUNTER_SWEEP:1791378300:BUY",
+          "B_COUNTER_SWEEP:1791810900:BUY",
+          "B_COUNTER_SWEEP:1791984900:BUY"
+        ]
+      }
+    }
+  },
+  "records": [
+    {
+      "candidate_id": "A_CONTINUATION:1788368700:BUY",
+      "family": "A_CONTINUATION",
+      "side": "BUY",
+      "known_at_utc": 1788368700,
+      "entry_open_reference": "4370.515",
+      "structural_stop": "4364.065",
+      "target_reference": "4380.1900",
+      "state": "TARGET_REFERENCE",
+      "reference_r": 1.5,
+      "exit_m5_close": 1788371400
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1788442500:SELL",
+      "family": "B_COUNTER_SWEEP",
+      "side": "SELL",
+      "known_at_utc": 1788442500,
+      "entry_open_reference": "4477.555",
+      "structural_stop": "4495.985",
+      "target_reference": "4449.9100",
+      "state": "STOP_REFERENCE",
+      "reference_r": -1.0,
+      "exit_m5_close": 1788447900
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1788456300:BUY",
+      "family": "A_CONTINUATION",
+      "side": "BUY",
+      "known_at_utc": 1788456300,
+      "entry_open_reference": "4490.605",
+      "structural_stop": "4482.885",
+      "target_reference": "4502.1850",
+      "state": "STOP_REFERENCE",
+      "reference_r": -1.0,
+      "exit_m5_close": 1788459900
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1788464700:BUY",
+      "family": "A_CONTINUATION",
+      "side": "BUY",
+      "known_at_utc": 1788464700,
+      "entry_open_reference": "4477.325",
+      "structural_stop": "4472.295",
+      "target_reference": "4484.8700",
+      "state": "STOP_REFERENCE",
+      "reference_r": -1.0,
+      "exit_m5_close": 1788465900
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1788963900:SELL",
+      "family": "B_COUNTER_SWEEP",
+      "side": "SELL",
+      "known_at_utc": 1788963900,
+      "entry_open_reference": "4409.915",
+      "structural_stop": "4433.885",
+      "target_reference": "4373.9600",
+      "state": "TIMEOUT_REFERENCE",
+      "reference_r": 0.48089278264497287,
+      "exit_m5_close": 1788971100
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1789395300:BUY",
+      "family": "B_COUNTER_SWEEP",
+      "side": "BUY",
+      "known_at_utc": 1789395300,
+      "entry_open_reference": "4281.505",
+      "structural_stop": "4253.338",
+      "target_reference": "4323.7555",
+      "state": "TIMEOUT_REFERENCE",
+      "reference_r": 0.44708346646785246,
+      "exit_m5_close": 1789402500
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1789474200:SELL",
+      "family": "A_CONTINUATION",
+      "side": "SELL",
+      "known_at_utc": 1789474200,
+      "entry_open_reference": "4277.595",
+      "structural_stop": "4286.645",
+      "target_reference": "4264.0200",
+      "state": "STOP_REFERENCE",
+      "reference_r": -1.0,
+      "exit_m5_close": 1789476600
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1789482300:SELL",
+      "family": "A_CONTINUATION",
+      "side": "SELL",
+      "known_at_utc": 1789482300,
+      "entry_open_reference": "4288.515",
+      "structural_stop": "4300.468",
+      "target_reference": "4270.5855",
+      "state": "TIMEOUT_REFERENCE",
+      "reference_r": -0.6441897431607128,
+      "exit_m5_close": 1789489500
+    },
+    {
+      "candidate_id": "A_CONTINUATION:1789580100:BUY",
+      "family": "A_CONTINUATION",
+      "side": "BUY",
+      "known_at_utc": 1789580100,
+      "entry_open_reference": "4348.825",
+      "structural_stop": "4341.285",
+      "target_reference": "4360.1350",
+      "state": "TARGET_REFERENCE",
+      "reference_r": 1.5,
+      "exit_m5_close": 1789581600
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1790185800:BUY",
+      "family": "B_COUNTER_SWEEP",
+      "side": "BUY",
+      "known_at_utc": 1790185800,
+      "entry_open_reference": "4290.485",
+      "structural_stop": "4274.115",
+      "target_reference": "4315.0400",
+      "state": "TIMEOUT_REFERENCE",
+      "reference_r": -0.23946243127672573,
+      "exit_m5_close": 1790193000
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1790603400:BUY",
+      "family": "B_COUNTER_SWEEP",
+      "side": "BUY",
+      "known_at_utc": 1790603400,
+      "entry_open_reference": "4157.905",
+      "structural_stop": "4135.975",
+      "target_reference": "4190.8000",
+      "state": "STOP_REFERENCE",
+      "reference_r": -1.0,
+      "exit_m5_close": 1790606100
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791315000:SELL",
+      "family": "B_COUNTER_SWEEP",
+      "side": "SELL",
+      "known_at_utc": 1791315000,
+      "entry_open_reference": "4171.745",
+      "structural_stop": "4184.235",
+      "target_reference": "4153.0100",
+      "state": "CENSORED_M5_GAP",
+      "reference_r": null,
+      "exit_m5_close": 1791320400
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791378300:BUY",
+      "family": "B_COUNTER_SWEEP",
+      "side": "BUY",
+      "known_at_utc": 1791378300,
+      "entry_open_reference": "4089.275",
+      "structural_stop": "4065.445",
+      "target_reference": "4125.0200",
+      "state": "TIMEOUT_REFERENCE",
+      "reference_r": 0.45740663029794376,
+      "exit_m5_close": 1791385500
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791810900:BUY",
+      "family": "B_COUNTER_SWEEP",
+      "side": "BUY",
+      "known_at_utc": 1791810900,
+      "entry_open_reference": "4171.505",
+      "structural_stop": "4154.335",
+      "target_reference": "4197.2600",
+      "state": "TIMEOUT_REFERENCE",
+      "reference_r": -0.06173558532323821,
+      "exit_m5_close": 1791818100
+    },
+    {
+      "candidate_id": "B_COUNTER_SWEEP:1791984900:BUY",
+      "family": "B_COUNTER_SWEEP",
+      "side": "BUY",
+      "known_at_utc": 1791984900,
+      "entry_open_reference": "4101.745",
+      "structural_stop": "4079.355",
+      "target_reference": "4135.3300",
+      "state": "TIMEOUT_REFERENCE",
+      "reference_r": -0.5456453774006252,
+      "exit_m5_close": 1791992100
+    }
+  ],
+  "out_of_sample": false,
+  "actual_broker_profit": null,
+  "execution_allowed": false,
+  "adoption_allowed": false
+}

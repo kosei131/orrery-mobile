@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "review_date_hst": "2026-11-03",
+  "research_capital_usd": 3000.0,
+  "copy_candidates": [
+    {
+      "name": "ETF Timer",
+      "url": "https://collective2.com/details/30415311",
+      "evidence_type": "PLATFORM_DISPLAYED_HYPOTHETICAL",
+      "metric_as_of_date": null,
+      "observed_review_date_hst": "2026-11-03",
+      "win_rate_pct": 82.6,
+      "annual_compounded_return_pct": 15.5,
+      "maximum_drawdown_pct": 43.9,
+      "monthly_subscription_usd": 79.0,
+      "suggested_minimum_capital_usd": 15000.0,
+      "trades": 224,
+      "monthly_subscription_pct_initial_research_capital": 2.633333,
+      "twelve_month_subscription_usd": 948.0,
+      "twelve_month_subscription_pct_initial_capital": 31.6,
+      "personally_eligible": null,
+      "live_account_equity_audited": false,
+      "full_trade_history_audited": false,
+      "decision": "DO_NOT_ACTIVATE_FOR_CURRENT_RESEARCH_CAPITAL",
+      "note": "Display snapshot only. Fees ratio is standalone arithmetic, not deducted again from displayed returns."
+    },
+    {
+      "name": "Calicut Commodities",
+      "url": "https://collective2.com/details/146455121",
+      "evidence_type": "PLATFORM_DISPLAYED_HYPOTHETICAL",
+      "metric_as_of_date": null,
+      "observed_review_date_hst": "2026-11-03",
+      "win_rate_pct": 66.2,
+      "annual_compounded_return_pct": 55.0,
+      "maximum_drawdown_pct": 29.7,
+      "monthly_subscription_usd": 75.0,
+      "suggested_minimum_capital_usd": 25000.0,
+      "trades": 281,
+      "monthly_subscription_pct_initial_research_capital": 2.5,
+      "twelve_month_subscription_usd": 900.0,
+      "twelve_month_subscription_pct_initial_capital": 30.0,
+      "personally_eligible": null,
+      "live_account_equity_audited": false,
+      "full_trade_history_audited": false,
+      "decision": "DO_NOT_ACTIVATE_FOR_CURRENT_RESEARCH_CAPITAL",
+      "note": "Display snapshot only. Fees ratio is standalone arithmetic, not deducted again from displayed returns."
+    }
+  ],
+  "etoro": {
+    "url": "https://help.etoro.com/en-us/s/article/Why-is-my-account-limited",
+    "evidence_level": "OFFICIAL_INDEXED_EXCERPT_DIRECT_PAGE_CSS_ERROR",
+    "hawaii_copytrader_listed_available": false,
+    "action": "EXCLUDED_UNLESS_OFFICIAL_ELIGIBILITY_CHANGES"
+  },
+  "mt5": {
+    "url": "https://www.metatrader5.com/en/terminal/help/signals/signal_monitoring",
+    "facts": [
+      "Provider real/demo and copying slippage must be distinguished.",
+      "Equity-DD charts cover monitoring period, not necessarily whole account life."
+    ],
+    "individually_verified_signal": null
+  },
+  "professional_strategy_fund_comparator": {
+    "symbol": "DBMF",
+    "url": "https://www.sec.gov/Archives/edgar/data/1020425/000119312526197034/d62276d497k.htm",
+    "source_document_date": "2026-04-30",
+    "evidence_type": "SEC_FILED_FUND_DISCLOSURE",
+    "expense_ratio_pct": 0.85,
+    "constant_3000_usd_one_year_expense_illustration_usd": 25.500000000000004,
+    "five_year_annualized_pre_tax_return_pct": 8.52,
+    "performance_period_ended": "2025-12-31",
+    "win_rate_pct": null,
+    "maximum_drawdown_pct": null,
+    "personal_eligibility": null,
+    "adopted": false,
+    "notes": [
+      "Historical performance, not forecast or current annual return.",
+      "Expense illustration excludes brokerage/spread/tax and assumes constant NAV.",
+      "Replicates estimated CTA return drivers, not individual orders.",
+      "Issuer fund page returned HTTP403; no restriction bypass."
+    ]
+  },
+  "markets": {
+    "priority_research": [
+      "USDJPY",
+      "EURUSD",
+      "Separately validated gold futures/ETF"
+    ],
+    "actual_new_market_backtest_completed": false,
+    "live_bid_ask_currently_obtained": false,
+    "bis_source": "https://www.bis.org/media-releases/20250930-global-fx-trading-hits-96-trillion-day-april-2025-and-otc-interest-rate-derivatives-surge-79",
+    "oanda_us_eligibility_source": "https://help.oanda.com/us/en/faqs/trade-cfds-eligibility.htm",
+    "oanda_us_precious_metals_available": false,
+    "mgc_contract_source": "https://www.cmegroup.com/markets/metals/precious/e-micro-gold.timeAndSales.html?videoId=6366576683112",
+    "mgc_ounces": 10,
+    "hypothetical_six_dollar_stop_loss_usd": 60.0,
+    "hypothetical_loss_pct_research_capital": 2.0
+  },
+  "prospective_observation_events": [
+    {
+      "name": "BLS Employment Situation",
+      "date": "2026-11-06",
+      "eastern_time": "08:30",
+      "utc_time": "13:30",
+      "hst_time": "03:30"
+    },
+    {
+      "name": "BLS CPI",
+      "date": "2026-11-10",
+      "eastern_time": "08:30",
+      "utc_time": "13:30",
+      "hst_time": "03:30"
+    }
+  ],
+  "calendar_source": "https://www.bls.gov/schedule/2026/11_sched_list.htm",
+  "fed_source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+  "next_regular_fomc_dates": [
+    "2026-12-08",
+    "2026-12-09"
+  ],
+  "strategy_research_sources": [
+    "https://www.aqr.com/insights/research/journal-article/time-series-momentum",
+    "https://www.aqr.com/insights/research/journal-article/a-century-of-evidence-on-trend-following-investing"
+  ],
+  "adopted": false,
+  "execution_allowed": false,
+  "paid_subscriptions_started": false,
+  "net_expectancy_r": null,
+  "account_return_pct": null,
+  "account_max_dd_usd": null,
+  "limitations": [
+    "Public display metrics are not independently audited follower returns.",
+    "Ranking/marketing page metrics differed from detailed profiles; detailed snapshots retained separately.",
+    "Personal account eligibility, minimum trade sizes, broker costs and copying delays remain unverified."
+  ]
+}

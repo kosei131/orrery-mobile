@@ -1,0 +1,417 @@
+{
+  "status": "EXPLORATORY_PUBLIC_XAU_EARLY_EXIT_PRE_SEPTEMBER",
+  "start_utc_epoch": 1774483200,
+  "end_utc_epoch": 1788220800,
+  "source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "m5_sha256": "ef68aad060022c4534a5cee2d7ff9d89b243177f5a479f938cf8ad582dc84b99",
+  "observed_m5": 30723,
+  "price_basis": "publisher OHLC; quote side unverified",
+  "rule": "below the reference entry at a completed landmark; next observed M1 open",
+  "cost_model": "hypothetical flat friction for scoring; trigger uses publisher price",
+  "original_m5": {
+    "candidates": 35,
+    "resolved": 32,
+    "states": {
+      "TIMEOUT_REFERENCE": 4,
+      "STOP_REFERENCE": 15,
+      "TARGET_REFERENCE": 13,
+      "AMBIGUOUS_SAME_M5": 1,
+      "CENSORED_NO_NEXT_M5": 2
+    },
+    "scenarios": [
+      {
+        "cost_price": 0,
+        "mean_r": -0.1915882445050153,
+        "positive_pct": 50.0,
+        "pf": 0.6052259931386071
+      },
+      {
+        "cost_price": 0.3,
+        "mean_r": -0.22818987163514975,
+        "positive_pct": 50.0,
+        "pf": 0.5497149866776017
+      },
+      {
+        "cost_price": 0.54,
+        "mean_r": -0.2574711733392573,
+        "positive_pct": 50.0,
+        "pf": 0.5085797672771246
+      },
+      {
+        "cost_price": 0.7,
+        "mean_r": -0.27699204114199566,
+        "positive_pct": 50.0,
+        "pf": 0.48262170028388485
+      }
+    ]
+  },
+  "baseline_m1": {
+    "candidates": 35,
+    "resolved": 33,
+    "states": {
+      "TIMEOUT_REFERENCE": 4,
+      "STOP_REFERENCE": 15,
+      "TARGET_REFERENCE": 14,
+      "CENSORED_NO_NEXT_M5": 2
+    },
+    "scenarios": [
+      {
+        "cost_price": 0,
+        "mean_r": -0.16229523993974632,
+        "positive_pct": 51.515151515151516,
+        "pf": 0.6551347498959496
+      },
+      {
+        "cost_price": 0.3,
+        "mean_r": -0.19925874774231284,
+        "positive_pct": 51.515151515151516,
+        "pf": 0.5945171532372086
+      },
+      {
+        "cost_price": 0.54,
+        "mean_r": -0.22882955398436605,
+        "positive_pct": 51.515151515151516,
+        "pf": 0.5495978066597231
+      },
+      {
+        "cost_price": 0.7,
+        "mean_r": -0.2485434248124015,
+        "positive_pct": 51.515151515151516,
+        "pf": 0.5212517950243166
+      }
+    ]
+  },
+  "early_exit_sensitivity": [
+    {
+      "minutes": 5,
+      "summary": {
+        "candidates": 35,
+        "resolved": 33,
+        "states": {
+          "TIMEOUT_REFERENCE": 1,
+          "STOP_REFERENCE": 7,
+          "EARLY_EXIT_BID_OPEN_REFERENCE": 15,
+          "TARGET_REFERENCE": 10,
+          "CENSORED_NO_NEXT_M5": 2
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.1089321615549834,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.6559572840410361
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.1458956693575499,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.5743918795871437
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.17546647559960316,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.5175901219963865
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.19518034642763862,
+            "positive_pct": 33.333333333333336,
+            "pf": 0.4832207163863408
+          }
+        ]
+      },
+      "triggered": 15,
+      "comparable_triggers": 15,
+      "improved": 9,
+      "worsened": 6,
+      "baseline_winners_reduced": 6,
+      "changes": [
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1775706300",
+          "decision_at_utc": 1775706600,
+          "baseline_r": 0.872489959839257,
+          "early_exit_r": -0.4226907630522088
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1776954600",
+          "decision_at_utc": 1776954900,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.14788732394366197
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1777036500",
+          "decision_at_utc": 1777036800,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.06807511737089202
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1777405500",
+          "decision_at_utc": 1777405800,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.1401673640167364
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1778513400",
+          "decision_at_utc": 1778513700,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.0670611439842209
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1778871600",
+          "decision_at_utc": 1778871900,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.7309941520467836
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1782096300",
+          "decision_at_utc": 1782096600,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.08896797153025966
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1782476100",
+          "decision_at_utc": 1782476400,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.7106446776611888
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1785513600",
+          "decision_at_utc": 1785513900,
+          "baseline_r": 0.5483503981797684,
+          "early_exit_r": -0.15130830489192265
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1785916800",
+          "decision_at_utc": 1785917100,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.033642691415313224
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1785947400",
+          "decision_at_utc": 1785947700,
+          "baseline_r": 0.35449101796408683,
+          "early_exit_r": -0.03473053892212679
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1786113000",
+          "decision_at_utc": 1786113300,
+          "baseline_r": -0.5299581978634478,
+          "early_exit_r": -0.06409660938226029
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1786543200",
+          "decision_at_utc": 1786543500,
+          "baseline_r": 0.5679333680374729,
+          "early_exit_r": -0.04997397188964081
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1786623300",
+          "decision_at_utc": 1786623600,
+          "baseline_r": 0.7750809061488615,
+          "early_exit_r": -0.3883495145631068
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1787042700",
+          "decision_at_utc": 1787043000,
+          "baseline_r": 0.20204081632646928,
+          "early_exit_r": -0.3500000000000332
+        }
+      ]
+    },
+    {
+      "minutes": 15,
+      "summary": {
+        "candidates": 35,
+        "resolved": 33,
+        "states": {
+          "TIMEOUT_REFERENCE": 1,
+          "STOP_REFERENCE": 8,
+          "EARLY_EXIT_BID_OPEN_REFERENCE": 11,
+          "TARGET_REFERENCE": 13,
+          "CENSORED_NO_NEXT_M5": 2
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.114376575651245,
+            "positive_pct": 42.42424242424242,
+            "pf": 0.6681563217986486
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.15134008345381153,
+            "positive_pct": 42.42424242424242,
+            "pf": 0.5888772728636222
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.18091088969586475,
+            "positive_pct": 42.42424242424242,
+            "pf": 0.5323721803378766
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.20062476052390021,
+            "positive_pct": 42.42424242424242,
+            "pf": 0.49765054092939986
+          }
+        ]
+      },
+      "triggered": 11,
+      "comparable_triggers": 11,
+      "improved": 8,
+      "worsened": 3,
+      "baseline_winners_reduced": 3,
+      "changes": [
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1775706300",
+          "decision_at_utc": 1775707200,
+          "baseline_r": 0.872489959839257,
+          "early_exit_r": -0.32228915662650603
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1776954600",
+          "decision_at_utc": 1776955500,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.02816901408443662
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1777036500",
+          "decision_at_utc": 1777037400,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.46400625978090765
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1778122800",
+          "decision_at_utc": 1778123700,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.19576719576714258
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1778513400",
+          "decision_at_utc": 1778514300,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.5611439842209073
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1782096300",
+          "decision_at_utc": 1782097200,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.4139976275208083
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1784197800",
+          "decision_at_utc": 1784198700,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.06282722513078534
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1784267100",
+          "decision_at_utc": 1784268000,
+          "baseline_r": 1.5,
+          "early_exit_r": -0.1412280701754386
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1785916800",
+          "decision_at_utc": 1785917700,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.622969837587007
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1786113000",
+          "decision_at_utc": 1786113900,
+          "baseline_r": -0.5299581978634478,
+          "early_exit_r": -0.21783557826289912
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1787042700",
+          "decision_at_utc": 1787043600,
+          "baseline_r": 0.20204081632646928,
+          "early_exit_r": -0.3438775510203396
+        }
+      ]
+    },
+    {
+      "minutes": 30,
+      "summary": {
+        "candidates": 35,
+        "resolved": 33,
+        "states": {
+          "TIMEOUT_REFERENCE": 2,
+          "STOP_REFERENCE": 12,
+          "TARGET_REFERENCE": 14,
+          "EARLY_EXIT_BID_OPEN_REFERENCE": 5,
+          "CENSORED_NO_NEXT_M5": 2
+        },
+        "scenarios": [
+          {
+            "cost_price": 0,
+            "mean_r": -0.11038886323415233,
+            "positive_pct": 48.484848484848484,
+            "pf": 0.7324399098702259
+          },
+          {
+            "cost_price": 0.3,
+            "mean_r": -0.14735237103671883,
+            "positive_pct": 48.484848484848484,
+            "pf": 0.6607206398214183
+          },
+          {
+            "cost_price": 0.54,
+            "mean_r": -0.17692317727877205,
+            "positive_pct": 48.484848484848484,
+            "pf": 0.6083144486786202
+          },
+          {
+            "cost_price": 0.7,
+            "mean_r": -0.19663704810680754,
+            "positive_pct": 48.484848484848484,
+            "pf": 0.575562313474956
+          }
+        ]
+      },
+      "triggered": 5,
+      "comparable_triggers": 5,
+      "improved": 4,
+      "worsened": 1,
+      "baseline_winners_reduced": 1,
+      "changes": [
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1778122800",
+          "decision_at_utc": 1778124600,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.33862433862429486
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1778513400",
+          "decision_at_utc": 1778515200,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.08579881656804733
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1786113000",
+          "decision_at_utc": 1786114800,
+          "baseline_r": -0.5299581978634478,
+          "early_exit_r": -0.34138411518812545
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1787042700",
+          "decision_at_utc": 1787044500,
+          "baseline_r": 0.20204081632646928,
+          "early_exit_r": -0.40102040816329587
+        },
+        {
+          "candidate_id": "GOLD_NESTED_WAVE_BUY:1787336100",
+          "decision_at_utc": 1787337900,
+          "baseline_r": -1.0,
+          "early_exit_r": -0.44817927170861344
+        }
+      ]
+    }
+  ],
+  "out_of_sample": false,
+  "actual_broker_profit": null,
+  "execution_allowed": false,
+  "adoption_allowed": false
+}

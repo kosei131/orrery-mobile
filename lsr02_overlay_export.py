@@ -9,8 +9,10 @@ def overlay(bars, *, symbol, interval, as_of, tenkan, kijun, span_b, shift,
             source, source_verified):
     if symbol not in ("XAUUSD","USDJPY") or interval not in (300,900,14400):
         raise ValueError("Unsupported symbol/timeframe")
-    if source not in ("SYNTHETIC_TEST","VERIFIED_DEMO_CLOSED_BARS") or type(source_verified) is not bool:
+    if source not in ("SYNTHETIC_TEST","VERIFIED_DEMO_CLOSED_BARS","PUBLIC_UNVERIFIED_OHLC") or type(source_verified) is not bool:
         raise ValueError("Missing provenance")
+    if source == 'PUBLIC_UNVERIFIED_OHLC' and source_verified:
+        raise ValueError('Public OHLC cannot claim verified broker provenance')
     if source=="VERIFIED_DEMO_CLOSED_BARS" and not source_verified:
         raise ValueError("No verified DEMO provenance")
     if not isinstance(bars,list) or not 2<=len(bars)<=100:

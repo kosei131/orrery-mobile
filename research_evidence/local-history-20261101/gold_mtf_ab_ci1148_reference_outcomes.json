@@ -1,0 +1,57 @@
+{
+  "status": "CI_VERIFIED_EXPLORATORY_GOLD_AB_REFERENCE_ONLY",
+  "run_id": 41791817801,
+  "run_number": 1148,
+  "observed_source_commit": "a596546073385232138a2c91754b55149f5c49db",
+  "run_url": "https://github.com/kosei131/orrery-mobile/actions/runs/41791817801",
+  "raw_source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "model": "H4/M15/M5 A/B causal candidate; next available contiguous M5 open; structural sweep stop and nearer of 1.5R or pre-signal H4 obstacle; 24 M5 bars horizon",
+  "data_type": "public publisher OHLC, quote basis not broker-verified",
+  "out_of_sample": false,
+  "spread_model_verified": false,
+  "commission_verified": false,
+  "slippage_verified": false,
+  "cohorts": {
+    "A_CONTINUATION": {
+      "candidates": 24,
+      "resolved": 24,
+      "unresolved": 0,
+      "positive": 11,
+      "reference_win_pct": 45.8333,
+      "mean_reference_r": 0.03786,
+      "reference_pf": 1.077648,
+      "status_counts": {
+        "TIMEOUT_REFERENCE": 7,
+        "TARGET_REFERENCE": 7,
+        "STOP_REFERENCE": 10
+      }
+    },
+    "B_COUNTER_SWEEP": {
+      "candidates": 41,
+      "resolved": 38,
+      "unresolved": 3,
+      "positive": 18,
+      "reference_win_pct": 47.3684,
+      "mean_reference_r": 0.064244,
+      "reference_pf": 1.181263,
+      "status_counts": {
+        "CENSORED_M5_GAP": 3,
+        "TARGET_REFERENCE": 6,
+        "TIMEOUT_REFERENCE": 22,
+        "STOP_REFERENCE": 10
+      }
+    }
+  },
+  "sensitivity_explanation": "Assigning arbitrary +/-1R to censored slots is not a plausible broker trade fill or statistical bound.",
+  "illustrative_B_three_unknown_at_minus_one_R_mean": -0.01362751219512196,
+  "break_even_incremental_cost_r_per_resolved_trade": {
+    "A_CONTINUATION": 0.03786,
+    "B_COUNTER_SWEEP": 0.064244
+  },
+  "actual_win_rate_pct": null,
+  "net_expectancy_r": null,
+  "realized_usd_return": null,
+  "portfolio_drawdown": null,
+  "execution_allowed": false,
+  "adoption_allowed": false
+}
