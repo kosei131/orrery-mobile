@@ -137,15 +137,37 @@ def session_plan_sha256(sessions, settings, *, development_end_s,
     return sha256(_encode(protocol)).hexdigest()
 
 
+def holdout_data_sha256(sessions):
+    """Fingerprint available inputs and missing slots in a received batch."""
+    manifest = []
+    for row in sessions:
+        raw = row['raw_csvs']
+        csv_hashes = None
+        if raw is not None:
+            if set(raw) != set(INTERVALS) or any(
+                    not isinstance(value, bytes) for value in raw.values()):
+                raise ValueError('Exact confirmed H4, M15 and M5 CSV bytes required')
+            csv_hashes = {frame: sha256(value).hexdigest() for frame, value in raw.items()}
+        manifest.append(dict(start_s=row['start_s'], end_s=row['end_s'],
+                             csv_sha256=csv_hashes, catalog_sha256=row['catalog_sha256'],
+                             catalog_supplied=row['path'] is not None))
+    return sha256(_encode(manifest)).hexdigest()
+
+
 def compare_holdout(sessions, settings, *, expected_plan_sha256,
-                    development_end_s, valuation_source, pnl_quote, **account_assumptions):
+                    development_end_s, valuation_source, pnl_quote,
+                    expected_data_sha256=None, **account_assumptions):
     """Replay only the declared protocol, using the separately supplied data."""
     digest = session_plan_sha256(sessions, settings, development_end_s=development_end_s,
                                 valuation_source=valuation_source, **account_assumptions)
     if digest != expected_plan_sha256:
         raise ValueError('Holdout protocol SHA256 mismatch')
+    data_digest = holdout_data_sha256(sessions)
+    if expected_data_sha256 is not None and data_digest != expected_data_sha256:
+        raise ValueError('Holdout data SHA256 mismatch')
     result = compare_sessions(sessions, settings, pnl_quote=pnl_quote, **account_assumptions)
-    return dict(result, plan_sha256=digest, development_end_s=development_end_s,
+    return dict(result, plan_sha256=digest, data_sha256=data_digest,
+                development_end_s=development_end_s,
                 valuation_source=valuation_source)
 
 

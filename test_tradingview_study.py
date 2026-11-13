@@ -278,3 +278,31 @@ class AlignedAccountTests(unittest.TestCase):
             compare_xauusd_holdout([session], settings, cost_spec=costs, slippage=0, **inputs)
         with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
             compare_xauusd_holdout([session], settings, **inputs)
+
+    def test_holdout_data_pin_rejects_changed_csv_before_replay(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import (
+            compare_holdout, holdout_data_sha256, session_plan_sha256,
+        )
+
+        raw = {frame: b'original' for frame in ('H4', 'M15', 'M5')}
+        session = dict(start_s=14400, end_s=28800, raw_csvs=raw,
+                       path='catalog', catalog_sha256='fixture')
+        settings = {'symbol': 'XAUUSD'}
+        protocol = dict(development_end_s=14400, valuation_source='fixture/v1')
+        plan = session_plan_sha256([session], settings, **protocol)
+        digest = holdout_data_sha256([session])
+        with patch('orrery_aligned_account_study.compare_sessions', return_value={}) as replay:
+            result = compare_holdout([dict(session, path='relocated')], settings,
+                                     expected_plan_sha256=plan, expected_data_sha256=digest,
+                                     pnl_quote=account_fixture.pnl, **protocol)
+            self.assertEqual(result['data_sha256'], digest)
+            self.assertEqual(replay.call_count, 1)
+            for updated in (dict(session, raw_csvs=dict(raw, M5=b'changed')),
+                            dict(session, catalog_sha256='changed'),
+                            dict(session, path=None)):
+                with self.assertRaisesRegex(ValueError, 'data SHA256 mismatch'):
+                    compare_holdout([updated], settings, expected_plan_sha256=plan,
+                                    expected_data_sha256=digest, pnl_quote=account_fixture.pnl,
+                                    **protocol)
+            self.assertEqual(replay.call_count, 1)
