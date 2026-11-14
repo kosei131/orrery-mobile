@@ -1,4 +1,5 @@
 """Compare TradingView plans on the exact catalog observations used for alignment."""
+from collections import Counter
 from hashlib import sha256
 from math import isfinite
 
@@ -99,8 +100,16 @@ def compare_sessions(sessions, settings, **account_inputs):
     for session in sessions:
         start, end = session['start_s'], session['end_s']
         digest = session['catalog_sha256']
-        if any(session[key] is None for key in ('raw_csvs', 'path', 'catalog_sha256')):
-            result = dict(status='BLOCKED_MISSING_SESSION_INPUT', accounts=None)
+        missing = []
+        raw_csvs = session['raw_csvs']
+        if raw_csvs is None:
+            missing.extend(INTERVALS)
+        elif isinstance(raw_csvs, dict):
+            missing.extend(frame for frame in INTERVALS if raw_csvs.get(frame) is None)
+        missing.extend(key for key in ('path', 'catalog_sha256') if session[key] is None)
+        if missing:
+            result = dict(status='BLOCKED_MISSING_SESSION_INPUT', accounts=None,
+                          missing_inputs=missing)
         else:
             result = compare(session['raw_csvs'], dict(settings, as_of_s=end),
                              path=session['path'], expected_catalog_sha256=digest,
@@ -108,7 +117,10 @@ def compare_sessions(sessions, settings, **account_inputs):
         rows.append(dict(start_s=start, end_s=end, catalog_sha256=digest, result=result))
     completed = sum(row['result']['accounts'] is not None for row in rows)
     return dict(sessions=rows, completed_sessions=completed,
-                blocked_sessions=len(rows) - completed, combined_accounts=None,
+                blocked_sessions=len(rows) - completed,
+                blocked_by_status=dict(Counter(
+                    row['result']['status'] for row in rows if row['result']['accounts'] is None)),
+                combined_accounts=None,
                 execution_allowed=False)
 
 
@@ -144,10 +156,13 @@ def holdout_data_sha256(sessions):
         raw = row['raw_csvs']
         csv_hashes = None
         if raw is not None:
-            if set(raw) != set(INTERVALS) or any(
-                    not isinstance(value, bytes) for value in raw.values()):
-                raise ValueError('Exact confirmed H4, M15 and M5 CSV bytes required')
-            csv_hashes = {frame: sha256(value).hexdigest() for frame, value in raw.items()}
+            if not isinstance(raw, dict) or raw.keys() - INTERVALS.keys() or any(
+                    value is not None and not isinstance(value, bytes) for value in raw.values()):
+                raise ValueError('Confirmed H4, M15 and M5 inputs must be CSV bytes or absent')
+            csv_hashes = {
+                frame: sha256(raw[frame]).hexdigest() if raw.get(frame) is not None else None
+                for frame in INTERVALS
+            }
         manifest.append(dict(start_s=row['start_s'], end_s=row['end_s'],
                              csv_sha256=csv_hashes, catalog_sha256=row['catalog_sha256'],
                              catalog_supplied=row['path'] is not None))

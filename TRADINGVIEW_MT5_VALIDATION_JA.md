@@ -159,3 +159,7 @@ XAUUSDの線形USD建て契約には `compare_xauusd_holdout` を使用できる
 SHA256、Bid/AskカタログSHA256、カタログ有無をまとめて照合できる。
 同じデータで再計算する際は `expected_data_sha256` に保存値を指定する。
 未取得だった区間を追加した場合は別のデータSHAとなる。
+
+受領途中の区間は、欠けている足種・カタログ参照・SHA256を
+`missing_inputs` に記録する。バッチ全体の保留件数は `blocked_by_status`
+で確認できる。受領済みCSVだけでもデータSHAに反映し、未取得の足はnullとして扱う。

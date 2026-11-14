@@ -163,12 +163,12 @@ class AlignedAccountTests(unittest.TestCase):
         from orrery_aligned_account_study import compare_sessions
 
         missing = dict(start_s=0, end_s=14400, raw_csvs=None, path=None, catalog_sha256=None)
-        ready = dict(missing, start_s=14400, end_s=43200, raw_csvs={}, path='catalog',
+        ready = dict(missing, start_s=14400, end_s=43200, raw_csvs=dict.fromkeys(('H4', 'M15', 'M5'), b'fixture'), path='catalog',
                      catalog_sha256='digest')
         with patch('orrery_aligned_account_study.compare',
                    return_value={'accounts': {'LSR02': {}, 'VHF03': {}}}) as replay:
             result = compare_sessions([missing, ready], {'symbol': 'XAUUSD'}, slippage=.1)
-            replay.assert_called_once_with({}, {'symbol': 'XAUUSD', 'as_of_s': 43200},
+            replay.assert_called_once_with(ready['raw_csvs'], {'symbol': 'XAUUSD', 'as_of_s': 43200},
                                            path='catalog', expected_catalog_sha256='digest',
                                            expected_start_s=14400, slippage=.1)
         self.assertEqual(result['completed_sessions'], 1)
@@ -306,3 +306,18 @@ class AlignedAccountTests(unittest.TestCase):
                                     expected_data_sha256=digest, pnl_quote=account_fixture.pnl,
                                     **protocol)
             self.assertEqual(replay.call_count, 1)
+
+    def test_holdout_reports_partial_csv_and_catalog_inputs(self):
+        from orrery_aligned_account_study import compare_holdout, session_plan_sha256
+
+        session = dict(start_s=14400, end_s=28800, raw_csvs={'H4': b'fixture', 'M15': None},
+                       path=None, catalog_sha256='fixture')
+        settings = {'symbol': 'XAUUSD'}
+        protocol = dict(development_end_s=14400, valuation_source='fixture/v1')
+        result = compare_holdout(
+            [session], settings, expected_plan_sha256=session_plan_sha256([session], settings, **protocol),
+            pnl_quote=account_fixture.pnl, **protocol)
+        self.assertEqual(result['blocked_by_status'], {'BLOCKED_MISSING_SESSION_INPUT': 1})
+        row = result['sessions'][0]['result']
+        self.assertCountEqual(row['missing_inputs'], ['M15', 'M5', 'path'])
+        self.assertIsNone(row['accounts'])
