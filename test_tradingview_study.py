@@ -102,7 +102,7 @@ class StudyTests(unittest.TestCase):
 
 
 class AlignedAccountTests(unittest.TestCase):
-    def run_comparison(self, *, h4_high=100, quote_start=14400, expected_start=None, expected_size=None):
+    def run_comparison(self, *, h4_high=100, quote_start=14400, expected_start=None, expected_size=None, bad_pin=False):
         from orrery_aligned_account_study import compare
 
         catalog = fixture.fixtures.StudyTests()
@@ -123,8 +123,9 @@ class AlignedAccountTests(unittest.TestCase):
                 dict(close_time=at + interval, open=100, high=h4_high if frame == 'H4' and at == 14400 else 100,
                      low=100, close=100) for at in range(14400, catalog.end, interval)
             ], interval)
+        digest = '0' * 64 if bad_pin else catalog.saved['catalog_sha256']
         return compare(raw, settings, path=catalog.path,
-                       expected_catalog_sha256=catalog.saved['catalog_sha256'],
+                       expected_catalog_sha256=digest,
                        expected_start_s=expected_start,
                        expected_contract_size=expected_size,
                        max_gap_msc=60000, price_tolerance=0,
@@ -321,3 +322,9 @@ class AlignedAccountTests(unittest.TestCase):
         row = result['sessions'][0]['result']
         self.assertCountEqual(row['missing_inputs'], ['M15', 'M5', 'path'])
         self.assertIsNone(row['accounts'])
+
+    def test_catalog_hash_failure_returns_blocked_session_without_accounts(self):
+        result = self.run_comparison(bad_pin=True)
+        self.assertEqual(result['status'], 'BLOCKED_CATALOG_VALIDATION')
+        self.assertIsNone(result['accounts'])
+        self.assertIsNone(result['alignment'])

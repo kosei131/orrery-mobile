@@ -22,9 +22,13 @@ def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
     if compiled is None:
         return dict(result, status=report['status'])
 
-    loaded = load_catalog_ticks(path, expected_catalog_sha256=expected_catalog_sha256,
-                                bar_source=settings['data_source'], as_of=settings['as_of_s'],
-                                max_ticks=max_ticks)
+    try:
+        loaded = load_catalog_ticks(path, expected_catalog_sha256=expected_catalog_sha256,
+                                    bar_source=settings['data_source'], as_of=settings['as_of_s'],
+                                    max_ticks=max_ticks)
+    except (OSError, ValueError) as error:
+        return dict(result, status='BLOCKED_CATALOG_VALIDATION',
+                    catalog_error=type(error).__name__)
     if loaded['blocked']:
         return dict(result, status='BLOCKED_GLOBAL_TICK_QUALITY', tick_audit=loaded['audit'])
     if (expected_contract_size is not None
