@@ -1,0 +1,126 @@
+{
+  "study": "gold_entry_routing_q2",
+  "source_revision": "b60bd71d0e34a42cb962daf688ff252e73f409ca",
+  "audit": {
+    "paired_minutes": 88012,
+    "removed_flat_minutes": 43028,
+    "sha256": {
+      "bid_2025_04.csv": "4e2364e526b266b788b7e980902e9e457653357b58ad5d9caff17814e4bce832",
+      "bid_2025_05.csv": "d0f3a257cf9f9259d4ccc8b3a9525cfeed0413e281bb31521263d69d0aca2be0",
+      "bid_2025_06.csv": "2440bcdc23708b6dcaea4e0d2cc8cab57b373dc5be3c287fc8086e82ee84d44e",
+      "ask_2025_04.csv": "5b5297933a1f21fd1b69054e3e88c8694180bd2d8d540b1dcac64bde7a2f2ce8",
+      "ask_2025_05.csv": "ed917c8a50ec2df090f0ad47b0fe4c619677ac99502535ecc5bada44a4d52964",
+      "ask_2025_06.csv": "cc27d092f39c0a8b8bc3c2dedc610512e4baab278c2610d8536495c9ff695498"
+    }
+  },
+  "actions": {
+    "IMMEDIATE": 266,
+    "WAIT": 384,
+    "UNAVAILABLE": 11,
+    "SKIP": 16
+  },
+  "period": "2025-04-01 through 2025-07-01 exclusive UTC",
+  "base_candidates": 677,
+  "common_candidates": 646,
+  "unknown_candidates": 31,
+  "arms": {
+    "immediate": {
+      "summary": {
+        "entries": 677,
+        "resolved": 646,
+        "unresolved": 31,
+        "wins": 309,
+        "positive_rate": 0.47832817337461303,
+        "all_entry_positive_rate_upper": 0.5022156573116692,
+        "mean_r": -0.09801435603721105,
+        "pf": 0.6504029953436261,
+        "mean_win_r": 0.38122252996853434,
+        "mean_loss_r": 0.5374333405350606,
+        "status": {
+          "RESOLVED_REFERENCE": 646,
+          "UNKNOWN_ENTRY_HISTORY": 11,
+          "CENSORED_AT_SIDE_GAP": 20
+        }
+      },
+      "statuses": {
+        "RESOLVED_REFERENCE": 646,
+        "UNKNOWN_ENTRY_HISTORY": 11,
+        "CENSORED_AT_SIDE_GAP": 20
+      },
+      "resolved_per_week": 49.69230769230769
+    },
+    "wait": {
+      "summary": {
+        "entries": 332,
+        "resolved": 305,
+        "unresolved": 27,
+        "wins": 133,
+        "positive_rate": 0.4360655737704918,
+        "all_entry_positive_rate_upper": 0.4819277108433735,
+        "mean_r": -0.1209684743904373,
+        "pf": 0.5371375057849402,
+        "mean_win_r": 0.3219243954422684,
+        "mean_loss_r": 0.46343796094712253,
+        "status": {
+          "RESOLVED_REFERENCE": 305,
+          "UNKNOWN_ENTRY_HISTORY": 13,
+          "CENSORED_AT_SIDE_GAP": 9,
+          "UNKNOWN_RETEST_HISTORY": 5
+        }
+      },
+      "statuses": {
+        "NO_RETEST": 217,
+        "TARGET_REACHED_BEFORE_ENTRY": 96,
+        "RESOLVED_REFERENCE": 305,
+        "UNKNOWN_ENTRY_HISTORY": 13,
+        "STRUCTURE_BREACHED_BEFORE_ENTRY": 32,
+        "CENSORED_AT_SIDE_GAP": 9,
+        "UNKNOWN_RETEST_HISTORY": 5
+      },
+      "resolved_per_week": 23.46153846153846
+    },
+    "routed": {
+      "summary": {
+        "entries": 504,
+        "resolved": 475,
+        "unresolved": 29,
+        "wins": 225,
+        "positive_rate": 0.47368421052631576,
+        "all_entry_positive_rate_upper": 0.503968253968254,
+        "mean_r": -0.09171139860041266,
+        "pf": 0.6412217583116503,
+        "mean_win_r": 0.3460322379484815,
+        "mean_loss_r": 0.4856806714944174,
+        "status": {
+          "RESOLVED_REFERENCE": 475,
+          "UNKNOWN_ENTRY_HISTORY": 13,
+          "CENSORED_AT_SIDE_GAP": 14,
+          "UNKNOWN_RETEST_HISTORY": 2
+        }
+      },
+      "statuses": {
+        "RESOLVED_REFERENCE": 475,
+        "NO_RETEST": 95,
+        "UNKNOWN_ENTRY_HISTORY": 13,
+        "STRUCTURE_BREACHED_BEFORE_ENTRY": 20,
+        "CENSORED_AT_SIDE_GAP": 14,
+        "ROUTER_SKIP_FRICTION": 16,
+        "TARGET_REACHED_BEFORE_ENTRY": 42,
+        "UNKNOWN_RETEST_HISTORY": 2
+      },
+      "resolved_per_week": 36.53846153846154
+    }
+  },
+  "common_mean_r": {
+    "immediate": -0.09801435603721105,
+    "wait": -0.05711359858991235,
+    "routed": -0.06743485191206813
+  },
+  "extra_round_trip_price": 0.3,
+  "target_r_at_breakout": 0.5,
+  "execution_allowed": false,
+  "adoption_allowed": false,
+  "account_return_pct": null,
+  "replay_commit": "2a3ed34a141f3b131df43d99c30c75d2d5baf44e",
+  "github_actions_run_id": 43973231742
+}
