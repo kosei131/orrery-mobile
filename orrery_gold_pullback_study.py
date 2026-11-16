@@ -157,7 +157,7 @@ def evaluate_pullback(plan, bid, ask, *, structural_stop, structural_known_at,
     return resolved(deadline, exit_side[deadline-60]['close'], 'TIMEOUT_CLOSE')
 
 
-def replay(found, bid, ask, target):
+def replay(found, bid, ask, target, *, horizon=HOLD_MINUTES):
     available = 0
     rows = []
     skipped = 0
@@ -169,13 +169,13 @@ def replay(found, bid, ask, target):
         row = evaluate_pullback(
             {'first_poi_touch_close': at, 'side': signal['side']}, bid, ask,
             structural_stop=signal['stop'], structural_known_at=signal['setup_at_utc'],
-            horizon=HOLD_MINUTES, target_r=target, target_price=signal.get('target_price'),
+            horizon=horizon, target_r=target, target_price=signal.get('target_price'),
         )
         rows.append({**signal, **row})
         if row['status'] == 'RESOLVED_REFERENCE':
             available = row['exit_at'] + (0 if row['exit_reason'] == 'TIMEOUT_CLOSE' else 60)
         elif row['status'] in ('CENSORED_AT_SIDE_GAP', 'AMBIGUOUS_SAME_MINUTE'):
-            available = at + HOLD_MINUTES*60
+            available = at + horizon*60
     return rows, skipped
 
 
