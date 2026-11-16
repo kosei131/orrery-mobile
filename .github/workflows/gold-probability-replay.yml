@@ -46,4 +46,10 @@ jobs:
               curl -fsS --retry 2 --max-time 30 "$base/xauusd/$side/m1/xauusd_${side}_m1_2025_$month.csv" -o "$temp/${side}_2025_$month.csv"
             done
           done
+          file="$temp/ask_2025_06.csv"
+          pin=06a264ccf5b942c88c3a371956fd2ff0c31b219c
+          if [ "$(git hash-object --no-filters "$file")" != "$pin" ]; then
+            curl -fsS --retry 2 --max-time 30 "https://api.github.com/repos/kevingtlin/Market-Data-Lab/git/blobs/$pin" \
+              | python3 -c 'import base64,json,sys; sys.stdout.buffer.write(base64.b64decode(json.load(sys.stdin)["content"]))' > "$file"
+          fi
           python3 orrery_gold_entry_routing.py "$temp"
