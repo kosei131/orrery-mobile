@@ -4,6 +4,7 @@ on:
     paths:
       - orrery_gold_probability_study.py
       - orrery_gold_expectancy_study.py
+      - orrery_gold_entry_friction_study.py
       - .github/workflows/gold-probability-replay.yml
 permissions:
   contents: read
@@ -32,3 +33,4 @@ jobs:
           done
           python3 orrery_gold_probability_study.py "$temp/current" "$temp/prior"
           python3 orrery_gold_expectancy_study.py "$temp/current" "$temp/prior"
+          python3 orrery_gold_entry_friction_study.py "$temp/current" "$temp/prior"
