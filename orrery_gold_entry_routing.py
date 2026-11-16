@@ -26,7 +26,7 @@ PINS = {
             'b21e4764f19340da04b524f228264ff907d818f0'),
     'ask': ('a7a1b04849f88708aea270fd5ba09588bc7b435a',
             '757914bda7c25b568976f55fca615e180d3e75a4',
-            '06a264ccf5b942c8c3a371956fd2ff0c31b219c'),
+            '06a264ccf5b942c88c3a371956fd2ff0c31b219c'),
 }
 SKIP = 'ROUTER_SKIP_FRICTION'
 
