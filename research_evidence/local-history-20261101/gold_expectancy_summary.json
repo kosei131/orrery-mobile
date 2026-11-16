@@ -1,0 +1,526 @@
+{
+  "training_period": "2025 Q4 UTC",
+  "evaluation_start": "2026-01-01 UTC",
+  "evaluation_end_exclusive": "2026-10-19 14:00 UTC",
+  "targets_r": [
+    0.1,
+    0.25,
+    0.5,
+    1.5
+  ],
+  "extra_round_trip_cost": 0.3,
+  "win_goal": 0.95,
+  "goal_signals": 0,
+  "max_estimated_win_probability": 0.8275570026442717,
+  "fixed_targets": {
+    "0.1": {
+      "entries": 2164,
+      "resolved": 2104,
+      "unresolved": 60,
+      "wins": 1666,
+      "positive_rate": 0.7918250950570342,
+      "all_entry_positive_rate_upper": 0.7975970425138632,
+      "mean_r": -0.06753465293259664,
+      "pf": 0.4917186957399606,
+      "mean_win_r": 0.08251064765907906,
+      "mean_loss_r": 0.6382549058680572,
+      "status": {
+        "RESOLVED_REFERENCE": 2104,
+        "CENSORED_AT_SIDE_GAP": 28,
+        "UNKNOWN_ENTRY_HISTORY": 30,
+        "AMBIGUOUS_SAME_MINUTE": 2
+      },
+      "candidates_per_calendar_week": 51.95084309802801,
+      "resolved_drawdown_r": 142.61849411731615,
+      "exit_counts": {
+        "TIMEOUT": 286,
+        "TP": 1659,
+        "SL": 159
+      }
+    },
+    "0.25": {
+      "entries": 2164,
+      "resolved": 2087,
+      "unresolved": 77,
+      "wins": 1325,
+      "positive_rate": 0.6348826066123623,
+      "all_entry_positive_rate_upper": 0.6478743068391867,
+      "mean_r": -0.06443153592520919,
+      "pf": 0.6887438638301133,
+      "mean_win_r": 0.22456645108083265,
+      "mean_loss_r": 0.5669542823595995,
+      "status": {
+        "RESOLVED_REFERENCE": 2087,
+        "CENSORED_AT_SIDE_GAP": 47,
+        "UNKNOWN_ENTRY_HISTORY": 30
+      },
+      "candidates_per_calendar_week": 51.95084309802801,
+      "resolved_drawdown_r": 134.69482483356438,
+      "exit_counts": {
+        "TIMEOUT": 609,
+        "TP": 1251,
+        "SL": 227
+      }
+    },
+    "0.5": {
+      "entries": 2164,
+      "resolved": 2073,
+      "unresolved": 91,
+      "wins": 1049,
+      "positive_rate": 0.5060299083453932,
+      "all_entry_positive_rate_upper": 0.5268022181146026,
+      "mean_r": -0.05412341794387792,
+      "pf": 0.7881741155030271,
+      "mean_win_r": 0.3979716799279151,
+      "mean_loss_r": 0.5172559937910565,
+      "status": {
+        "RESOLVED_REFERENCE": 2073,
+        "CENSORED_AT_SIDE_GAP": 61,
+        "UNKNOWN_ENTRY_HISTORY": 30
+      },
+      "candidates_per_calendar_week": 51.95084309802801,
+      "resolved_drawdown_r": 112.67405475531166,
+      "exit_counts": {
+        "TIMEOUT": 1027,
+        "TP": 778,
+        "SL": 268
+      }
+    },
+    "1.5": {
+      "entries": 2164,
+      "resolved": 2062,
+      "unresolved": 102,
+      "wins": 881,
+      "positive_rate": 0.42725509214354995,
+      "all_entry_positive_rate_upper": 0.4542513863216266,
+      "mean_r": -0.06525132228764385,
+      "pf": 0.7739770646262661,
+      "mean_win_r": 0.5229710518752361,
+      "mean_loss_r": 0.5040522635556347,
+      "status": {
+        "RESOLVED_REFERENCE": 2062,
+        "CENSORED_AT_SIDE_GAP": 72,
+        "UNKNOWN_ENTRY_HISTORY": 30
+      },
+      "candidates_per_calendar_week": 51.95084309802801,
+      "resolved_drawdown_r": 134.5482265571217,
+      "exit_counts": {
+        "TIMEOUT": 1651,
+        "SL": 299,
+        "TP": 112
+      }
+    }
+  },
+  "policies": {
+    "positive_ev": {
+      "entries": 0,
+      "resolved": 0,
+      "unresolved": 0,
+      "wins": 0,
+      "positive_rate": null,
+      "all_entry_positive_rate_upper": null,
+      "mean_r": null,
+      "pf": null,
+      "mean_win_r": null,
+      "mean_loss_r": null,
+      "status": {},
+      "candidates_per_calendar_week": 0,
+      "resolved_drawdown_r": null,
+      "exit_counts": {}
+    },
+    "win_goal_with_positive_ev": {
+      "entries": 0,
+      "resolved": 0,
+      "unresolved": 0,
+      "wins": 0,
+      "positive_rate": null,
+      "all_entry_positive_rate_upper": null,
+      "mean_r": null,
+      "pf": null,
+      "mean_win_r": null,
+      "mean_loss_r": null,
+      "status": {},
+      "candidates_per_calendar_week": 0,
+      "resolved_drawdown_r": null,
+      "exit_counts": {}
+    }
+  },
+  "models": {
+    "('BUY', False)": {
+      "0.1": {
+        "positive_probability": 0.8275570026442717,
+        "expected_r": -0.03735280079357799,
+        "exits": {
+          "TP": {
+            "p": 0.824319873526107,
+            "mean_r": 0.08115042942884151
+          },
+          "SL": {
+            "p": 0.05307386112339678,
+            "mean_r": -1.0279455643398523
+          },
+          "TIMEOUT": {
+            "p": 0.12260626535048519,
+            "mean_r": -0.40527841094189415
+          }
+        }
+      },
+      "0.25": {
+        "positive_probability": 0.6278705339335395,
+        "expected_r": -0.061292654328974495,
+        "exits": {
+          "TP": {
+            "p": 0.5949626759359334,
+            "mean_r": 0.23074065966786111
+          },
+          "SL": {
+            "p": 0.10370961308336667,
+            "mean_r": -1.0243528002492213
+          },
+          "TIMEOUT": {
+            "p": 0.3013277109806829,
+            "mean_r": -0.3064421183732329
+          }
+        }
+      },
+      "0.5": {
+        "positive_probability": 0.49250028845045274,
+        "expected_r": -0.0752058291961195,
+        "exits": {
+          "TP": {
+            "p": 0.34135225568246924,
+            "mean_r": 0.48013876370312897
+          },
+          "SL": {
+            "p": 0.13802353755624822,
+            "mean_r": -1.0235395044493887
+          },
+          "TIMEOUT": {
+            "p": 0.5206242067612864,
+            "mean_r": -0.187908542713914
+          }
+        }
+      },
+      "1.5": {
+        "positive_probability": 0.46832814122534505,
+        "expected_r": -0.047035210142545913,
+        "exits": {
+          "TP": {
+            "p": 0.046844352140302234,
+            "mean_r": 1.476894860477818
+          },
+          "SL": {
+            "p": 0.13888888888888928,
+            "mean_r": -1.023566648051582
+          },
+          "TIMEOUT": {
+            "p": 0.814266758970822,
+            "mean_r": 0.03186012581850621
+          }
+        }
+      }
+    },
+    "('BUY', True)": {
+      "0.1": {
+        "positive_probability": 0.80300911854101,
+        "expected_r": -0.0797300015927215,
+        "exits": {
+          "TP": {
+            "p": 0.8025531914893383,
+            "mean_r": 0.0761746860285866
+          },
+          "SL": {
+            "p": 0.0914285714285716,
+            "mean_r": -1.0277602954370715
+          },
+          "TIMEOUT": {
+            "p": 0.10601823708206716,
+            "mean_r": -0.4423539259244721
+          }
+        }
+      },
+      "0.25": {
+        "positive_probability": 0.6381243628950067,
+        "expected_r": -0.08485602056843444,
+        "exits": {
+          "TP": {
+            "p": 0.6118988045593566,
+            "mean_r": 0.22506085135078122
+          },
+          "SL": {
+            "p": 0.14539894356408148,
+            "mean_r": -1.0286296494350191
+          },
+          "TIMEOUT": {
+            "p": 0.2427022518765645,
+            "mean_r": -0.30081641827401207
+          }
+        }
+      },
+      "0.5": {
+        "positive_probability": 0.526727758686526,
+        "expected_r": -0.05509530103540676,
+        "exits": {
+          "TP": {
+            "p": 0.3770523100420042,
+            "mean_r": 0.47439317820603005
+          },
+          "SL": {
+            "p": 0.15778923253150012,
+            "mean_r": -1.0283265623717601
+          },
+          "TIMEOUT": {
+            "p": 0.4651584574265028,
+            "mean_r": -0.15415711470556848
+          }
+        }
+      },
+      "1.5": {
+        "positive_probability": 0.4570446735395228,
+        "expected_r": -0.04606743279053419,
+        "exits": {
+          "TP": {
+            "p": 0.06223749522718614,
+            "mean_r": 1.4770989051933543
+          },
+          "SL": {
+            "p": 0.1812714776632304,
+            "mean_r": -1.0282486765724286
+          },
+          "TIMEOUT": {
+            "p": 0.7564910271095758,
+            "mean_r": 0.06397139743991712
+          }
+        }
+      }
+    },
+    "('SELL', False)": {
+      "0.1": {
+        "positive_probability": 0.7863316869300772,
+        "expected_r": -0.07786852511894446,
+        "exits": {
+          "TP": {
+            "p": 0.7861535904255179,
+            "mean_r": 0.08167547135273338
+          },
+          "SL": {
+            "p": 0.07477678571428578,
+            "mean_r": -1.0251050892146347
+          },
+          "TIMEOUT": {
+            "p": 0.13906962386018248,
+            "mean_r": -0.47044009155832306
+          }
+        }
+      },
+      "0.25": {
+        "positive_probability": 0.6295871559632802,
+        "expected_r": -0.07636785102767298,
+        "exits": {
+          "TP": {
+            "p": 0.6233514908256662,
+            "mean_r": 0.23169570683947796
+          },
+          "SL": {
+            "p": 0.11091599770642213,
+            "mean_r": -1.026717979083182
+          },
+          "TIMEOUT": {
+            "p": 0.2657325114678902,
+            "mean_r": -0.402345447684352
+          }
+        }
+      },
+      "0.5": {
+        "positive_probability": 0.48461650627004216,
+        "expected_r": -0.07485432460050179,
+        "exits": {
+          "TP": {
+            "p": 0.41564596092154577,
+            "mean_r": 0.4816748028511723
+          },
+          "SL": {
+            "p": 0.14293525809273888,
+            "mean_r": -1.0264644120856714
+          },
+          "TIMEOUT": {
+            "p": 0.44141878098570314,
+            "mean_r": -0.29075010114477506
+          }
+        }
+      },
+      "1.5": {
+        "positive_probability": 0.4146981627296522,
+        "expected_r": -0.06335044251365664,
+        "exits": {
+          "TP": {
+            "p": 0.08282298046077596,
+            "mean_r": 1.4799873289788572
+          },
+          "SL": {
+            "p": 0.15190288713910813,
+            "mean_r": -1.0264454421731999
+          },
+          "TIMEOUT": {
+            "p": 0.7652741324001334,
+            "mean_r": -0.03921127961410211
+          }
+        }
+      }
+    },
+    "('SELL', True)": {
+      "0.1": {
+        "positive_probability": 0.8212213318596046,
+        "expected_r": -0.07384471051126412,
+        "exits": {
+          "TP": {
+            "p": 0.8207607994841786,
+            "mean_r": 0.07458548418413086
+          },
+          "SL": {
+            "p": 0.10245310245310263,
+            "mean_r": -1.025555989904917
+          },
+          "TIMEOUT": {
+            "p": 0.0767860980626941,
+            "mean_r": -0.3905675635521695
+          }
+        }
+      },
+      "0.25": {
+        "positive_probability": 0.702827958006244,
+        "expected_r": -0.022681364155974756,
+        "exits": {
+          "TP": {
+            "p": 0.696680223210065,
+            "mean_r": 0.22431193911092834
+          },
+          "SL": {
+            "p": 0.11746902487468108,
+            "mean_r": -1.025502347559165
+          },
+          "TIMEOUT": {
+            "p": 0.18585075191525655,
+            "mean_r": -0.3147164839917225
+          }
+        }
+      },
+      "0.5": {
+        "positive_probability": 0.5634645061728439,
+        "expected_r": -0.02457170008502955,
+        "exits": {
+          "TP": {
+            "p": 0.4643132716049417,
+            "mean_r": 0.4750561600369901
+          },
+          "SL": {
+            "p": 0.14901620370370325,
+            "mean_r": -1.025769258944303
+          },
+          "TIMEOUT": {
+            "p": 0.3866705246913622,
+            "mean_r": -0.2386795300151458
+          }
+        }
+      },
+      "1.5": {
+        "positive_probability": 0.4305555555555595,
+        "expected_r": -0.02818345939565341,
+        "exits": {
+          "TP": {
+            "p": 0.10455246913580225,
+            "mean_r": 1.4741496043811726
+          },
+          "SL": {
+            "p": 0.17274305555555533,
+            "mean_r": -1.0263256085597412
+          },
+          "TIMEOUT": {
+            "p": 0.7227044753086402,
+            "mean_r": -0.00694449662789648
+          }
+        }
+      }
+    },
+    "None": {
+      "0.1": {
+        "positive_probability": 0.8100303951367781,
+        "expected_r": -0.06077496604969505,
+        "exits": {
+          "TP": {
+            "p": 0.8085106382978723,
+            "mean_r": 0.07983553095646763
+          },
+          "SL": {
+            "p": 0.07142857142857142,
+            "mean_r": -1.0265004726652072
+          },
+          "TIMEOUT": {
+            "p": 0.12006079027355623,
+            "mean_r": -0.4331254166363973
+          }
+        }
+      },
+      "0.25": {
+        "positive_probability": 0.6391437308868502,
+        "expected_r": -0.06445380221759504,
+        "exits": {
+          "TP": {
+            "p": 0.6192660550458715,
+            "mean_r": 0.22943439802680063
+          },
+          "SL": {
+            "p": 0.11314984709480122,
+            "mean_r": -1.0259721531323756
+          },
+          "TIMEOUT": {
+            "p": 0.26758409785932724,
+            "mean_r": -0.3380101629678035
+          }
+        }
+      },
+      "0.5": {
+        "positive_probability": 0.5030864197530864,
+        "expected_r": -0.06622030863161349,
+        "exits": {
+          "TP": {
+            "p": 0.38580246913580246,
+            "mean_r": 0.4792122387532392
+          },
+          "SL": {
+            "p": 0.14351851851851852,
+            "mean_r": -1.0254570565564287
+          },
+          "TIMEOUT": {
+            "p": 0.470679012345679,
+            "mean_r": -0.22080758498966382
+          }
+        }
+      },
+      "1.5": {
+        "positive_probability": 0.4444444444444444,
+        "expected_r": -0.04995243220949293,
+        "exits": {
+          "TP": {
+            "p": 0.06790123456790123,
+            "mean_r": 1.4776376282299724
+          },
+          "SL": {
+            "p": 0.1527777777777778,
+            "mean_r": -1.0256048744985526
+          },
+          "TIMEOUT": {
+            "p": 0.779320987654321,
+            "mean_r": 0.008217130418785145
+          }
+        }
+      }
+    }
+  },
+  "historical_data_previously_seen": true,
+  "execution_allowed": false,
+  "adoption_allowed": false,
+  "account_return_pct": null,
+  "replay_commit": "8d8003bdb75e0456f18cfd6004c13ff160f9b545",
+  "github_actions_run_id": 43956529050
+}
