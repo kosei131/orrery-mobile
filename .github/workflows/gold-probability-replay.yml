@@ -1,0 +1,32 @@
+name: Gold probability replay
+on:
+  pull_request:
+    paths:
+      - orrery_gold_probability_study.py
+      - .github/workflows/gold-probability-replay.yml
+permissions:
+  contents: read
+jobs:
+  probability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Replay SHA-verified Gold Bid and Ask
+        shell: bash
+        run: |
+          set -euo pipefail
+          temp="$(mktemp -d)"
+          mkdir "$temp/current" "$temp/prior"
+          base=https://raw.githubusercontent.com/kevingtlin/Market-Data-Lab/b60bd71d0e34a42cb962daf688ff252e73f409ca
+          for side in bid ask; do
+            for month in {01..10}; do
+              curl -fsS --retry 2 --max-time 30 "$base/xauusd/$side/m1/xauusd_${side}_m1_2026_$month.csv" -o "$temp/current/${side}_2026_$month.csv"
+            done
+            for month in 10 11 12; do
+              curl -fsS --retry 2 --max-time 30 "$base/xauusd/$side/m1/xauusd_${side}_m1_2025_$month.csv" -o "$temp/prior/${side}_2025_$month.csv"
+            done
+          done
+          python3 orrery_gold_probability_study.py "$temp/current" "$temp/prior"
