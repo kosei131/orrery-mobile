@@ -120,7 +120,20 @@ def compare_sessions(sessions, settings, **account_inputs):
                              expected_start_s=start, **account_inputs)
         rows.append(dict(start_s=start, end_s=end, catalog_sha256=digest, result=result))
     completed = sum(row['result']['accounts'] is not None for row in rows)
+    open_arms = Counter()
+    sessions_with_open_positions = 0
+    for row in rows:
+        accounts = row['result']['accounts']
+        if accounts is None:
+            continue
+        names = [name for name, account in accounts.items()
+                 if account['open_position'] is not None]
+        row['open_position_arms'] = names
+        sessions_with_open_positions += bool(names)
+        open_arms.update(names)
     return dict(sessions=rows, completed_sessions=completed,
+                sessions_with_open_positions=sessions_with_open_positions,
+                open_positions_by_arm=dict(open_arms),
                 blocked_sessions=len(rows) - completed,
                 blocked_by_status=dict(Counter(
                     row['result']['status'] for row in rows if row['result']['accounts'] is None)),

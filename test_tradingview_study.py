@@ -167,12 +167,17 @@ class AlignedAccountTests(unittest.TestCase):
         ready = dict(missing, start_s=14400, end_s=43200, raw_csvs=dict.fromkeys(('H4', 'M15', 'M5'), b'fixture'), path='catalog',
                      catalog_sha256='digest')
         with patch('orrery_aligned_account_study.compare',
-                   return_value={'accounts': {'LSR02': {}, 'VHF03': {}}}) as replay:
+                   return_value={'accounts': {'LSR02': {'open_position': {'id': 'pending'}},
+                                              'VHF03': {'open_position': None}}}) as replay:
             result = compare_sessions([missing, ready], {'symbol': 'XAUUSD'}, slippage=.1)
             replay.assert_called_once_with(ready['raw_csvs'], {'symbol': 'XAUUSD', 'as_of_s': 43200},
                                            path='catalog', expected_catalog_sha256='digest',
                                            expected_start_s=14400, slippage=.1)
         self.assertEqual(result['completed_sessions'], 1)
+        self.assertEqual(result['sessions_with_open_positions'], 1)
+        self.assertEqual(result['open_positions_by_arm'], {'LSR02': 1})
+        self.assertEqual(result['sessions'][1]['open_position_arms'], ['LSR02'])
+        self.assertNotIn('open_position_arms', result['sessions'][0])
         self.assertEqual(result['blocked_sessions'], 1)
         self.assertEqual(result['sessions'][0]['result']['status'], 'BLOCKED_MISSING_SESSION_INPUT')
         self.assertIsNone(result['combined_accounts'])
