@@ -43,7 +43,7 @@ def signals(bars, end):
         yield dict(at_utc=at, side=side, target=center, stop_distance=STOP_ATR*mean(ranges))
 
 
-def measure(bid, ask, bars, start, end):
+def measure(bid, ask, bars, start, end, *, row_sink=None):
     rows = []
     eligible = 0
     skipped = 0
@@ -68,6 +68,8 @@ def measure(bid, ask, bars, start, end):
             eligible = row['exit_at']+(0 if row['exit_reason']=='TIMEOUT_CLOSE' else 60)
         elif row['status'] in ('CENSORED_AT_SIDE_GAP','AMBIGUOUS_SAME_MINUTE'):
             eligible = at+HORIZON*60
+    if row_sink is not None:
+        row_sink.extend(rows)
     result = stats(rows)
     result['scenarios'] = summarize(rows)['scenarios']
     result['skipped_while_occupied'] = skipped
