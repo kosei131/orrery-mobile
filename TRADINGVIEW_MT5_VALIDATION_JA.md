@@ -172,3 +172,8 @@ SHA256、Bid/AskカタログSHA256、カタログ有無をまとめて照合で�
 `open_position_arms` に該当戦略、`sessions_with_open_positions` に
 該当区間数、`open_positions_by_arm` に戦略別件数を記録する。
 建玉の評価と決着済み取引の統計は、各口座の再生結果で確認する。
+
+口座再生が完了した区間の候補数がゼロの場合は、`zero_candidate_arms` に
+該当戦略を記録する。`sessions_without_candidates` は両戦略とも候補ゼロの
+区間数、`zero_candidate_sessions_by_arm` は戦略別の候補ゼロ区間数。
+データ不足で保留された区間はこれらの件数に含めず、保留理由を参照する。

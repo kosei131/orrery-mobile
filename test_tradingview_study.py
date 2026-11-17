@@ -168,12 +168,16 @@ class AlignedAccountTests(unittest.TestCase):
                      catalog_sha256='digest')
         with patch('orrery_aligned_account_study.compare',
                    return_value={'accounts': {'LSR02': {'open_position': {'id': 'pending'}},
-                                              'VHF03': {'open_position': None}}}) as replay:
+                                              'VHF03': {'open_position': None}},
+                                 'candidate_counts': {'LSR02': 1, 'VHF03': 0}}) as replay:
             result = compare_sessions([missing, ready], {'symbol': 'XAUUSD'}, slippage=.1)
             replay.assert_called_once_with(ready['raw_csvs'], {'symbol': 'XAUUSD', 'as_of_s': 43200},
                                            path='catalog', expected_catalog_sha256='digest',
                                            expected_start_s=14400, slippage=.1)
         self.assertEqual(result['completed_sessions'], 1)
+        self.assertEqual(result['sessions_without_candidates'], 0)
+        self.assertEqual(result['zero_candidate_sessions_by_arm'], {'VHF03': 1})
+        self.assertEqual(result['sessions'][1]['zero_candidate_arms'], ['VHF03'])
         self.assertEqual(result['sessions_with_open_positions'], 1)
         self.assertEqual(result['open_positions_by_arm'], {'LSR02': 1})
         self.assertEqual(result['sessions'][1]['open_position_arms'], ['LSR02'])
@@ -333,3 +337,18 @@ class AlignedAccountTests(unittest.TestCase):
         self.assertEqual(result['status'], 'BLOCKED_CATALOG_VALIDATION')
         self.assertIsNone(result['accounts'])
         self.assertIsNone(result['alignment'])
+
+    def test_batch_reports_both_zero_candidate_arms_after_actual_replay(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import compare_sessions
+
+        replayed = self.run_comparison()
+        session = dict(start_s=14400, end_s=43200,
+                       raw_csvs=dict.fromkeys(('H4', 'M15', 'M5'), b'fixture'),
+                       path='catalog', catalog_sha256='fixture')
+        with patch('orrery_aligned_account_study.compare', return_value=replayed):
+            batch = compare_sessions([session], {})
+        self.assertEqual(batch['completed_sessions'], 1)
+        self.assertEqual(batch['sessions_without_candidates'], 1)
+        self.assertEqual(batch['zero_candidate_sessions_by_arm'], {'LSR02': 1, 'VHF03': 1})
+        self.assertEqual(batch['sessions'][0]['zero_candidate_arms'], ['LSR02', 'VHF03'])

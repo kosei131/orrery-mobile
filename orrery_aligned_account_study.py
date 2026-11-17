@@ -121,6 +121,8 @@ def compare_sessions(sessions, settings, **account_inputs):
         rows.append(dict(start_s=start, end_s=end, catalog_sha256=digest, result=result))
     completed = sum(row['result']['accounts'] is not None for row in rows)
     open_arms = Counter()
+    zero_candidate_arms = Counter()
+    sessions_without_candidates = 0
     sessions_with_open_positions = 0
     for row in rows:
         accounts = row['result']['accounts']
@@ -131,7 +133,14 @@ def compare_sessions(sessions, settings, **account_inputs):
         row['open_position_arms'] = names
         sessions_with_open_positions += bool(names)
         open_arms.update(names)
+        counts = row['result']['candidate_counts']
+        empty = [name for name, count in counts.items() if count == 0]
+        row['zero_candidate_arms'] = empty
+        sessions_without_candidates += all(count == 0 for count in counts.values())
+        zero_candidate_arms.update(empty)
     return dict(sessions=rows, completed_sessions=completed,
+                sessions_without_candidates=sessions_without_candidates,
+                zero_candidate_sessions_by_arm=dict(zero_candidate_arms),
                 sessions_with_open_positions=sessions_with_open_positions,
                 open_positions_by_arm=dict(open_arms),
                 blocked_sessions=len(rows) - completed,
