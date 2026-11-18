@@ -22,6 +22,29 @@ class StudyTests(unittest.TestCase):
         self.settings=dict(symbol='XAUUSD',data_source='SYNTHETIC_STUDY',chart_type='STANDARD',price_basis='UNKNOWN',
             time_format='UNIX_SECONDS',column_map={k:k for k in ('time','open','high','low','close')},as_of_s=f.end,
             strategy=dict(buffer=.1,target_r=2,period=2,min_vhf=0,left=1,right=1,lifetime=6000))
+    def test_invalid_csv_blocks_only_its_session_before_catalog_access(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import compare_sessions
+
+        bad = dict(start_s=0, end_s=self.f.end, raw_csvs=dict(self.raw, M5=b'bad header\n'),
+                   path='must not be opened', catalog_sha256='fixture')
+        later = dict(bad, start_s=self.f.end, end_s=self.f.end + 14400,
+                     raw_csvs=self.raw, path=None)
+        with patch('orrery_aligned_account_study.load_catalog_ticks') as loader:
+            result = compare_sessions(
+                [bad, later], self.settings, max_gap_msc=60000, price_tolerance=0,
+                volume_min=.01, volume_max=100, volume_step=.01,
+                pnl_quote=account_fixture.pnl, round_trip_cost_per_lot_usd=.01,
+                cost_source='SYNTHETIC', slippage=0)
+            loader.assert_not_called()
+        self.assertEqual(len(result['sessions']), 2)
+        self.assertEqual(result['blocked_by_status'], {
+            'BLOCKED_STUDY_INPUT_VALIDATION': 1, 'BLOCKED_MISSING_SESSION_INPUT': 1})
+        self.assertIsNone(result['sessions'][0]['result']['accounts'])
+        self.assertEqual(result['sessions'][0]['result']['study_error'], 'ValueError')
+        self.assertEqual(result['completed_sessions'], 0)
+        self.assertEqual(result['sessions_without_candidates'], 0)
+
     def test_current_strategy_plans_without_quotes_never_invent_profit(self):
         r=study(self.raw,self.settings)
         self.assertEqual(len(r['plans']['plans']),1);self.assertIsNone(r['verified_profit_usd'])

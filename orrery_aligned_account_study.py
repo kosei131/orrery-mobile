@@ -1,5 +1,6 @@
 """Compare TradingView plans on the exact catalog observations used for alignment."""
 from collections import Counter
+from csv import Error as CSVError
 from hashlib import sha256
 from math import isfinite
 
@@ -15,7 +16,15 @@ def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
             round_trip_cost_per_lot_usd, cost_source, slippage, max_ticks=500000,
             expected_start_s=None, expected_contract_size=None):
     """Run independent, single-session LSR02 and VHF03 model accounts."""
-    report = study(raw_csvs, settings)
+    try:
+        report = study(raw_csvs, settings)
+    except (ValueError, UnicodeError, CSVError) as error:
+        # Preserve invalid input as a blocked session, never a zero-return account.
+        # Do not expose CSV cells or local paths through exception messages.
+        return dict(status='BLOCKED_STUDY_INPUT_VALIDATION',
+                    study_error=type(error).__name__, planning=None, alignment=None,
+                    accounts=None, catalog_sha256=expected_catalog_sha256,
+                    execution_allowed=False)
     result = dict(planning=report, alignment=None, accounts=None,
                   catalog_sha256=expected_catalog_sha256, execution_allowed=False)
     compiled = report['plans']
