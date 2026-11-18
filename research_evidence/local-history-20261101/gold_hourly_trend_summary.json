@@ -1,0 +1,164 @@
+{
+  "study": "gold_hourly_trend",
+  "horizon_minutes": 480,
+  "historical_2026": {
+    "complete_h1": 4701,
+    "complete_h4": 1022,
+    "raw_signals": 42,
+    "longest_h1_chain": 23,
+    "longest_h4_chain": 5,
+    "h4_unavailable": 42,
+    "raw_h4_alignment": {
+      "MISSING": 42
+    },
+    "arms": {
+      "H1": {
+        "candidates": 35,
+        "resolved": 2,
+        "statuses": {
+          "UNKNOWN_ENTRY_HISTORY": 13,
+          "CENSORED_AT_SIDE_GAP": 20,
+          "RESOLVED_REFERENCE": 2
+        },
+        "exit_reasons": {
+          "SL_TOUCH": 1,
+          "TP_TOUCH": 1
+        },
+        "scenarios": [
+          {
+            "additional_cost_price": 0,
+            "mean_resolved_r": 0.5,
+            "positive_rate_pct": 50.0,
+            "pf": 2.0,
+            "resolved_sequence_drawdown_r": 1.0
+          },
+          {
+            "additional_cost_price": 0.3,
+            "mean_resolved_r": 0.49274131654778575,
+            "positive_rate_pct": 50.0,
+            "pf": 1.9802209662818637,
+            "resolved_sequence_drawdown_r": 1.0053678374516575
+          },
+          {
+            "additional_cost_price": 0.6,
+            "mean_resolved_r": 0.4854826330955715,
+            "positive_rate_pct": 50.0,
+            "pf": 1.960652018426107,
+            "resolved_sequence_drawdown_r": 1.010735674903315
+          }
+        ],
+        "resolved_per_week": 0.048013718205201485
+      },
+      "H1_H4": {
+        "candidates": 0,
+        "resolved": 0,
+        "statuses": {},
+        "exit_reasons": {},
+        "scenarios": [
+          {
+            "additional_cost_price": 0,
+            "mean_resolved_r": null,
+            "positive_rate_pct": null,
+            "pf": null,
+            "resolved_sequence_drawdown_r": null
+          },
+          {
+            "additional_cost_price": 0.3,
+            "mean_resolved_r": null,
+            "positive_rate_pct": null,
+            "pf": null,
+            "resolved_sequence_drawdown_r": null
+          },
+          {
+            "additional_cost_price": 0.6,
+            "mean_resolved_r": null,
+            "positive_rate_pct": null,
+            "pf": null,
+            "resolved_sequence_drawdown_r": null
+          }
+        ],
+        "resolved_per_week": 0.0
+      }
+    }
+  },
+  "separate_2025_q4": {
+    "complete_h1": 1480,
+    "complete_h4": 322,
+    "raw_signals": 13,
+    "longest_h1_chain": 23,
+    "longest_h4_chain": 5,
+    "h4_unavailable": 13,
+    "raw_h4_alignment": {
+      "MISSING": 13
+    },
+    "arms": {
+      "H1": {
+        "candidates": 10,
+        "resolved": 0,
+        "statuses": {
+          "CENSORED_AT_SIDE_GAP": 9,
+          "UNKNOWN_ENTRY_HISTORY": 1
+        },
+        "exit_reasons": {},
+        "scenarios": [
+          {
+            "additional_cost_price": 0,
+            "mean_resolved_r": null,
+            "positive_rate_pct": null,
+            "pf": null,
+            "resolved_sequence_drawdown_r": null
+          },
+          {
+            "additional_cost_price": 0.3,
+            "mean_resolved_r": null,
+            "positive_rate_pct": null,
+            "pf": null,
+            "resolved_sequence_drawdown_r": null
+          },
+          {
+            "additional_cost_price": 0.6,
+            "mean_resolved_r": null,
+            "positive_rate_pct": null,
+            "pf": null,
+            "resolved_sequence_drawdown_r": null
+          }
+        ],
+        "resolved_per_week": 0.0
+      },
+      "H1_H4": {
+        "candidates": 0,
+        "resolved": 0,
+        "statuses": {},
+        "exit_reasons": {},
+        "scenarios": [
+          {
+            "additional_cost_price": 0,
+            "mean_resolved_r": null,
+            "positive_rate_pct": null,
+            "pf": null,
+            "resolved_sequence_drawdown_r": null
+          },
+          {
+            "additional_cost_price": 0.3,
+            "mean_resolved_r": null,
+            "positive_rate_pct": null,
+            "pf": null,
+            "resolved_sequence_drawdown_r": null
+          },
+          {
+            "additional_cost_price": 0.6,
+            "mean_resolved_r": null,
+            "positive_rate_pct": null,
+            "pf": null,
+            "resolved_sequence_drawdown_r": null
+          }
+        ],
+        "resolved_per_week": 0.0
+      }
+    }
+  },
+  "out_of_sample": false,
+  "account_return_pct": null,
+  "execution_allowed": false,
+  "adoption_allowed": false
+}
