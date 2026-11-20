@@ -46,7 +46,9 @@ def normalize(raw, *, timeframe, settings):
         else:
             t=datetime.fromisoformat(row['time'].replace('Z','+00:00'))
             if t.tzinfo is None or t.microsecond:raise ValueError('Explicit timezone and whole seconds required')
-            at=int(t.timestamp())
+            stamp=t.timestamp()
+            if not stamp.is_integer():raise ValueError('Whole UTC seconds required')
+            at=int(stamp)
         if at<0 or at>asof or (previous is not None and (at<=previous or (at-previous)%interval)):
             raise ValueError('Future, unordered or inconsistent timeframe clocks')
         prices={k:float(_number(row[k])) for k in ('open','high','low','close')}

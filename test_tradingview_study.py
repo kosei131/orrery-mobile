@@ -375,3 +375,12 @@ class AlignedAccountTests(unittest.TestCase):
         self.assertEqual(batch['sessions_without_candidates'], 1)
         self.assertEqual(batch['zero_candidate_sessions_by_arm'], {'LSR02': 1, 'VHF03': 1})
         self.assertEqual(batch['sessions'][0]['zero_candidate_arms'], ['LSR02', 'VHF03'])
+
+class OffsetClockTests(unittest.TestCase):
+    def test_fractional_timezone_offset_is_not_truncated(self):
+        from orrery_tradingview_study import normalize
+        settings=dict(column_map={k:k for k in ('time','open','high','low','close')},
+                      as_of_s=2000000000,time_format='ISO8601')
+        raw=b'time,open,high,low,close\n2026-01-01T00:00:00+00:00:01.5,100,101,99,100\n'
+        with self.assertRaisesRegex(ValueError, 'Whole UTC seconds'):
+            normalize(raw,timeframe='M5',settings=settings)
