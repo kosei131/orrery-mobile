@@ -1,0 +1,37 @@
+{
+  "symbol": "XAUUSD",
+  "source": "HistData Generic ASCII ticks",
+  "requested_source_month": "202610",
+  "request_started_at_utc": "2026-11-03T21:16:10.126940+00:00",
+  "source_url": "https://www.histdata.com/download-free-forex-historical-data/?/ascii/tick-data-quotes/xauusd/2026/10",
+  "download_endpoint": "https://www.histdata.com/get.php",
+  "attempts": 1,
+  "raw_data_acquired": true,
+  "execution_allowed": false,
+  "paid_route_used": false,
+  "source_is_user_mt5": false,
+  "actual_profit_usd": null,
+  "http_status": 200,
+  "downloaded_bytes": 29183734,
+  "content_type": "application/octet-stream",
+  "members": [
+    {
+      "name": "DAT_ASCII_XAUUSD_T_202610.csv",
+      "bytes": 290080755,
+      "compressed_bytes": 29183092
+    },
+    {
+      "name": "DAT_ASCII_XAUUSD_T_202610.txt",
+      "bytes": 1280,
+      "compressed_bytes": 320
+    }
+  ],
+  "status": "ZIP_RECEIVED_AND_CHUNK_DIAGNOSTIC_COMPLETED",
+  "zip_sha256": "feb3b05031db23ec7c9eea706cd050e32656b5771ba01fe734c39ce2a95285e1",
+  "audited_tick_count": 6446239,
+  "audit_evidence": "gold_histdata_tick_audit_20261103.json",
+  "chronological_bar_exported": false,
+  "strategy_win_rate_pct": null,
+  "net_expectancy_r": null,
+  "account_return_pct": null
+}

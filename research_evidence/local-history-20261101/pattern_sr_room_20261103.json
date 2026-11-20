@@ -1,0 +1,863 @@
+{
+  "status": "CONFIRMED_M15_LEVEL_ROOM_COHORTS_ONLY",
+  "models": {
+    "PREVIOUS_CALENDAR_OVERLAP": {
+      "FLIP_REFERENCE_FIXED_6": {
+        "baseline": {
+          "entry_plans": 149,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 138,
+            "CENSORED_AT_SIDE_GAP": 10,
+            "UNKNOWN_ENTRY_HISTORY": 1
+          },
+          "resolved": 138,
+          "positive": 57,
+          "positive_rate_pct": 41.3043,
+          "total_resolved_reference_r": 3.71667,
+          "mean_resolved_reference_r": 0.02693,
+          "pf_resolved_reference": 1.04588,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 56,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 54,
+              "CENSORED_AT_SIDE_GAP": 2
+            },
+            "resolved": 54,
+            "positive": 19,
+            "positive_rate_pct": 35.1852,
+            "total_resolved_reference_r": -6.5,
+            "mean_resolved_reference_r": -0.12037,
+            "pf_resolved_reference": 0.81429,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 87,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 79,
+              "CENSORED_AT_SIDE_GAP": 8
+            },
+            "resolved": 79,
+            "positive": 34,
+            "positive_rate_pct": 43.038,
+            "total_resolved_reference_r": 5.99667,
+            "mean_resolved_reference_r": 0.07591,
+            "pf_resolved_reference": 1.13325,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 6,
+            "status_counts": {
+              "UNKNOWN_ENTRY_HISTORY": 1,
+              "RESOLVED_REFERENCE": 5
+            },
+            "resolved": 5,
+            "positive": 4,
+            "positive_rate_pct": 80.0,
+            "total_resolved_reference_r": 4.22,
+            "mean_resolved_reference_r": 0.844,
+            "pf_resolved_reference": 5.22,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "FLIP_REFERENCE_ANCHOR_EXTREME": {
+        "baseline": {
+          "entry_plans": 149,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 144,
+            "UNKNOWN_ENTRY_HISTORY": 1,
+            "CENSORED_AT_SIDE_GAP": 4
+          },
+          "resolved": 144,
+          "positive": 58,
+          "positive_rate_pct": 40.2778,
+          "total_resolved_reference_r": 1.0,
+          "mean_resolved_reference_r": 0.00694,
+          "pf_resolved_reference": 1.01163,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 70,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 69,
+              "CENSORED_AT_SIDE_GAP": 1
+            },
+            "resolved": 69,
+            "positive": 25,
+            "positive_rate_pct": 36.2319,
+            "total_resolved_reference_r": -6.5,
+            "mean_resolved_reference_r": -0.0942,
+            "pf_resolved_reference": 0.85227,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 73,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 70,
+              "CENSORED_AT_SIDE_GAP": 3
+            },
+            "resolved": 70,
+            "positive": 29,
+            "positive_rate_pct": 41.4286,
+            "total_resolved_reference_r": 2.5,
+            "mean_resolved_reference_r": 0.03571,
+            "pf_resolved_reference": 1.06098,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 6,
+            "status_counts": {
+              "UNKNOWN_ENTRY_HISTORY": 1,
+              "RESOLVED_REFERENCE": 5
+            },
+            "resolved": 5,
+            "positive": 4,
+            "positive_rate_pct": 80.0,
+            "total_resolved_reference_r": 5.0,
+            "mean_resolved_reference_r": 1.0,
+            "pf_resolved_reference": 6.0,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "PULLBACK_RESUME_FIXED_6": {
+        "baseline": {
+          "entry_plans": 39,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 32,
+            "CENSORED_AT_SIDE_GAP": 6,
+            "UNKNOWN_ENTRY_HISTORY": 1
+          },
+          "resolved": 32,
+          "positive": 13,
+          "positive_rate_pct": 40.625,
+          "total_resolved_reference_r": 0.5,
+          "mean_resolved_reference_r": 0.01562,
+          "pf_resolved_reference": 1.02632,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 13,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 11,
+              "CENSORED_AT_SIDE_GAP": 2
+            },
+            "resolved": 11,
+            "positive": 7,
+            "positive_rate_pct": 63.6364,
+            "total_resolved_reference_r": 6.5,
+            "mean_resolved_reference_r": 0.59091,
+            "pf_resolved_reference": 2.625,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 22,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 18,
+              "CENSORED_AT_SIDE_GAP": 4
+            },
+            "resolved": 18,
+            "positive": 4,
+            "positive_rate_pct": 22.2222,
+            "total_resolved_reference_r": -8.0,
+            "mean_resolved_reference_r": -0.44444,
+            "pf_resolved_reference": 0.42857,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 4,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 3,
+              "UNKNOWN_ENTRY_HISTORY": 1
+            },
+            "resolved": 3,
+            "positive": 2,
+            "positive_rate_pct": 66.6667,
+            "total_resolved_reference_r": 2.0,
+            "mean_resolved_reference_r": 0.66667,
+            "pf_resolved_reference": 3.0,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "PULLBACK_RESUME_ANCHOR_EXTREME": {
+        "baseline": {
+          "entry_plans": 39,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 34,
+            "CENSORED_AT_SIDE_GAP": 3,
+            "STRUCTURE_BREACHED_BEFORE_ENTRY": 1,
+            "UNKNOWN_ENTRY_HISTORY": 1
+          },
+          "resolved": 34,
+          "positive": 14,
+          "positive_rate_pct": 41.1765,
+          "total_resolved_reference_r": 1.0,
+          "mean_resolved_reference_r": 0.02941,
+          "pf_resolved_reference": 1.05,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 15,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 13,
+              "STRUCTURE_BREACHED_BEFORE_ENTRY": 1,
+              "CENSORED_AT_SIDE_GAP": 1
+            },
+            "resolved": 13,
+            "positive": 7,
+            "positive_rate_pct": 53.8462,
+            "total_resolved_reference_r": 4.5,
+            "mean_resolved_reference_r": 0.34615,
+            "pf_resolved_reference": 1.75,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 20,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 18,
+              "CENSORED_AT_SIDE_GAP": 2
+            },
+            "resolved": 18,
+            "positive": 5,
+            "positive_rate_pct": 27.7778,
+            "total_resolved_reference_r": -5.5,
+            "mean_resolved_reference_r": -0.30556,
+            "pf_resolved_reference": 0.57692,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 4,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 3,
+              "UNKNOWN_ENTRY_HISTORY": 1
+            },
+            "resolved": 3,
+            "positive": 2,
+            "positive_rate_pct": 66.6667,
+            "total_resolved_reference_r": 2.0,
+            "mean_resolved_reference_r": 0.66667,
+            "pf_resolved_reference": 3.0,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "REVERSAL_CONFIRM_FIXED_6": {
+        "baseline": {
+          "entry_plans": 36,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 29,
+            "CENSORED_AT_SIDE_GAP": 7
+          },
+          "resolved": 29,
+          "positive": 8,
+          "positive_rate_pct": 27.5862,
+          "total_resolved_reference_r": -9.0,
+          "mean_resolved_reference_r": -0.31034,
+          "pf_resolved_reference": 0.57143,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 18,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 15,
+              "CENSORED_AT_SIDE_GAP": 3
+            },
+            "resolved": 15,
+            "positive": 3,
+            "positive_rate_pct": 20.0,
+            "total_resolved_reference_r": -7.5,
+            "mean_resolved_reference_r": -0.5,
+            "pf_resolved_reference": 0.375,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 17,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 13,
+              "CENSORED_AT_SIDE_GAP": 4
+            },
+            "resolved": 13,
+            "positive": 4,
+            "positive_rate_pct": 30.7692,
+            "total_resolved_reference_r": -3.0,
+            "mean_resolved_reference_r": -0.23077,
+            "pf_resolved_reference": 0.66667,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 1,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 1
+            },
+            "resolved": 1,
+            "positive": 1,
+            "positive_rate_pct": 100.0,
+            "total_resolved_reference_r": 1.5,
+            "mean_resolved_reference_r": 1.5,
+            "pf_resolved_reference": null,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "REVERSAL_CONFIRM_ANCHOR_EXTREME": {
+        "baseline": {
+          "entry_plans": 36,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 32,
+            "CENSORED_AT_SIDE_GAP": 4
+          },
+          "resolved": 32,
+          "positive": 11,
+          "positive_rate_pct": 34.375,
+          "total_resolved_reference_r": -4.5,
+          "mean_resolved_reference_r": -0.14062,
+          "pf_resolved_reference": 0.78571,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 19,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 18,
+              "CENSORED_AT_SIDE_GAP": 1
+            },
+            "resolved": 18,
+            "positive": 6,
+            "positive_rate_pct": 33.3333,
+            "total_resolved_reference_r": -3.0,
+            "mean_resolved_reference_r": -0.16667,
+            "pf_resolved_reference": 0.75,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 16,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 13,
+              "CENSORED_AT_SIDE_GAP": 3
+            },
+            "resolved": 13,
+            "positive": 4,
+            "positive_rate_pct": 30.7692,
+            "total_resolved_reference_r": -3.0,
+            "mean_resolved_reference_r": -0.23077,
+            "pf_resolved_reference": 0.66667,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 1,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 1
+            },
+            "resolved": 1,
+            "positive": 1,
+            "positive_rate_pct": 100.0,
+            "total_resolved_reference_r": 1.5,
+            "mean_resolved_reference_r": 1.5,
+            "pf_resolved_reference": null,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      }
+    },
+    "AFTER_GETDATA_WINDOW": {
+      "FLIP_REFERENCE_FIXED_6": {
+        "baseline": {
+          "entry_plans": 150,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 132,
+            "CENSORED_AT_SIDE_GAP": 16,
+            "UNKNOWN_ENTRY_HISTORY": 2
+          },
+          "resolved": 132,
+          "positive": 42,
+          "positive_rate_pct": 31.8182,
+          "total_resolved_reference_r": -28.558,
+          "mean_resolved_reference_r": -0.21635,
+          "pf_resolved_reference": 0.67643,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 34,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 33,
+              "CENSORED_AT_SIDE_GAP": 1
+            },
+            "resolved": 33,
+            "positive": 4,
+            "positive_rate_pct": 12.1212,
+            "total_resolved_reference_r": -23.0,
+            "mean_resolved_reference_r": -0.69697,
+            "pf_resolved_reference": 0.2069,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 106,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 91,
+              "CENSORED_AT_SIDE_GAP": 15
+            },
+            "resolved": 91,
+            "positive": 35,
+            "positive_rate_pct": 38.4615,
+            "total_resolved_reference_r": -5.058,
+            "mean_resolved_reference_r": -0.05558,
+            "pf_resolved_reference": 0.90678,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 10,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 8,
+              "UNKNOWN_ENTRY_HISTORY": 2
+            },
+            "resolved": 8,
+            "positive": 3,
+            "positive_rate_pct": 37.5,
+            "total_resolved_reference_r": -0.5,
+            "mean_resolved_reference_r": -0.0625,
+            "pf_resolved_reference": 0.9,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "FLIP_REFERENCE_ANCHOR_EXTREME": {
+        "baseline": {
+          "entry_plans": 150,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 145,
+            "CENSORED_AT_SIDE_GAP": 3,
+            "UNKNOWN_ENTRY_HISTORY": 2
+          },
+          "resolved": 145,
+          "positive": 46,
+          "positive_rate_pct": 31.7241,
+          "total_resolved_reference_r": -30.50396,
+          "mean_resolved_reference_r": -0.21037,
+          "pf_resolved_reference": 0.69061,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 59,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 59
+            },
+            "resolved": 59,
+            "positive": 13,
+            "positive_rate_pct": 22.0339,
+            "total_resolved_reference_r": -26.5,
+            "mean_resolved_reference_r": -0.44915,
+            "pf_resolved_reference": 0.42391,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 81,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 78,
+              "CENSORED_AT_SIDE_GAP": 3
+            },
+            "resolved": 78,
+            "positive": 31,
+            "positive_rate_pct": 39.7436,
+            "total_resolved_reference_r": -1.40909,
+            "mean_resolved_reference_r": -0.01807,
+            "pf_resolved_reference": 0.97002,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 10,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 8,
+              "UNKNOWN_ENTRY_HISTORY": 2
+            },
+            "resolved": 8,
+            "positive": 2,
+            "positive_rate_pct": 25.0,
+            "total_resolved_reference_r": -2.59487,
+            "mean_resolved_reference_r": -0.32436,
+            "pf_resolved_reference": 0.53621,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "PULLBACK_RESUME_FIXED_6": {
+        "baseline": {
+          "entry_plans": 38,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 34,
+            "CENSORED_AT_SIDE_GAP": 4
+          },
+          "resolved": 34,
+          "positive": 15,
+          "positive_rate_pct": 44.1176,
+          "total_resolved_reference_r": 1.865,
+          "mean_resolved_reference_r": 0.05485,
+          "pf_resolved_reference": 1.09897,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 5,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 5
+            },
+            "resolved": 5,
+            "positive": 1,
+            "positive_rate_pct": 20.0,
+            "total_resolved_reference_r": -2.5,
+            "mean_resolved_reference_r": -0.5,
+            "pf_resolved_reference": 0.375,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 23,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 19,
+              "CENSORED_AT_SIDE_GAP": 4
+            },
+            "resolved": 19,
+            "positive": 9,
+            "positive_rate_pct": 47.3684,
+            "total_resolved_reference_r": 3.5,
+            "mean_resolved_reference_r": 0.18421,
+            "pf_resolved_reference": 1.35,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 10,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 10
+            },
+            "resolved": 10,
+            "positive": 5,
+            "positive_rate_pct": 50.0,
+            "total_resolved_reference_r": 0.865,
+            "mean_resolved_reference_r": 0.0865,
+            "pf_resolved_reference": 1.17853,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "PULLBACK_RESUME_ANCHOR_EXTREME": {
+        "baseline": {
+          "entry_plans": 38,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 37,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "resolved": 37,
+          "positive": 12,
+          "positive_rate_pct": 32.4324,
+          "total_resolved_reference_r": -7.0,
+          "mean_resolved_reference_r": -0.18919,
+          "pf_resolved_reference": 0.72,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 8,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 8
+            },
+            "resolved": 8,
+            "positive": 1,
+            "positive_rate_pct": 12.5,
+            "total_resolved_reference_r": -5.5,
+            "mean_resolved_reference_r": -0.6875,
+            "pf_resolved_reference": 0.21429,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 20,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 19,
+              "CENSORED_AT_SIDE_GAP": 1
+            },
+            "resolved": 19,
+            "positive": 7,
+            "positive_rate_pct": 36.8421,
+            "total_resolved_reference_r": -1.5,
+            "mean_resolved_reference_r": -0.07895,
+            "pf_resolved_reference": 0.875,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 10,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 10
+            },
+            "resolved": 10,
+            "positive": 4,
+            "positive_rate_pct": 40.0,
+            "total_resolved_reference_r": -0.0,
+            "mean_resolved_reference_r": -0.0,
+            "pf_resolved_reference": 1.0,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "REVERSAL_CONFIRM_FIXED_6": {
+        "baseline": {
+          "entry_plans": 54,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 41,
+            "CENSORED_AT_SIDE_GAP": 11,
+            "UNKNOWN_ENTRY_HISTORY": 2
+          },
+          "resolved": 41,
+          "positive": 12,
+          "positive_rate_pct": 29.2683,
+          "total_resolved_reference_r": -13.24,
+          "mean_resolved_reference_r": -0.32293,
+          "pf_resolved_reference": 0.54345,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 9,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 8,
+              "CENSORED_AT_SIDE_GAP": 1
+            },
+            "resolved": 8,
+            "positive": 1,
+            "positive_rate_pct": 12.5,
+            "total_resolved_reference_r": -6.45833,
+            "mean_resolved_reference_r": -0.80729,
+            "pf_resolved_reference": 0.07738,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 41,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 31,
+              "CENSORED_AT_SIDE_GAP": 10
+            },
+            "resolved": 31,
+            "positive": 10,
+            "positive_rate_pct": 32.2581,
+            "total_resolved_reference_r": -7.28167,
+            "mean_resolved_reference_r": -0.23489,
+            "pf_resolved_reference": 0.65325,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 4,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 2,
+              "UNKNOWN_ENTRY_HISTORY": 2
+            },
+            "resolved": 2,
+            "positive": 1,
+            "positive_rate_pct": 50.0,
+            "total_resolved_reference_r": 0.5,
+            "mean_resolved_reference_r": 0.25,
+            "pf_resolved_reference": 1.5,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      },
+      "REVERSAL_CONFIRM_ANCHOR_EXTREME": {
+        "baseline": {
+          "entry_plans": 54,
+          "status_counts": {
+            "RESOLVED_REFERENCE": 50,
+            "UNKNOWN_ENTRY_HISTORY": 2,
+            "CENSORED_AT_SIDE_GAP": 2
+          },
+          "resolved": 50,
+          "positive": 10,
+          "positive_rate_pct": 20.0,
+          "total_resolved_reference_r": -25.0,
+          "mean_resolved_reference_r": -0.5,
+          "pf_resolved_reference": 0.375,
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null
+        },
+        "groups": {
+          "ROOM_GE_1_5R": {
+            "entry_plans": 20,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 20
+            },
+            "resolved": 20,
+            "positive": 1,
+            "positive_rate_pct": 5.0,
+            "total_resolved_reference_r": -17.5,
+            "mean_resolved_reference_r": -0.875,
+            "pf_resolved_reference": 0.07895,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "ROOM_LT_1_5R": {
+            "entry_plans": 30,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 28,
+              "CENSORED_AT_SIDE_GAP": 2
+            },
+            "resolved": 28,
+            "positive": 8,
+            "positive_rate_pct": 28.5714,
+            "total_resolved_reference_r": -8.0,
+            "mean_resolved_reference_r": -0.28571,
+            "pf_resolved_reference": 0.6,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          },
+          "UNKNOWN": {
+            "entry_plans": 4,
+            "status_counts": {
+              "RESOLVED_REFERENCE": 2,
+              "UNKNOWN_ENTRY_HISTORY": 2
+            },
+            "resolved": 2,
+            "positive": 1,
+            "positive_rate_pct": 50.0,
+            "total_resolved_reference_r": 0.5,
+            "mean_resolved_reference_r": 0.25,
+            "pf_resolved_reference": 1.5,
+            "net_expectancy_r": null,
+            "account_return_pct": null,
+            "account_max_dd_usd": null
+          }
+        }
+      }
+    }
+  },
+  "definition": {
+    "left": 2,
+    "right": 2,
+    "max_contiguous_bars": 300,
+    "minimum_room_r": 1.5,
+    "buy_levels": "BID_M15_HIGH",
+    "sell_levels": "ASK_M15_LOW"
+  },
+  "parent_manifest_sha256": "f992759563e110ef2ed42dc3352f71963e1f0612d35e8c3fbb4b7b7746c2d982",
+  "source_pins": {
+    "bid_2026_09.csv": "09cc828da25ee817719c3fb5b3be22058f62d6f7b991ca00f7102a381953e325",
+    "ask_2026_09.csv": "697c9079a8ed80eb2716604f27900e4352206db0a62847510530efdcfaf3645d",
+    "bid_2026_10.csv": "05cdf7ebea1932a6a4748ed47ad74fe2de0023bb11f9b835c38bba424358dd7d",
+    "ask_2026_10.csv": "43d37686754e87fd343d14012832fd476b47551d390a15520fb62963f2ff74c0"
+  },
+  "annotations_sha256": "a33be8253db5ebe0936423745c0d7b133f409498edce4c6cf41ab4d924976f34",
+  "code_sha256": "294636b54961fa1a77920ec637f8b42db25fb251d5c65e574b14808aa11b4c0b",
+  "parameter_sets_tried": 1,
+  "baseline_outcomes_unchanged": true,
+  "out_of_sample": false,
+  "formal_lsr02": false,
+  "halftrend_compared": true,
+  "reversal04_compared": false,
+  "execution_allowed": false,
+  "adopted": false,
+  "net_expectancy_r": null,
+  "account_return_pct": null,
+  "account_max_dd_usd": null,
+  "limitations": [
+    "Known M15 pivots are a level hypothesis, not certified support/resistance.",
+    "All 12 existing models and every group retained; no ex-post winner selection.",
+    "Same inspected periods; no independent unused period.",
+    "Existing bid/ask price outcomes only; fees/slippage/swap and account gates unverified.",
+    "No level or entry geometry is UNKNOWN, not evidence of unlimited room.",
+    "H4 formal LSR01/02, Reversal04, undefined 2.6 and external indicator parity not integrated."
+  ]
+}

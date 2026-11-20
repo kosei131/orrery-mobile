@@ -1,0 +1,120 @@
+{
+  "target_r_at_breakout": 0.5,
+  "extra_round_trip_price": 0.3,
+  "historical_2026": {
+    "base_candidates": 2164,
+    "common_known": 2073,
+    "common_unknown": 91,
+    "immediate": {
+      "entries": 2164,
+      "resolved": 2073,
+      "unresolved": 91,
+      "wins": 1049,
+      "positive_rate": 0.5060299083453932,
+      "all_entry_positive_rate_upper": 0.5268022181146026,
+      "mean_r": -0.05412341794387792,
+      "pf": 0.7881741155030271,
+      "mean_win_r": 0.3979716799279151,
+      "mean_loss_r": 0.5172559937910565,
+      "status": {
+        "RESOLVED_REFERENCE": 2073,
+        "CENSORED_AT_SIDE_GAP": 61,
+        "UNKNOWN_ENTRY_HISTORY": 30
+      }
+    },
+    "wait": {
+      "entries": 1091,
+      "resolved": 1022,
+      "unresolved": 69,
+      "wins": 535,
+      "positive_rate": 0.5234833659491194,
+      "all_entry_positive_rate_upper": 0.5536205316223648,
+      "mean_r": -0.02524674471493523,
+      "pf": 0.8868835075940611,
+      "mean_win_r": 0.3781317560259805,
+      "mean_loss_r": 0.4683832907034155,
+      "status": {
+        "RESOLVED_REFERENCE": 1022,
+        "CENSORED_AT_SIDE_GAP": 23,
+        "UNKNOWN_RETEST_HISTORY": 12,
+        "UNKNOWN_ENTRY_HISTORY": 34
+      }
+    },
+    "wait_known_no_trade": 1073,
+    "wait_dispositions": {
+      "NO_RETEST": 664,
+      "STRUCTURE_BREACHED_BEFORE_ENTRY": 96,
+      "RESOLVED_REFERENCE": 1022,
+      "CENSORED_AT_SIDE_GAP": 23,
+      "TARGET_REACHED_BEFORE_ENTRY": 310,
+      "UNKNOWN_RETEST_HISTORY": 12,
+      "UNKNOWN_ENTRY_HISTORY": 34,
+      "TARGET_INVALID_AT_ENTRY": 3
+    },
+    "immediate_resolved_per_week": 49.76621891969134,
+    "wait_resolved_per_week": 24.53501000285796,
+    "mean_entry_improvement_price": 0.7723845401174119,
+    "mean_r_per_common_candidate_immediate": -0.05412341794387792,
+    "mean_r_per_common_candidate_wait": -0.012446779111752921
+  },
+  "separate_2025_q4": {
+    "base_candidates": 675,
+    "common_known": 648,
+    "common_unknown": 27,
+    "immediate": {
+      "entries": 675,
+      "resolved": 648,
+      "unresolved": 27,
+      "wins": 326,
+      "positive_rate": 0.5030864197530864,
+      "all_entry_positive_rate_upper": 0.522962962962963,
+      "mean_r": -0.06622030863161349,
+      "pf": 0.7557679849696936,
+      "mean_win_r": 0.4073188459076291,
+      "mean_loss_r": 0.5456419371402876,
+      "status": {
+        "RESOLVED_REFERENCE": 648,
+        "CENSORED_AT_SIDE_GAP": 17,
+        "UNKNOWN_ENTRY_HISTORY": 10
+      }
+    },
+    "wait": {
+      "entries": 323,
+      "resolved": 301,
+      "unresolved": 22,
+      "wins": 160,
+      "positive_rate": 0.53156146179402,
+      "all_entry_positive_rate_upper": 0.5634674922600619,
+      "mean_r": -0.058375278411756354,
+      "pf": 0.758978592434585,
+      "mean_win_r": 0.34581942621637246,
+      "mean_loss_r": 0.5170359361458032,
+      "status": {
+        "RESOLVED_REFERENCE": 301,
+        "CENSORED_AT_SIDE_GAP": 9,
+        "UNKNOWN_RETEST_HISTORY": 2,
+        "UNKNOWN_ENTRY_HISTORY": 11
+      }
+    },
+    "wait_known_no_trade": 352,
+    "wait_dispositions": {
+      "RESOLVED_REFERENCE": 301,
+      "NO_RETEST": 211,
+      "STRUCTURE_BREACHED_BEFORE_ENTRY": 31,
+      "TARGET_REACHED_BEFORE_ENTRY": 110,
+      "CENSORED_AT_SIDE_GAP": 9,
+      "UNKNOWN_RETEST_HISTORY": 2,
+      "UNKNOWN_ENTRY_HISTORY": 11
+    },
+    "immediate_resolved_per_week": 49.30434782608695,
+    "wait_resolved_per_week": 22.902173913043477,
+    "mean_entry_improvement_price": 0.49592691029898933,
+    "mean_r_per_common_candidate_immediate": -0.06622030863161349,
+    "mean_r_per_common_candidate_wait": -0.027115677163485587
+  },
+  "retrospective": true,
+  "account_return_pct": null,
+  "diagnostic_allows_overlap": true,
+  "adoption_allowed": false,
+  "execution_allowed": false
+}

@@ -1,0 +1,691 @@
+{
+  "status": "PAIRED_H4_SESSION_GROSS_REFERENCE_RESEARCH_ONLY",
+  "start_open_utc": "2026-08-23T00:00:00+00:00",
+  "end_close_utc": "2026-09-25T20:00:00+00:00",
+  "publication_at_s": 1787432375.0,
+  "start_open_s": 1787443200,
+  "end_close_s": 1790366400,
+  "arms": {
+    "UTC_COMPLETE_ONLY": {
+      "parameters": {
+        "buffer": 0.1,
+        "target_r": 2,
+        "period": 14,
+        "min_vhf": 0.4,
+        "left": 1,
+        "right": 1,
+        "lifetime": 6000
+      },
+      "parameters_optimized": false,
+      "windows": [
+        {
+          "start": 1787529600,
+          "end": 1787601600,
+          "candidates": 0
+        },
+        {
+          "start": 1787616000,
+          "end": 1787688000,
+          "candidates": 0
+        },
+        {
+          "start": 1787702400,
+          "end": 1787774400,
+          "candidates": 0
+        },
+        {
+          "start": 1787788800,
+          "end": 1787860800,
+          "candidates": 0
+        },
+        {
+          "start": 1787875200,
+          "end": 1787947200,
+          "candidates": 0
+        },
+        {
+          "start": 1788134400,
+          "end": 1788206400,
+          "candidates": 0
+        },
+        {
+          "start": 1788220800,
+          "end": 1788292800,
+          "candidates": 0
+        },
+        {
+          "start": 1788307200,
+          "end": 1788379200,
+          "candidates": 0
+        },
+        {
+          "start": 1788393600,
+          "end": 1788465600,
+          "candidates": 0
+        },
+        {
+          "start": 1788480000,
+          "end": 1788552000,
+          "candidates": 0
+        },
+        {
+          "start": 1788739200,
+          "end": 1788796800,
+          "candidates": 0
+        },
+        {
+          "start": 1788825600,
+          "end": 1788897600,
+          "candidates": 0
+        },
+        {
+          "start": 1788912000,
+          "end": 1788984000,
+          "candidates": 0
+        },
+        {
+          "start": 1788998400,
+          "end": 1789070400,
+          "candidates": 0
+        },
+        {
+          "start": 1789084800,
+          "end": 1789156800,
+          "candidates": 0
+        },
+        {
+          "start": 1789344000,
+          "end": 1789416000,
+          "candidates": 0
+        },
+        {
+          "start": 1789430400,
+          "end": 1789502400,
+          "candidates": 0
+        },
+        {
+          "start": 1789516800,
+          "end": 1789588800,
+          "candidates": 0
+        },
+        {
+          "start": 1789603200,
+          "end": 1789675200,
+          "candidates": 0
+        },
+        {
+          "start": 1789689600,
+          "end": 1789761600,
+          "candidates": 0
+        },
+        {
+          "start": 1789948800,
+          "end": 1790020800,
+          "candidates": 0
+        },
+        {
+          "start": 1790035200,
+          "end": 1790107200,
+          "candidates": 0
+        },
+        {
+          "start": 1790121600,
+          "end": 1790193600,
+          "candidates": 0
+        },
+        {
+          "start": 1790208000,
+          "end": 1790280000,
+          "candidates": 0
+        },
+        {
+          "start": 1790294400,
+          "end": 1790366400,
+          "candidates": 0
+        }
+      ],
+      "summaries": {
+        "LSR02": {
+          "candidates": 0,
+          "closed_reference": 0,
+          "censored": 0,
+          "ambiguous": 0,
+          "reference_wins": 0,
+          "reference_losses": 0,
+          "mean_closed_gross_reference_r": null,
+          "profit_factor_closed_gross_reference": null,
+          "all_candidates_reference_resolved": false,
+          "total_all_candidates_gross_reference_r": null,
+          "closed_reference_sequence": {
+            "all_candidates_evaluable": false,
+            "exit_batches": 0,
+            "simultaneous_exit_batches": 0,
+            "max_drawdown_at_exit_batches_r": null,
+            "max_consecutive_closed_losses": null,
+            "account_drawdown_available": false,
+            "live_stop_decision_available": false
+          },
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null,
+          "actual_profit_usd": null
+        },
+        "VHF03": {
+          "candidates": 0,
+          "closed_reference": 0,
+          "censored": 0,
+          "ambiguous": 0,
+          "reference_wins": 0,
+          "reference_losses": 0,
+          "mean_closed_gross_reference_r": null,
+          "profit_factor_closed_gross_reference": null,
+          "all_candidates_reference_resolved": false,
+          "total_all_candidates_gross_reference_r": null,
+          "closed_reference_sequence": {
+            "all_candidates_evaluable": false,
+            "exit_batches": 0,
+            "simultaneous_exit_batches": 0,
+            "max_drawdown_at_exit_batches_r": null,
+            "max_consecutive_closed_losses": null,
+            "account_drawdown_available": false,
+            "live_stop_decision_available": false
+          },
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null,
+          "actual_profit_usd": null
+        }
+      },
+      "source_price_basis": "PUBLIC_UNVERIFIED_OHLC",
+      "reset_at_gaps": true,
+      "bid_ask_costs_verified": false,
+      "independent_holdout": false,
+      "actual_profit_usd": null,
+      "execution_allowed": false,
+      "candidates": [],
+      "frame_coverage": {
+        "5m": {
+          "rows": 6833,
+          "gap_count": 28,
+          "longest_contiguous_bars": 276,
+          "first_open_utc": "2026-08-23T22:05:00+00:00",
+          "last_close_utc": "2026-09-25T20:00:00+00:00",
+          "session_calendar_verified": false
+        },
+        "15m": {
+          "rows": 2261,
+          "gap_count": 25,
+          "longest_contiguous_bars": 92,
+          "first_open_utc": "2026-08-23T22:15:00+00:00",
+          "last_close_utc": "2026-09-25T20:00:00+00:00",
+          "session_calendar_verified": false
+        },
+        "4H": {
+          "rows": 124,
+          "gap_count": 24,
+          "longest_contiguous_bars": 5,
+          "first_open_utc": "2026-08-24T00:00:00+00:00",
+          "last_close_utc": "2026-09-25T20:00:00+00:00",
+          "session_calendar_verified": false
+        }
+      },
+      "common_lower_frames_sha256": "5fe46aab40869c84565a1381000c604a0a96850a12a7637b1161ec210cdb3556",
+      "replayed_m5_bars": 5952,
+      "h4_input_sha256": "7707723b048d7afce2956caef52d4869aaad52cffced8ea5b7d5930f0ca910fd"
+    },
+    "WEEKLY_PARTIAL_UNVERIFIED": {
+      "parameters": {
+        "buffer": 0.1,
+        "target_r": 2,
+        "period": 14,
+        "min_vhf": 0.4,
+        "left": 1,
+        "right": 1,
+        "lifetime": 6000
+      },
+      "parameters_optimized": false,
+      "windows": [
+        {
+          "start": 1787529600,
+          "end": 1787605200,
+          "candidates": 0
+        },
+        {
+          "start": 1787608800,
+          "end": 1787688000,
+          "candidates": 0
+        },
+        {
+          "start": 1787702400,
+          "end": 1787774400,
+          "candidates": 0
+        },
+        {
+          "start": 1787788800,
+          "end": 1787860800,
+          "candidates": 0
+        },
+        {
+          "start": 1787875200,
+          "end": 1787949900,
+          "candidates": 0
+        },
+        {
+          "start": 1788127200,
+          "end": 1788210000,
+          "candidates": 0
+        },
+        {
+          "start": 1788213600,
+          "end": 1788296400,
+          "candidates": 0
+        },
+        {
+          "start": 1788300000,
+          "end": 1788379200,
+          "candidates": 1
+        },
+        {
+          "start": 1788393600,
+          "end": 1788465600,
+          "candidates": 0
+        },
+        {
+          "start": 1788480000,
+          "end": 1788554700,
+          "candidates": 0
+        },
+        {
+          "start": 1788739200,
+          "end": 1788796800,
+          "candidates": 0
+        },
+        {
+          "start": 1788825600,
+          "end": 1788897600,
+          "candidates": 0
+        },
+        {
+          "start": 1788912000,
+          "end": 1788984000,
+          "candidates": 0
+        },
+        {
+          "start": 1788998400,
+          "end": 1789070400,
+          "candidates": 0
+        },
+        {
+          "start": 1789084800,
+          "end": 1789159500,
+          "candidates": 0
+        },
+        {
+          "start": 1789344000,
+          "end": 1789416000,
+          "candidates": 0
+        },
+        {
+          "start": 1789430400,
+          "end": 1789502400,
+          "candidates": 0
+        },
+        {
+          "start": 1789516800,
+          "end": 1789588800,
+          "candidates": 0
+        },
+        {
+          "start": 1789603200,
+          "end": 1789675200,
+          "candidates": 0
+        },
+        {
+          "start": 1789689600,
+          "end": 1789764300,
+          "candidates": 0
+        },
+        {
+          "start": 1789948800,
+          "end": 1790020800,
+          "candidates": 0
+        },
+        {
+          "start": 1790035200,
+          "end": 1790107200,
+          "candidates": 0
+        },
+        {
+          "start": 1790121600,
+          "end": 1790193600,
+          "candidates": 0
+        },
+        {
+          "start": 1790208000,
+          "end": 1790280000,
+          "candidates": 0
+        },
+        {
+          "start": 1790294400,
+          "end": 1790366400,
+          "candidates": 0
+        }
+      ],
+      "summaries": {
+        "LSR02": {
+          "candidates": 1,
+          "closed_reference": 1,
+          "censored": 0,
+          "ambiguous": 0,
+          "reference_wins": 0,
+          "reference_losses": 1,
+          "mean_closed_gross_reference_r": -1.0,
+          "profit_factor_closed_gross_reference": 0.0,
+          "all_candidates_reference_resolved": true,
+          "total_all_candidates_gross_reference_r": -1.0,
+          "closed_reference_sequence": {
+            "all_candidates_evaluable": true,
+            "exit_batches": 1,
+            "simultaneous_exit_batches": 0,
+            "max_drawdown_at_exit_batches_r": 1.0,
+            "max_consecutive_closed_losses": 1,
+            "account_drawdown_available": false,
+            "live_stop_decision_available": false
+          },
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null,
+          "actual_profit_usd": null
+        },
+        "VHF03": {
+          "candidates": 0,
+          "closed_reference": 0,
+          "censored": 0,
+          "ambiguous": 0,
+          "reference_wins": 0,
+          "reference_losses": 0,
+          "mean_closed_gross_reference_r": null,
+          "profit_factor_closed_gross_reference": null,
+          "all_candidates_reference_resolved": false,
+          "total_all_candidates_gross_reference_r": null,
+          "closed_reference_sequence": {
+            "all_candidates_evaluable": false,
+            "exit_batches": 0,
+            "simultaneous_exit_batches": 0,
+            "max_drawdown_at_exit_batches_r": null,
+            "max_consecutive_closed_losses": null,
+            "account_drawdown_available": false,
+            "live_stop_decision_available": false
+          },
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null,
+          "actual_profit_usd": null
+        }
+      },
+      "source_price_basis": "PUBLIC_UNVERIFIED_OHLC",
+      "reset_at_gaps": true,
+      "bid_ask_costs_verified": false,
+      "independent_holdout": false,
+      "actual_profit_usd": null,
+      "execution_allowed": false,
+      "candidates": [
+        {
+          "plan": {
+            "id": "XAUUSD:1788336900:SELL",
+            "symbol": "XAUUSD",
+            "side": "SELL",
+            "known_at_msc": 1788340200000,
+            "eligible_after_msc": 1788340200001,
+            "expires_at_msc": 1788342900000,
+            "stop": 4331.68,
+            "target": 4292.259999999999
+          },
+          "vhf_group": "VHF_FILTERED",
+          "entry_reference": 4318.54,
+          "entry_reference_at_s": 1788340200,
+          "reference_status": "CLOSED_REFERENCE",
+          "reference_r": -1.0,
+          "reference_r_exit_at": 1788349200000,
+          "exit_reference_price": 4331.68,
+          "exit_reference_reason": "STOP_FIRST",
+          "stop_first_reference_r": null,
+          "intrabar_exit_clock_unknown": true,
+          "net_r": null,
+          "profit_usd": null,
+          "entry_context": {
+            "h4_trend": "DOWN",
+            "vhf_status": "OK",
+            "vhf_value": 0.26564593301435613,
+            "vhf_slope": "FALLING",
+            "invalidating_sweep_extreme": 4331.58,
+            "causal_explanation_verified": false,
+            "thesis": "EXISTING_HTF_DIRECTION_M15_SWEEP_M5_CONFIRM_RETEST"
+          }
+        }
+      ],
+      "frame_coverage": {
+        "5m": {
+          "rows": 6833,
+          "gap_count": 28,
+          "longest_contiguous_bars": 276,
+          "first_open_utc": "2026-08-23T22:05:00+00:00",
+          "last_close_utc": "2026-09-25T20:00:00+00:00",
+          "session_calendar_verified": false
+        },
+        "15m": {
+          "rows": 2261,
+          "gap_count": 25,
+          "longest_contiguous_bars": 92,
+          "first_open_utc": "2026-08-23T22:15:00+00:00",
+          "last_close_utc": "2026-09-25T20:00:00+00:00",
+          "session_calendar_verified": false
+        },
+        "4H": {
+          "rows": 132,
+          "gap_count": 21,
+          "longest_contiguous_bars": 18,
+          "first_open_utc": "2026-08-24T00:00:00+00:00",
+          "last_close_utc": "2026-09-25T20:00:00+00:00",
+          "session_calendar_verified": false
+        }
+      },
+      "common_lower_frames_sha256": "5fe46aab40869c84565a1381000c604a0a96850a12a7637b1161ec210cdb3556",
+      "replayed_m5_bars": 6120,
+      "h4_input_sha256": "d91e8ac407041efa119772c6006d87913f8010802c0a4d6f148de667686a9e4e"
+    }
+  },
+  "parameters": {
+    "buffer": 0.1,
+    "target_r": 2,
+    "period": 14,
+    "min_vhf": 0.4,
+    "left": 1,
+    "right": 1,
+    "lifetime": 6000
+  },
+  "parameter_sets_tried": 1,
+  "h4_variants": 2,
+  "vhf_thresholds_tried": 1,
+  "independent_holdout": false,
+  "warmup_before_start_used": false,
+  "source_authenticated": false,
+  "historical_calendar_verified": false,
+  "partial_h4_equivalent_to_full": false,
+  "candidate_state_carried_across_gaps": false,
+  "account_risk_controls_applied": false,
+  "excluded_modules": [
+    "LSR01_INDEPENDENT_PATH",
+    "REVERSAL04",
+    "HALFTREND05",
+    "UNDEFINED_2_6"
+  ],
+  "bid_ask_costs_verified": false,
+  "actual_profit_usd": null,
+  "strategy_adopted": false,
+  "execution_allowed": false,
+  "source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "baseline_aggregation_crosscheck": {
+    "5m": {
+      "checked_parents": 35893,
+      "mismatches": 0
+    },
+    "15m": {
+      "checked_parents": 11942,
+      "mismatches": 0
+    },
+    "4H": {
+      "checked_parents": 649,
+      "mismatches": 0
+    }
+  },
+  "session_review": {
+    "status": "UNVERIFIED_SESSION_AGGREGATION_DIAGNOSTIC_ONLY",
+    "source_url": "https://getdata.finance/coverage/xauusd",
+    "normalized_m1_sha256": "741531ca37f0fddc904238da0fc1d646127928da0c87f5f81b4aab0579bfae91",
+    "published_report_utc": "2026-08-22T20:59:35+00:00",
+    "first_observed_utc": "2026-03-26T02:28:00+00:00",
+    "last_observed_utc": "2026-09-25T20:44:00+00:00",
+    "observed_m1": 179662,
+    "expected_open_inside_observed_horizon": 181487,
+    "missing_open_minutes": 1825,
+    "quotes_during_published_closure": 0,
+    "missing_examples": [
+      "2026-04-01T22:00:00+00:00",
+      "2026-04-02T22:00:00+00:00",
+      "2026-04-02T22:01:00+00:00",
+      "2026-04-02T22:02:00+00:00",
+      "2026-04-02T22:03:00+00:00",
+      "2026-04-02T22:04:00+00:00",
+      "2026-04-02T22:05:00+00:00",
+      "2026-04-02T22:06:00+00:00",
+      "2026-04-02T22:07:00+00:00",
+      "2026-04-02T22:08:00+00:00"
+    ],
+    "closure_conflict_examples": [],
+    "edge_open_minutes_outside_observed_horizon": 148,
+    "h4_aggregation": {
+      "period": "H4",
+      "source_m1_rows": 179662,
+      "complete_bars": 779,
+      "incomplete_bars_rejected": 39,
+      "rejected_utc_starts": [
+        "2026-03-26T00:00:00+00:00",
+        "2026-04-01T20:00:00+00:00",
+        "2026-04-02T20:00:00+00:00",
+        "2026-04-03T00:00:00+00:00",
+        "2026-04-03T04:00:00+00:00",
+        "2026-04-03T08:00:00+00:00",
+        "2026-04-03T12:00:00+00:00",
+        "2026-04-03T16:00:00+00:00",
+        "2026-04-03T20:00:00+00:00",
+        "2026-05-25T16:00:00+00:00",
+        "2026-05-25T20:00:00+00:00",
+        "2026-05-26T20:00:00+00:00",
+        "2026-06-19T16:00:00+00:00",
+        "2026-06-19T20:00:00+00:00",
+        "2026-07-03T12:00:00+00:00",
+        "2026-07-03T16:00:00+00:00",
+        "2026-07-03T20:00:00+00:00",
+        "2026-08-23T20:00:00+00:00",
+        "2026-08-25T20:00:00+00:00",
+        "2026-08-26T20:00:00+00:00",
+        "2026-08-27T20:00:00+00:00",
+        "2026-09-02T20:00:00+00:00",
+        "2026-09-03T20:00:00+00:00",
+        "2026-09-06T20:00:00+00:00",
+        "2026-09-07T16:00:00+00:00",
+        "2026-09-07T20:00:00+00:00",
+        "2026-09-08T20:00:00+00:00",
+        "2026-09-09T20:00:00+00:00",
+        "2026-09-10T20:00:00+00:00",
+        "2026-09-13T20:00:00+00:00",
+        "2026-09-14T20:00:00+00:00",
+        "2026-09-15T20:00:00+00:00",
+        "2026-09-16T20:00:00+00:00",
+        "2026-09-17T20:00:00+00:00",
+        "2026-09-20T20:00:00+00:00",
+        "2026-09-21T20:00:00+00:00",
+        "2026-09-22T20:00:00+00:00",
+        "2026-09-23T20:00:00+00:00",
+        "2026-09-24T20:00:00+00:00"
+      ],
+      "price_basis": "publisher quote, NOT verified broker Bid/Ask",
+      "calendar_source": "https://getdata.finance/coverage/xauusd; published weekly schedule only, dated 2026-08-22; historical exceptions UNKNOWN",
+      "calendar_sha256": "3ab01a8ff6455c115f151f22fd88e1538cd7d6c8c037a0c25d704f6d919765c2",
+      "calendar_broker_verified": false,
+      "complete_session_partial_bars": 130,
+      "bar_grid": "UTC; close at grid end, including session-partial bars",
+      "execution_allowed": false,
+      "no_missing_data_filled": true,
+      "sl_tp_execution_validated": false
+    },
+    "h4_continuity": {
+      "longest_consecutive_h4_bars": 31,
+      "segments_with_at_least_12_bars": 22,
+      "bar_endpoints_with_12_consecutive_bars": 396,
+      "bridged_missing_bars": false,
+      "note": "12 is a coverage diagnostic, not a validated regime rule."
+    },
+    "h4_file_sha256": "f20d05e6d43212c71906b3e10ef7a5a49a55871ceebd675c947fee41f97226c9",
+    "historical_holidays_and_session_changes_verified": false,
+    "broker_calendar_verified": false,
+    "h4_strategy_ready": false,
+    "execution_allowed": false,
+    "profit_usd": null,
+    "warning": "Missing timestamps are candidates for missing data or unlisted session exceptions. Public weekly rules cannot distinguish them. Any closure conflict blocks H4 export. A matching schedule is not feed authentication.",
+    "original_source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+    "normalized_source_rows_matched": 179662,
+    "normalized_ohlc_crosscheck": true,
+    "weekly_gap_partition": {
+      "status": "UNVERIFIED_WEEKLY_GAP_PARTITION_ONLY",
+      "source_url": "https://getdata.finance/coverage/xauusd",
+      "published_report_utc": "2026-08-22T20:59:35+00:00",
+      "rule_basis": "EXISTING_UNVERIFIED_UTC_WEEKLY_HYPOTHESIS_NOT_RETRIEVED_LIVE",
+      "weekly_rule": {
+        "mon_thu_closed": "21:00-22:00",
+        "friday_close": "20:45",
+        "saturday": "CLOSED",
+        "sunday_open": "22:00",
+        "timezone": "UTC"
+      },
+      "missing_minutes": 84955,
+      "weekly_open_unexplained_minutes": 1825,
+      "weekly_closed_candidate_minutes": 83130,
+      "minutes_before_schedule_publication": 70370,
+      "calendar_authenticated": false,
+      "publication_preknown_for_all_minutes": false,
+      "continuity_restored": false,
+      "strategy_adopted": false,
+      "actual_profit_usd": null,
+      "execution_allowed": false
+    },
+    "baseline_bars_replaced": false,
+    "strategy_comparison_executed": false,
+    "historical_exceptions_authenticated": false,
+    "actual_profit_usd": null
+  },
+  "code_sha256": {
+    "orrery_history_session_study.py": "0532dddf4ac302236cd69fbdcaaae2908e13948e0b024a9eaba70ce6cdc5a044",
+    "orrery_history_app.py": "79c3a355bd6ca412e31e00d3ee6ac7e3263fc99b0094f9daa8ca74eef22eeb3e",
+    "orrery_xau_session_coverage.py": "bb5cfe5b64af494b6decf5993e51780ff54e0fdb69173d35564cd13e60d6fb84",
+    "orrery_m1_complete_bars.py": "91f9b8579bb39f2ae175a7812c1e7025429bcdaa06c3e97087ec813cfdf55418",
+    "orrery_tradingview_window_replay.py": "8e0b2c04349150e9ff76ab7edee3cf7f65340c7bd78eb07a1d4730a08245bbd7",
+    "lsr03_account_study.py": "91e219d3f32ebadaef705ba162d34987fd84d2e97db0a2c48503c0c77e588995",
+    "lsr03_adapter.py": "6470b4122d1731446d9836929a7c8dfd95abf94ef2ff454a482f2ee4f7bc70ff",
+    "lsr02_replay.py": "bd7d3e43428126794923bebe1e4e51a012b49340abf8788c4f2ead826f817383",
+    "lsr02_structure.py": "873fe9d8951d80dc2e79082f5bee9c3ba162a3b0c77ba7c212a4cc94d0c04a1b",
+    "lsr02_sequence.py": "043f037cffdf1b30cb89be3a95176672900447fbccce4891c4f0d1d722a2f1da",
+    "lsr03_vhf.py": "20d7b8486434af192078cdeba8349900a407c9e9197183a0c4c8b1698c90b0ba",
+    "lsr02_exits.py": "dfc36f3ba68b47e3d37a8a85848a488a83d041562af0c7385320482e0fddb59a",
+    "lsr02.py": "1f90a07671350e44d44d4258ea91157afcf614e5c7a70069c70543f5830381cc",
+    "lsr02_regime.py": "8b4a504caeea2fd7f7654b2cbe673b9c4a4c5ebd35fbb69d873a89d1c6c8bab9",
+    "lsr03_learning_rollup.py": "043cd1b31fd9db81846854bd6a7d62e6c723ea32bdb15ca0d7fe3d8e0011f80f"
+  },
+  "tests": {
+    "total": 1005,
+    "passed": 1000,
+    "skipped": 5,
+    "failures": 0
+  }
+}

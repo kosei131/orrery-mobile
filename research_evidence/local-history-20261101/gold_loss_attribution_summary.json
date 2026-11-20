@@ -1,0 +1,230 @@
+{
+  "historical_2026": {
+    "breakout": {
+      "summary": {
+        "entries": 2164,
+        "resolved": 2062,
+        "unresolved": 102,
+        "wins": 881,
+        "positive_rate": 0.42725509214354995,
+        "all_entry_positive_rate_upper": 0.4542513863216266,
+        "mean_r": -0.06525132228764385,
+        "pf": 0.7739770646262661,
+        "mean_win_r": 0.5229710518752361,
+        "mean_loss_r": 0.5040522635556347,
+        "status": {
+          "RESOLVED_REFERENCE": 2062,
+          "CENSORED_AT_SIDE_GAP": 72,
+          "UNKNOWN_ENTRY_HISTORY": 30
+        }
+      },
+      "resolved_per_calendar_week": 49.50214346956273,
+      "statuses": {
+        "RESOLVED_REFERENCE": 2062,
+        "CENSORED_AT_SIDE_GAP": 72,
+        "UNKNOWN_ENTRY_HISTORY": 30
+      },
+      "exit_contributions": {
+        "SL_TOUCH": {
+          "count": 299,
+          "gross_r": -299.0,
+          "extra_cost_r": 6.708434979096557,
+          "net_r": -305.7084349790966,
+          "net_r_per_all_resolved": -0.14825821288995955
+        },
+        "TIMEOUT_CLOSE": {
+          "count": 1651,
+          "gross_r": 31.567017998489867,
+          "extra_cost_r": 26.215939430956432,
+          "net_r": 5.351078567533435,
+          "net_r_per_all_resolved": 0.0025950914488522964
+        },
+        "TP_TOUCH": {
+          "count": 112,
+          "gross_r": 167.99999999999991,
+          "extra_cost_r": 2.1908701455584083,
+          "net_r": 165.8091298544415,
+          "net_r_per_all_resolved": 0.08041179915346339
+        }
+      },
+      "total_gross_r": -99.43298200151023,
+      "extra_cost_r": 35.1152445556114,
+      "total_net_r": -134.5482265571216,
+      "gross_mean_r": -0.04822162075727945
+    },
+    "band_reentry": {
+      "summary": {
+        "entries": 521,
+        "resolved": 499,
+        "unresolved": 22,
+        "wins": 247,
+        "positive_rate": 0.49498997995991983,
+        "all_entry_positive_rate_upper": 0.5163147792706334,
+        "mean_r": -0.0769714477083801,
+        "pf": 0.7572916219659607,
+        "mean_win_r": 0.48518976574784317,
+        "mean_loss_r": 0.6279786688341228,
+        "status": {
+          "RESOLVED_REFERENCE": 499,
+          "CENSORED_AT_SIDE_GAP": 15,
+          "TARGET_INVALID_AT_ENTRY": 3,
+          "UNKNOWN_ENTRY_HISTORY": 3,
+          "AMBIGUOUS_SAME_MINUTE": 1
+        }
+      },
+      "resolved_per_calendar_week": 11.97942269219777,
+      "statuses": {
+        "RESOLVED_REFERENCE": 499,
+        "CENSORED_AT_SIDE_GAP": 15,
+        "TARGET_INVALID_AT_ENTRY": 3,
+        "UNKNOWN_ENTRY_HISTORY": 3,
+        "AMBIGUOUS_SAME_MINUTE": 1
+      },
+      "exit_contributions": {
+        "SL_TOUCH": {
+          "count": 115,
+          "gross_r": -115.0,
+          "extra_cost_r": 2.553544024377774,
+          "net_r": -117.55354402437777,
+          "net_r_per_all_resolved": -0.23557824453783122
+        },
+        "TIMEOUT_CLOSE": {
+          "count": 255,
+          "gross_r": 8.191923138693873,
+          "extra_cost_r": 4.875096628734004,
+          "net_r": 3.3168265099598697,
+          "net_r_per_all_resolved": 0.006646946913747234
+        },
+        "TP_TOUCH": {
+          "count": 129,
+          "gross_r": 78.67374491875657,
+          "extra_cost_r": 2.8457798108203387,
+          "net_r": 75.82796510793624,
+          "net_r_per_all_resolved": 0.15195984991570388
+        }
+      },
+      "total_gross_r": -28.134331942549554,
+      "extra_cost_r": 10.274420463932117,
+      "total_net_r": -38.40875240648167,
+      "gross_mean_r": -0.05638142673857626
+    },
+    "baselines_reproduced": true
+  },
+  "separate_2025_q4": {
+    "breakout": {
+      "summary": {
+        "entries": 675,
+        "resolved": 648,
+        "unresolved": 27,
+        "wins": 288,
+        "positive_rate": 0.4444444444444444,
+        "all_entry_positive_rate_upper": 0.4666666666666667,
+        "mean_r": -0.04995243220949299,
+        "pf": 0.8294777354116313,
+        "mean_win_r": 0.5467172776925686,
+        "mean_loss_r": 0.5272882001311422,
+        "status": {
+          "RESOLVED_REFERENCE": 648,
+          "CENSORED_AT_SIDE_GAP": 17,
+          "UNKNOWN_ENTRY_HISTORY": 10
+        }
+      },
+      "resolved_per_calendar_week": 49.30434782608695,
+      "statuses": {
+        "RESOLVED_REFERENCE": 648,
+        "CENSORED_AT_SIDE_GAP": 17,
+        "UNKNOWN_ENTRY_HISTORY": 10
+      },
+      "exit_contributions": {
+        "SL_TOUCH": {
+          "count": 99,
+          "gross_r": -99.0,
+          "extra_cost_r": 2.5348825753567428,
+          "net_r": -101.53488257535675,
+          "net_r_per_all_resolved": -0.1566896336039456
+        },
+        "TIMEOUT_CLOSE": {
+          "count": 505,
+          "gross_r": 13.594061249626346,
+          "extra_cost_r": 9.444410388139849,
+          "net_r": 4.1496508614864975,
+          "net_r_per_all_resolved": 0.006403782193652003
+        },
+        "TP_TOUCH": {
+          "count": 44,
+          "gross_r": 65.99999999999983,
+          "extra_cost_r": 0.9839443578810442,
+          "net_r": 65.01605564211879,
+          "net_r_per_all_resolved": 0.10033341920080059
+        }
+      },
+      "total_gross_r": -19.40593875037382,
+      "extra_cost_r": 12.963237321377637,
+      "total_net_r": -32.369176071751454,
+      "gross_mean_r": -0.029947436343169476
+    },
+    "band_reentry": {
+      "summary": {
+        "entries": 169,
+        "resolved": 161,
+        "unresolved": 8,
+        "wins": 83,
+        "positive_rate": 0.515527950310559,
+        "all_entry_positive_rate_upper": 0.5384615384615384,
+        "mean_r": -0.030658410945519222,
+        "pf": 0.9047108893011623,
+        "mean_win_r": 0.5646300249806215,
+        "mean_loss_r": 0.6641063619951306,
+        "status": {
+          "RESOLVED_REFERENCE": 161,
+          "CENSORED_AT_SIDE_GAP": 5,
+          "TARGET_INVALID_AT_ENTRY": 2,
+          "UNKNOWN_ENTRY_HISTORY": 1
+        }
+      },
+      "resolved_per_calendar_week": 12.25,
+      "statuses": {
+        "RESOLVED_REFERENCE": 161,
+        "CENSORED_AT_SIDE_GAP": 5,
+        "TARGET_INVALID_AT_ENTRY": 2,
+        "UNKNOWN_ENTRY_HISTORY": 1
+      },
+      "exit_contributions": {
+        "SL_TOUCH": {
+          "count": 38,
+          "gross_r": -38.0,
+          "extra_cost_r": 0.9349399780325369,
+          "net_r": -38.93493997803254,
+          "net_r_per_all_resolved": -0.24183192532939465
+        },
+        "TIMEOUT_CLOSE": {
+          "count": 71,
+          "gross_r": 4.032846221933522,
+          "extra_cost_r": 1.527933068415647,
+          "net_r": 2.5049131535178755,
+          "net_r_per_all_resolved": 0.015558466792036494
+        },
+        "TP_TOUCH": {
+          "count": 52,
+          "gross_r": 32.89920408821014,
+          "extra_cost_r": 1.405181425924075,
+          "net_r": 31.494022662286067,
+          "net_r_per_all_resolved": 0.19561504759183893
+        }
+      },
+      "total_gross_r": -1.0679496898563354,
+      "extra_cost_r": 3.8680544723722585,
+      "total_net_r": -4.936004162228594,
+      "gross_mean_r": -0.006633227887306431
+    },
+    "baselines_reproduced": true
+  },
+  "baseline_sha256": {
+    "compression": "0eeb358c624af2b1a2bd33d5a132b5a952994d6ce69ade8761e416528fedd580",
+    "band": "f914dbb6e712a5d710689c2d10ec687eeb017eb577a44cd783024c9e79b1e7db"
+  },
+  "out_of_sample": false,
+  "execution_allowed": false,
+  "adoption_allowed": false,
+  "account_return_pct": null
+}

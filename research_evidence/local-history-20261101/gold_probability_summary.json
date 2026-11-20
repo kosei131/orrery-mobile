@@ -1,0 +1,103 @@
+{
+  "training_period": "2025 Q4 UTC",
+  "test_period": "2026-01-01 through 2026-10-19 14:00 UTC",
+  "target_r": 1.5,
+  "horizon_minutes": 60,
+  "extra_cost": 0.3,
+  "prior_weight": 30,
+  "selection_premium": 0.03,
+  "later_period_seen_in_prior_research": true,
+  "account_return_pct": null,
+  "adoption_allowed": false,
+  "execution_allowed": false,
+  "results": {
+    "train_resolved": 648,
+    "baseline_probability": 0.06790123456790123,
+    "brier_model": 0.051499643218734785,
+    "brier_baseline": 0.05155050173770263,
+    "calibration": {
+      "('BUY', False)": {
+        "predictions": 795,
+        "resolved": 776,
+        "predicted": 0.046844352140302296,
+        "actual": 0.03479381443298969,
+        "tp_sl_timeout": {
+          "TIMEOUT_CLOSE": 653,
+          "SL_TOUCH": 96,
+          "TP_TOUCH": 27
+        }
+      },
+      "('BUY', True)": {
+        "predictions": 243,
+        "resolved": 226,
+        "predicted": 0.06223749522718594,
+        "actual": 0.07964601769911504,
+        "tp_sl_timeout": {
+          "TIMEOUT_CLOSE": 161,
+          "SL_TOUCH": 47,
+          "TP_TOUCH": 18
+        }
+      },
+      "('SELL', False)": {
+        "predictions": 852,
+        "resolved": 816,
+        "predicted": 0.08282298046077574,
+        "actual": 0.06004901960784314,
+        "tp_sl_timeout": {
+          "SL_TOUCH": 102,
+          "TIMEOUT_CLOSE": 665,
+          "TP_TOUCH": 49
+        }
+      },
+      "('SELL', True)": {
+        "predictions": 274,
+        "resolved": 244,
+        "predicted": 0.10455246913580246,
+        "actual": 0.07377049180327869,
+        "tp_sl_timeout": {
+          "TIMEOUT_CLOSE": 172,
+          "SL_TOUCH": 54,
+          "TP_TOUCH": 18
+        }
+      }
+    },
+    "all_entries": {
+      "entries": 2164,
+      "resolved": 2062,
+      "unresolved": 102,
+      "wins": 881,
+      "positive_rate": 0.42725509214354995,
+      "all_entry_positive_rate_upper": 0.4542513863216266,
+      "mean_r": -0.06525132228764385,
+      "pf": 0.7739770646262661,
+      "mean_win_r": 0.5229710518752361,
+      "mean_loss_r": 0.5040522635556347,
+      "status": {
+        "RESOLVED_REFERENCE": 2062,
+        "CENSORED_AT_SIDE_GAP": 72,
+        "UNKNOWN_ENTRY_HISTORY": 30
+      }
+    },
+    "selected_entries": {
+      "entries": 274,
+      "resolved": 244,
+      "unresolved": 30,
+      "wins": 99,
+      "positive_rate": 0.4057377049180328,
+      "all_entry_positive_rate_upper": 0.4708029197080292,
+      "mean_r": -0.10518516994932259,
+      "pf": 0.7034131844080922,
+      "mean_win_r": 0.6148480611553171,
+      "mean_loss_r": 0.5967940656690421,
+      "status": {
+        "RESOLVED_REFERENCE": 244,
+        "UNKNOWN_ENTRY_HISTORY": 10,
+        "CENSORED_AT_SIDE_GAP": 20
+      }
+    },
+    "selected_per_calendar_week": 6.577879394112603,
+    "predictions_at_least_95_pct": 0
+  },
+  "github_actions_run_id": 43955852681,
+  "replay_commit": "d12e46966076242981967486a71f222028f800c0"
+}

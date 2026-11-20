@@ -1,0 +1,188 @@
+{
+  "source_revision": "b60bd71d0e34a42cb962daf688ff252e73f409ca",
+  "evidence_sha256": "a252912c679d77f3044b5140512af5a013d908be01efbb0a900245ec97c4341f",
+  "cost": 0.3,
+  "target_positive_rate": 0.95,
+  "historical_2026": {
+    "start_utc": "2026-01-01T00:00:00+00:00",
+    "end_utc_exclusive": "2026-10-19T14:00:00+00:00",
+    "timeout_groups": {
+      "positive": {
+        "count": 769,
+        "extension_resolved": 657,
+        "extension_unresolved": 112,
+        "mean_change_r": -0.026919127840318306,
+        "extension_positive_rate": 0.634703196347032,
+        "positive_to_nonpositive": 240,
+        "nonpositive_to_positive": 0
+      },
+      "nonpositive": {
+        "count": 882,
+        "extension_resolved": 745,
+        "extension_unresolved": 137,
+        "mean_change_r": -0.034936214678484324,
+        "extension_positive_rate": 0.28187919463087246,
+        "positive_to_nonpositive": 0,
+        "nonpositive_to_positive": 210
+      }
+    },
+    "baseline": {
+      "entries": 2164,
+      "resolved": 2062,
+      "unresolved": 102,
+      "wins": 881,
+      "positive_rate": 0.42725509214354995,
+      "all_entry_positive_rate_upper": 0.4542513863216266,
+      "mean_r": -0.06525132228764385,
+      "pf": 0.7739770646262661,
+      "mean_win_r": 0.5229710518752361,
+      "mean_loss_r": 0.5040522635556347,
+      "status": {
+        "RESOLVED_REFERENCE": 2062,
+        "CENSORED_AT_SIDE_GAP": 72,
+        "UNKNOWN_ENTRY_HISTORY": 30
+      }
+    },
+    "conditional": {
+      "entries": 2164,
+      "resolved": 1950,
+      "unresolved": 214,
+      "wins": 529,
+      "positive_rate": 0.2712820512820513,
+      "all_entry_positive_rate_upper": 0.3433456561922366,
+      "mean_r": -0.0985868248599856,
+      "pf": 0.7476117101436497,
+      "mean_win_r": 1.0764768965805267,
+      "mean_loss_r": 0.5360313770359398,
+      "status": {
+        "RESOLVED_REFERENCE": 1950,
+        "CENSORED_AT_SIDE_GAP": 183,
+        "UNKNOWN_ENTRY_HISTORY": 30,
+        "AMBIGUOUS_SAME_MINUTE": 1
+      }
+    },
+    "matched_baseline": {
+      "entries": 1950,
+      "resolved": 1950,
+      "unresolved": 0,
+      "wins": 769,
+      "positive_rate": 0.3943589743589744,
+      "all_entry_positive_rate_upper": 0.3943589743589744,
+      "mean_r": -0.0895171494799399,
+      "pf": 0.7067652815018461,
+      "mean_win_r": 0.5471095991850738,
+      "mean_loss_r": 0.5040522635556347,
+      "status": {
+        "RESOLVED_REFERENCE": 1950
+      }
+    },
+    "matched_conditional": {
+      "entries": 1950,
+      "resolved": 1950,
+      "unresolved": 0,
+      "wins": 529,
+      "positive_rate": 0.2712820512820513,
+      "all_entry_positive_rate_upper": 0.2712820512820513,
+      "mean_r": -0.0985868248599856,
+      "pf": 0.7476117101436497,
+      "mean_win_r": 1.0764768965805267,
+      "mean_loss_r": 0.5360313770359398,
+      "status": {
+        "RESOLVED_REFERENCE": 1950
+      }
+    }
+  },
+  "separate_2025_q4": {
+    "start_utc": "2025-10-01T00:00:00+00:00",
+    "end_utc_exclusive": "2026-01-01T00:00:00+00:00",
+    "timeout_groups": {
+      "positive": {
+        "count": 244,
+        "extension_resolved": 201,
+        "extension_unresolved": 43,
+        "mean_change_r": -0.024619472810779287,
+        "extension_positive_rate": 0.6417910447761194,
+        "positive_to_nonpositive": 72,
+        "nonpositive_to_positive": 0
+      },
+      "nonpositive": {
+        "count": 261,
+        "extension_resolved": 221,
+        "extension_unresolved": 40,
+        "mean_change_r": -0.016544859702528312,
+        "extension_positive_rate": 0.2579185520361991,
+        "positive_to_nonpositive": 0,
+        "nonpositive_to_positive": 57
+      }
+    },
+    "baseline": {
+      "entries": 675,
+      "resolved": 648,
+      "unresolved": 27,
+      "wins": 288,
+      "positive_rate": 0.4444444444444444,
+      "all_entry_positive_rate_upper": 0.4666666666666667,
+      "mean_r": -0.04995243220949299,
+      "pf": 0.8294777354116313,
+      "mean_win_r": 0.5467172776925686,
+      "mean_loss_r": 0.5272882001311422,
+      "status": {
+        "RESOLVED_REFERENCE": 648,
+        "CENSORED_AT_SIDE_GAP": 17,
+        "UNKNOWN_ENTRY_HISTORY": 10
+      }
+    },
+    "conditional": {
+      "entries": 675,
+      "resolved": 605,
+      "unresolved": 70,
+      "wins": 173,
+      "positive_rate": 0.2859504132231405,
+      "all_entry_positive_rate_upper": 0.36,
+      "mean_r": -0.0881426297182667,
+      "pf": 0.7734944631562325,
+      "mean_win_r": 1.0526249545431254,
+      "mean_loss_r": 0.5449777965636853,
+      "status": {
+        "RESOLVED_REFERENCE": 605,
+        "CENSORED_AT_SIDE_GAP": 60,
+        "UNKNOWN_ENTRY_HISTORY": 10
+      }
+    },
+    "matched_baseline": {
+      "entries": 605,
+      "resolved": 605,
+      "unresolved": 0,
+      "wins": 245,
+      "positive_rate": 0.4049586776859504,
+      "all_entry_positive_rate_upper": 0.4049586776859504,
+      "mean_r": -0.07996326767699953,
+      "pf": 0.7451437113488693,
+      "mean_win_r": 0.5773305106229653,
+      "mean_loss_r": 0.5272882001311422,
+      "status": {
+        "RESOLVED_REFERENCE": 605
+      }
+    },
+    "matched_conditional": {
+      "entries": 605,
+      "resolved": 605,
+      "unresolved": 0,
+      "wins": 173,
+      "positive_rate": 0.2859504132231405,
+      "all_entry_positive_rate_upper": 0.2859504132231405,
+      "mean_r": -0.0881426297182667,
+      "pf": 0.7734944631562325,
+      "mean_win_r": 1.0526249545431254,
+      "mean_loss_r": 0.5449777965636853,
+      "status": {
+        "RESOLVED_REFERENCE": 605
+      }
+    }
+  },
+  "diagnostic_allows_overlap": true,
+  "out_of_sample": false,
+  "account_return_pct": null,
+  "execution_allowed": false,
+  "adoption_allowed": false
+}

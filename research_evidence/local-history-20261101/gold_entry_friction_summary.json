@@ -1,0 +1,449 @@
+{
+  "study": "gold_entry_friction",
+  "training_period": "2025 Q4 UTC",
+  "evaluation_end_exclusive": "2026-10-19 14:00 UTC",
+  "evaluation_start": "2026-01-01 UTC",
+  "extra_round_trip_cost": 0.3,
+  "max_friction_share_of_target": 0.35,
+  "min_breakout_fraction": 0.25,
+  "minimum_training_resolved": 30,
+  "win_goal": 0.95,
+  "training": {
+    "0.1": {
+      "ALL": {
+        "entries": 675,
+        "resolved": 658,
+        "unresolved": 17,
+        "wins": 533,
+        "positive_rate": 0.8100303951367781,
+        "all_entry_positive_rate_upper": 0.8148148148148148,
+        "mean_r": -0.060774966049695046,
+        "pf": 0.5153433413241854,
+        "mean_win_r": 0.07977850517507402,
+        "mean_loss_r": 0.6600949673521104,
+        "status": {
+          "RESOLVED_REFERENCE": 658,
+          "UNKNOWN_ENTRY_HISTORY": 10,
+          "CENSORED_AT_SIDE_GAP": 7
+        },
+        "candidates_per_calendar_week": 51.358695652173914,
+        "resolved_drawdown_r": 40.50745498577813,
+        "exit_counts": {
+          "TP": 532,
+          "SL": 47,
+          "TIMEOUT": 79
+        },
+        "attained_95_pct": false,
+        "positive_months": 0,
+        "months_with_resolved_trades": 3
+      },
+      "COST": {
+        "entries": 112,
+        "resolved": 112,
+        "unresolved": 0,
+        "wins": 88,
+        "positive_rate": 0.7857142857142857,
+        "all_entry_positive_rate_upper": 0.7857142857142857,
+        "mean_r": -0.005971809608807132,
+        "pf": 0.9230101981068582,
+        "mean_win_r": 0.09112018673973508,
+        "mean_loss_r": 0.3619757962201286,
+        "status": {
+          "RESOLVED_REFERENCE": 112
+        },
+        "candidates_per_calendar_week": 8.521739130434783,
+        "resolved_drawdown_r": 2.815371781458393,
+        "exit_counts": {
+          "TP": 87,
+          "TIMEOUT": 24,
+          "SL": 1
+        },
+        "attained_95_pct": false,
+        "positive_months": 1,
+        "months_with_resolved_trades": 3
+      },
+      "MOMENTUM": {
+        "entries": 272,
+        "resolved": 270,
+        "unresolved": 2,
+        "wins": 214,
+        "positive_rate": 0.7925925925925926,
+        "all_entry_positive_rate_upper": 0.7941176470588235,
+        "mean_r": -0.057014870818282756,
+        "pf": 0.5349219501303146,
+        "mean_win_r": 0.08273756055151768,
+        "mean_loss_r": 0.5910688049814486,
+        "status": {
+          "RESOLVED_REFERENCE": 270,
+          "CENSORED_AT_SIDE_GAP": 2
+        },
+        "candidates_per_calendar_week": 20.695652173913043,
+        "resolved_drawdown_r": 16.013617028286696,
+        "exit_counts": {
+          "TP": 213,
+          "SL": 17,
+          "TIMEOUT": 40
+        },
+        "attained_95_pct": false,
+        "positive_months": 0,
+        "months_with_resolved_trades": 3
+      },
+      "BOTH": {
+        "entries": 69,
+        "resolved": 69,
+        "unresolved": 0,
+        "wins": 52,
+        "positive_rate": 0.7536231884057971,
+        "all_entry_positive_rate_upper": 0.7536231884057971,
+        "mean_r": -0.012272260649929374,
+        "pf": 0.8483033611797011,
+        "mean_win_r": 0.09106375353547723,
+        "mean_loss_r": 0.328358892275879,
+        "status": {
+          "RESOLVED_REFERENCE": 69
+        },
+        "candidates_per_calendar_week": 5.25,
+        "resolved_drawdown_r": 1.9149238678866705,
+        "exit_counts": {
+          "TP": 51,
+          "TIMEOUT": 18
+        },
+        "attained_95_pct": false,
+        "positive_months": 1,
+        "months_with_resolved_trades": 3
+      }
+    },
+    "0.5": {
+      "ALL": {
+        "entries": 675,
+        "resolved": 648,
+        "unresolved": 27,
+        "wins": 326,
+        "positive_rate": 0.5030864197530864,
+        "all_entry_positive_rate_upper": 0.522962962962963,
+        "mean_r": -0.06622030863161349,
+        "pf": 0.7557679849696936,
+        "mean_win_r": 0.4073188459076291,
+        "mean_loss_r": 0.5456419371402876,
+        "status": {
+          "RESOLVED_REFERENCE": 648,
+          "CENSORED_AT_SIDE_GAP": 17,
+          "UNKNOWN_ENTRY_HISTORY": 10
+        },
+        "candidates_per_calendar_week": 51.358695652173914,
+        "resolved_drawdown_r": 43.79485102428823,
+        "exit_counts": {
+          "TIMEOUT": 305,
+          "TP": 250,
+          "SL": 93
+        },
+        "attained_95_pct": false,
+        "positive_months": 0,
+        "months_with_resolved_trades": 3
+      },
+      "COST": {
+        "entries": 661,
+        "resolved": 644,
+        "unresolved": 17,
+        "wins": 324,
+        "positive_rate": 0.5031055900621118,
+        "all_entry_positive_rate_upper": 0.5158850226928896,
+        "mean_r": -0.06485756982707987,
+        "pf": 0.7594486566261334,
+        "mean_win_r": 0.4069978927844922,
+        "mean_loss_r": 0.5426112257212966,
+        "status": {
+          "RESOLVED_REFERENCE": 644,
+          "CENSORED_AT_SIDE_GAP": 17
+        },
+        "candidates_per_calendar_week": 50.29347826086957,
+        "resolved_drawdown_r": 42.65236599964212,
+        "exit_counts": {
+          "TIMEOUT": 305,
+          "TP": 248,
+          "SL": 91
+        },
+        "attained_95_pct": false,
+        "positive_months": 0,
+        "months_with_resolved_trades": 3
+      },
+      "MOMENTUM": {
+        "entries": 272,
+        "resolved": 268,
+        "unresolved": 4,
+        "wins": 129,
+        "positive_rate": 0.48134328358208955,
+        "all_entry_positive_rate_upper": 0.4889705882352941,
+        "mean_r": -0.06356349874678423,
+        "pf": 0.7523798977045837,
+        "mean_win_r": 0.4012399454507412,
+        "mean_loss_r": 0.4949278462394517,
+        "status": {
+          "RESOLVED_REFERENCE": 268,
+          "CENSORED_AT_SIDE_GAP": 4
+        },
+        "candidates_per_calendar_week": 20.695652173913043,
+        "resolved_drawdown_r": 18.441184542208337,
+        "exit_counts": {
+          "TIMEOUT": 139,
+          "TP": 96,
+          "SL": 33
+        },
+        "attained_95_pct": false,
+        "positive_months": 0,
+        "months_with_resolved_trades": 3
+      },
+      "BOTH": {
+        "entries": 271,
+        "resolved": 267,
+        "unresolved": 4,
+        "wins": 128,
+        "positive_rate": 0.4794007490636704,
+        "all_entry_positive_rate_upper": 0.4870848708487085,
+        "mean_r": -0.06558197424069764,
+        "pf": 0.7454699527799241,
+        "mean_win_r": 0.40066080863294934,
+        "mean_loss_r": 0.4949278462394517,
+        "status": {
+          "RESOLVED_REFERENCE": 267,
+          "CENSORED_AT_SIDE_GAP": 4
+        },
+        "candidates_per_calendar_week": 20.619565217391305,
+        "resolved_drawdown_r": 18.916554000336433,
+        "exit_counts": {
+          "TIMEOUT": 139,
+          "TP": 95,
+          "SL": 33
+        },
+        "attained_95_pct": false,
+        "positive_months": 0,
+        "months_with_resolved_trades": 3
+      }
+    }
+  },
+  "training_eligible": [],
+  "evaluation": {
+    "0.1": {
+      "ALL": {
+        "entries": 2164,
+        "resolved": 2104,
+        "unresolved": 60,
+        "wins": 1666,
+        "positive_rate": 0.7918250950570342,
+        "all_entry_positive_rate_upper": 0.7975970425138632,
+        "mean_r": -0.06753465293259664,
+        "pf": 0.4917186957399606,
+        "mean_win_r": 0.08251064765907906,
+        "mean_loss_r": 0.6382549058680572,
+        "status": {
+          "RESOLVED_REFERENCE": 2104,
+          "CENSORED_AT_SIDE_GAP": 28,
+          "UNKNOWN_ENTRY_HISTORY": 30,
+          "AMBIGUOUS_SAME_MINUTE": 2
+        },
+        "candidates_per_calendar_week": 51.95084309802801,
+        "resolved_drawdown_r": 142.61849411731615,
+        "exit_counts": {
+          "TIMEOUT": 286,
+          "TP": 1659,
+          "SL": 159
+        },
+        "attained_95_pct": false,
+        "positive_months": 0,
+        "months_with_resolved_trades": 10
+      },
+      "COST": {
+        "entries": 527,
+        "resolved": 525,
+        "unresolved": 2,
+        "wins": 398,
+        "positive_rate": 0.758095238095238,
+        "all_entry_positive_rate_upper": 0.7590132827324478,
+        "mean_r": -0.037535908836333,
+        "pf": 0.6484990784836435,
+        "mean_win_r": 0.0913494763919856,
+        "mean_loss_r": 0.44144443892192986,
+        "status": {
+          "RESOLVED_REFERENCE": 525,
+          "CENSORED_AT_SIDE_GAP": 2
+        },
+        "candidates_per_calendar_week": 12.65161474707059,
+        "resolved_drawdown_r": 20.407156732162143,
+        "exit_counts": {
+          "TP": 394,
+          "TIMEOUT": 115,
+          "SL": 16
+        },
+        "attained_95_pct": false,
+        "positive_months": 0,
+        "months_with_resolved_trades": 10
+      },
+      "MOMENTUM": {
+        "entries": 837,
+        "resolved": 829,
+        "unresolved": 8,
+        "wins": 662,
+        "positive_rate": 0.7985524728588661,
+        "all_entry_positive_rate_upper": 0.8004778972520908,
+        "mean_r": -0.05369072779899829,
+        "pf": 0.5554998757186885,
+        "mean_win_r": 0.0840248820547795,
+        "mean_loss_r": 0.5996053009918181,
+        "status": {
+          "RESOLVED_REFERENCE": 829,
+          "CENSORED_AT_SIDE_GAP": 6,
+          "AMBIGUOUS_SAME_MINUTE": 2
+        },
+        "candidates_per_calendar_week": 20.09374106887682,
+        "resolved_drawdown_r": 45.18146763893714,
+        "exit_counts": {
+          "TP": 657,
+          "TIMEOUT": 121,
+          "SL": 51
+        },
+        "attained_95_pct": false,
+        "positive_months": 0,
+        "months_with_resolved_trades": 10
+      },
+      "BOTH": {
+        "entries": 256,
+        "resolved": 255,
+        "unresolved": 1,
+        "wins": 199,
+        "positive_rate": 0.7803921568627451,
+        "all_entry_positive_rate_upper": 0.78125,
+        "mean_r": -0.024006085521659695,
+        "pf": 0.7476228148493831,
+        "mean_win_r": 0.09112570616142504,
+        "mean_loss_r": 0.43313513096690726,
+        "status": {
+          "RESOLVED_REFERENCE": 255,
+          "CENSORED_AT_SIDE_GAP": 1
+        },
+        "candidates_per_calendar_week": 6.14575593026579,
+        "resolved_drawdown_r": 6.972565808839658,
+        "exit_counts": {
+          "TP": 196,
+          "TIMEOUT": 54,
+          "SL": 5
+        },
+        "attained_95_pct": false,
+        "positive_months": 1,
+        "months_with_resolved_trades": 10
+      }
+    },
+    "0.5": {
+      "ALL": {
+        "entries": 2164,
+        "resolved": 2073,
+        "unresolved": 91,
+        "wins": 1049,
+        "positive_rate": 0.5060299083453932,
+        "all_entry_positive_rate_upper": 0.5268022181146026,
+        "mean_r": -0.05412341794387792,
+        "pf": 0.7881741155030271,
+        "mean_win_r": 0.3979716799279151,
+        "mean_loss_r": 0.5172559937910565,
+        "status": {
+          "RESOLVED_REFERENCE": 2073,
+          "CENSORED_AT_SIDE_GAP": 61,
+          "UNKNOWN_ENTRY_HISTORY": 30
+        },
+        "candidates_per_calendar_week": 51.95084309802801,
+        "resolved_drawdown_r": 112.67405475531166,
+        "exit_counts": {
+          "TIMEOUT": 1027,
+          "TP": 778,
+          "SL": 268
+        },
+        "attained_95_pct": false,
+        "positive_months": 1,
+        "months_with_resolved_trades": 10
+      },
+      "COST": {
+        "entries": 2130,
+        "resolved": 2069,
+        "unresolved": 61,
+        "wins": 1047,
+        "positive_rate": 0.5060415659739005,
+        "all_entry_positive_rate_upper": 0.5201877934272301,
+        "mean_r": -0.05366967001679167,
+        "pf": 0.7895436363102304,
+        "mean_win_r": 0.39788430593055546,
+        "mean_loss_r": 0.5162694868630465,
+        "status": {
+          "RESOLVED_REFERENCE": 2069,
+          "CENSORED_AT_SIDE_GAP": 61
+        },
+        "candidates_per_calendar_week": 51.13460988853958,
+        "resolved_drawdown_r": 111.51875662239468,
+        "exit_counts": {
+          "TIMEOUT": 1027,
+          "TP": 776,
+          "SL": 266
+        },
+        "attained_95_pct": false,
+        "positive_months": 1,
+        "months_with_resolved_trades": 10
+      },
+      "MOMENTUM": {
+        "entries": 837,
+        "resolved": 819,
+        "unresolved": 18,
+        "wins": 417,
+        "positive_rate": 0.5091575091575091,
+        "all_entry_positive_rate_upper": 0.5197132616487455,
+        "mean_r": -0.03840515985417346,
+        "pf": 0.8385361973162109,
+        "mean_win_r": 0.3917275010713554,
+        "mean_loss_r": 0.48458754693364,
+        "status": {
+          "RESOLVED_REFERENCE": 819,
+          "CENSORED_AT_SIDE_GAP": 18
+        },
+        "candidates_per_calendar_week": 20.09374106887682,
+        "resolved_drawdown_r": 33.50445418113589,
+        "exit_counts": {
+          "TIMEOUT": 431,
+          "SL": 87,
+          "TP": 301
+        },
+        "attained_95_pct": false,
+        "positive_months": 2,
+        "months_with_resolved_trades": 10
+      },
+      "BOTH": {
+        "entries": 835,
+        "resolved": 817,
+        "unresolved": 18,
+        "wins": 416,
+        "positive_rate": 0.5091799265605875,
+        "all_entry_positive_rate_upper": 0.5197604790419161,
+        "mean_r": -0.03779517872275547,
+        "pf": 0.8406590639581277,
+        "mean_win_r": 0.3916135093118577,
+        "mean_loss_r": 0.48326653588584545,
+        "status": {
+          "RESOLVED_REFERENCE": 817,
+          "CENSORED_AT_SIDE_GAP": 18
+        },
+        "candidates_per_calendar_week": 20.04572735067162,
+        "resolved_drawdown_r": 32.929289277059056,
+        "exit_counts": {
+          "TIMEOUT": 431,
+          "SL": 86,
+          "TP": 300
+        },
+        "attained_95_pct": false,
+        "positive_months": 2,
+        "months_with_resolved_trades": 10
+      }
+    }
+  },
+  "historical_data_previously_seen": true,
+  "account_return_pct": null,
+  "adoption_allowed": false,
+  "execution_allowed": false,
+  "replay_commit": "b4026a282309620416a6df63b3c614649c5dec14",
+  "github_actions_run_id": 43958327002
+}

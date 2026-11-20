@@ -1,0 +1,32 @@
+{
+  "symbol": "XAUUSD",
+  "hour_utc": "2026-09-02T12:00:00+00:00",
+  "source_url": "https://datafeed.dukascopy.com/datafeed/XAUUSD/2026/08/02/12h_ticks.bi5",
+  "source": "DUKASCOPY_ANONYMOUS_HOURLY_ARCHIVE_INDEPENDENT_RESEARCH",
+  "execution_allowed": false,
+  "backtest_complete": false,
+  "source_is_user_mt5": false,
+  "merged_with_getdata": false,
+  "paid_route_used": false,
+  "broker_costs_verified": false,
+  "actual_profit_usd": null,
+  "status": "BLOCKED_SOURCE_FETCH_OR_VALIDATION",
+  "error_type": "HTTPError",
+  "http_status": 429,
+  "request_started_at_utc": "2026-11-02T08:35:04.806197+00:00",
+  "original_manifest_sha256": "878b3110b74dc3e2fc3f2471f8201e2bfb8010558a6f317333cdd7c5e38c24b5",
+  "timestamp_normalization": "Legacy fetched_at_utc was request-start time, renamed for clarity",
+  "attempts": 1,
+  "raw_ticks_acquired": false,
+  "bulk_requester_pays_used": false,
+  "official_export_url": "https://www.dukascopy.com/api/data/get/historical-data-export",
+  "bulk_documentation_url": "https://www.dukascopy.com/wiki/en/development/data-export/",
+  "code_sha256": "5f97c6a302d3256d564383fcb75c72eb2cdc0e193d88aee13e1becfa10eb5599",
+  "tests": {
+    "total": 1035,
+    "passed": 1030,
+    "skipped": 5,
+    "failures": 0
+  },
+  "test_scope": "Offline synthetic archives and mocked HTTP; real fetch blocked HTTP429"
+}

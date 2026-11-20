@@ -6,7 +6,7 @@ from lsr02_sequence import Candidate, number
 from lsr02_regime import classify, review_transition
 
 
-def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2, regime_config=None, halt_store=None):
+def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2, regime_config=None, halt_store=None, diagnostics=None):
     if symbol not in ('XAUUSD','USDJPY') or not number(buffer) or buffer<=0 or not number(lifetime) or lifetime<=0:
         raise ValueError('Invalid replay settings')
     if halt_store is not None:
@@ -21,10 +21,22 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
         if not isinstance(regime_config,dict) or set(regime_config)!={'lookback','trend_efficiency','range_efficiency'}:
             raise ValueError('Explicit regime research parameters required')
         classify([],as_of=as_of,interval=14400,left=left,right=right,**regime_config)
+    if diagnostics is not None:
+        if not isinstance(diagnostics,dict) or diagnostics or regime_config is not None or halt_store is not None:
+            raise ValueError('Empty diagnostic dict supported only for plain offline replay')
+        diagnostics.update(m5_closes=0,h4_states={},m15_sweep_events=0,
+            sweep_dispositions={},candidate_transitions={},invalidation_reasons={},invalidation_from_states={},
+            h4_context_reasons={},h4_context_bars={},h4_reason_by_bars={},h4_sweep_context_reasons={})
+    def count(group,key,n=1):
+        if diagnostics is not None and n:
+            bucket=diagnostics[group];bucket[key]=bucket.get(key,0)+n
     candidate=None; trace=[]; used=set(); review_required=False; previous_regime='UNKNOWN' 
     def emit(row):
         if regime_config is not None:
             row.update(regime=regime['regime'],regime_reason=regime['reason'],efficiency=regime['efficiency'])
+        if not trace or trace[-1]['state']!=row['state']:
+            count('candidate_transitions',row['state'])
+            if row['state']=='INVALID':count('invalidation_reasons',row.get('reason') or 'UNKNOWN')
         trace.append(row)
     for b in m5:
         t=b['close_time']
@@ -33,6 +45,17 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
         context=[x for x in h4 if x['close_time']<=t]
         h=detect(context,as_of=t,interval=14400,left=left,right=right)
         fresh=bool(context) and t-context[-1]['close_time']<14400
+        if diagnostics is not None:
+            diagnostics['m5_closes']+=1
+            count('h4_states',h['trend'] if fresh else 'MISSING' if not context else 'STALE')
+            highs=sum(p['kind']=='HIGH' for p in h['pivots'])
+            lows=sum(p['kind']=='LOW' for p in h['pivots'])
+            h4_reason=('MISSING' if not context else 'STALE' if not fresh else
+                'INSUFFICIENT_CONFIRMED_PIVOTS' if highs<2 or lows<2 else
+                h['trend'] if h['trend'] in ('UP','DOWN') else 'NON_DIRECTIONAL_CONFIRMED_STRUCTURE')
+            count('h4_context_reasons',h4_reason)
+            count('h4_context_bars',str(len(context)))
+            count('h4_reason_by_bars',h4_reason+':'+str(len(context)))
         regime=None
         if regime_config is not None:
             regime=classify(context,as_of=t,interval=14400,left=left,right=right,**regime_config)
@@ -52,7 +75,11 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
         s=detect(fifteen,as_of=t,interval=900,left=left,right=right)
         # Only process a 15m event at the same close, never a delayed historical sweep.
         sweeps=[e for e in s['events'] if e['kind']=='SWEEP' and e['known_at']==t]
+        if diagnostics is not None:
+            diagnostics['m15_sweep_events']+=len(sweeps)
+            count('h4_sweep_context_reasons',h4_reason,len(sweeps))
         if candidate is not None and candidate.state!='INVALID':
+            count('sweep_dispositions','ACTIVE_CANDIDATE',len(sweeps))
             current=detect([x for x in m5 if x['close_time']<=t],as_of=t,interval=300,left=left,right=right)
             direction='UP' if candidate.side=='BUY' else 'DOWN'
             events=[e for e in current['events'] if e['known_at']==t and e['kind'] in ('BOS','CHoCH') and e['direction']==direction and e['poi'] and m5[e['poi']['index']]['close_time']>=candidate.created_at]
@@ -71,6 +98,7 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
                 p=events[0]['poi'];candidate.poi=(p['low'],p['high']);candidate.state='CONFIRM'
             elif old=='CONFIRM' and b['low']<=candidate.poi[1] and b['high']>=candidate.poi[0]:
                 candidate.state='RETEST'
+            if candidate.state=='INVALID':count('invalidation_from_states',old)
             emit(dict(at=t,side=candidate.side,state=candidate.state,stop=stop,poi=candidate.poi,reason=reason,readiness='BLOCKED_UNVERIFIED_GUARDS'))
         # Existing candidate, even invalidated at this close, cannot restart at the same close.
         elif fresh and len(sweeps)==1:
@@ -78,9 +106,17 @@ def replay(symbol, h4, m15, m5, *, as_of, buffer, lifetime=3600, left=2, right=2
             side='SELL' if e['direction']=='UP' else 'BUY'
             expected='DOWN' if side=='SELL' else 'UP'
             if key not in used and h['trend']==expected and (regime is None or regime['regime']==expected):
+                count('sweep_dispositions','STARTED')
                 used.add(key);source=fifteen[e['index']]
                 extreme=source['high'] if side=='SELL' else source['low']
                 candidate=Candidate(symbol,side,t,t+lifetime,context[-1]['close_time'],expected,extreme,buffer)
                 candidate.state='SWEEP';candidate.last_at=t
                 emit(dict(at=t,side=side,state='SWEEP',stop=extreme+buffer if side=='SELL' else extreme-buffer,poi=None,readiness='BLOCKED_UNVERIFIED_GUARDS'))
+            elif diagnostics is not None:
+                reason=('ALREADY_USED' if key in used else 'HTF_RANGE' if h['trend']=='RANGE'
+                        else 'HTF_DIRECTION_MISMATCH')
+                count('sweep_dispositions',reason)
+        elif sweeps:
+            count('sweep_dispositions','HTF_STALE_OR_MISSING' if not fresh
+                  else 'MULTIPLE_SWEEPS_SAME_CLOSE',len(sweeps))
     return trace

@@ -1,0 +1,14 @@
+{
+  "source_url": "https://candledata.fxcorporate.com/m1/USDJPY/2026/36.csv.gz",
+  "request_started_at_utc": "2026-11-02T08:44:12.376789+00:00",
+  "status": "BLOCKED_SOURCE_FETCH",
+  "error_type": "HTTPError",
+  "http_status": 403,
+  "attempts": 1,
+  "raw_data_acquired": false,
+  "source_error_origin": "PROVIDER_OR_INTERMEDIARY_NOT_IDENTIFIED",
+  "paid_route_used": false,
+  "source_is_user_mt5": false,
+  "actual_profit_usd": null,
+  "execution_allowed": false
+}

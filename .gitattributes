@@ -1,0 +1,12 @@
+# Frozen research code and JSON receipts must have identical bytes on Windows/Linux.
+*.py text eol=lf
+research_evidence/**/*.json text eol=lf
+
+# Byte-pinned CSV evidence retains original line endings on every checkout.
+research_evidence/local-history-20261101/indicator_ablation_20261102.csv -text
+
+research_evidence/local-history-20261101/halftrend_patterns_20261102.csv -text
+
+research_evidence/local-history-20261101/halftrend_pattern_robustness_20261102.csv -text
+
+research_evidence/local-history-20261101/pattern_sr_room_20261103.csv -text

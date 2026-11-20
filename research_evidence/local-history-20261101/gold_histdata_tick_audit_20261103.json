@@ -1,0 +1,409 @@
+{
+  "status": "GOLD_CHUNKED_DIAGNOSTIC_NO_BAR_EXPORT",
+  "symbol": "XAUUSD",
+  "source_month_fixed_est": "202610",
+  "original_zip_sha256": "feb3b05031db23ec7c9eea706cd050e32656b5771ba01fe734c39ce2a95285e1",
+  "original_csv_sha256": "6d3aaaecedf023de0a8e0d9c0ea1391c953c6acedf9496ee03da71e7ff3bdeb1",
+  "original_csv_bytes": 290080755,
+  "reconstructed_csv_sha256": "6d3aaaecedf023de0a8e0d9c0ea1391c953c6acedf9496ee03da71e7ff3bdeb1",
+  "byte_exact_reconstruction_verified": true,
+  "ticks": 6446239,
+  "chunk_count": 6,
+  "chunks": [
+    {
+      "path": "chunk_000.zip",
+      "rows": 1118481,
+      "csv_bytes": 50331645,
+      "zip_sha256": "3ba8e11999dfd68d7aa00d14606eb98a9746db232ed1a3726ea2335758d9ea44",
+      "ticks": 1118481,
+      "out_of_order_pairs": 540,
+      "same_timestamp_adjacent_pairs": 827075,
+      "first_tick_utc": "2026-10-01T05:00:00+00:00",
+      "last_tick_utc": "2026-10-07T15:42:43+00:00",
+      "source_csv_sha256": "bd0f4773146b5c93db8a5a36ad8214db31a46d8d054bdaa12a0511c41efe4da3",
+      "chronological_bar_exported": false
+    },
+    {
+      "path": "chunk_001.zip",
+      "rows": 1118481,
+      "csv_bytes": 50331645,
+      "zip_sha256": "68723da6283254eb71e2424b0bf7dcf1d4dbbe78593c0b91a49c9710e720c6b9",
+      "ticks": 1118481,
+      "out_of_order_pairs": 1667,
+      "same_timestamp_adjacent_pairs": 803609,
+      "first_tick_utc": "2026-10-07T15:42:43+00:00",
+      "last_tick_utc": "2026-10-14T15:23:22+00:00",
+      "source_csv_sha256": "dedad528bbbe085f98c0e3ca37a54d85cde9b24793d1846cc196bbad3bcfc8c8",
+      "chronological_bar_exported": false
+    },
+    {
+      "path": "chunk_002.zip",
+      "rows": 1118481,
+      "csv_bytes": 50331645,
+      "zip_sha256": "f08432eeff9d91ff6447bdc817a54ded94870e849cb74fa523cb520d9d4c53e7",
+      "ticks": 1118481,
+      "out_of_order_pairs": 3155,
+      "same_timestamp_adjacent_pairs": 893266,
+      "first_tick_utc": "2026-10-14T15:23:22+00:00",
+      "last_tick_utc": "2026-10-19T16:57:24+00:00",
+      "source_csv_sha256": "3d627eed3bb73b77749dbbcc207cd48bba3e4aa229061b1e83637244489e896b",
+      "chronological_bar_exported": false
+    },
+    {
+      "path": "chunk_003.zip",
+      "rows": 1118481,
+      "csv_bytes": 50331645,
+      "zip_sha256": "dfa2d2a52b5a4d71f29b772d4e3c201336cfd3f44d3b30ef0289d332a180c8f2",
+      "ticks": 1118481,
+      "out_of_order_pairs": 3652,
+      "same_timestamp_adjacent_pairs": 896232,
+      "first_tick_utc": "2026-10-19T16:57:24+00:00",
+      "last_tick_utc": "2026-10-22T17:09:20+00:00",
+      "source_csv_sha256": "da7d3e4cd12782b6137f216e356592de0d8c8489f2e2b4ec7be7f38bfe2a3979",
+      "chronological_bar_exported": false
+    },
+    {
+      "path": "chunk_004.zip",
+      "rows": 1118481,
+      "csv_bytes": 50331645,
+      "zip_sha256": "c3d3381970f2f79d4129cc37664b574f7e35d392762e0d30e56941e800047979",
+      "ticks": 1118481,
+      "out_of_order_pairs": 2079,
+      "same_timestamp_adjacent_pairs": 845064,
+      "first_tick_utc": "2026-10-22T17:09:20+00:00",
+      "last_tick_utc": "2026-10-28T19:36:42+00:00",
+      "source_csv_sha256": "976cec70a55a8427c0d4dc413a8e8b5c0fb1b03033ac3e9d342f7082437027a6",
+      "chronological_bar_exported": false
+    },
+    {
+      "path": "chunk_005.zip",
+      "rows": 853834,
+      "csv_bytes": 38422530,
+      "zip_sha256": "821ed663975b8b2fddadd7a7e990647115bab6250d4507a68d5d5c5e1209bdca",
+      "ticks": 853834,
+      "out_of_order_pairs": 3991,
+      "same_timestamp_adjacent_pairs": 699492,
+      "first_tick_utc": "2026-10-28T19:36:42+00:00",
+      "last_tick_utc": "2026-10-30T20:59:59+00:00",
+      "source_csv_sha256": "a66e38affbccebc6f6e3acc44f12b192b50fea85b89afb02515a42fb1c65a540",
+      "chronological_bar_exported": false
+    }
+  ],
+  "chunk_csv_byte_limit": 50331648,
+  "chunk_row_limit": 1500000,
+  "first_tick_utc": "2026-10-01T05:00:00+00:00",
+  "last_tick_utc": "2026-10-30T20:59:59+00:00",
+  "out_of_order_pairs": 15084,
+  "maximum_backward_step_msc": 1000,
+  "same_timestamp_adjacent_pairs": 4964743,
+  "subsecond_nonzero_ticks": 0,
+  "observed_whole_second_timestamps_only": true,
+  "paired_m1_minutes": 29999,
+  "missing_internal_minutes": 12721,
+  "minute_gaps": [
+    {
+      "first_missing_msc": 1790892060000,
+      "reopen_msc": 1790895600000,
+      "missing_minutes": 59
+    },
+    {
+      "first_missing_msc": 1790978400000,
+      "reopen_msc": 1791154800000,
+      "missing_minutes": 2940
+    },
+    {
+      "first_missing_msc": 1791237600000,
+      "reopen_msc": 1791241200000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1791324000000,
+      "reopen_msc": 1791327600000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1791410400000,
+      "reopen_msc": 1791414000000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1791496800000,
+      "reopen_msc": 1791500400000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1791583200000,
+      "reopen_msc": 1791759600000,
+      "missing_minutes": 2940
+    },
+    {
+      "first_missing_msc": 1791842400000,
+      "reopen_msc": 1791846000000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1791928800000,
+      "reopen_msc": 1791932400000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1792015200000,
+      "reopen_msc": 1792018800000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1792101600000,
+      "reopen_msc": 1792105200000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1792188000000,
+      "reopen_msc": 1792364400000,
+      "missing_minutes": 2940
+    },
+    {
+      "first_missing_msc": 1792447200000,
+      "reopen_msc": 1792450800000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1792533600000,
+      "reopen_msc": 1792537200000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1792620000000,
+      "reopen_msc": 1792623600000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1792706400000,
+      "reopen_msc": 1792710000000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1792792800000,
+      "reopen_msc": 1792965600000,
+      "missing_minutes": 2880
+    },
+    {
+      "first_missing_msc": 1793048400000,
+      "reopen_msc": 1793052000000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1793134800000,
+      "reopen_msc": 1793138400000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1793221200000,
+      "reopen_msc": 1793224800000,
+      "missing_minutes": 60
+    },
+    {
+      "first_missing_msc": 1793300280000,
+      "reopen_msc": 1793300400000,
+      "missing_minutes": 2
+    },
+    {
+      "first_missing_msc": 1793307600000,
+      "reopen_msc": 1793311200000,
+      "missing_minutes": 60
+    }
+  ],
+  "source_text_sha256": {
+    "DAT_ASCII_XAUUSD_T_202610.txt": "4d51717a9e57d36de5ba1be2d3241aff63dc9a5b6da8167c348d18a49f650152"
+  },
+  "observed_slot_coverage": {
+    "M1": {
+      "observed_complete_slots": 29999,
+      "partial_slots": 0
+    },
+    "M5": {
+      "observed_complete_slots": 5999,
+      "partial_slots": 2
+    },
+    "M15": {
+      "observed_complete_slots": 1999,
+      "partial_slots": 2
+    },
+    "H4": {
+      "observed_complete_slots": 107,
+      "partial_slots": 28
+    }
+  },
+  "synchronous_tick_spread_price": {
+    "min": 0.001,
+    "median": 0.54,
+    "p95": 0.7,
+    "max": 12.564,
+    "mean": 0.539990550769216
+  },
+  "spread_by_declared_utc_hour": {
+    "0": {
+      "ticks": 103027,
+      "median": 0.58,
+      "p95": 0.91,
+      "max": 3.51
+    },
+    "1": {
+      "ticks": 224533,
+      "median": 0.58,
+      "p95": 0.82,
+      "max": 2.84
+    },
+    "2": {
+      "ticks": 275573,
+      "median": 0.58,
+      "p95": 0.79,
+      "max": 1.835
+    },
+    "3": {
+      "ticks": 211837,
+      "median": 0.57,
+      "p95": 0.8,
+      "max": 3.93
+    },
+    "4": {
+      "ticks": 162245,
+      "median": 0.57,
+      "p95": 0.8,
+      "max": 1.232
+    },
+    "5": {
+      "ticks": 163281,
+      "median": 0.567,
+      "p95": 0.8,
+      "max": 0.94
+    },
+    "6": {
+      "ticks": 222784,
+      "median": 0.567,
+      "p95": 0.79,
+      "max": 1.944
+    },
+    "7": {
+      "ticks": 225085,
+      "median": 0.56,
+      "p95": 0.69,
+      "max": 1.93
+    },
+    "8": {
+      "ticks": 317462,
+      "median": 0.53,
+      "p95": 0.59,
+      "max": 1.87
+    },
+    "9": {
+      "ticks": 297441,
+      "median": 0.534,
+      "p95": 0.59,
+      "max": 1.47
+    },
+    "10": {
+      "ticks": 256678,
+      "median": 0.53,
+      "p95": 0.58,
+      "max": 2.25
+    },
+    "11": {
+      "ticks": 249384,
+      "median": 0.53,
+      "p95": 0.58,
+      "max": 1.832
+    },
+    "12": {
+      "ticks": 313450,
+      "median": 0.53,
+      "p95": 0.59,
+      "max": 2.855
+    },
+    "13": {
+      "ticks": 474807,
+      "median": 0.536,
+      "p95": 0.71,
+      "max": 12.564
+    },
+    "14": {
+      "ticks": 553586,
+      "median": 0.53,
+      "p95": 0.65,
+      "max": 5.47
+    },
+    "15": {
+      "ticks": 542094,
+      "median": 0.52,
+      "p95": 0.624,
+      "max": 3.189
+    },
+    "16": {
+      "ticks": 448237,
+      "median": 0.517,
+      "p95": 0.61,
+      "max": 4.941
+    },
+    "17": {
+      "ticks": 351930,
+      "median": 0.516,
+      "p95": 0.62,
+      "max": 3.14
+    },
+    "18": {
+      "ticks": 312969,
+      "median": 0.52,
+      "p95": 0.932,
+      "max": 5.601
+    },
+    "19": {
+      "ticks": 293139,
+      "median": 0.507,
+      "p95": 0.66,
+      "max": 2.8
+    },
+    "20": {
+      "ticks": 263957,
+      "median": 0.502,
+      "p95": 0.66,
+      "max": 2.017
+    },
+    "21": {
+      "ticks": 82611,
+      "median": 0.56,
+      "p95": 0.93,
+      "max": 7.69
+    },
+    "22": {
+      "ticks": 18073,
+      "median": 0.65,
+      "p95": 1.622,
+      "max": 5.818
+    },
+    "23": {
+      "ticks": 82056,
+      "median": 0.634,
+      "p95": 1.19,
+      "max": 5.96
+    }
+  },
+  "engine_code_sha256": {
+    "orrery_gold_tick_chunk_audit.py": "4f9aaeb2973d45ef9e342458126e659ba0c4bade97f9bfd7f821d59dcd13ea0e",
+    "orrery_histdata_tick_audit.py": "7907b7355a67e2df017f3fa64fee39178b0bdc2a49d1be9a455b0e2e505b3cd6"
+  },
+  "chronological_bar_exported": false,
+  "strategy_replay_allowed": false,
+  "raw_ticks_reordered": false,
+  "source_authenticity_verified": false,
+  "market_session_completeness_verified": false,
+  "execution_allowed": false,
+  "win_rate_pct": null,
+  "net_expectancy_r": null,
+  "account_return_pct": null,
+  "account_max_dd_usd": null,
+  "limitations": [
+    "Source month and UTC use publisher fixed EST declaration, not independently authenticated clock.",
+    "Partition boundaries are processing boundaries, not market/session boundaries.",
+    "Whole-second ties and reversals remain; no ordering repair or TP/SL replay.",
+    "Observed quote spreads are tick weighted and not guaranteed execution costs."
+  ]
+}

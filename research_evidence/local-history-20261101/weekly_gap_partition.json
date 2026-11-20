@@ -1,0 +1,142 @@
+{
+  "status": "UNVERIFIED_WEEKLY_GAP_PARTITION_ONLY",
+  "source_url": "https://getdata.finance/coverage/xauusd",
+  "published_report_utc": "2026-08-22T20:59:35+00:00",
+  "rule_basis": "EXISTING_UNVERIFIED_UTC_WEEKLY_HYPOTHESIS_NOT_RETRIEVED_LIVE",
+  "weekly_rule": {
+    "mon_thu_closed": "21:00-22:00",
+    "friday_close": "20:45",
+    "saturday": "CLOSED",
+    "sunday_open": "22:00",
+    "timezone": "UTC"
+  },
+  "missing_minutes": 84955,
+  "weekly_open_unexplained_minutes": 1825,
+  "weekly_closed_candidate_minutes": 83130,
+  "minutes_before_schedule_publication": 70370,
+  "calendar_authenticated": false,
+  "publication_preknown_for_all_minutes": false,
+  "continuity_restored": false,
+  "strategy_adopted": false,
+  "actual_profit_usd": null,
+  "execution_allowed": false,
+  "source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "source_rows": 179662,
+  "first_minute_utc": "2026-03-26T02:28:00+00:00",
+  "last_minute_utc": "2026-09-25T20:44:00+00:00",
+  "gap_classes": {
+    "WEEKLY_CLOSURE_CANDIDATE": 104,
+    "MIXED_WEEKLY_OPEN_AND_CLOSED": 27,
+    "UNEXPLAINED_WEEKLY_OPEN": 44
+  },
+  "largest_unexplained_intervals": [
+    {
+      "after_utc": "2026-04-02T20:59:00+00:00",
+      "before_utc": "2026-04-03T14:36:00+00:00",
+      "missing_minutes": 1056,
+      "weekly_open_unexplained_minutes": 996,
+      "weekly_closed_candidate_minutes": 60,
+      "minutes_before_schedule_publication": 1056,
+      "classification": "MIXED_WEEKLY_OPEN_AND_CLOSED",
+      "session_reason": "UNVERIFIED"
+    },
+    {
+      "after_utc": "2026-04-03T15:20:00+00:00",
+      "before_utc": "2026-04-05T22:00:00+00:00",
+      "missing_minutes": 3279,
+      "weekly_open_unexplained_minutes": 324,
+      "weekly_closed_candidate_minutes": 2955,
+      "minutes_before_schedule_publication": 3279,
+      "classification": "MIXED_WEEKLY_OPEN_AND_CLOSED",
+      "session_reason": "UNVERIFIED"
+    },
+    {
+      "after_utc": "2026-07-03T17:05:00+00:00",
+      "before_utc": "2026-07-05T22:00:00+00:00",
+      "missing_minutes": 3174,
+      "weekly_open_unexplained_minutes": 219,
+      "weekly_closed_candidate_minutes": 2955,
+      "minutes_before_schedule_publication": 3174,
+      "classification": "MIXED_WEEKLY_OPEN_AND_CLOSED",
+      "session_reason": "UNVERIFIED"
+    },
+    {
+      "after_utc": "2026-05-25T18:50:00+00:00",
+      "before_utc": "2026-05-25T20:15:00+00:00",
+      "missing_minutes": 84,
+      "weekly_open_unexplained_minutes": 84,
+      "weekly_closed_candidate_minutes": 0,
+      "minutes_before_schedule_publication": 84,
+      "classification": "UNEXPLAINED_WEEKLY_OPEN",
+      "session_reason": "UNVERIFIED"
+    },
+    {
+      "after_utc": "2026-06-19T20:06:00+00:00",
+      "before_utc": "2026-06-21T22:00:00+00:00",
+      "missing_minutes": 2993,
+      "weekly_open_unexplained_minutes": 38,
+      "weekly_closed_candidate_minutes": 2955,
+      "minutes_before_schedule_publication": 2993,
+      "classification": "MIXED_WEEKLY_OPEN_AND_CLOSED",
+      "session_reason": "UNVERIFIED"
+    },
+    {
+      "after_utc": "2026-04-03T14:43:00+00:00",
+      "before_utc": "2026-04-03T15:05:00+00:00",
+      "missing_minutes": 21,
+      "weekly_open_unexplained_minutes": 21,
+      "weekly_closed_candidate_minutes": 0,
+      "minutes_before_schedule_publication": 21,
+      "classification": "UNEXPLAINED_WEEKLY_OPEN",
+      "session_reason": "UNVERIFIED"
+    },
+    {
+      "after_utc": "2026-05-25T20:23:00+00:00",
+      "before_utc": "2026-05-25T20:45:00+00:00",
+      "missing_minutes": 21,
+      "weekly_open_unexplained_minutes": 21,
+      "weekly_closed_candidate_minutes": 0,
+      "minutes_before_schedule_publication": 21,
+      "classification": "UNEXPLAINED_WEEKLY_OPEN",
+      "session_reason": "UNVERIFIED"
+    },
+    {
+      "after_utc": "2026-05-25T20:45:00+00:00",
+      "before_utc": "2026-05-25T22:00:00+00:00",
+      "missing_minutes": 74,
+      "weekly_open_unexplained_minutes": 14,
+      "weekly_closed_candidate_minutes": 60,
+      "minutes_before_schedule_publication": 74,
+      "classification": "MIXED_WEEKLY_OPEN_AND_CLOSED",
+      "session_reason": "UNVERIFIED"
+    },
+    {
+      "after_utc": "2026-06-19T19:50:00+00:00",
+      "before_utc": "2026-06-19T20:05:00+00:00",
+      "missing_minutes": 14,
+      "weekly_open_unexplained_minutes": 14,
+      "weekly_closed_candidate_minutes": 0,
+      "minutes_before_schedule_publication": 14,
+      "classification": "UNEXPLAINED_WEEKLY_OPEN",
+      "session_reason": "UNVERIFIED"
+    },
+    {
+      "after_utc": "2026-06-19T18:09:00+00:00",
+      "before_utc": "2026-06-19T18:21:00+00:00",
+      "missing_minutes": 11,
+      "weekly_open_unexplained_minutes": 11,
+      "weekly_closed_candidate_minutes": 0,
+      "minutes_before_schedule_publication": 11,
+      "classification": "UNEXPLAINED_WEEKLY_OPEN",
+      "session_reason": "UNVERIFIED"
+    }
+  ],
+  "canonical_full_partition_sha256": "9c375f491cbcf33a52a0d6885c87906d30349a4b7330ddafc3dc9cdbc4e959cf",
+  "tests": {
+    "total": 994,
+    "passed": 989,
+    "skipped": 5,
+    "failures": 0
+  },
+  "adoption": "AUDIT_ONLY_NO_SESSION_BRIDGING"
+}

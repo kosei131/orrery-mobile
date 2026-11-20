@@ -1,0 +1,55 @@
+name: Gold probability replay
+on:
+  pull_request:
+    paths:
+      - orrery_gold_probability_study.py
+      - orrery_gold_expectancy_study.py
+      - orrery_gold_entry_friction_study.py
+      - orrery_gold_entry_routing.py
+      - .github/workflows/gold-probability-replay.yml
+permissions:
+  contents: read
+jobs:
+  probability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Replay SHA-verified Gold Bid and Ask
+        shell: bash
+        run: |
+          set -euo pipefail
+          temp="$(mktemp -d)"
+          mkdir "$temp/current" "$temp/prior"
+          base=https://raw.githubusercontent.com/kevingtlin/Market-Data-Lab/b60bd71d0e34a42cb962daf688ff252e73f409ca
+          for side in bid ask; do
+            for month in {01..10}; do
+              curl -fsS --retry 2 --max-time 30 "$base/xauusd/$side/m1/xauusd_${side}_m1_2026_$month.csv" -o "$temp/current/${side}_2026_$month.csv"
+            done
+            for month in 10 11 12; do
+              curl -fsS --retry 2 --max-time 30 "$base/xauusd/$side/m1/xauusd_${side}_m1_2025_$month.csv" -o "$temp/prior/${side}_2025_$month.csv"
+            done
+          done
+          python3 orrery_gold_probability_study.py "$temp/current" "$temp/prior"
+          python3 orrery_gold_expectancy_study.py "$temp/current" "$temp/prior"
+          python3 orrery_gold_entry_friction_study.py "$temp/current" "$temp/prior"
+      - name: Replay independent Gold Q2 history
+        shell: bash
+        run: |
+          set -euo pipefail
+          temp="$(mktemp -d)"
+          base=https://raw.githubusercontent.com/kevingtlin/Market-Data-Lab/b60bd71d0e34a42cb962daf688ff252e73f409ca
+          for side in bid ask; do
+            for month in 04 05 06; do
+              curl -fsS --retry 2 --max-time 30 "$base/xauusd/$side/m1/xauusd_${side}_m1_2025_$month.csv" -o "$temp/${side}_2025_$month.csv"
+            done
+          done
+          file="$temp/ask_2025_06.csv"
+          pin=06a264ccf5b942c88c3a371956fd2ff0c31b219c
+          if [ "$(git hash-object --no-filters "$file")" != "$pin" ]; then
+            curl -fsS --retry 2 --max-time 30 "https://api.github.com/repos/kevingtlin/Market-Data-Lab/git/blobs/$pin" \
+              | python3 -c 'import base64,json,sys; sys.stdout.buffer.write(base64.b64decode(json.load(sys.stdin)["content"]))' > "$file"
+          fi
+          python3 orrery_gold_entry_routing.py "$temp"

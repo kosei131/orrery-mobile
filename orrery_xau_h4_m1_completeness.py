@@ -4,8 +4,8 @@ Research-only. Missing quotes must never be synthesized or treated as closed mar
 import json,collections
 from pathlib import Path
 
-def run():
-    src=json.loads(Path("public_xau_h4_m1_gap_crosscheck.json").read_text())
+def classify(src):
+    """Classify an existing H4/M1 crosscheck without file IO or calendar claims."""
     details=src["details"]
     counts=collections.Counter()
     examples=[]
@@ -19,6 +19,10 @@ def run():
          "m1_slot_classification":dict(counts),"examples":examples,
          "full_h4_rebuild_allowed":False,"h4_trend_verified":False,
          "warning":"240 M1 bars is only a completeness criterion, not a verified broker-session or H4 trend signal."}
+    return out
+
+def run():
+    out=classify(json.loads(Path("public_xau_h4_m1_gap_crosscheck.json").read_text()))
     Path("public_xau_h4_m1_completeness.json").write_text(json.dumps(out,indent=2)+"\n")
     print(json.dumps(out))
 if __name__=="__main__":run()

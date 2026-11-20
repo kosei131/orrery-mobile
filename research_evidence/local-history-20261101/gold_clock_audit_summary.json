@@ -1,0 +1,71 @@
+{
+  "historical_2026": {
+    "minutes": {
+      "missing_open": 3799,
+      "missing_closed": 133320,
+      "present_open": 282761
+    },
+    "utc_h4_classes": {
+      "missing_scheduled_open_minutes": 32,
+      "complete_standard_h4": 1022,
+      "complete_partial_session_h4": 234,
+      "no_scheduled_open_minutes": 462
+    },
+    "continuity": {
+      "H1": {
+        "strict_longest": 23,
+        "session_hypothesis": {
+          "longest_chain": 825,
+          "closed_gap_carries": 195,
+          "open_gap_resets": 14
+        }
+      },
+      "H4": {
+        "strict_longest": 5,
+        "session_hypothesis": {
+          "longest_chain": 5,
+          "closed_gap_carries": 0,
+          "open_gap_resets": 205
+        }
+      }
+    }
+  },
+  "separate_2025_q4": {
+    "minutes": {
+      "present_open": 89091,
+      "missing_closed": 41460,
+      "missing_open": 1929
+    },
+    "utc_h4_classes": {
+      "complete_standard_h4": 322,
+      "complete_partial_session_h4": 73,
+      "no_scheduled_open_minutes": 143,
+      "missing_scheduled_open_minutes": 14
+    },
+    "continuity": {
+      "H1": {
+        "strict_longest": 23,
+        "session_hypothesis": {
+          "longest_chain": 961,
+          "closed_gap_carries": 60,
+          "open_gap_resets": 4
+        }
+      },
+      "H4": {
+        "strict_longest": 5,
+        "session_hypothesis": {
+          "longest_chain": 5,
+          "closed_gap_carries": 0,
+          "open_gap_resets": 64
+        }
+      }
+    }
+  },
+  "session_rule": "America/New_York Sun 18:00 through Fri 17:00 with daily 17:00-18:00 break",
+  "historical_holiday_exceptions_authenticated": false,
+  "historical_session_rule_authenticated": false,
+  "prices_interpolated": false,
+  "profits_evaluated": false,
+  "execution_allowed": false,
+  "adoption_allowed": false
+}

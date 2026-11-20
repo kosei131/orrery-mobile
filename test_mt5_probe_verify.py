@@ -117,7 +117,12 @@ class ProbeVerifyTests(unittest.TestCase):
         external=self.f.root/'outside-ticks.jsonl'
         external.write_bytes(tick.read_bytes())
         tick.unlink()
-        tick.symlink_to(external)
+        try:
+            tick.symlink_to(external)
+        except OSError as exc:
+            if getattr(exc, 'winerror', None) == 1314:
+                self.skipTest('Windows symlink privilege unavailable; rejection not exercised')
+            raise
         with self.assertRaises(ValueError):
             self.verify()
 
