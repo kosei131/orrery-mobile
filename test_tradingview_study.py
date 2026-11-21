@@ -384,3 +384,14 @@ class OffsetClockTests(unittest.TestCase):
         raw=b'time,open,high,low,close\n2026-01-01T00:00:00+00:00:01.5,100,101,99,100\n'
         with self.assertRaisesRegex(ValueError, 'Whole UTC seconds'):
             normalize(raw,timeframe='M5',settings=settings)
+
+class SubmicrosecondClockTests(unittest.TestCase):
+    def test_parser_cannot_silently_discard_fractional_seconds(self):
+        from orrery_tradingview_study import normalize
+        settings=dict(column_map={k:k for k in ('time','open','high','low','close')},
+                      as_of_s=2000000000,time_format='ISO8601')
+        for stamp in ('2026-01-01T00:00:00.0000001+00:00',
+                      '2026-01-01T00:00:00+00:00:00.5'):
+            raw=('time,open,high,low,close\n'+stamp+',100,101,99,100\n').encode()
+            with self.subTest(stamp=stamp), self.assertRaisesRegex(ValueError,'Whole UTC seconds'):
+                normalize(raw,timeframe='M5',settings=settings)
