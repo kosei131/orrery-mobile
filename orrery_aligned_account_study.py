@@ -86,7 +86,17 @@ def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
         if replay['account'] is None:
             return dict(result, status=replay['status'], gap=replay['gap'])
         accounts[name] = replay['account']
+    activity = {
+        name: dict(entries=sum(d['status'] == 'RESEARCH_ENTRY' for d in account['decisions']),
+                   closed_trades=len(account['trades']),
+                   open_positions=int(account['open_position'] is not None),
+                   decisions_by_status=dict(Counter(d['status'] for d in account['decisions'])),
+                   nonentry_reasons=dict(Counter(d['reason'] for d in account['decisions']
+                                                if d['status'] != 'RESEARCH_ENTRY')))
+        for name, account in accounts.items()
+    }
     return dict(result, status='ALIGNED_SESSION_MODEL_ACCOUNTS', accounts=accounts,
+                account_activity=activity,
                 candidate_counts=dict(LSR02=len(plans), VHF03=len(selected)),
                 out_of_window_candidates=len(compiled['plans']) - len(plans))
 

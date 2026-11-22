@@ -160,6 +160,9 @@ class AlignedAccountTests(unittest.TestCase):
         result = self.run_comparison()
         self.assertEqual(result['status'], 'ALIGNED_SESSION_MODEL_ACCOUNTS')
         self.assertEqual(result['candidate_counts'], {'LSR02': 0, 'VHF03': 0})
+        for activity in result['account_activity'].values():
+            self.assertEqual(activity, dict(entries=0, closed_trades=0, open_positions=0,
+                                            decisions_by_status={}, nonentry_reasons={}))
         self.assertEqual([row['initial_equity_usd'] for row in result['accounts'].values()],
                          [3000, 3000])
 
