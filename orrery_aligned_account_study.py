@@ -95,6 +95,14 @@ def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
                                                 if d['status'] != 'RESEARCH_ENTRY')))
         for name, account in accounts.items()
     }
+    for account in accounts.values():
+        entered = [d['id'] for d in account['decisions'] if d['status'] == 'RESEARCH_ENTRY']
+        settled = [trade['id'] for trade in account['trades']]
+        if account['open_position'] is not None:
+            settled.append(account['open_position']['id'])
+        if (len(entered) != len(set(entered)) or len(settled) != len(set(settled))
+                or set(entered) != set(settled)):
+            raise ValueError('Account entry and disposition IDs disagree')
     return dict(result, status='ALIGNED_SESSION_MODEL_ACCOUNTS', accounts=accounts,
                 account_activity=activity,
                 candidate_counts=dict(LSR02=len(plans), VHF03=len(selected)),

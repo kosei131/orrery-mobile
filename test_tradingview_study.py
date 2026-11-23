@@ -358,6 +358,17 @@ class AlignedAccountTests(unittest.TestCase):
         self.assertCountEqual(row['missing_inputs'], ['M15', 'M5', 'path'])
         self.assertIsNone(row['accounts'])
 
+    def test_inconsistent_replay_trade_cannot_publish_activity(self):
+        from unittest.mock import patch
+        from orrery_account_coverage_study import replay_continuous_window
+        def corrupt(*args, **kwargs):
+            result = replay_continuous_window(*args, **kwargs)
+            result['account']['trades'].append({'id': 'unentered'})
+            return result
+        with patch('orrery_aligned_account_study.replay_continuous_window', side_effect=corrupt):
+            with self.assertRaisesRegex(ValueError, 'IDs disagree'):
+                self.run_comparison()
+
     def test_catalog_hash_failure_returns_blocked_session_without_accounts(self):
         result = self.run_comparison(bad_pin=True)
         self.assertEqual(result['status'], 'BLOCKED_CATALOG_VALIDATION')
