@@ -6,6 +6,10 @@ on:
       - orrery_gold_expectancy_study.py
       - orrery_gold_entry_friction_study.py
       - orrery_gold_entry_routing.py
+      - orrery_gold_h1_state.py
+      - test_gold_h1_state.py
+      - orrery_gold_h1_vhf_rising.py
+      - test_gold_h1_vhf_rising.py
       - orrery_gold_session_hourly.py
       - test_gold_session_hourly.py
       - orrery_gold_clock_audit.py
@@ -36,8 +40,10 @@ jobs:
               curl -fsS --retry 2 --max-time 30 "$base/xauusd/$side/m1/xauusd_${side}_m1_2025_$month.csv" -o "$temp/prior/${side}_2025_$month.csv"
             done
           done
-          python3 -m unittest -v test_gold_session_hourly test_gold_hourly_trend test_gold_clock_audit
+          python3 -m unittest -v test_gold_session_hourly test_gold_hourly_trend test_gold_clock_audit test_gold_h1_state test_gold_h1_vhf_rising
           python3 orrery_gold_session_hourly.py "$temp/current" "$temp/prior" "$RUNNER_TEMP/gold_session_hourly_results.json"
+          python3 orrery_gold_h1_state.py "$temp/current" "$temp/prior" "$RUNNER_TEMP/gold_h1_state_results.json"
+          python3 orrery_gold_h1_vhf_rising.py "$temp/current" "$temp/prior" "$RUNNER_TEMP/gold_h1_vhf_rising_results.json"
           python3 orrery_gold_probability_study.py "$temp/current" "$temp/prior"
           python3 orrery_gold_expectancy_study.py "$temp/current" "$temp/prior"
           python3 orrery_gold_entry_friction_study.py "$temp/current" "$temp/prior"
@@ -63,5 +69,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: gold-session-hourly-results
-          path: ${{ runner.temp }}/gold_session_hourly_results.json
+          path: |
+            ${{ runner.temp }}/gold_session_hourly_results.json
+            ${{ runner.temp }}/gold_h1_state_results.json
+            ${{ runner.temp }}/gold_h1_vhf_rising_results.json
           if-no-files-found: error
