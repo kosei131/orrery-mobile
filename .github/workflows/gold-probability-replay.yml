@@ -6,6 +6,10 @@ on:
       - orrery_gold_expectancy_study.py
       - orrery_gold_entry_friction_study.py
       - orrery_gold_entry_routing.py
+      - orrery_gold_h1_excursion.py
+      - test_gold_h1_excursion.py
+      - orrery_gold_h1_half_target.py
+      - test_gold_h1_half_target.py
       - orrery_gold_h1_q2.py
       - test_gold_h1_q2.py
       - orrery_gold_h1_state.py
@@ -33,6 +37,8 @@ jobs:
           set -euo pipefail
           temp="$(mktemp -d)"
           mkdir "$temp/current" "$temp/prior"
+          echo "GOLD_H1_ARCHIVE_CURRENT=$temp/current" >> "$GITHUB_ENV"
+          echo "GOLD_H1_ARCHIVE_PRIOR=$temp/prior" >> "$GITHUB_ENV"
           base=https://raw.githubusercontent.com/kevingtlin/Market-Data-Lab/b60bd71d0e34a42cb962daf688ff252e73f409ca
           for side in bid ask; do
             for month in {01..10}; do
@@ -42,7 +48,7 @@ jobs:
               curl -fsS --retry 2 --max-time 30 "$base/xauusd/$side/m1/xauusd_${side}_m1_2025_$month.csv" -o "$temp/prior/${side}_2025_$month.csv"
             done
           done
-          python3 -m unittest -v test_gold_session_hourly test_gold_hourly_trend test_gold_clock_audit test_gold_h1_state test_gold_h1_vhf_rising test_gold_h1_q2
+          python3 -m unittest -v test_gold_session_hourly test_gold_hourly_trend test_gold_clock_audit test_gold_h1_state test_gold_h1_vhf_rising test_gold_h1_q2 test_gold_h1_excursion test_gold_h1_half_target
           python3 orrery_gold_session_hourly.py "$temp/current" "$temp/prior" "$RUNNER_TEMP/gold_session_hourly_results.json"
           python3 orrery_gold_h1_state.py "$temp/current" "$temp/prior" "$RUNNER_TEMP/gold_h1_state_results.json"
           python3 orrery_gold_h1_vhf_rising.py "$temp/current" "$temp/prior" "$RUNNER_TEMP/gold_h1_vhf_rising_results.json"
@@ -68,6 +74,8 @@ jobs:
           fi
           python3 orrery_gold_entry_routing.py "$temp"
           python3 orrery_gold_h1_q2.py "$temp" "$RUNNER_TEMP/gold_h1_q2_results.json"
+          python3 orrery_gold_h1_excursion.py "$GOLD_H1_ARCHIVE_CURRENT" "$GOLD_H1_ARCHIVE_PRIOR" "$temp" "$RUNNER_TEMP/gold_h1_excursion_results.json"
+          python3 orrery_gold_h1_half_target.py "$GOLD_H1_ARCHIVE_CURRENT" "$GOLD_H1_ARCHIVE_PRIOR" "$temp" "$RUNNER_TEMP/gold_h1_half_target_results.json"
       - name: Save session hourly research results
         uses: actions/upload-artifact@v4
         with:
@@ -77,4 +85,6 @@ jobs:
             ${{ runner.temp }}/gold_h1_state_results.json
             ${{ runner.temp }}/gold_h1_vhf_rising_results.json
             ${{ runner.temp }}/gold_h1_q2_results.json
+            ${{ runner.temp }}/gold_h1_excursion_results.json
+            ${{ runner.temp }}/gold_h1_half_target_results.json
           if-no-files-found: error
