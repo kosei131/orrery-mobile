@@ -85,6 +85,12 @@ def compare(raw_csvs, settings, *, path, expected_catalog_sha256, max_gap_msc,
             cancellations=[e for e in compiled['cancellations'] if e['id'] in ids])
         if replay['account'] is None:
             return dict(result, status=replay['status'], gap=replay['gap'])
+        decisions = replay['account']['decisions']
+        decision_ids = [d['id'] for d in decisions]
+        if (len(decision_ids) != len(ids) or set(decision_ids) != ids
+                or any(d['status'] not in ('RESEARCH_ENTRY', 'SKIP', 'NO_ENTRY')
+                       for d in decisions)):
+            raise ValueError('Candidate and decision IDs or statuses disagree')
         accounts[name] = replay['account']
     activity = {
         name: dict(entries=sum(d['status'] == 'RESEARCH_ENTRY' for d in account['decisions']),
