@@ -421,3 +421,20 @@ class SubmicrosecondClockTests(unittest.TestCase):
             raw=('time,open,high,low,close\n'+stamp+',100,101,99,100\n').encode()
             with self.subTest(stamp=stamp), self.assertRaisesRegex(ValueError,'Whole UTC seconds'):
                 normalize(raw,timeframe='M5',settings=settings)
+
+class PipelinePinTests(unittest.TestCase):
+    def test_changed_pipeline_is_refused_before_session_replay(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import compare_holdout, session_plan_sha256
+        session = dict(start_s=14400, end_s=28800, raw_csvs=None,
+                       path=None, catalog_sha256=None)
+        config = dict(symbol='XAUUSD')
+        protocol = dict(development_end_s=14400, valuation_source='synthetic/v1')
+        digest = session_plan_sha256([session], config, **protocol)
+        with patch('orrery_aligned_account_study.account_pipeline_sha256', return_value='changed'):
+            with patch('orrery_aligned_account_study.compare_sessions') as replay:
+                with self.assertRaisesRegex(ValueError, 'pipeline SHA256 mismatch'):
+                    compare_holdout([session], config, expected_plan_sha256=digest,
+                                    expected_pipeline_sha256='saved',
+                                    pnl_quote=account_fixture.pnl, **protocol)
+                replay.assert_not_called()

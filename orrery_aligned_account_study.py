@@ -3,6 +3,7 @@ from collections import Counter
 from csv import Error as CSVError
 from hashlib import sha256
 from math import isfinite
+from pathlib import Path
 
 from lsr04_tick_archive import _encode
 from lsr03_tick_study import load_catalog_ticks
@@ -228,19 +229,33 @@ def holdout_data_sha256(sessions):
     return sha256(_encode(manifest)).hexdigest()
 
 
+def account_pipeline_sha256():
+    """Fingerprint four account pipeline files; not all strategy dependencies."""
+    root = Path(__file__).resolve().parent
+    names = ('orrery_aligned_account_study.py', 'orrery_tradingview_study.py',
+             'orrery_bar_quote_alignment.py', 'orrery_account_coverage_study.py')
+    return sha256(_encode({name: sha256((root / name).read_bytes()).hexdigest()
+                           for name in names})).hexdigest()
+
+
 def compare_holdout(sessions, settings, *, expected_plan_sha256,
                     development_end_s, valuation_source, pnl_quote,
-                    expected_data_sha256=None, **account_assumptions):
+                    expected_data_sha256=None, expected_pipeline_sha256=None,
+                    **account_assumptions):
     """Replay only the declared protocol, using the separately supplied data."""
     digest = session_plan_sha256(sessions, settings, development_end_s=development_end_s,
                                 valuation_source=valuation_source, **account_assumptions)
     if digest != expected_plan_sha256:
         raise ValueError('Holdout protocol SHA256 mismatch')
+    pipeline_digest = account_pipeline_sha256()
+    if expected_pipeline_sha256 is not None and pipeline_digest != expected_pipeline_sha256:
+        raise ValueError('Holdout pipeline SHA256 mismatch')
     data_digest = holdout_data_sha256(sessions)
     if expected_data_sha256 is not None and data_digest != expected_data_sha256:
         raise ValueError('Holdout data SHA256 mismatch')
     result = compare_sessions(sessions, settings, pnl_quote=pnl_quote, **account_assumptions)
     return dict(result, plan_sha256=digest, data_sha256=data_digest,
+                pipeline_sha256=pipeline_digest,
                 development_end_s=development_end_s,
                 valuation_source=valuation_source)
 
