@@ -1,0 +1,462 @@
+{
+  "study": "gold_h1_excursion_v1_1",
+  "plan_sha256": "29290186f55c25a9516b39f9fba7385cadae16deb03bad85c1852374fc967e1f",
+  "post_trade_diagnostic": true,
+  "out_of_sample": false,
+  "independent_holdout_verified": false,
+  "alternative_exit_replayed": false,
+  "execution_allowed": false,
+  "adoption_allowed": false,
+  "account_return_pct": null,
+  "account_max_dd_pct": null,
+  "periods": {
+    "historical_2026": {
+      "start_utc": 1767225600,
+      "end_utc_exclusive": 1792418400,
+      "baseline_reproduced": true,
+      "arms": {
+        "BASELINE": {
+          "candidates": 253,
+          "coverage": {
+            "COMPLETE_TO_EXIT": 250,
+            "PARTIAL_TO_GAP": 3
+          },
+          "complete_to_exit": 250,
+          "incomplete": 3,
+          "mean_mfe_r_bounds": [
+            0.6498646606293613,
+            0.6498646606293613
+          ],
+          "median_mfe_r_bounds": [
+            0.5119821083996798,
+            0.5119821083996798
+          ],
+          "mean_mae_r_bounds": [
+            0.555757432680544,
+            0.555757432680544
+          ],
+          "mean_giveback_r_bounds": [
+            0.6409103956495428,
+            0.6409103956495428
+          ],
+          "thresholds": {
+            "0.25": {
+              "confirmed_before_exit": 175,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 75,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 3,
+              "resolved_losses_after_confirmed_reach": 64
+            },
+            "0.5": {
+              "confirmed_before_exit": 127,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 123,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 3,
+              "resolved_losses_after_confirmed_reach": 30
+            },
+            "1": {
+              "confirmed_before_exit": 53,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 197,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 3,
+              "resolved_losses_after_confirmed_reach": 3
+            },
+            "1.5": {
+              "confirmed_before_exit": 27,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 223,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 3,
+              "resolved_losses_after_confirmed_reach": 0
+            },
+            "2": {
+              "confirmed_before_exit": 17,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 233,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 3,
+              "resolved_losses_after_confirmed_reach": 0
+            }
+          },
+          "mfe_includes_spread": true,
+          "additional_cost_in_mfe": false,
+          "alternative_exit_replayed": false,
+          "account_return_pct": null
+        },
+        "VHF_RISING": {
+          "candidates": 124,
+          "coverage": {
+            "COMPLETE_TO_EXIT": 122,
+            "PARTIAL_TO_GAP": 2
+          },
+          "complete_to_exit": 122,
+          "incomplete": 2,
+          "mean_mfe_r_bounds": [
+            0.6851978934474731,
+            0.6851978934474731
+          ],
+          "median_mfe_r_bounds": [
+            0.5140616850013561,
+            0.5140616850013561
+          ],
+          "mean_mae_r_bounds": [
+            0.5511319196791636,
+            0.5511319196791636
+          ],
+          "mean_giveback_r_bounds": [
+            0.6443395417214793,
+            0.6443395417214793
+          ],
+          "thresholds": {
+            "0.25": {
+              "confirmed_before_exit": 79,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 43,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 25
+            },
+            "0.5": {
+              "confirmed_before_exit": 63,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 59,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 15
+            },
+            "1": {
+              "confirmed_before_exit": 31,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 91,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 2
+            },
+            "1.5": {
+              "confirmed_before_exit": 15,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 107,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 0
+            },
+            "2": {
+              "confirmed_before_exit": 9,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 113,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 0
+            }
+          },
+          "mfe_includes_spread": true,
+          "additional_cost_in_mfe": false,
+          "alternative_exit_replayed": false,
+          "account_return_pct": null
+        }
+      }
+    },
+    "separate_2025_q4": {
+      "start_utc": 1759276800,
+      "end_utc_exclusive": 1767225600,
+      "baseline_reproduced": true,
+      "arms": {
+        "BASELINE": {
+          "candidates": 80,
+          "coverage": {
+            "COMPLETE_TO_EXIT": 79,
+            "PARTIAL_TO_GAP": 1
+          },
+          "complete_to_exit": 79,
+          "incomplete": 1,
+          "mean_mfe_r_bounds": [
+            0.5626661876332748,
+            0.5626661876332748
+          ],
+          "median_mfe_r_bounds": [
+            0.4485228186705529,
+            0.4485228186705529
+          ],
+          "mean_mae_r_bounds": [
+            0.6186899190748677,
+            0.6186899190748677
+          ],
+          "mean_giveback_r_bounds": [
+            0.7241237770039846,
+            0.7241237770039846
+          ],
+          "thresholds": {
+            "0.25": {
+              "confirmed_before_exit": 48,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 31,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 20
+            },
+            "0.5": {
+              "confirmed_before_exit": 38,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 41,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 13
+            },
+            "1": {
+              "confirmed_before_exit": 15,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 64,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 4
+            },
+            "1.5": {
+              "confirmed_before_exit": 3,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 76,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 0
+            },
+            "2": {
+              "confirmed_before_exit": 2,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 77,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 0
+            }
+          },
+          "mfe_includes_spread": true,
+          "additional_cost_in_mfe": false,
+          "alternative_exit_replayed": false,
+          "account_return_pct": null
+        },
+        "VHF_RISING": {
+          "candidates": 33,
+          "coverage": {
+            "COMPLETE_TO_EXIT": 31,
+            "PARTIAL_TO_GAP": 2
+          },
+          "complete_to_exit": 31,
+          "incomplete": 2,
+          "mean_mfe_r_bounds": [
+            0.7521610210465761,
+            0.7521610210465761
+          ],
+          "median_mfe_r_bounds": [
+            0.6651769762057221,
+            0.6651769762057221
+          ],
+          "mean_mae_r_bounds": [
+            0.5525321595120808,
+            0.5525321595120808
+          ],
+          "mean_giveback_r_bounds": [
+            0.6177651031570325,
+            0.6177651031570325
+          ],
+          "thresholds": {
+            "0.25": {
+              "confirmed_before_exit": 22,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 9,
+              "incomplete_with_observed_reach": 1,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 7
+            },
+            "0.5": {
+              "confirmed_before_exit": 20,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 11,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 6
+            },
+            "1": {
+              "confirmed_before_exit": 8,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 23,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 2
+            },
+            "1.5": {
+              "confirmed_before_exit": 4,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 27,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 0
+            },
+            "2": {
+              "confirmed_before_exit": 2,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 29,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 0
+            }
+          },
+          "mfe_includes_spread": true,
+          "additional_cost_in_mfe": false,
+          "alternative_exit_replayed": false,
+          "account_return_pct": null
+        }
+      }
+    },
+    "separate_2025_q2": {
+      "start_utc": 1743465600,
+      "end_utc_exclusive": 1751328000,
+      "baseline_reproduced": true,
+      "arms": {
+        "BASELINE": {
+          "candidates": 75,
+          "coverage": {
+            "COMPLETE_TO_EXIT": 73,
+            "PARTIAL_TO_GAP": 2
+          },
+          "complete_to_exit": 73,
+          "incomplete": 2,
+          "mean_mfe_r_bounds": [
+            0.6651492189511593,
+            0.6651492189511593
+          ],
+          "median_mfe_r_bounds": [
+            0.4603849433548672,
+            0.4603849433548672
+          ],
+          "mean_mae_r_bounds": [
+            0.621053762369274,
+            0.621053762369274
+          ],
+          "mean_giveback_r_bounds": [
+            0.6863823123620436,
+            0.6863823123620436
+          ],
+          "thresholds": {
+            "0.25": {
+              "confirmed_before_exit": 49,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 24,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 17
+            },
+            "0.5": {
+              "confirmed_before_exit": 33,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 40,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 7
+            },
+            "1": {
+              "confirmed_before_exit": 21,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 52,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 1
+            },
+            "1.5": {
+              "confirmed_before_exit": 10,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 63,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 0
+            },
+            "2": {
+              "confirmed_before_exit": 4,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 69,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 2,
+              "resolved_losses_after_confirmed_reach": 0
+            }
+          },
+          "mfe_includes_spread": true,
+          "additional_cost_in_mfe": false,
+          "alternative_exit_replayed": false,
+          "account_return_pct": null
+        },
+        "VHF_RISING": {
+          "candidates": 36,
+          "coverage": {
+            "COMPLETE_TO_EXIT": 35,
+            "PARTIAL_TO_GAP": 1
+          },
+          "complete_to_exit": 35,
+          "incomplete": 1,
+          "mean_mfe_r_bounds": [
+            0.5683739783608035,
+            0.5683739783608035
+          ],
+          "median_mfe_r_bounds": [
+            0.49825647911541304,
+            0.49825647911541304
+          ],
+          "mean_mae_r_bounds": [
+            0.5935319700788745,
+            0.5935319700788745
+          ],
+          "mean_giveback_r_bounds": [
+            0.5680778062952575,
+            0.5680778062952575
+          ],
+          "thresholds": {
+            "0.25": {
+              "confirmed_before_exit": 24,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 11,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 7
+            },
+            "0.5": {
+              "confirmed_before_exit": 17,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 18,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 3
+            },
+            "1": {
+              "confirmed_before_exit": 7,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 28,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 0
+            },
+            "1.5": {
+              "confirmed_before_exit": 2,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 33,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 0
+            },
+            "2": {
+              "confirmed_before_exit": 0,
+              "terminal_minute_uncertain": 0,
+              "not_reached_before_exit": 35,
+              "incomplete_with_observed_reach": 0,
+              "incomplete_other": 1,
+              "resolved_losses_after_confirmed_reach": 0
+            }
+          },
+          "mfe_includes_spread": true,
+          "additional_cost_in_mfe": false,
+          "alternative_exit_replayed": false,
+          "account_return_pct": null
+        }
+      }
+    }
+  },
+  "full_result_sha256": "6c9b9928372c61a4cd93d640a1ecd7a41a5639ec227db38292a2c9e05c12e167"
+}

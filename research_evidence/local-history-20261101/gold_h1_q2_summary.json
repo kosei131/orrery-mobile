@@ -1,0 +1,564 @@
+{
+  "study": "gold_h1_vhf_q2_v1",
+  "source_revision": "b60bd71d0e34a42cb962daf688ff252e73f409ca",
+  "audit": {
+    "paired_minutes": 88012,
+    "removed_flat_minutes": 43028,
+    "sha256": {
+      "bid_2025_04.csv": "4e2364e526b266b788b7e980902e9e457653357b58ad5d9caff17814e4bce832",
+      "bid_2025_05.csv": "d0f3a257cf9f9259d4ccc8b3a9525cfeed0413e281bb31521263d69d0aca2be0",
+      "bid_2025_06.csv": "2440bcdc23708b6dcaea4e0d2cc8cab57b373dc5be3c287fc8086e82ee84d44e",
+      "ask_2025_04.csv": "5b5297933a1f21fd1b69054e3e88c8694180bd2d8d540b1dcac64bde7a2f2ce8",
+      "ask_2025_05.csv": "ed917c8a50ec2df090f0ad47b0fe4c619677ac99502535ecc5bada44a4d52964",
+      "ask_2025_06.csv": "cc27d092f39c0a8b8bc3c2dedc610512e4baab278c2610d8536495c9ff695498"
+    }
+  },
+  "clock_audit": {
+    "minutes": {
+      "present_open": 88012,
+      "missing_closed": 41340,
+      "missing_open": 1688
+    },
+    "utc_h4_classes": {
+      "complete_standard_h4": 318,
+      "complete_partial_session_h4": 73,
+      "no_scheduled_open_minutes": 143,
+      "missing_scheduled_open_minutes": 12
+    },
+    "continuity": {
+      "H1": {
+        "strict_longest": 23,
+        "session_hypothesis": {
+          "longest_chain": 433,
+          "closed_gap_carries": 60,
+          "open_gap_resets": 4
+        }
+      },
+      "H4": {
+        "strict_longest": 5,
+        "session_hypothesis": {
+          "longest_chain": 5,
+          "closed_gap_carries": 0,
+          "open_gap_resets": 63
+        }
+      }
+    }
+  },
+  "start_utc": "2025-04-01T00:00:00+00:00",
+  "end_utc_exclusive": "2025-07-01T00:00:00+00:00",
+  "complete_h1": 1464,
+  "raw_signals": 158,
+  "passing_signals": 47,
+  "excluded_by_vhf": 111,
+  "entries_absent_from_baseline": 18,
+  "arms": {
+    "BASELINE": {
+      "candidates": 75,
+      "resolved": 73,
+      "statuses": {
+        "RESOLVED_REFERENCE": 73,
+        "CENSORED_AT_SIDE_GAP": 2
+      },
+      "exit_reasons": {
+        "SL_TOUCH": 20,
+        "TIMEOUT_CLOSE": 35,
+        "TP_TOUCH": 4,
+        "SESSION_CLOSE": 14
+      },
+      "scenarios": [
+        {
+          "additional_cost_price": 0,
+          "mean_resolved_r": -0.021233093410884297,
+          "positive_rate_pct": 45.205479452054796,
+          "pf": 0.9431381787039264,
+          "resolved_sequence_drawdown_r": 8.753726180497148
+        },
+        {
+          "additional_cost_price": 0.3,
+          "mean_resolved_r": -0.03406142156188754,
+          "positive_rate_pct": 43.83561643835616,
+          "pf": 0.9105567676580032,
+          "resolved_sequence_drawdown_r": 9.038163135400797
+        },
+        {
+          "additional_cost_price": 0.6,
+          "mean_resolved_r": -0.04688974971289077,
+          "positive_rate_pct": 43.83561643835616,
+          "pf": 0.8792323746557932,
+          "resolved_sequence_drawdown_r": 9.32260009030445
+        }
+      ],
+      "gross_total_resolved_r": -1.5500158189945537,
+      "extra_cost_total_resolved_r": 0.936467955023236,
+      "net_total_resolved_r": -2.4864837740177896,
+      "net_mean_all_candidates_r": null,
+      "descriptive_win_fraction_wilson95": [
+        0.3304534902599767,
+        0.552422236748264
+      ],
+      "by_exit_reason": {
+        "SESSION_CLOSE": {
+          "count": 14,
+          "net_total_r": -1.8878479008334574
+        },
+        "SL_TOUCH": {
+          "count": 20,
+          "net_total_r": -20.287711452169155
+        },
+        "TIMEOUT_CLOSE": {
+          "count": 35,
+          "net_total_r": 11.750341297212946
+        },
+        "TP_TOUCH": {
+          "count": 4,
+          "net_total_r": 7.938734281771877
+        }
+      },
+      "skipped": {
+        "OCCUPIED_OR_UNKNOWN_OUTCOME": 77,
+        "CLOSED_OR_PERIOD_END": 6
+      },
+      "resolved_per_calendar_week": 5.615384615384615,
+      "by_utc_month": {
+        "2025-04": {
+          "candidates": 24,
+          "resolved": 24,
+          "statuses": {
+            "RESOLVED_REFERENCE": 24
+          },
+          "exit_reasons": {
+            "SL_TOUCH": 6,
+            "TIMEOUT_CLOSE": 13,
+            "TP_TOUCH": 1,
+            "SESSION_CLOSE": 4
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.16715170684555783,
+              "positive_rate_pct": 58.333333333333336,
+              "pf": 1.5761178239541456,
+              "resolved_sequence_drawdown_r": 2.4017079325890105
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.15634579581637695,
+              "positive_rate_pct": 54.166666666666664,
+              "pf": 1.528813851583244,
+              "resolved_sequence_drawdown_r": 2.485779877468174
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.1455398847871961,
+              "positive_rate_pct": 54.166666666666664,
+              "pf": 1.4830109063441224,
+              "resolved_sequence_drawdown_r": 2.5733343544087495
+            }
+          ],
+          "gross_total_resolved_r": 4.011640964293388,
+          "extra_cost_total_resolved_r": 0.25934186470034054,
+          "net_total_resolved_r": 3.7522990995930474,
+          "net_mean_all_candidates_r": 0.15634579581637698,
+          "descriptive_win_fraction_wilson95": [
+            0.3507486535891948,
+            0.72108666268789
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 4,
+              "net_total_r": -0.6468451657537129
+            },
+            "SL_TOUCH": {
+              "count": 6,
+              "net_total_r": -6.079168004191707
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 13,
+              "net_total_r": 8.48824844146263
+            },
+            "TP_TOUCH": {
+              "count": 1,
+              "net_total_r": 1.9900638280758365
+            }
+          }
+        },
+        "2025-05": {
+          "candidates": 22,
+          "resolved": 21,
+          "statuses": {
+            "RESOLVED_REFERENCE": 21,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "SESSION_CLOSE": 6,
+            "TIMEOUT_CLOSE": 10,
+            "SL_TOUCH": 4,
+            "TP_TOUCH": 1
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.027690075156975556,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 0.9203955040457404,
+              "resolved_sequence_drawdown_r": 3.063884879777429
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.039337615295380435,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 0.8888280526030646,
+              "resolved_sequence_drawdown_r": 3.1349721125162837
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.0509851554337853,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 0.858313161803884,
+              "resolved_sequence_drawdown_r": 3.2060593452551394
+            }
+          ],
+          "gross_total_resolved_r": -0.5814915782964867,
+          "extra_cost_total_resolved_r": 0.24459834290650231,
+          "net_total_resolved_r": -0.826089921202989,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.2446996892537596,
+            0.6345344563069328
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 6,
+              "net_total_r": -1.289565833180092
+            },
+            "SL_TOUCH": {
+              "count": 4,
+              "net_total_r": -4.04297927123692
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 10,
+              "net_total_r": 2.521389047529199
+            },
+            "TP_TOUCH": {
+              "count": 1,
+              "net_total_r": 1.9850661356848243
+            }
+          }
+        },
+        "2025-06": {
+          "candidates": 29,
+          "resolved": 28,
+          "statuses": {
+            "RESOLVED_REFERENCE": 28,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "TIMEOUT_CLOSE": 12,
+            "SL_TOUCH": 10,
+            "TP_TOUCH": 2,
+            "SESSION_CLOSE": 4
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.1778630430354091,
+              "positive_rate_pct": 35.714285714285715,
+              "pf": 0.6166554053312974,
+              "resolved_sequence_drawdown_r": 8.753726180497148
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.19331046258599455,
+              "positive_rate_pct": 35.714285714285715,
+              "pf": 0.5922071562551536,
+              "resolved_sequence_drawdown_r": 9.038163135400799
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.20875788213658006,
+              "positive_rate_pct": 35.714285714285715,
+              "pf": 0.5687754033868047,
+              "resolved_sequence_drawdown_r": 9.322600090304451
+            }
+          ],
+          "gross_total_resolved_r": -4.980165204991454,
+          "extra_cost_total_resolved_r": 0.43252774741639316,
+          "net_total_resolved_r": -5.4126929524078475,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.2070582950773768,
+            0.5416969348557219
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 4,
+              "net_total_r": 0.048563098100347674
+            },
+            "SL_TOUCH": {
+              "count": 10,
+              "net_total_r": -10.16556417674053
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 12,
+              "net_total_r": 0.7407038082211184
+            },
+            "TP_TOUCH": {
+              "count": 2,
+              "net_total_r": 3.9636043180112166
+            }
+          }
+        }
+      }
+    },
+    "VHF_RISING": {
+      "candidates": 36,
+      "resolved": 35,
+      "statuses": {
+        "RESOLVED_REFERENCE": 35,
+        "CENSORED_AT_SIDE_GAP": 1
+      },
+      "exit_reasons": {
+        "SL_TOUCH": 8,
+        "SESSION_CLOSE": 10,
+        "TIMEOUT_CLOSE": 17
+      },
+      "scenarios": [
+        {
+          "additional_cost_price": 0,
+          "mean_resolved_r": 0.00029617206554602465,
+          "positive_rate_pct": 48.57142857142857,
+          "pf": 1.0009513346574979,
+          "resolved_sequence_drawdown_r": 3.2162895974536108
+        },
+        {
+          "additional_cost_price": 0.3,
+          "mean_resolved_r": -0.011844321853159055,
+          "positive_rate_pct": 48.57142857142857,
+          "pf": 0.9627252478686735,
+          "resolved_sequence_drawdown_r": 3.3573407777678197
+        },
+        {
+          "additional_cost_price": 0.6,
+          "mean_resolved_r": -0.02398481577186412,
+          "positive_rate_pct": 48.57142857142857,
+          "pf": 0.9260165784941254,
+          "resolved_sequence_drawdown_r": 3.4983919580820286
+        }
+      ],
+      "gross_total_resolved_r": 0.010366022294110863,
+      "extra_cost_total_resolved_r": 0.42491728715467736,
+      "net_total_resolved_r": -0.4145512648605665,
+      "net_mean_all_candidates_r": null,
+      "descriptive_win_fraction_wilson95": [
+        0.32994236002509725,
+        0.6443119540413141
+      ],
+      "by_exit_reason": {
+        "SESSION_CLOSE": {
+          "count": 10,
+          "net_total_r": 1.0474925606629495
+        },
+        "SL_TOUCH": {
+          "count": 8,
+          "net_total_r": -8.09931647895067
+        },
+        "TIMEOUT_CLOSE": {
+          "count": 17,
+          "net_total_r": 6.637272653427153
+        }
+      },
+      "skipped": {
+        "OCCUPIED_OR_UNKNOWN_OUTCOME": 9,
+        "CLOSED_OR_PERIOD_END": 2
+      },
+      "resolved_per_calendar_week": 2.6923076923076925,
+      "by_utc_month": {
+        "2025-04": {
+          "candidates": 12,
+          "resolved": 12,
+          "statuses": {
+            "RESOLVED_REFERENCE": 12
+          },
+          "exit_reasons": {
+            "SL_TOUCH": 4,
+            "SESSION_CLOSE": 4,
+            "TIMEOUT_CLOSE": 4
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.23315099269148734,
+              "positive_rate_pct": 41.666666666666664,
+              "pf": 0.4420689758431933,
+              "resolved_sequence_drawdown_r": 3.0
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.24329560411361317,
+              "positive_rate_pct": 41.666666666666664,
+              "pf": 0.42604456254208306,
+              "resolved_sequence_drawdown_r": 3.0315858388442383
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.253440215535739,
+              "positive_rate_pct": 41.666666666666664,
+              "pf": 0.41046803217641215,
+              "resolved_sequence_drawdown_r": 3.0631716776884756
+            }
+          ],
+          "gross_total_resolved_r": -2.797811912297848,
+          "extra_cost_total_resolved_r": 0.12173533706550961,
+          "net_total_resolved_r": -2.9195472493633576,
+          "net_mean_all_candidates_r": -0.24329560411361315,
+          "descriptive_win_fraction_wilson95": [
+            0.19326031365875665,
+            0.6804886874504503
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 4,
+              "net_total_r": 0.5414407114379246
+            },
+            "SL_TOUCH": {
+              "count": 4,
+              "net_total_r": -4.040964104490311
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 4,
+              "net_total_r": 0.5799761436890284
+            }
+          }
+        },
+        "2025-05": {
+          "candidates": 9,
+          "resolved": 9,
+          "statuses": {
+            "RESOLVED_REFERENCE": 9
+          },
+          "exit_reasons": {
+            "SESSION_CLOSE": 2,
+            "SL_TOUCH": 1,
+            "TIMEOUT_CLOSE": 6
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.24602223945174156,
+              "positive_rate_pct": 66.66666666666667,
+              "pf": 2.257483918934885,
+              "resolved_sequence_drawdown_r": 1.0
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.23480837930855453,
+              "positive_rate_pct": 66.66666666666667,
+              "pf": 2.178250636979434,
+              "resolved_sequence_drawdown_r": 1.0107598503868422
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.22359451916536754,
+              "positive_rate_pct": 66.66666666666667,
+              "pf": 2.1018592260179414,
+              "resolved_sequence_drawdown_r": 1.0215197007736843
+            }
+          ],
+          "gross_total_resolved_r": 2.214200155065674,
+          "extra_cost_total_resolved_r": 0.10092474128868309,
+          "net_total_resolved_r": 2.113275413776991,
+          "net_mean_all_candidates_r": 0.23480837930855458,
+          "descriptive_win_fraction_wilson95": [
+            0.3542021355803963,
+            0.879416181613089
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 2,
+              "net_total_r": 0.41836509498851004
+            },
+            "SL_TOUCH": {
+              "count": 1,
+              "net_total_r": -1.0107598503868422
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 6,
+              "net_total_r": 2.7056701691753227
+            }
+          }
+        },
+        "2025-06": {
+          "candidates": 15,
+          "resolved": 14,
+          "statuses": {
+            "RESOLVED_REFERENCE": 14,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "TIMEOUT_CLOSE": 7,
+            "SL_TOUCH": 3,
+            "SESSION_CLOSE": 4
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.042426984251877534,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 1.1441393955670074,
+              "resolved_sequence_drawdown_r": 2.3091577891071724
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.027980040766128613,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 1.0923603862474907,
+              "resolved_sequence_drawdown_r": 2.438701576977739
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.013533097280379708,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 1.0434391555717404,
+              "resolved_sequence_drawdown_r": 2.568245364848306
+            }
+          ],
+          "gross_total_resolved_r": 0.5939777795262855,
+          "extra_cost_total_resolved_r": 0.20225720880048467,
+          "net_total_resolved_r": 0.3917205707258008,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.21380798904474121,
+            0.6740935542034926
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 4,
+              "net_total_r": 0.08768675423651481
+            },
+            "SL_TOUCH": {
+              "count": 3,
+              "net_total_r": -3.047592524073516
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 7,
+              "net_total_r": 3.3516263405628015
+            }
+          }
+        }
+      }
+    }
+  },
+  "plan_sha256": "590ebcdcdd3d12f68236e5f88e2fdb224f5fbb3a6d0e813e6de03dbc04742088",
+  "hypotheses_replayed": 1,
+  "new_period_for_h1_hypothesis": true,
+  "archive_previously_used_for_other_strategies": true,
+  "independent_holdout_verified": false,
+  "out_of_sample": false,
+  "historical_session_rule_authenticated": false,
+  "historical_holiday_exceptions_authenticated": false,
+  "account_return_pct": null,
+  "account_max_dd_pct": null,
+  "adoption_allowed": false,
+  "execution_allowed": false,
+  "full_result_sha256": "9d16476ae41c0bac342f88ce0bb13c9aca33aee5889f1081635b626764c44475"
+}

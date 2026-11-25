@@ -1,0 +1,2216 @@
+{
+  "study": "gold_h1_vhf_q2_v1",
+  "source_revision": "b60bd71d0e34a42cb962daf688ff252e73f409ca",
+  "audit": {
+    "paired_minutes": 88012,
+    "removed_flat_minutes": 43028,
+    "sha256": {
+      "bid_2025_04.csv": "4e2364e526b266b788b7e980902e9e457653357b58ad5d9caff17814e4bce832",
+      "bid_2025_05.csv": "d0f3a257cf9f9259d4ccc8b3a9525cfeed0413e281bb31521263d69d0aca2be0",
+      "bid_2025_06.csv": "2440bcdc23708b6dcaea4e0d2cc8cab57b373dc5be3c287fc8086e82ee84d44e",
+      "ask_2025_04.csv": "5b5297933a1f21fd1b69054e3e88c8694180bd2d8d540b1dcac64bde7a2f2ce8",
+      "ask_2025_05.csv": "ed917c8a50ec2df090f0ad47b0fe4c619677ac99502535ecc5bada44a4d52964",
+      "ask_2025_06.csv": "cc27d092f39c0a8b8bc3c2dedc610512e4baab278c2610d8536495c9ff695498"
+    }
+  },
+  "clock_audit": {
+    "minutes": {
+      "present_open": 88012,
+      "missing_closed": 41340,
+      "missing_open": 1688
+    },
+    "utc_h4_classes": {
+      "complete_standard_h4": 318,
+      "complete_partial_session_h4": 73,
+      "no_scheduled_open_minutes": 143,
+      "missing_scheduled_open_minutes": 12
+    },
+    "continuity": {
+      "H1": {
+        "strict_longest": 23,
+        "session_hypothesis": {
+          "longest_chain": 433,
+          "closed_gap_carries": 60,
+          "open_gap_resets": 4
+        }
+      },
+      "H4": {
+        "strict_longest": 5,
+        "session_hypothesis": {
+          "longest_chain": 5,
+          "closed_gap_carries": 0,
+          "open_gap_resets": 63
+        }
+      }
+    }
+  },
+  "start_utc": "2025-04-01T00:00:00+00:00",
+  "end_utc_exclusive": "2025-07-01T00:00:00+00:00",
+  "complete_h1": 1464,
+  "raw_signals": 158,
+  "passing_signals": 47,
+  "excluded_by_vhf": 111,
+  "entries_absent_from_baseline": 18,
+  "arms": {
+    "BASELINE": {
+      "candidates": 75,
+      "resolved": 73,
+      "statuses": {
+        "RESOLVED_REFERENCE": 73,
+        "CENSORED_AT_SIDE_GAP": 2
+      },
+      "exit_reasons": {
+        "SL_TOUCH": 20,
+        "TIMEOUT_CLOSE": 35,
+        "TP_TOUCH": 4,
+        "SESSION_CLOSE": 14
+      },
+      "scenarios": [
+        {
+          "additional_cost_price": 0,
+          "mean_resolved_r": -0.021233093410884297,
+          "positive_rate_pct": 45.205479452054796,
+          "pf": 0.9431381787039264,
+          "resolved_sequence_drawdown_r": 8.753726180497148
+        },
+        {
+          "additional_cost_price": 0.3,
+          "mean_resolved_r": -0.03406142156188754,
+          "positive_rate_pct": 43.83561643835616,
+          "pf": 0.9105567676580032,
+          "resolved_sequence_drawdown_r": 9.038163135400797
+        },
+        {
+          "additional_cost_price": 0.6,
+          "mean_resolved_r": -0.04688974971289077,
+          "positive_rate_pct": 43.83561643835616,
+          "pf": 0.8792323746557932,
+          "resolved_sequence_drawdown_r": 9.32260009030445
+        }
+      ],
+      "gross_total_resolved_r": -1.5500158189945537,
+      "extra_cost_total_resolved_r": 0.936467955023236,
+      "net_total_resolved_r": -2.4864837740177896,
+      "net_mean_all_candidates_r": null,
+      "descriptive_win_fraction_wilson95": [
+        0.3304534902599767,
+        0.552422236748264
+      ],
+      "by_exit_reason": {
+        "SESSION_CLOSE": {
+          "count": 14,
+          "net_total_r": -1.8878479008334574
+        },
+        "SL_TOUCH": {
+          "count": 20,
+          "net_total_r": -20.287711452169155
+        },
+        "TIMEOUT_CLOSE": {
+          "count": 35,
+          "net_total_r": 11.750341297212946
+        },
+        "TP_TOUCH": {
+          "count": 4,
+          "net_total_r": 7.938734281771877
+        }
+      },
+      "skipped": {
+        "OCCUPIED_OR_UNKNOWN_OUTCOME": 77,
+        "CLOSED_OR_PERIOD_END": 6
+      },
+      "resolved_per_calendar_week": 5.615384615384615,
+      "by_utc_month": {
+        "2025-04": {
+          "candidates": 24,
+          "resolved": 24,
+          "statuses": {
+            "RESOLVED_REFERENCE": 24
+          },
+          "exit_reasons": {
+            "SL_TOUCH": 6,
+            "TIMEOUT_CLOSE": 13,
+            "TP_TOUCH": 1,
+            "SESSION_CLOSE": 4
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.16715170684555783,
+              "positive_rate_pct": 58.333333333333336,
+              "pf": 1.5761178239541456,
+              "resolved_sequence_drawdown_r": 2.4017079325890105
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.15634579581637695,
+              "positive_rate_pct": 54.166666666666664,
+              "pf": 1.528813851583244,
+              "resolved_sequence_drawdown_r": 2.485779877468174
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.1455398847871961,
+              "positive_rate_pct": 54.166666666666664,
+              "pf": 1.4830109063441224,
+              "resolved_sequence_drawdown_r": 2.5733343544087495
+            }
+          ],
+          "gross_total_resolved_r": 4.011640964293388,
+          "extra_cost_total_resolved_r": 0.25934186470034054,
+          "net_total_resolved_r": 3.7522990995930474,
+          "net_mean_all_candidates_r": 0.15634579581637698,
+          "descriptive_win_fraction_wilson95": [
+            0.3507486535891948,
+            0.72108666268789
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 4,
+              "net_total_r": -0.6468451657537129
+            },
+            "SL_TOUCH": {
+              "count": 6,
+              "net_total_r": -6.079168004191707
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 13,
+              "net_total_r": 8.48824844146263
+            },
+            "TP_TOUCH": {
+              "count": 1,
+              "net_total_r": 1.9900638280758365
+            }
+          }
+        },
+        "2025-05": {
+          "candidates": 22,
+          "resolved": 21,
+          "statuses": {
+            "RESOLVED_REFERENCE": 21,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "SESSION_CLOSE": 6,
+            "TIMEOUT_CLOSE": 10,
+            "SL_TOUCH": 4,
+            "TP_TOUCH": 1
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.027690075156975556,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 0.9203955040457404,
+              "resolved_sequence_drawdown_r": 3.063884879777429
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.039337615295380435,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 0.8888280526030646,
+              "resolved_sequence_drawdown_r": 3.1349721125162837
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.0509851554337853,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 0.858313161803884,
+              "resolved_sequence_drawdown_r": 3.2060593452551394
+            }
+          ],
+          "gross_total_resolved_r": -0.5814915782964867,
+          "extra_cost_total_resolved_r": 0.24459834290650231,
+          "net_total_resolved_r": -0.826089921202989,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.2446996892537596,
+            0.6345344563069328
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 6,
+              "net_total_r": -1.289565833180092
+            },
+            "SL_TOUCH": {
+              "count": 4,
+              "net_total_r": -4.04297927123692
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 10,
+              "net_total_r": 2.521389047529199
+            },
+            "TP_TOUCH": {
+              "count": 1,
+              "net_total_r": 1.9850661356848243
+            }
+          }
+        },
+        "2025-06": {
+          "candidates": 29,
+          "resolved": 28,
+          "statuses": {
+            "RESOLVED_REFERENCE": 28,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "TIMEOUT_CLOSE": 12,
+            "SL_TOUCH": 10,
+            "TP_TOUCH": 2,
+            "SESSION_CLOSE": 4
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.1778630430354091,
+              "positive_rate_pct": 35.714285714285715,
+              "pf": 0.6166554053312974,
+              "resolved_sequence_drawdown_r": 8.753726180497148
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.19331046258599455,
+              "positive_rate_pct": 35.714285714285715,
+              "pf": 0.5922071562551536,
+              "resolved_sequence_drawdown_r": 9.038163135400799
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.20875788213658006,
+              "positive_rate_pct": 35.714285714285715,
+              "pf": 0.5687754033868047,
+              "resolved_sequence_drawdown_r": 9.322600090304451
+            }
+          ],
+          "gross_total_resolved_r": -4.980165204991454,
+          "extra_cost_total_resolved_r": 0.43252774741639316,
+          "net_total_resolved_r": -5.4126929524078475,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.2070582950773768,
+            0.5416969348557219
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 4,
+              "net_total_r": 0.048563098100347674
+            },
+            "SL_TOUCH": {
+              "count": 10,
+              "net_total_r": -10.16556417674053
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 12,
+              "net_total_r": 0.7407038082211184
+            },
+            "TP_TOUCH": {
+              "count": 2,
+              "net_total_r": 3.9636043180112166
+            }
+          }
+        }
+      }
+    },
+    "VHF_RISING": {
+      "candidates": 36,
+      "resolved": 35,
+      "statuses": {
+        "RESOLVED_REFERENCE": 35,
+        "CENSORED_AT_SIDE_GAP": 1
+      },
+      "exit_reasons": {
+        "SL_TOUCH": 8,
+        "SESSION_CLOSE": 10,
+        "TIMEOUT_CLOSE": 17
+      },
+      "scenarios": [
+        {
+          "additional_cost_price": 0,
+          "mean_resolved_r": 0.00029617206554602465,
+          "positive_rate_pct": 48.57142857142857,
+          "pf": 1.0009513346574979,
+          "resolved_sequence_drawdown_r": 3.2162895974536108
+        },
+        {
+          "additional_cost_price": 0.3,
+          "mean_resolved_r": -0.011844321853159055,
+          "positive_rate_pct": 48.57142857142857,
+          "pf": 0.9627252478686735,
+          "resolved_sequence_drawdown_r": 3.3573407777678197
+        },
+        {
+          "additional_cost_price": 0.6,
+          "mean_resolved_r": -0.02398481577186412,
+          "positive_rate_pct": 48.57142857142857,
+          "pf": 0.9260165784941254,
+          "resolved_sequence_drawdown_r": 3.4983919580820286
+        }
+      ],
+      "gross_total_resolved_r": 0.010366022294110863,
+      "extra_cost_total_resolved_r": 0.42491728715467736,
+      "net_total_resolved_r": -0.4145512648605665,
+      "net_mean_all_candidates_r": null,
+      "descriptive_win_fraction_wilson95": [
+        0.32994236002509725,
+        0.6443119540413141
+      ],
+      "by_exit_reason": {
+        "SESSION_CLOSE": {
+          "count": 10,
+          "net_total_r": 1.0474925606629495
+        },
+        "SL_TOUCH": {
+          "count": 8,
+          "net_total_r": -8.09931647895067
+        },
+        "TIMEOUT_CLOSE": {
+          "count": 17,
+          "net_total_r": 6.637272653427153
+        }
+      },
+      "skipped": {
+        "OCCUPIED_OR_UNKNOWN_OUTCOME": 9,
+        "CLOSED_OR_PERIOD_END": 2
+      },
+      "resolved_per_calendar_week": 2.6923076923076925,
+      "by_utc_month": {
+        "2025-04": {
+          "candidates": 12,
+          "resolved": 12,
+          "statuses": {
+            "RESOLVED_REFERENCE": 12
+          },
+          "exit_reasons": {
+            "SL_TOUCH": 4,
+            "SESSION_CLOSE": 4,
+            "TIMEOUT_CLOSE": 4
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.23315099269148734,
+              "positive_rate_pct": 41.666666666666664,
+              "pf": 0.4420689758431933,
+              "resolved_sequence_drawdown_r": 3.0
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.24329560411361317,
+              "positive_rate_pct": 41.666666666666664,
+              "pf": 0.42604456254208306,
+              "resolved_sequence_drawdown_r": 3.0315858388442383
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.253440215535739,
+              "positive_rate_pct": 41.666666666666664,
+              "pf": 0.41046803217641215,
+              "resolved_sequence_drawdown_r": 3.0631716776884756
+            }
+          ],
+          "gross_total_resolved_r": -2.797811912297848,
+          "extra_cost_total_resolved_r": 0.12173533706550961,
+          "net_total_resolved_r": -2.9195472493633576,
+          "net_mean_all_candidates_r": -0.24329560411361315,
+          "descriptive_win_fraction_wilson95": [
+            0.19326031365875665,
+            0.6804886874504503
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 4,
+              "net_total_r": 0.5414407114379246
+            },
+            "SL_TOUCH": {
+              "count": 4,
+              "net_total_r": -4.040964104490311
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 4,
+              "net_total_r": 0.5799761436890284
+            }
+          }
+        },
+        "2025-05": {
+          "candidates": 9,
+          "resolved": 9,
+          "statuses": {
+            "RESOLVED_REFERENCE": 9
+          },
+          "exit_reasons": {
+            "SESSION_CLOSE": 2,
+            "SL_TOUCH": 1,
+            "TIMEOUT_CLOSE": 6
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.24602223945174156,
+              "positive_rate_pct": 66.66666666666667,
+              "pf": 2.257483918934885,
+              "resolved_sequence_drawdown_r": 1.0
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.23480837930855453,
+              "positive_rate_pct": 66.66666666666667,
+              "pf": 2.178250636979434,
+              "resolved_sequence_drawdown_r": 1.0107598503868422
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.22359451916536754,
+              "positive_rate_pct": 66.66666666666667,
+              "pf": 2.1018592260179414,
+              "resolved_sequence_drawdown_r": 1.0215197007736843
+            }
+          ],
+          "gross_total_resolved_r": 2.214200155065674,
+          "extra_cost_total_resolved_r": 0.10092474128868309,
+          "net_total_resolved_r": 2.113275413776991,
+          "net_mean_all_candidates_r": 0.23480837930855458,
+          "descriptive_win_fraction_wilson95": [
+            0.3542021355803963,
+            0.879416181613089
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 2,
+              "net_total_r": 0.41836509498851004
+            },
+            "SL_TOUCH": {
+              "count": 1,
+              "net_total_r": -1.0107598503868422
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 6,
+              "net_total_r": 2.7056701691753227
+            }
+          }
+        },
+        "2025-06": {
+          "candidates": 15,
+          "resolved": 14,
+          "statuses": {
+            "RESOLVED_REFERENCE": 14,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "TIMEOUT_CLOSE": 7,
+            "SL_TOUCH": 3,
+            "SESSION_CLOSE": 4
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.042426984251877534,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 1.1441393955670074,
+              "resolved_sequence_drawdown_r": 2.3091577891071724
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.027980040766128613,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 1.0923603862474907,
+              "resolved_sequence_drawdown_r": 2.438701576977739
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.013533097280379708,
+              "positive_rate_pct": 42.857142857142854,
+              "pf": 1.0434391555717404,
+              "resolved_sequence_drawdown_r": 2.568245364848306
+            }
+          ],
+          "gross_total_resolved_r": 0.5939777795262855,
+          "extra_cost_total_resolved_r": 0.20225720880048467,
+          "net_total_resolved_r": 0.3917205707258008,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.21380798904474121,
+            0.6740935542034926
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 4,
+              "net_total_r": 0.08768675423651481
+            },
+            "SL_TOUCH": {
+              "count": 3,
+              "net_total_r": -3.047592524073516
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 7,
+              "net_total_r": 3.3516263405628015
+            }
+          }
+        }
+      }
+    }
+  },
+  "records": {
+    "BASELINE": [
+      {
+        "at_utc": 1743559200,
+        "side": "BUY",
+        "stop_distance": 18.427142857142957,
+        "horizon_minutes": 480,
+        "entry_at": 1743559200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1743570360,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3133.452,
+        "stop": 3114.4578571428574,
+        "target": 3171.440285714286,
+        "initial_risk_price": 18.994142857142833
+      },
+      {
+        "at_utc": 1743580800,
+        "side": "BUY",
+        "stop_distance": 17.61028571428577,
+        "horizon_minutes": 480,
+        "entry_at": 1743580800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.0034825320614118587,
+        "exit_at": 1743609600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3125.585,
+        "stop": 3107.494714285714,
+        "target": 3161.765571428572,
+        "initial_risk_price": 18.090285714285983
+      },
+      {
+        "at_utc": 1743620400,
+        "side": "SELL",
+        "stop_distance": 21.44357142857143,
+        "horizon_minutes": 120,
+        "entry_at": 1743620400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1743625740,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3121.548,
+        "stop": 3143.7955714285713,
+        "target": 3077.0528571428567,
+        "initial_risk_price": 22.24757142857152
+      },
+      {
+        "at_utc": 1743660000,
+        "side": "SELL",
+        "stop_distance": 29.422714285714,
+        "horizon_minutes": 480,
+        "entry_at": 1743660000,
+        "status": "RESOLVED_REFERENCE",
+        "r": 2.0,
+        "exit_at": 1743683580,
+        "exit_reason": "TP_TOUCH",
+        "entry": 3131.435,
+        "stop": 3161.627714285714,
+        "target": 3071.049571428572,
+        "initial_risk_price": 30.19271428571392
+      },
+      {
+        "at_utc": 1743692400,
+        "side": "BUY",
+        "stop_distance": 35.94185714285719,
+        "horizon_minutes": 360,
+        "entry_at": 1743692400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.4017079325890103,
+        "exit_at": 1743714000,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3129.275,
+        "stop": 3092.706142857143,
+        "target": 3202.4127142857146,
+        "initial_risk_price": 36.56885714285727
+      },
+      {
+        "at_utc": 1743746400,
+        "side": "BUY",
+        "stop_distance": 28.79014285714285,
+        "horizon_minutes": 480,
+        "entry_at": 1743746400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1743756120,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3109.225,
+        "stop": 3079.8078571428573,
+        "target": 3168.059285714285,
+        "initial_risk_price": 29.417142857142608
+      },
+      {
+        "at_utc": 1743764400,
+        "side": "BUY",
+        "stop_distance": 21.81814285714284,
+        "horizon_minutes": 480,
+        "entry_at": 1743764400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1743769800,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3110.615,
+        "stop": 3088.149857142857,
+        "target": 3155.5452857142855,
+        "initial_risk_price": 22.465142857142837
+      },
+      {
+        "at_utc": 1743771600,
+        "side": "SELL",
+        "stop_distance": 27.895714285714217,
+        "horizon_minutes": 480,
+        "entry_at": 1743771600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.1208603140606679,
+        "exit_at": 1743800400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3070.85,
+        "stop": 3099.3977142857143,
+        "target": 3013.754571428571,
+        "initial_risk_price": 28.54771428571439
+      },
+      {
+        "at_utc": 1744020000,
+        "side": "SELL",
+        "stop_distance": 53.86871428571411,
+        "horizon_minutes": 480,
+        "entry_at": 1744020000,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.998430592974294,
+        "exit_at": 1744048800,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3024.905,
+        "stop": 3079.5207142857143,
+        "target": 2915.673571428572,
+        "initial_risk_price": 54.61571428571415
+      },
+      {
+        "at_utc": 1744088400,
+        "side": "BUY",
+        "stop_distance": 34.93657142857137,
+        "horizon_minutes": 480,
+        "entry_at": 1744088400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.006183844905964562,
+        "exit_at": 1744117200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3002.525,
+        "stop": 2966.948428571429,
+        "target": 3073.6781428571426,
+        "initial_risk_price": 35.57657142857124
+      },
+      {
+        "at_utc": 1744131600,
+        "side": "SELL",
+        "stop_distance": 22.894285714285616,
+        "horizon_minutes": 240,
+        "entry_at": 1744131600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.06480691923498563,
+        "exit_at": 1744146000,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 2985.905,
+        "stop": 3009.3592857142858,
+        "target": 2938.996428571429,
+        "initial_risk_price": 23.45428571428556
+      },
+      {
+        "at_utc": 1744164000,
+        "side": "BUY",
+        "stop_distance": 25.650000000000027,
+        "horizon_minutes": 480,
+        "entry_at": 1744164000,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.3092283184529017,
+        "exit_at": 1744192800,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3009.255,
+        "stop": 2982.2619999999997,
+        "target": 3063.241000000001,
+        "initial_risk_price": 26.993000000000393
+      },
+      {
+        "at_utc": 1744588800,
+        "side": "BUY",
+        "stop_distance": 34.79628571428579,
+        "horizon_minutes": 480,
+        "entry_at": 1744588800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.09876881646738134,
+        "exit_at": 1744617600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3224.215,
+        "stop": 3188.778714285714,
+        "target": 3295.087571428572,
+        "initial_risk_price": 35.43628571428599
+      },
+      {
+        "at_utc": 1744617600,
+        "side": "SELL",
+        "stop_distance": 27.101428571428773,
+        "horizon_minutes": 480,
+        "entry_at": 1744617600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.0572841541314641,
+        "exit_at": 1744646400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3227.775,
+        "stop": 3255.506428571429,
+        "target": 3172.3121428571426,
+        "initial_risk_price": 27.73142857142875
+      },
+      {
+        "at_utc": 1744682400,
+        "side": "BUY",
+        "stop_distance": 24.094285714285824,
+        "horizon_minutes": 480,
+        "entry_at": 1744682400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.07778227906707758,
+        "exit_at": 1744711200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3224.165,
+        "stop": 3199.480714285714,
+        "target": 3273.533571428572,
+        "initial_risk_price": 24.684285714286034
+      },
+      {
+        "at_utc": 1744725600,
+        "side": "SELL",
+        "stop_distance": 16.07714285714305,
+        "horizon_minutes": 420,
+        "entry_at": 1744725600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1744738980,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3212.835,
+        "stop": 3229.522142857143,
+        "target": 3179.460714285714,
+        "initial_risk_price": 16.687142857143044
+      },
+      {
+        "at_utc": 1745326800,
+        "side": "SELL",
+        "stop_distance": 42.010571428571566,
+        "horizon_minutes": 480,
+        "entry_at": 1745326800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.159011639561143,
+        "exit_at": 1745355600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3431.245,
+        "stop": 3474.0055714285713,
+        "target": 3345.723857142857,
+        "initial_risk_price": 42.76057142857144
+      },
+      {
+        "at_utc": 1745503200,
+        "side": "SELL",
+        "stop_distance": 34.23957142857138,
+        "horizon_minutes": 420,
+        "entry_at": 1745503200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1745528340,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3314.555,
+        "stop": 3350.444571428571,
+        "target": 3242.775857142857,
+        "initial_risk_price": 35.889571428571344
+      },
+      {
+        "at_utc": 1745553600,
+        "side": "SELL",
+        "stop_distance": 30.57857142857139,
+        "horizon_minutes": 480,
+        "entry_at": 1745553600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.9424062214089652,
+        "exit_at": 1745582400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3323.315,
+        "stop": 3354.5435714285713,
+        "target": 3260.8578571428575,
+        "initial_risk_price": 31.228571428571286
+      },
+      {
+        "at_utc": 1745805600,
+        "side": "SELL",
+        "stop_distance": 32.15642857142867,
+        "horizon_minutes": 480,
+        "entry_at": 1745805600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.18380543882950637,
+        "exit_at": 1745834400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3281.135,
+        "stop": 3313.9414285714283,
+        "target": 3215.522142857144,
+        "initial_risk_price": 32.806428571428114
+      },
+      {
+        "at_utc": 1745841600,
+        "side": "BUY",
+        "stop_distance": 34.272857142857184,
+        "horizon_minutes": 480,
+        "entry_at": 1745841600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.6263977554588678,
+        "exit_at": 1745870400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3294.795,
+        "stop": 3259.662142857143,
+        "target": 3365.0607142857143,
+        "initial_risk_price": 35.13285714285712
+      },
+      {
+        "at_utc": 1745899200,
+        "side": "SELL",
+        "stop_distance": 29.132285714285704,
+        "horizon_minutes": 480,
+        "entry_at": 1745899200,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.20045320686886353,
+        "exit_at": 1745928000,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3315.815,
+        "stop": 3345.697285714286,
+        "target": 3256.0504285714283,
+        "initial_risk_price": 29.8822857142859
+      },
+      {
+        "at_utc": 1745946000,
+        "side": "BUY",
+        "stop_distance": 25.647142857142885,
+        "horizon_minutes": 240,
+        "entry_at": 1745946000,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.47755602849201106,
+        "exit_at": 1745960400,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3329.161,
+        "stop": 3302.847857142857,
+        "target": 3381.7872857142866,
+        "initial_risk_price": 26.313142857143248
+      },
+      {
+        "at_utc": 1746043200,
+        "side": "SELL",
+        "stop_distance": 29.712857142857178,
+        "horizon_minutes": 60,
+        "entry_at": 1746043200,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.20993513983699882,
+        "exit_at": 1746046800,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3295.649,
+        "stop": 3325.8678571428572,
+        "target": 3235.211285714285,
+        "initial_risk_price": 30.21885714285736
+      },
+      {
+        "at_utc": 1746201600,
+        "side": "SELL",
+        "stop_distance": 24.53000000000007,
+        "horizon_minutes": 300,
+        "entry_at": 1746201600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.39698292973402055,
+        "exit_at": 1746219600,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3231.445,
+        "stop": 3256.635,
+        "target": 3181.065,
+        "initial_risk_price": 25.190000000000055
+      },
+      {
+        "at_utc": 1746403200,
+        "side": "BUY",
+        "stop_distance": 27.598571428571567,
+        "horizon_minutes": 480,
+        "entry_at": 1746403200,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.5704488149268688,
+        "exit_at": 1746432000,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3248.505,
+        "stop": 3220.1764285714285,
+        "target": 3305.1621428571434,
+        "initial_risk_price": 28.32857142857165
+      },
+      {
+        "at_utc": 1746572400,
+        "side": "SELL",
+        "stop_distance": 26.517142857142908,
+        "horizon_minutes": 480,
+        "entry_at": 1746572400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.4322020684995564,
+        "exit_at": 1746601200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3380.995,
+        "stop": 3408.482142857143,
+        "target": 3326.0207142857134,
+        "initial_risk_price": 27.487142857143226
+      },
+      {
+        "at_utc": 1746626400,
+        "side": "BUY",
+        "stop_distance": 35.99142857142864,
+        "horizon_minutes": 420,
+        "entry_at": 1746626400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.841423821631144,
+        "exit_at": 1746651600,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3394.705,
+        "stop": 3358.1835714285717,
+        "target": 3467.7478571428564,
+        "initial_risk_price": 36.52142857142826
+      },
+      {
+        "at_utc": 1746669600,
+        "side": "BUY",
+        "stop_distance": 27.101428571428706,
+        "horizon_minutes": 480,
+        "entry_at": 1746669600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1746680400,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3409.105,
+        "stop": 3381.223571428571,
+        "target": 3464.8678571428577,
+        "initial_risk_price": 27.88142857142884
+      },
+      {
+        "at_utc": 1746770400,
+        "side": "SELL",
+        "stop_distance": 38.15571428571424,
+        "horizon_minutes": 480,
+        "entry_at": 1746770400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.2553637031594384,
+        "exit_at": 1746799200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3321.175,
+        "stop": 3360.0607142857143,
+        "target": 3243.403571428572,
+        "initial_risk_price": 38.88571428571413
+      },
+      {
+        "at_utc": 1747098000,
+        "side": "BUY",
+        "stop_distance": 25.304285714285793,
+        "horizon_minutes": 480,
+        "entry_at": 1747098000,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.578528281164197,
+        "exit_at": 1747126800,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3240.325,
+        "stop": 3214.310714285714,
+        "target": 3292.3535714285717,
+        "initial_risk_price": 26.01428571428596
+      },
+      {
+        "at_utc": 1747144800,
+        "side": "SELL",
+        "stop_distance": 24.911428571428587,
+        "horizon_minutes": 420,
+        "entry_at": 1747144800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1747151340,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3227.255,
+        "stop": 3252.7564285714284,
+        "target": 3176.2521428571436,
+        "initial_risk_price": 25.501428571428278
+      },
+      {
+        "at_utc": 1747152000,
+        "side": "BUY",
+        "stop_distance": 28.69714285714287,
+        "horizon_minutes": 300,
+        "entry_at": 1747152000,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.1134235676514872,
+        "exit_at": 1747170000,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3253.655,
+        "stop": 3224.2078571428574,
+        "target": 3312.549285714286,
+        "initial_risk_price": 29.447142857142808
+      },
+      {
+        "at_utc": 1747184400,
+        "side": "SELL",
+        "stop_distance": 19.640000000000004,
+        "horizon_minutes": 480,
+        "entry_at": 1747184400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.509830773745477,
+        "exit_at": 1747213200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3243.379,
+        "stop": 3263.825,
+        "target": 3202.487,
+        "initial_risk_price": 20.445999999999913
+      },
+      {
+        "at_utc": 1747306800,
+        "side": "BUY",
+        "stop_distance": 32.459285714285734,
+        "horizon_minutes": 480,
+        "entry_at": 1747306800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.3311524803615586,
+        "exit_at": 1747335600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3178.735,
+        "stop": 3145.5457142857144,
+        "target": 3245.1135714285715,
+        "initial_risk_price": 33.18928571428569
+      },
+      {
+        "at_utc": 1747677600,
+        "side": "SELL",
+        "stop_distance": 26.118571428571354,
+        "horizon_minutes": 180,
+        "entry_at": 1747677600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.1433982395305467,
+        "exit_at": 1747688400,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3226.115,
+        "stop": 3252.8935714285712,
+        "target": 3172.557857142857,
+        "initial_risk_price": 26.778571428571468
+      },
+      {
+        "at_utc": 1747731600,
+        "side": "BUY",
+        "stop_distance": 19.438571428571517,
+        "horizon_minutes": 480,
+        "entry_at": 1747731600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 2.0,
+        "exit_at": 1747750080,
+        "exit_reason": "TP_TOUCH",
+        "entry": 3236.265,
+        "stop": 3216.1764285714285,
+        "target": 3276.4421428571427,
+        "initial_risk_price": 20.088571428571413
+      },
+      {
+        "at_utc": 1747846800,
+        "side": "SELL",
+        "stop_distance": 24.640000000000004,
+        "horizon_minutes": 240,
+        "entry_at": 1747846800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.4929438273313137,
+        "exit_at": 1747861200,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3302.845,
+        "stop": 3328.142,
+        "target": 3252.2509999999997,
+        "initial_risk_price": 25.297000000000025
+      },
+      {
+        "at_utc": 1747904400,
+        "side": "SELL",
+        "stop_distance": 19.373714285714218,
+        "horizon_minutes": 480,
+        "entry_at": 1747904400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.4514859517777398,
+        "exit_at": 1747933200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3310.965,
+        "stop": 3331.0387142857144,
+        "target": 3270.8175714285717,
+        "initial_risk_price": 20.07371428571423
+      },
+      {
+        "at_utc": 1747969200,
+        "side": "SELL",
+        "stop_distance": 29.466571428571633,
+        "horizon_minutes": 480,
+        "entry_at": 1747969200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1747980060,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3296.598,
+        "stop": 3326.7515714285714,
+        "target": 3236.290857142857,
+        "initial_risk_price": 30.153571428571468
+      },
+      {
+        "at_utc": 1748224800,
+        "side": "BUY",
+        "stop_distance": 26.553999999999956,
+        "horizon_minutes": 480,
+        "entry_at": 1748224800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.6290198379230746,
+        "exit_at": 1748253600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3345.352,
+        "stop": 3318.081,
+        "target": 3399.8939999999993,
+        "initial_risk_price": 27.27099999999973
+      },
+      {
+        "at_utc": 1748278800,
+        "side": "BUY",
+        "stop_distance": 15.13014285714306,
+        "horizon_minutes": 240,
+        "entry_at": 1748278800,
+        "status": "CENSORED_AT_SIDE_GAP",
+        "last_observed_until": 1748284140
+      },
+      {
+        "at_utc": 1748390400,
+        "side": "BUY",
+        "stop_distance": 19.744571428571426,
+        "horizon_minutes": 480,
+        "entry_at": 1748390400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.4483647314237575,
+        "exit_at": 1748419200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3309.802,
+        "stop": 3289.403428571429,
+        "target": 3350.599142857143,
+        "initial_risk_price": 20.39857142857136
+      },
+      {
+        "at_utc": 1748440800,
+        "side": "SELL",
+        "stop_distance": 21.192142857142763,
+        "horizon_minutes": 420,
+        "entry_at": 1748440800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.7655923875701471,
+        "exit_at": 1748466000,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3304.798,
+        "stop": 3326.8371428571427,
+        "target": 3260.719714285714,
+        "initial_risk_price": 22.039142857142906
+      },
+      {
+        "at_utc": 1748509200,
+        "side": "SELL",
+        "stop_distance": 27.984285714285893,
+        "horizon_minutes": 480,
+        "entry_at": 1748509200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1748521020,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3281.475,
+        "stop": 3310.029285714286,
+        "target": 3224.366428571428,
+        "initial_risk_price": 28.554285714285925
+      },
+      {
+        "at_utc": 1748574000,
+        "side": "SELL",
+        "stop_distance": 19.843857142857036,
+        "horizon_minutes": 480,
+        "entry_at": 1748574000,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.06786299619434899,
+        "exit_at": 1748602800,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3296.998,
+        "stop": 3317.568857142857,
+        "target": 3255.8562857142865,
+        "initial_risk_price": 20.570857142856767
+      },
+      {
+        "at_utc": 1748818800,
+        "side": "BUY",
+        "stop_distance": 23.89657142857134,
+        "horizon_minutes": 480,
+        "entry_at": 1748818800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.2164145983407852,
+        "exit_at": 1748847600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3313.625,
+        "stop": 3288.5184285714286,
+        "target": 3363.838142857143,
+        "initial_risk_price": 25.106571428571442
+      },
+      {
+        "at_utc": 1748923200,
+        "side": "SELL",
+        "stop_distance": 21.38557142857144,
+        "horizon_minutes": 480,
+        "entry_at": 1748923200,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.05071184160311061,
+        "exit_at": 1748952000,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3360.755,
+        "stop": 3382.8405714285714,
+        "target": 3316.5838571428576,
+        "initial_risk_price": 22.085571428571257
+      },
+      {
+        "at_utc": 1748998800,
+        "side": "SELL",
+        "stop_distance": 16.95314285714286,
+        "horizon_minutes": 480,
+        "entry_at": 1748998800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1749000840,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3349.998,
+        "stop": 3367.588142857143,
+        "target": 3314.8177142857144,
+        "initial_risk_price": 17.590142857142837
+      },
+      {
+        "at_utc": 1749002400,
+        "side": "BUY",
+        "stop_distance": 17.30642857142857,
+        "horizon_minutes": 480,
+        "entry_at": 1749002400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1749012300,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3371.302,
+        "stop": 3353.241571428571,
+        "target": 3407.422857142858,
+        "initial_risk_price": 18.06042857142893
+      },
+      {
+        "at_utc": 1749013200,
+        "side": "SELL",
+        "stop_distance": 20.112714285714315,
+        "horizon_minutes": 480,
+        "entry_at": 1749013200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.23100110297391507,
+        "exit_at": 1749042000,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3354.535,
+        "stop": 3375.3877142857145,
+        "target": 3312.8295714285705,
+        "initial_risk_price": 20.852714285714683
+      },
+      {
+        "at_utc": 1749042000,
+        "side": "BUY",
+        "stop_distance": 21.27242857142866,
+        "horizon_minutes": 480,
+        "entry_at": 1749042000,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.5930159225523065,
+        "exit_at": 1749070800,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3359.415,
+        "stop": 3337.4425714285717,
+        "target": 3403.3598571428565,
+        "initial_risk_price": 21.97242857142828
+      },
+      {
+        "at_utc": 1749110400,
+        "side": "BUY",
+        "stop_distance": 14.42314285714279,
+        "horizon_minutes": 480,
+        "entry_at": 1749110400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 2.0,
+        "exit_at": 1749121500,
+        "exit_reason": "TP_TOUCH",
+        "entry": 3371.685,
+        "stop": 3356.691857142857,
+        "target": 3401.671285714286,
+        "initial_risk_price": 14.993142857143084
+      },
+      {
+        "at_utc": 1749135600,
+        "side": "SELL",
+        "stop_distance": 22.715285714285724,
+        "horizon_minutes": 360,
+        "entry_at": 1749135600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.6078005442807949,
+        "exit_at": 1749157200,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3367.405,
+        "stop": 3390.8172857142854,
+        "target": 3320.58042857143,
+        "initial_risk_price": 23.41228571428519
+      },
+      {
+        "at_utc": 1749182400,
+        "side": "BUY",
+        "stop_distance": 25.0971428571429,
+        "horizon_minutes": 480,
+        "entry_at": 1749182400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.46338082829738875,
+        "exit_at": 1749211200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3370.035,
+        "stop": 3344.267857142857,
+        "target": 3421.569285714286,
+        "initial_risk_price": 25.76714285714297
+      },
+      {
+        "at_utc": 1749211200,
+        "side": "SELL",
+        "stop_distance": 17.870714285714257,
+        "horizon_minutes": 480,
+        "entry_at": 1749211200,
+        "status": "RESOLVED_REFERENCE",
+        "r": 2.0,
+        "exit_at": 1749219600,
+        "exit_reason": "TP_TOUCH",
+        "entry": 3358.265,
+        "stop": 3376.5727142857145,
+        "target": 3321.6495714285707,
+        "initial_risk_price": 18.30771428571461
+      },
+      {
+        "at_utc": 1749459600,
+        "side": "SELL",
+        "stop_distance": 19.156285714285787,
+        "horizon_minutes": 480,
+        "entry_at": 1749459600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.9354784575535342,
+        "exit_at": 1749488400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3319.679,
+        "stop": 3339.2582857142856,
+        "target": 3280.520428571429,
+        "initial_risk_price": 19.57928571428556
+      },
+      {
+        "at_utc": 1749517200,
+        "side": "SELL",
+        "stop_distance": 15.637999999999986,
+        "horizon_minutes": 480,
+        "entry_at": 1749517200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1749543240,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3316.398,
+        "stop": 3332.643,
+        "target": 3283.9080000000004,
+        "initial_risk_price": 16.24499999999989
+      },
+      {
+        "at_utc": 1749574800,
+        "side": "SELL",
+        "stop_distance": 19.72000000000006,
+        "horizon_minutes": 240,
+        "entry_at": 1749574800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.13645320197044122,
+        "exit_at": 1749589200,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3321.065,
+        "stop": 3341.3650000000002,
+        "target": 3280.4649999999997,
+        "initial_risk_price": 20.300000000000182
+      },
+      {
+        "at_utc": 1749596400,
+        "side": "BUY",
+        "stop_distance": 18.41285714285706,
+        "horizon_minutes": 480,
+        "entry_at": 1749596400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.6252306783789794,
+        "exit_at": 1749625200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3325.025,
+        "stop": 3305.672142857143,
+        "target": 3363.730714285714,
+        "initial_risk_price": 19.35285714285692
+      },
+      {
+        "at_utc": 1749639600,
+        "side": "SELL",
+        "stop_distance": 18.428142857142834,
+        "horizon_minutes": 480,
+        "entry_at": 1749639600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1749645000,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3329.705,
+        "stop": 3348.673142857143,
+        "target": 3291.768714285714,
+        "initial_risk_price": 18.968142857142993
+      },
+      {
+        "at_utc": 1749650400,
+        "side": "SELL",
+        "stop_distance": 22.001428571428473,
+        "horizon_minutes": 420,
+        "entry_at": 1749650400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1749673620,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3329.598,
+        "stop": 3352.2964285714284,
+        "target": 3284.201142857143,
+        "initial_risk_price": 22.698428571428394
+      },
+      {
+        "at_utc": 1749715200,
+        "side": "SELL",
+        "stop_distance": 21.22099999999994,
+        "horizon_minutes": 480,
+        "entry_at": 1749715200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1749721980,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3345.875,
+        "stop": 3367.776,
+        "target": 3302.0730000000003,
+        "initial_risk_price": 21.90099999999984
+      },
+      {
+        "at_utc": 1750158000,
+        "side": "BUY",
+        "stop_distance": 20.127000000000017,
+        "horizon_minutes": 480,
+        "entry_at": 1750158000,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1750170780,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3398.552,
+        "stop": 3377.898,
+        "target": 3439.86,
+        "initial_risk_price": 20.653999999999996
+      },
+      {
+        "at_utc": 1750172400,
+        "side": "SELL",
+        "stop_distance": 21.841857142857148,
+        "horizon_minutes": 360,
+        "entry_at": 1750172400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.1592409451227183,
+        "exit_at": 1750194000,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3384.775,
+        "stop": 3407.193857142857,
+        "target": 3339.9372857142866,
+        "initial_risk_price": 22.418857142856723
+      },
+      {
+        "at_utc": 1750201200,
+        "side": "BUY",
+        "stop_distance": 22.499714285714163,
+        "horizon_minutes": 480,
+        "entry_at": 1750201200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.3089136957453506,
+        "exit_at": 1750230000,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3389.252,
+        "stop": 3366.255285714286,
+        "target": 3435.245428571428,
+        "initial_risk_price": 22.996714285714006
+      },
+      {
+        "at_utc": 1750251600,
+        "side": "BUY",
+        "stop_distance": 17.19900000000007,
+        "horizon_minutes": 480,
+        "entry_at": 1750251600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1750274040,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3387.002,
+        "stop": 3369.306,
+        "target": 3422.394,
+        "initial_risk_price": 17.695999999999913
+      },
+      {
+        "at_utc": 1750352400,
+        "side": "BUY",
+        "stop_distance": 20.157714285714455,
+        "horizon_minutes": 240,
+        "entry_at": 1750352400,
+        "status": "CENSORED_AT_SIDE_GAP",
+        "last_observed_until": 1750357740
+      },
+      {
+        "at_utc": 1750644000,
+        "side": "SELL",
+        "stop_distance": 20.750999999999944,
+        "horizon_minutes": 480,
+        "entry_at": 1750644000,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.5539139815205663,
+        "exit_at": 1750672800,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3355.065,
+        "stop": 3376.386,
+        "target": 3312.4230000000002,
+        "initial_risk_price": 21.320999999999913
+      },
+      {
+        "at_utc": 1750672800,
+        "side": "BUY",
+        "stop_distance": 20.074714285714176,
+        "horizon_minutes": 480,
+        "entry_at": 1750672800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.7436558931548166,
+        "exit_at": 1750701600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3366.875,
+        "stop": 3346.220285714286,
+        "target": 3408.184428571428,
+        "initial_risk_price": 20.654714285713908
+      },
+      {
+        "at_utc": 1750852800,
+        "side": "SELL",
+        "stop_distance": 11.514714285714101,
+        "horizon_minutes": 480,
+        "entry_at": 1750852800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1750870020,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3322.348,
+        "stop": 3334.429714285714,
+        "target": 3298.184571428572,
+        "initial_risk_price": 12.081714285714042
+      },
+      {
+        "at_utc": 1750870800,
+        "side": "BUY",
+        "stop_distance": 14.710571428571386,
+        "horizon_minutes": 240,
+        "entry_at": 1750870800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.20297145203590128,
+        "exit_at": 1750885200,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3335.202,
+        "stop": 3319.8944285714288,
+        "target": 3365.817142857143,
+        "initial_risk_price": 15.307571428571464
+      },
+      {
+        "at_utc": 1750939200,
+        "side": "SELL",
+        "stop_distance": 14.163142857142702,
+        "horizon_minutes": 480,
+        "entry_at": 1750939200,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.06420473138149377,
+        "exit_at": 1750968000,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3332.655,
+        "stop": 3347.4981428571427,
+        "target": 3302.968714285715,
+        "initial_risk_price": 14.843142857142539
+      },
+      {
+        "at_utc": 1751252400,
+        "side": "BUY",
+        "stop_distance": 24.143428571428558,
+        "horizon_minutes": 480,
+        "entry_at": 1751252400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.11015425053607385,
+        "exit_at": 1751281200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3280.605,
+        "stop": 3255.8215714285716,
+        "target": 3330.171857142857,
+        "initial_risk_price": 24.78342857142843
+      },
+      {
+        "at_utc": 1751284800,
+        "side": "SELL",
+        "stop_distance": 20.525857142857085,
+        "horizon_minutes": 480,
+        "entry_at": 1751284800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1751302800,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3277.945,
+        "stop": 3298.790857142857,
+        "target": 3236.2532857142864,
+        "initial_risk_price": 20.845857142856858
+      }
+    ],
+    "VHF_RISING": [
+      {
+        "at_utc": 1743620400,
+        "side": "SELL",
+        "stop_distance": 21.44357142857143,
+        "horizon_minutes": 120,
+        "entry_at": 1743620400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1743625740,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3121.548,
+        "stop": 3143.7955714285713,
+        "target": 3077.0528571428567,
+        "initial_risk_price": 22.24757142857152
+      },
+      {
+        "at_utc": 1743750000,
+        "side": "SELL",
+        "stop_distance": 23.087714285714224,
+        "horizon_minutes": 480,
+        "entry_at": 1743750000,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1743764940,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3100.805,
+        "stop": 3124.4727142857146,
+        "target": 3053.4695714285704,
+        "initial_risk_price": 23.667714285714737
+      },
+      {
+        "at_utc": 1744023600,
+        "side": "BUY",
+        "stop_distance": 54.4491428571427,
+        "horizon_minutes": 480,
+        "entry_at": 1744023600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1744042860,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3031.848,
+        "stop": 2976.5558571428573,
+        "target": 3142.432285714285,
+        "initial_risk_price": 55.29214285714261
+      },
+      {
+        "at_utc": 1744131600,
+        "side": "SELL",
+        "stop_distance": 22.894285714285616,
+        "horizon_minutes": 240,
+        "entry_at": 1744131600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.06480691923498563,
+        "exit_at": 1744146000,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 2985.905,
+        "stop": 3009.3592857142858,
+        "target": 2938.996428571429,
+        "initial_risk_price": 23.45428571428556
+      },
+      {
+        "at_utc": 1744588800,
+        "side": "BUY",
+        "stop_distance": 34.79628571428579,
+        "horizon_minutes": 480,
+        "entry_at": 1744588800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.09876881646738134,
+        "exit_at": 1744617600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3224.215,
+        "stop": 3188.778714285714,
+        "target": 3295.087571428572,
+        "initial_risk_price": 35.43628571428599
+      },
+      {
+        "at_utc": 1744617600,
+        "side": "SELL",
+        "stop_distance": 27.101428571428773,
+        "horizon_minutes": 480,
+        "entry_at": 1744617600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.0572841541314641,
+        "exit_at": 1744646400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3227.775,
+        "stop": 3255.506428571429,
+        "target": 3172.3121428571426,
+        "initial_risk_price": 27.73142857142875
+      },
+      {
+        "at_utc": 1745506800,
+        "side": "BUY",
+        "stop_distance": 36.36957142857136,
+        "horizon_minutes": 360,
+        "entry_at": 1745506800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.5303251936762219,
+        "exit_at": 1745528400,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3328.415,
+        "stop": 3290.8154285714286,
+        "target": 3403.6141428571427,
+        "initial_risk_price": 37.59957142857138
+      },
+      {
+        "at_utc": 1745816400,
+        "side": "BUY",
+        "stop_distance": 36.419285714285834,
+        "horizon_minutes": 480,
+        "entry_at": 1745816400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.10000191501177753,
+        "exit_at": 1745845200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3299.635,
+        "stop": 3262.3357142857144,
+        "target": 3374.233571428572,
+        "initial_risk_price": 37.299285714285816
+      },
+      {
+        "at_utc": 1745848800,
+        "side": "SELL",
+        "stop_distance": 31.392857142857206,
+        "horizon_minutes": 420,
+        "entry_at": 1745848800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1745851080,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3293.089,
+        "stop": 3325.0778571428573,
+        "target": 3229.1112857142853,
+        "initial_risk_price": 31.98885714285734
+      },
+      {
+        "at_utc": 1745852400,
+        "side": "BUY",
+        "stop_distance": 30.651428571428628,
+        "horizon_minutes": 360,
+        "entry_at": 1745852400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.46562271731190985,
+        "exit_at": 1745874000,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3328.935,
+        "stop": 3297.6435714285712,
+        "target": 3391.5178571428573,
+        "initial_risk_price": 31.291428571428696
+      },
+      {
+        "at_utc": 1745913600,
+        "side": "BUY",
+        "stop_distance": 25.031428571428542,
+        "horizon_minutes": 480,
+        "entry_at": 1745913600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.43706176961602267,
+        "exit_at": 1745942400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3323.415,
+        "stop": 3297.7435714285716,
+        "target": 3374.7578571428567,
+        "initial_risk_price": 25.67142857142835
+      },
+      {
+        "at_utc": 1745946000,
+        "side": "BUY",
+        "stop_distance": 25.647142857142885,
+        "horizon_minutes": 240,
+        "entry_at": 1745946000,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.47755602849201106,
+        "exit_at": 1745960400,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3329.161,
+        "stop": 3302.847857142857,
+        "target": 3381.7872857142866,
+        "initial_risk_price": 26.313142857143248
+      },
+      {
+        "at_utc": 1746630000,
+        "side": "SELL",
+        "stop_distance": 34.387142857142926,
+        "horizon_minutes": 360,
+        "entry_at": 1746630000,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.5815223148442377,
+        "exit_at": 1746651600,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3385.645,
+        "stop": 3420.708142857143,
+        "target": 3315.5187142857144,
+        "initial_risk_price": 35.06314285714279
+      },
+      {
+        "at_utc": 1746669600,
+        "side": "BUY",
+        "stop_distance": 27.101428571428706,
+        "horizon_minutes": 480,
+        "entry_at": 1746669600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1746680400,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3409.105,
+        "stop": 3381.223571428571,
+        "target": 3464.8678571428577,
+        "initial_risk_price": 27.88142857142884
+      },
+      {
+        "at_utc": 1746774000,
+        "side": "BUY",
+        "stop_distance": 38.87999999999998,
+        "horizon_minutes": 480,
+        "entry_at": 1746774000,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.28076825878191075,
+        "exit_at": 1746802800,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3325.865,
+        "stop": 3286.295,
+        "target": 3405.004999999999,
+        "initial_risk_price": 39.56999999999971
+      },
+      {
+        "at_utc": 1747098000,
+        "side": "BUY",
+        "stop_distance": 25.304285714285793,
+        "horizon_minutes": 480,
+        "entry_at": 1747098000,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.578528281164197,
+        "exit_at": 1747126800,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3240.325,
+        "stop": 3214.310714285714,
+        "target": 3292.3535714285717,
+        "initial_risk_price": 26.01428571428596
+      },
+      {
+        "at_utc": 1747677600,
+        "side": "SELL",
+        "stop_distance": 26.118571428571354,
+        "horizon_minutes": 180,
+        "entry_at": 1747677600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.1433982395305467,
+        "exit_at": 1747688400,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3226.115,
+        "stop": 3252.8935714285712,
+        "target": 3172.557857142857,
+        "initial_risk_price": 26.778571428571468
+      },
+      {
+        "at_utc": 1747904400,
+        "side": "SELL",
+        "stop_distance": 19.373714285714218,
+        "horizon_minutes": 480,
+        "entry_at": 1747904400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.4514859517777398,
+        "exit_at": 1747933200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3310.965,
+        "stop": 3331.0387142857144,
+        "target": 3270.8175714285717,
+        "initial_risk_price": 20.07371428571423
+      },
+      {
+        "at_utc": 1747972800,
+        "side": "BUY",
+        "stop_distance": 26.993714285714436,
+        "horizon_minutes": 480,
+        "entry_at": 1747972800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.6343484865708395,
+        "exit_at": 1748001600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3302.502,
+        "stop": 3274.8542857142857,
+        "target": 3357.7974285714286,
+        "initial_risk_price": 27.6477142857143
+      },
+      {
+        "at_utc": 1748228400,
+        "side": "BUY",
+        "stop_distance": 27.084428571428557,
+        "horizon_minutes": 480,
+        "entry_at": 1748228400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.6174196299664617,
+        "exit_at": 1748257200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3348.465,
+        "stop": 3320.6605714285715,
+        "target": 3404.0738571428574,
+        "initial_risk_price": 27.804428571428616
+      },
+      {
+        "at_utc": 1748390400,
+        "side": "BUY",
+        "stop_distance": 19.744571428571426,
+        "horizon_minutes": 480,
+        "entry_at": 1748390400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.4483647314237575,
+        "exit_at": 1748419200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3309.802,
+        "stop": 3289.403428571429,
+        "target": 3350.599142857143,
+        "initial_risk_price": 20.39857142857136
+      },
+      {
+        "at_utc": 1748818800,
+        "side": "BUY",
+        "stop_distance": 23.89657142857134,
+        "horizon_minutes": 480,
+        "entry_at": 1748818800,
+        "status": "RESOLVED_REFERENCE",
+        "r": 1.2164145983407852,
+        "exit_at": 1748847600,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3313.625,
+        "stop": 3288.5184285714286,
+        "target": 3363.838142857143,
+        "initial_risk_price": 25.106571428571442
+      },
+      {
+        "at_utc": 1749002400,
+        "side": "BUY",
+        "stop_distance": 17.30642857142857,
+        "horizon_minutes": 480,
+        "entry_at": 1749002400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1749012300,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3371.302,
+        "stop": 3353.241571428571,
+        "target": 3407.422857142858,
+        "initial_risk_price": 18.06042857142893
+      },
+      {
+        "at_utc": 1749013200,
+        "side": "SELL",
+        "stop_distance": 20.112714285714315,
+        "horizon_minutes": 480,
+        "entry_at": 1749013200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.23100110297391507,
+        "exit_at": 1749042000,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3354.535,
+        "stop": 3375.3877142857145,
+        "target": 3312.8295714285705,
+        "initial_risk_price": 20.852714285714683
+      },
+      {
+        "at_utc": 1749049200,
+        "side": "BUY",
+        "stop_distance": 23.669571428571544,
+        "horizon_minutes": 360,
+        "entry_at": 1749049200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.21872940401091873,
+        "exit_at": 1749070800,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3377.755,
+        "stop": 3353.4784285714286,
+        "target": 3426.308142857143,
+        "initial_risk_price": 24.276571428571515
+      },
+      {
+        "at_utc": 1749189600,
+        "side": "SELL",
+        "stop_distance": 21.975857142857162,
+        "horizon_minutes": 480,
+        "entry_at": 1749189600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.9834966803667512,
+        "exit_at": 1749218400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3365.835,
+        "stop": 3388.427857142857,
+        "target": 3320.6492857142857,
+        "initial_risk_price": 22.592857142857156
+      },
+      {
+        "at_utc": 1749463200,
+        "side": "SELL",
+        "stop_distance": 19.231571428571574,
+        "horizon_minutes": 480,
+        "entry_at": 1749463200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1749488400,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3318.455,
+        "stop": 3338.2365714285716,
+        "target": 3278.8918571428567,
+        "initial_risk_price": 19.781571428571624
+      },
+      {
+        "at_utc": 1749596400,
+        "side": "BUY",
+        "stop_distance": 18.41285714285706,
+        "horizon_minutes": 480,
+        "entry_at": 1749596400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.6252306783789794,
+        "exit_at": 1749625200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3325.025,
+        "stop": 3305.672142857143,
+        "target": 3363.730714285714,
+        "initial_risk_price": 19.35285714285692
+      },
+      {
+        "at_utc": 1749639600,
+        "side": "SELL",
+        "stop_distance": 18.428142857142834,
+        "horizon_minutes": 480,
+        "entry_at": 1749639600,
+        "status": "RESOLVED_REFERENCE",
+        "r": -1.0,
+        "exit_at": 1749645000,
+        "exit_reason": "SL_TOUCH",
+        "entry": 3329.705,
+        "stop": 3348.673142857143,
+        "target": 3291.768714285714,
+        "initial_risk_price": 18.968142857142993
+      },
+      {
+        "at_utc": 1750172400,
+        "side": "SELL",
+        "stop_distance": 21.841857142857148,
+        "horizon_minutes": 360,
+        "entry_at": 1750172400,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.1592409451227183,
+        "exit_at": 1750194000,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3384.775,
+        "stop": 3407.193857142857,
+        "target": 3339.9372857142866,
+        "initial_risk_price": 22.418857142856723
+      },
+      {
+        "at_utc": 1750201200,
+        "side": "BUY",
+        "stop_distance": 22.499714285714163,
+        "horizon_minutes": 480,
+        "entry_at": 1750201200,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.3089136957453506,
+        "exit_at": 1750230000,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3389.252,
+        "stop": 3366.255285714286,
+        "target": 3435.245428571428,
+        "initial_risk_price": 22.996714285714006
+      },
+      {
+        "at_utc": 1750269600,
+        "side": "SELL",
+        "stop_distance": 19.425571428571466,
+        "horizon_minutes": 180,
+        "entry_at": 1750269600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.7282996716880434,
+        "exit_at": 1750280400,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3384.768,
+        "stop": 3405.6975714285713,
+        "target": 3342.9088571428574,
+        "initial_risk_price": 20.929571428571307
+      },
+      {
+        "at_utc": 1750356000,
+        "side": "SELL",
+        "stop_distance": 20.18385714285731,
+        "horizon_minutes": 180,
+        "entry_at": 1750356000,
+        "status": "CENSORED_AT_SIDE_GAP",
+        "last_observed_until": 1750357740
+      },
+      {
+        "at_utc": 1750647600,
+        "side": "BUY",
+        "stop_distance": 22.619999999999955,
+        "horizon_minutes": 480,
+        "entry_at": 1750647600,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.2448275862068914,
+        "exit_at": 1750676400,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3361.895,
+        "stop": 3338.695,
+        "target": 3408.2949999999996,
+        "initial_risk_price": 23.199999999999818
+      },
+      {
+        "at_utc": 1750870800,
+        "side": "BUY",
+        "stop_distance": 14.710571428571386,
+        "horizon_minutes": 240,
+        "entry_at": 1750870800,
+        "status": "RESOLVED_REFERENCE",
+        "r": -0.20297145203590128,
+        "exit_at": 1750885200,
+        "exit_reason": "SESSION_CLOSE",
+        "entry": 3335.202,
+        "stop": 3319.8944285714288,
+        "target": 3365.817142857143,
+        "initial_risk_price": 15.307571428571464
+      },
+      {
+        "at_utc": 1751288400,
+        "side": "BUY",
+        "stop_distance": 21.100571428571325,
+        "horizon_minutes": 480,
+        "entry_at": 1751288400,
+        "status": "RESOLVED_REFERENCE",
+        "r": 0.9165651644336388,
+        "exit_at": 1751317200,
+        "exit_reason": "TIMEOUT_CLOSE",
+        "entry": 3282.375,
+        "stop": 3260.794428571429,
+        "target": 3325.5361428571423,
+        "initial_risk_price": 21.580571428571147
+      }
+    ]
+  },
+  "plan_sha256": "590ebcdcdd3d12f68236e5f88e2fdb224f5fbb3a6d0e813e6de03dbc04742088",
+  "hypotheses_replayed": 1,
+  "new_period_for_h1_hypothesis": true,
+  "archive_previously_used_for_other_strategies": true,
+  "independent_holdout_verified": false,
+  "out_of_sample": false,
+  "historical_session_rule_authenticated": false,
+  "historical_holiday_exceptions_authenticated": false,
+  "account_return_pct": null,
+  "account_max_dd_pct": null,
+  "adoption_allowed": false,
+  "execution_allowed": false
+}

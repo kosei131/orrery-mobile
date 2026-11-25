@@ -1,0 +1,20 @@
+{
+  "study": "gold_session_hourly_v1",
+  "base_commit": "e25bcfa9aaeeb95304f92c8e97db8617786b955f",
+  "retrospective": true,
+  "out_of_sample": false,
+  "files_sha256": {
+    "orrery_gold_session_hourly.py": "a1006377a996c74051e93706d2e799d28a283e9dd28505c0c1e4dccdabb92fe4",
+    "orrery_gold_hourly_trend.py": "411430e61d82aee3c7c2f01466909e8cc25f0e79814df95515461daf67b88ece",
+    "orrery_gold_clock_audit.py": "f3f1075b25ee570271e722f1961ac3a8a19e4f61f89171656fafd7dec8fecf63",
+    "orrery_gold_pullback_study.py": "73929e294f1a69933d4c8003a49af30ccc3d2619474f81962b71b3af1ab168fa",
+    "orrery_gold_session_breakout.py": "7a8877e6fd628dab24eabe9d2bb057fa00d3da21ef111b0d510261d822baba58",
+    "orrery_gold_channel_breakout.py": "e12043f4f2318de6916b08ae27a146f80fbf2a89a8d122bc4026e88713e3a769",
+    "orrery_gold_nested_wave_october.py": "1da1471e24b1e141e1ef4f294f50743889db33aa7e8057e9cc9c8e0eb86719bd",
+    "orrery_gold_ab_archive_comparison.py": "77656efe26b62fb8192a819e32bf6bab1a4bfe61a403caf95fbf2509d0f35e33",
+    "orrery_paired_archive_study.py": "e1fa03147235097f05a9a5d7a05a05bbc68472b13cc006c3c7dbaa6973d20fd3",
+    "GOLD_SESSION_HOURLY_JA.md": "d34917aa001b54e1fbae3f17554462ffa1582710db9c4f8b616d3e5b7f184eab",
+    "research_evidence/local-history-20261101/gold_pullback_source_pins.json": "92a9f44ffb3deda5075ea2bf68dffd01c690418bcd4c7715a7e2df9e29de9ada",
+    "research_evidence/local-history-20261101/gold_session_q4_pins.json": "27340a43574b3e9342f2c624e6f6fa4dab050f84d5917c6450b06b7d4c94b56e"
+  }
+}
