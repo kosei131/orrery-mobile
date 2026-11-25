@@ -1,0 +1,3950 @@
+{
+  "study": "gold_h1_initial_motion_v1",
+  "plan_sha256": "5c43c01764bf5dd27545ac9d63345bf63746a80fdc450cd35fe08d0ebf19111e",
+  "check_minutes": 15,
+  "gate_cost_price": 0.3,
+  "hypotheses_replayed": 1,
+  "out_of_sample": false,
+  "independent_holdout_verified": false,
+  "execution_allowed": false,
+  "adoption_allowed": false,
+  "account_return_pct": null,
+  "account_max_dd_pct": null,
+  "periods": {
+    "historical_2026": {
+      "start_utc": 1767225600,
+      "end_utc_exclusive": 1792418400,
+      "comparators_reproduced": true,
+      "passing_signals": 166,
+      "arms": {
+        "TP_2R": {
+          "candidates": 124,
+          "resolved": 122,
+          "statuses": {
+            "RESOLVED_REFERENCE": 122,
+            "CENSORED_AT_SIDE_GAP": 2
+          },
+          "exit_reasons": {
+            "TIMEOUT_CLOSE": 59,
+            "SL_TOUCH": 30,
+            "SESSION_CLOSE": 24,
+            "TP_TOUCH": 9
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.040858351725993676,
+              "positive_rate_pct": 44.26229508196721,
+              "pf": 1.1244546692140205,
+              "resolved_sequence_drawdown_r": 10.056457180999676
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.03320074614969139,
+              "positive_rate_pct": 44.26229508196721,
+              "pf": 1.0998300839225108,
+              "resolved_sequence_drawdown_r": 10.353078682397285
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.02554314057338907,
+              "positive_rate_pct": 44.26229508196721,
+              "pf": 1.0758303116666725,
+              "resolved_sequence_drawdown_r": 10.649700183794899
+            }
+          ],
+          "gross_total_resolved_r": 4.984718910571228,
+          "extra_cost_total_resolved_r": 0.9342278803088804,
+          "net_total_resolved_r": 4.050491030262348,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.3575751651998452,
+            0.5311737405169267
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 24,
+              "net_total_r": 2.8656644816458376
+            },
+            "SL_TOUCH": {
+              "count": 30,
+              "net_total_r": -30.248985621027373
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 59,
+              "net_total_r": 13.508082857957927
+            },
+            "TP_TOUCH": {
+              "count": 9,
+              "net_total_r": 17.925729311685956
+            }
+          },
+          "skipped": {
+            "CLOSED_OR_PERIOD_END": 7,
+            "OCCUPIED_OR_UNKNOWN_OUTCOME": 35
+          },
+          "by_utc_month": {
+            "2026-01": {
+              "candidates": 15,
+              "resolved": 15,
+              "statuses": {
+                "RESOLVED_REFERENCE": 15
+              },
+              "exit_reasons": {
+                "TIMEOUT_CLOSE": 6,
+                "SL_TOUCH": 6,
+                "SESSION_CLOSE": 3
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.23464672772289646,
+                  "positive_rate_pct": 26.666666666666668,
+                  "pf": 0.54064016987484,
+                  "resolved_sequence_drawdown_r": 4.720675833057221
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.2427423792965402,
+                  "positive_rate_pct": 26.666666666666668,
+                  "pf": 0.5300125314278737,
+                  "resolved_sequence_drawdown_r": 4.811011846649587
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.2508380308701839,
+                  "positive_rate_pct": 26.666666666666668,
+                  "pf": 0.5196158791414981,
+                  "resolved_sequence_drawdown_r": 4.901347860241952
+                }
+              ],
+              "gross_total_resolved_r": -3.519700915843447,
+              "extra_cost_total_resolved_r": 0.12143477360465604,
+              "net_total_resolved_r": -3.6411356894481033,
+              "net_mean_all_candidates_r": -0.24274237929654022,
+              "descriptive_win_fraction_wilson95": [
+                0.10897453325692374,
+                0.5195043405598057
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 3,
+                  "net_total_r": -1.2773435230711288
+                },
+                "SL_TOUCH": {
+                  "count": 6,
+                  "net_total_r": -6.048639780523586
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 6,
+                  "net_total_r": 3.6848476141466118
+                }
+              }
+            },
+            "2026-02": {
+              "candidates": 15,
+              "resolved": 15,
+              "statuses": {
+                "RESOLVED_REFERENCE": 15
+              },
+              "exit_reasons": {
+                "SESSION_CLOSE": 4,
+                "TIMEOUT_CLOSE": 9,
+                "SL_TOUCH": 1,
+                "TP_TOUCH": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.08048606477748438,
+                  "positive_rate_pct": 46.666666666666664,
+                  "pf": 1.4004155349345495,
+                  "resolved_sequence_drawdown_r": 2.0009079809867214
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.07471330587206886,
+                  "positive_rate_pct": 46.666666666666664,
+                  "pf": 1.3656610562978357,
+                  "resolved_sequence_drawdown_r": 2.06718796275299
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.06894054696665329,
+                  "positive_rate_pct": 46.666666666666664,
+                  "pf": 1.3320171548447175,
+                  "resolved_sequence_drawdown_r": 2.133467944519259
+                }
+              ],
+              "gross_total_resolved_r": 1.2072909716622657,
+              "extra_cost_total_resolved_r": 0.08659138358123317,
+              "net_total_resolved_r": 1.1206995880810326,
+              "net_mean_all_candidates_r": 0.07471330587206884,
+              "descriptive_win_fraction_wilson95": [
+                0.24809535365737387,
+                0.698830199745016
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 4,
+                  "net_total_r": -0.5027292942546839
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0072345189906124
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 9,
+                  "net_total_r": 0.6397405963866061
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.9909228049397232
+                }
+              }
+            },
+            "2026-03": {
+              "candidates": 15,
+              "resolved": 15,
+              "statuses": {
+                "RESOLVED_REFERENCE": 15
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 2,
+                "TIMEOUT_CLOSE": 7,
+                "SESSION_CLOSE": 5,
+                "SL_TOUCH": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.4577495352319404,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 4.163364467628305,
+                  "resolved_sequence_drawdown_r": 1.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.4527187034072939,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 4.08858660404336,
+                  "resolved_sequence_drawdown_r": 1.0097918531781558
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.44768787158264745,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 4.015697243023545,
+                  "resolved_sequence_drawdown_r": 1.0300883441910609
+                }
+              ],
+              "gross_total_resolved_r": 6.866243028479106,
+              "extra_cost_total_resolved_r": 0.07546247736969736,
+              "net_total_resolved_r": 6.790780551109409,
+              "net_mean_all_candidates_r": 0.4527187034072939,
+              "descriptive_win_fraction_wilson95": [
+                0.41713547738519774,
+                0.8482367556028526
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 5,
+                  "net_total_r": 3.6583489517402654
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0097918531781558
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 7,
+                  "net_total_r": 0.15160128314454868
+                },
+                "TP_TOUCH": {
+                  "count": 2,
+                  "net_total_r": 3.9906221694027506
+                }
+              }
+            },
+            "2026-04": {
+              "candidates": 12,
+              "resolved": 11,
+              "statuses": {
+                "RESOLVED_REFERENCE": 11,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 1,
+                "SL_TOUCH": 2,
+                "TIMEOUT_CLOSE": 6,
+                "SESSION_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.23150013669868416,
+                  "positive_rate_pct": 54.54545454545455,
+                  "pf": 1.916565281616957,
+                  "resolved_sequence_drawdown_r": 2.3749617922590267
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.22408067804098966,
+                  "positive_rate_pct": 54.54545454545455,
+                  "pf": 1.8764200303419156,
+                  "resolved_sequence_drawdown_r": 2.4027840478791354
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.21666121938329513,
+                  "positive_rate_pct": 54.54545454545455,
+                  "pf": 1.837237755088729,
+                  "resolved_sequence_drawdown_r": 2.4306063034992436
+                }
+              ],
+              "gross_total_resolved_r": 2.546501503685526,
+              "extra_cost_total_resolved_r": 0.08161404523463944,
+              "net_total_resolved_r": 2.464887458450886,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.280091537409322,
+                0.7872872837754024
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 0.9516903547129417
+                },
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.0124490912734565
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 6,
+                  "net_total_r": 1.530955942950081
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.99469025206132
+                }
+              }
+            },
+            "2026-05": {
+              "candidates": 16,
+              "resolved": 16,
+              "statuses": {
+                "RESOLVED_REFERENCE": 16
+              },
+              "exit_reasons": {
+                "TIMEOUT_CLOSE": 12,
+                "SESSION_CLOSE": 2,
+                "SL_TOUCH": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.05563832625235625,
+                  "positive_rate_pct": 43.75,
+                  "pf": 1.2569994944797738,
+                  "resolved_sequence_drawdown_r": 2.533487736698783
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.047519337720459714,
+                  "positive_rate_pct": 43.75,
+                  "pf": 1.215069342508641,
+                  "resolved_sequence_drawdown_r": 2.5761575770130283
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.03940034918856316,
+                  "positive_rate_pct": 43.75,
+                  "pf": 1.1747973590275715,
+                  "resolved_sequence_drawdown_r": 2.618827417327274
+                }
+              ],
+              "gross_total_resolved_r": 0.8902132200377,
+              "extra_cost_total_resolved_r": 0.1299038165103446,
+              "net_total_resolved_r": 0.7603094035273554,
+              "net_mean_all_candidates_r": 0.047519337720459714,
+              "descriptive_win_fraction_wilson95": [
+                0.23098652405492354,
+                0.6682144360118811
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.526363201348196
+                },
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.017945181585155
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 12,
+                  "net_total_r": 3.3046177864607063
+                }
+              }
+            },
+            "2026-06": {
+              "candidates": 12,
+              "resolved": 12,
+              "statuses": {
+                "RESOLVED_REFERENCE": 12
+              },
+              "exit_reasons": {
+                "TIMEOUT_CLOSE": 5,
+                "SESSION_CLOSE": 3,
+                "TP_TOUCH": 1,
+                "SL_TOUCH": 3
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.13851493330102102,
+                  "positive_rate_pct": 50.0,
+                  "pf": 1.5080260194663802,
+                  "resolved_sequence_drawdown_r": 2.191001473888722
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.13073819619440297,
+                  "positive_rate_pct": 50.0,
+                  "pf": 1.4730086308483412,
+                  "resolved_sequence_drawdown_r": 2.223903509911531
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.12296145908778494,
+                  "positive_rate_pct": 50.0,
+                  "pf": 1.4389271953234994,
+                  "resolved_sequence_drawdown_r": 2.2568055459343404
+                }
+              ],
+              "gross_total_resolved_r": 1.6621791996122521,
+              "extra_cost_total_resolved_r": 0.09332084527941657,
+              "net_total_resolved_r": 1.5688583543328356,
+              "net_mean_all_candidates_r": 0.13073819619440297,
+              "descriptive_win_fraction_wilson95": [
+                0.2537815976337061,
+                0.7462184023662939
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 3,
+                  "net_total_r": 1.1296075752572363
+                },
+                "SL_TOUCH": {
+                  "count": 3,
+                  "net_total_r": -3.0193803945028117
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 5,
+                  "net_total_r": 1.4688858809774266
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.9897452926009846
+                }
+              }
+            },
+            "2026-07": {
+              "candidates": 9,
+              "resolved": 9,
+              "statuses": {
+                "RESOLVED_REFERENCE": 9
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 2,
+                "TIMEOUT_CLOSE": 4,
+                "SL_TOUCH": 3
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.20614009966837876,
+                  "positive_rate_pct": 55.55555555555556,
+                  "pf": 1.5448954899398906,
+                  "resolved_sequence_drawdown_r": 3.2593033792880197
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.19670690801557777,
+                  "positive_rate_pct": 55.55555555555556,
+                  "pf": 1.5144795263740878,
+                  "resolved_sequence_drawdown_r": 3.3048632364775097
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.18727371636277668,
+                  "positive_rate_pct": 55.55555555555556,
+                  "pf": 1.4846981102266898,
+                  "resolved_sequence_drawdown_r": 3.3504230936669988
+                }
+              ],
+              "gross_total_resolved_r": 1.855260897015409,
+              "extra_cost_total_resolved_r": 0.08489872487520927,
+              "net_total_resolved_r": 1.7703621721401996,
+              "net_mean_all_candidates_r": 0.19670690801557775,
+              "descriptive_win_fraction_wilson95": [
+                0.26665129349549305,
+                0.8112214789023355
+              ],
+              "by_exit_reason": {
+                "SL_TOUCH": {
+                  "count": 3,
+                  "net_total_r": -3.0310807733693643
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 4,
+                  "net_total_r": 0.8203978493330591
+                },
+                "TP_TOUCH": {
+                  "count": 2,
+                  "net_total_r": 3.981045096176505
+                }
+              }
+            },
+            "2026-08": {
+              "candidates": 10,
+              "resolved": 10,
+              "statuses": {
+                "RESOLVED_REFERENCE": 10
+              },
+              "exit_reasons": {
+                "TIMEOUT_CLOSE": 4,
+                "TP_TOUCH": 1,
+                "SL_TOUCH": 4,
+                "SESSION_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.2670937079749565,
+                  "positive_rate_pct": 20.0,
+                  "pf": 0.516702059813009,
+                  "resolved_sequence_drawdown_r": 4.421530903977566
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.2754257543397804,
+                  "positive_rate_pct": 20.0,
+                  "pf": 0.5072310983611814,
+                  "resolved_sequence_drawdown_r": 4.482567434271783
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.2837578007046044,
+                  "positive_rate_pct": 20.0,
+                  "pf": 0.49797082234854734,
+                  "resolved_sequence_drawdown_r": 4.543603964566001
+                }
+              ],
+              "gross_total_resolved_r": -2.670937079749565,
+              "extra_cost_total_resolved_r": 0.08332046364823936,
+              "net_total_resolved_r": -2.7542575433978045,
+              "net_mean_all_candidates_r": -0.27542575433978045,
+              "descriptive_win_fraction_wilson95": [
+                0.05668215145437519,
+                0.5098375284633583
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.3521839981704798
+                },
+                "SL_TOUCH": {
+                  "count": 4,
+                  "net_total_r": -4.032765514181675
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 4,
+                  "net_total_r": -0.3564356514943235
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.9871276204486747
+                }
+              }
+            },
+            "2026-09": {
+              "candidates": 14,
+              "resolved": 13,
+              "statuses": {
+                "RESOLVED_REFERENCE": 13,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 1,
+                "SL_TOUCH": 6,
+                "SESSION_CLOSE": 4,
+                "TIMEOUT_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.21053972263562254,
+                  "positive_rate_pct": 30.76923076923077,
+                  "pf": 0.5666553134707593,
+                  "resolved_sequence_drawdown_r": 5.236894114977217
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.21896796152749437,
+                  "positive_rate_pct": 30.76923076923077,
+                  "pf": 0.5546228851447805,
+                  "resolved_sequence_drawdown_r": 5.329477746615321
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.22739620041936617,
+                  "positive_rate_pct": 30.76923076923077,
+                  "pf": 0.5428709476316103,
+                  "resolved_sequence_drawdown_r": 5.422061378253426
+                }
+              ],
+              "gross_total_resolved_r": -2.737016394263093,
+              "extra_cost_total_resolved_r": 0.10956710559433375,
+              "net_total_resolved_r": -2.846583499857427,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.12680703655710515,
+                0.5763065681945096
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 4,
+                  "net_total_r": -0.21536238322011708
+                },
+                "SL_TOUCH": {
+                  "count": 6,
+                  "net_total_r": -6.048597000435049
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 1.4257998077417404
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.9915760760559993
+                }
+              }
+            },
+            "2026-10": {
+              "candidates": 6,
+              "resolved": 6,
+              "statuses": {
+                "RESOLVED_REFERENCE": 6
+              },
+              "exit_reasons": {
+                "TIMEOUT_CLOSE": 4,
+                "SL_TOUCH": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.18588592001082094,
+                  "positive_rate_pct": 50.0,
+                  "pf": 0.5435255313678321,
+                  "resolved_sequence_drawdown_r": 2.3916311034334514
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.1972382941126727,
+                  "positive_rate_pct": 50.0,
+                  "pf": 0.5221937581173434,
+                  "resolved_sequence_drawdown_r": 2.4387081587414228
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.20859066821452457,
+                  "positive_rate_pct": 50.0,
+                  "pf": 0.5014308845794047,
+                  "resolved_sequence_drawdown_r": 2.4857852140493946
+                }
+              ],
+              "gross_total_resolved_r": -1.1153155200649256,
+              "extra_cost_total_resolved_r": 0.06811424461111078,
+              "net_total_resolved_r": -1.1834297646760363,
+              "net_mean_all_candidates_r": -0.1972382941126727,
+              "descriptive_win_fraction_wilson95": [
+                0.1876163064826506,
+                0.8123836935173494
+              ],
+              "by_exit_reason": {
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.0211015129875074
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 4,
+                  "net_total_r": 0.8376717483114711
+                }
+              }
+            }
+          }
+        },
+        "TP_05R": {
+          "candidates": 127,
+          "resolved": 125,
+          "statuses": {
+            "RESOLVED_REFERENCE": 125,
+            "CENSORED_AT_SIDE_GAP": 2
+          },
+          "exit_reasons": {
+            "TP_TOUCH": 66,
+            "SL_TOUCH": 25,
+            "SESSION_CLOSE": 15,
+            "TIMEOUT_CLOSE": 19
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.01673177482292107,
+              "positive_rate_pct": 57.6,
+              "pf": 1.0647699674012325,
+              "resolved_sequence_drawdown_r": 6.852693603532444
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.00905913357781579,
+              "positive_rate_pct": 57.6,
+              "pf": 1.0346423823705455,
+              "resolved_sequence_drawdown_r": 7.324644658209435
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.0013864923327104994,
+              "positive_rate_pct": 57.6,
+              "pf": 1.005238321318419,
+              "resolved_sequence_drawdown_r": 7.796595712886428
+            }
+          ],
+          "gross_total_resolved_r": 2.0914718528651335,
+          "extra_cost_total_resolved_r": 0.9590801556381602,
+          "net_total_resolved_r": 1.1323916972269732,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.48837145436310936,
+            0.6590966057932249
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 15,
+              "net_total_r": -2.488807184043213
+            },
+            "SL_TOUCH": {
+              "count": 25,
+              "net_total_r": -25.206468773780305
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 19,
+              "net_total_r": -3.6432549936434757
+            },
+            "TP_TOUCH": {
+              "count": 66,
+              "net_total_r": 32.470922648693964
+            }
+          },
+          "skipped": {
+            "CLOSED_OR_PERIOD_END": 7,
+            "OCCUPIED_OR_UNKNOWN_OUTCOME": 32
+          },
+          "by_utc_month": {
+            "2026-01": {
+              "candidates": 16,
+              "resolved": 16,
+              "statuses": {
+                "RESOLVED_REFERENCE": 16
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 6,
+                "SL_TOUCH": 5,
+                "SESSION_CLOSE": 3,
+                "TIMEOUT_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.2288866871103617,
+                  "positive_rate_pct": 37.5,
+                  "pf": 0.4503025812405542,
+                  "resolved_sequence_drawdown_r": 4.345322572608268
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.2369050858803953,
+                  "positive_rate_pct": 37.5,
+                  "pf": 0.4373926856784072,
+                  "resolved_sequence_drawdown_r": 4.4174881204219485
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.2449234846504289,
+                  "positive_rate_pct": 37.5,
+                  "pf": 0.4247676552700163,
+                  "resolved_sequence_drawdown_r": 4.489653668235629
+                }
+              ],
+              "gross_total_resolved_r": -3.662186993765787,
+              "extra_cost_total_resolved_r": 0.12829438032053767,
+              "net_total_resolved_r": -3.790481374086325,
+              "net_mean_all_candidates_r": -0.2369050858803953,
+              "descriptive_win_fraction_wilson95": [
+                0.18481232558863633,
+                0.6135895945449727
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 3,
+                  "net_total_r": -1.2773435230711288
+                },
+                "SL_TOUCH": {
+                  "count": 5,
+                  "net_total_r": -5.0386842013696205
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.4213204713554436
+                },
+                "TP_TOUCH": {
+                  "count": 6,
+                  "net_total_r": 2.946866821709868
+                }
+              }
+            },
+            "2026-02": {
+              "candidates": 15,
+              "resolved": 15,
+              "statuses": {
+                "RESOLVED_REFERENCE": 15
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 6,
+                "TIMEOUT_CLOSE": 5,
+                "SL_TOUCH": 1,
+                "SESSION_CLOSE": 3
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.006904017358812814,
+                  "positive_rate_pct": 46.666666666666664,
+                  "pf": 1.034347260132164,
+                  "resolved_sequence_drawdown_r": 1.5150952356521352
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.0011312584533972698,
+                  "positive_rate_pct": 46.666666666666664,
+                  "pf": 1.005536592929289,
+                  "resolved_sequence_drawdown_r": 1.581375217418404
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.004641500452018282,
+                  "positive_rate_pct": 46.666666666666664,
+                  "pf": 0.9776465687886841,
+                  "resolved_sequence_drawdown_r": 1.6476551991846726
+                }
+              ],
+              "gross_total_resolved_r": 0.10356026038219221,
+              "extra_cost_total_resolved_r": 0.08659138358123317,
+              "net_total_resolved_r": 0.016968876800959043,
+              "net_mean_all_candidates_r": 0.0011312584533972696,
+              "descriptive_win_fraction_wilson95": [
+                0.24809535365737387,
+                0.698830199745016
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 3,
+                  "net_total_r": -0.7324976917145265
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0072345189906124
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 5,
+                  "net_total_r": -1.2110685855014771
+                },
+                "TP_TOUCH": {
+                  "count": 6,
+                  "net_total_r": 2.967769673007575
+                }
+              }
+            },
+            "2026-03": {
+              "candidates": 15,
+              "resolved": 15,
+              "statuses": {
+                "RESOLVED_REFERENCE": 15
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 10,
+                "TIMEOUT_CLOSE": 3,
+                "SL_TOUCH": 1,
+                "SESSION_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.27856463120257585,
+                  "positive_rate_pct": 80.0,
+                  "pf": 3.970935317407091,
+                  "resolved_sequence_drawdown_r": 1.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.2735337993779294,
+                  "positive_rate_pct": 80.0,
+                  "pf": 3.8811132870069427,
+                  "resolved_sequence_drawdown_r": 1.0097918531781558
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.26850296755328285,
+                  "positive_rate_pct": 80.0,
+                  "pf": 3.793491147185727,
+                  "resolved_sequence_drawdown_r": 1.0195837063563113
+                }
+              ],
+              "gross_total_resolved_r": 4.178469468038638,
+              "extra_cost_total_resolved_r": 0.07546247736969736,
+              "net_total_resolved_r": 4.10300699066894,
+              "net_mean_all_candidates_r": 0.2735337993779294,
+              "descriptive_win_fraction_wilson95": [
+                0.5481455128483065,
+                0.9295245065301844
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": 0.15577218346351726
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0097918531781558
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 3,
+                  "net_total_r": 0.011470591562736693
+                },
+                "TP_TOUCH": {
+                  "count": 10,
+                  "net_total_r": 4.945556068820842
+                }
+              }
+            },
+            "2026-04": {
+              "candidates": 13,
+              "resolved": 12,
+              "statuses": {
+                "RESOLVED_REFERENCE": 12,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 9,
+                "SL_TOUCH": 1,
+                "SESSION_CLOSE": 1,
+                "TIMEOUT_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.2805566986457993,
+                  "positive_rate_pct": 83.33333333333333,
+                  "pf": 3.399036062764246,
+                  "resolved_sequence_drawdown_r": 1.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.2728780716983287,
+                  "positive_rate_pct": 83.33333333333333,
+                  "pf": 3.311379392836923,
+                  "resolved_sequence_drawdown_r": 1.007036566691574
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.26519944475085805,
+                  "positive_rate_pct": 83.33333333333333,
+                  "pf": 3.2253599755617444,
+                  "resolved_sequence_drawdown_r": 1.0140731333831479
+                }
+              ],
+              "gross_total_resolved_r": 3.3666803837495913,
+              "extra_cost_total_resolved_r": 0.09214352336964708,
+              "net_total_resolved_r": 3.274536860379944,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.5519691377470266,
+                0.9530348578161463
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": 0.26251283757912014
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.007036566691574
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.4096658883566506
+                },
+                "TP_TOUCH": {
+                  "count": 9,
+                  "net_total_r": 4.4287264778490485
+                }
+              }
+            },
+            "2026-05": {
+              "candidates": 17,
+              "resolved": 17,
+              "statuses": {
+                "RESOLVED_REFERENCE": 17
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 10,
+                "SESSION_CLOSE": 2,
+                "TIMEOUT_CLOSE": 3,
+                "SL_TOUCH": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.12648645845059334,
+                  "positive_rate_pct": 58.8235294117647,
+                  "pf": 1.7545520586041021,
+                  "resolved_sequence_drawdown_r": 2.5334877366987825
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.11840604627478539,
+                  "positive_rate_pct": 58.8235294117647,
+                  "pf": 1.6925256315999615,
+                  "resolved_sequence_drawdown_r": 2.5761575770130287
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.11032563409897744,
+                  "positive_rate_pct": 58.8235294117647,
+                  "pf": 1.632880265262027,
+                  "resolved_sequence_drawdown_r": 2.6188274173272736
+                }
+              ],
+              "gross_total_resolved_r": 2.1502697936600867,
+              "extra_cost_total_resolved_r": 0.13736700698873516,
+              "net_total_resolved_r": 2.0129027866713516,
+              "net_mean_all_candidates_r": 0.11840604627478539,
+              "descriptive_win_fraction_wilson95": [
+                0.3600544264299978,
+                0.7838894320978518
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.526363201348196
+                },
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.017945181585155
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 3,
+                  "net_total_r": -0.36230285977384685
+                },
+                "TP_TOUCH": {
+                  "count": 10,
+                  "net_total_r": 4.919514029378549
+                }
+              }
+            },
+            "2026-06": {
+              "candidates": 12,
+              "resolved": 12,
+              "statuses": {
+                "RESOLVED_REFERENCE": 12
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 6,
+                "SESSION_CLOSE": 2,
+                "SL_TOUCH": 3,
+                "TIMEOUT_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.022653226396779077,
+                  "positive_rate_pct": 50.0,
+                  "pf": 0.9169156122003377,
+                  "resolved_sequence_drawdown_r": 2.191001473888722
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.03042996350339713,
+                  "positive_rate_pct": 50.0,
+                  "pf": 0.8899048954897307,
+                  "resolved_sequence_drawdown_r": 2.244924746346224
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.03820670061001517,
+                  "positive_rate_pct": 50.0,
+                  "pf": 0.8636161276408884,
+                  "resolved_sequence_drawdown_r": 2.2988480188037403
+                }
+              ],
+              "gross_total_resolved_r": -0.2718387167613489,
+              "extra_cost_total_resolved_r": 0.09332084527941657,
+              "net_total_resolved_r": -0.3651595620407655,
+              "net_mean_all_candidates_r": -0.030429963503397123,
+              "descriptive_win_fraction_wilson95": [
+                0.2537815976337061,
+                0.7462184023662939
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.13864737900640275
+                },
+                "SL_TOUCH": {
+                  "count": 3,
+                  "net_total_r": -3.0193803945028117
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.15873697879369156
+                },
+                "TP_TOUCH": {
+                  "count": 6,
+                  "net_total_r": 2.9516051902621405
+                }
+              }
+            },
+            "2026-07": {
+              "candidates": 9,
+              "resolved": 9,
+              "statuses": {
+                "RESOLVED_REFERENCE": 9
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 5,
+                "SL_TOUCH": 3,
+                "TIMEOUT_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.10053348277444159,
+                  "positive_rate_pct": 55.55555555555556,
+                  "pf": 0.7342572287494337,
+                  "resolved_sequence_drawdown_r": 3.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.1099666744272426,
+                  "positive_rate_pct": 55.55555555555556,
+                  "pf": 0.7123862951890794,
+                  "resolved_sequence_drawdown_r": 3.0310807733693643
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.11939986608004366,
+                  "positive_rate_pct": 55.55555555555556,
+                  "pf": 0.690971639937936,
+                  "resolved_sequence_drawdown_r": 3.062161546738729
+                }
+              ],
+              "gross_total_resolved_r": -0.9048013449699743,
+              "extra_cost_total_resolved_r": 0.08489872487520927,
+              "net_total_resolved_r": -0.9897000698451837,
+              "net_mean_all_candidates_r": -0.10996667442724263,
+              "descriptive_win_fraction_wilson95": [
+                0.26665129349549305,
+                0.8112214789023355
+              ],
+              "by_exit_reason": {
+                "SL_TOUCH": {
+                  "count": 3,
+                  "net_total_r": -3.0310807733693643
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.4099933245976279
+                },
+                "TP_TOUCH": {
+                  "count": 5,
+                  "net_total_r": 2.451374028121809
+                }
+              }
+            },
+            "2026-08": {
+              "candidates": 10,
+              "resolved": 10,
+              "statuses": {
+                "RESOLVED_REFERENCE": 10
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 4,
+                "SL_TOUCH": 3,
+                "TIMEOUT_CLOSE": 2,
+                "SESSION_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.22770752297067332,
+                  "positive_rate_pct": 40.0,
+                  "pf": 0.46760926394486885,
+                  "resolved_sequence_drawdown_r": 3.27707522970674
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.23603956933549722,
+                  "positive_rate_pct": 40.0,
+                  "pf": 0.453755174612082,
+                  "resolved_sequence_drawdown_r": 3.3381117600009578
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.2443716157003212,
+                  "positive_rate_pct": 40.0,
+                  "pf": 0.4401807336390677,
+                  "resolved_sequence_drawdown_r": 3.3991482902951766
+                }
+              ],
+              "gross_total_resolved_r": -2.277075229706733,
+              "extra_cost_total_resolved_r": 0.08332046364823936,
+              "net_total_resolved_r": -2.3603956933549726,
+              "net_mean_all_candidates_r": -0.23603956933549725,
+              "descriptive_win_fraction_wilson95": [
+                0.16818032970623614,
+                0.6873262302663417
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.3521839981704798
+                },
+                "SL_TOUCH": {
+                  "count": 3,
+                  "net_total_r": -3.023365335130646
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.945582114815984
+                },
+                "TP_TOUCH": {
+                  "count": 4,
+                  "net_total_r": 1.9607357547621378
+                }
+              }
+            },
+            "2026-09": {
+              "candidates": 14,
+              "resolved": 13,
+              "statuses": {
+                "RESOLVED_REFERENCE": 13,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 7,
+                "SL_TOUCH": 4,
+                "SESSION_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.028114659645814256,
+                  "positive_rate_pct": 61.53846153846154,
+                  "pf": 0.908632880542461,
+                  "resolved_sequence_drawdown_r": 2.8654905753956017
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.03654289853768608,
+                  "positive_rate_pct": 61.53846153846154,
+                  "pf": 0.8823633019308386,
+                  "resolved_sequence_drawdown_r": 2.90256284137827
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.04497113742955791,
+                  "positive_rate_pct": 61.53846153846154,
+                  "pf": 0.8565848261306535,
+                  "resolved_sequence_drawdown_r": 2.939635107360938
+                }
+              ],
+              "gross_total_resolved_r": -0.3654905753955853,
+              "extra_cost_total_resolved_r": 0.10956710559433375,
+              "net_total_resolved_r": -0.4750576809899191,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.355228915126657,
+                0.8229029220223743
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 0.11994358822488314
+                },
+                "SL_TOUCH": {
+                  "count": 4,
+                  "net_total_r": -4.030848435974857
+                },
+                "TP_TOUCH": {
+                  "count": 7,
+                  "net_total_r": 3.4358471667600545
+                }
+              }
+            },
+            "2026-10": {
+              "candidates": 6,
+              "resolved": 6,
+              "statuses": {
+                "RESOLVED_REFERENCE": 6
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 3,
+                "SL_TOUCH": 2,
+                "TIMEOUT_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.03768586539432426,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 0.8869424038170273,
+                  "resolved_sequence_drawdown_r": 1.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.04903823949617603,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 0.8544212474799752,
+                  "resolved_sequence_drawdown_r": 1.0470770553079713
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.06039061359802788,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 0.8225721551777779,
+                  "resolved_sequence_drawdown_r": 1.0941541106159431
+                }
+              ],
+              "gross_total_resolved_r": -0.22611519236594557,
+              "extra_cost_total_resolved_r": 0.06811424461111078,
+              "net_total_resolved_r": -0.29422943697705634,
+              "net_mean_all_candidates_r": -0.049038239496176056,
+              "descriptive_win_fraction_wilson95": [
+                0.299993315138392,
+                0.9032285888942195
+              ],
+              "by_exit_reason": {
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.0211015129875074
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 1,
+                  "net_total_r": 0.2639446379885092
+                },
+                "TP_TOUCH": {
+                  "count": 3,
+                  "net_total_r": 1.462927438021942
+                }
+              }
+            }
+          }
+        },
+        "MOTION_15M": {
+          "candidates": 145,
+          "resolved": 144,
+          "statuses": {
+            "RESOLVED_REFERENCE": 144,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "WEAK_15M_NEXT_OPEN": 87,
+            "TIMEOUT_CLOSE": 31,
+            "SL_TOUCH": 11,
+            "SESSION_CLOSE": 10,
+            "TP_TOUCH": 5
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.0034181148725509485,
+              "positive_rate_pct": 24.305555555555557,
+              "pf": 0.9818579117178482,
+              "resolved_sequence_drawdown_r": 6.934759477765096
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.010948027755488178,
+              "positive_rate_pct": 22.22222222222222,
+              "pf": 0.9436163389488836,
+              "resolved_sequence_drawdown_r": 7.440184906820623
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.018477940638425408,
+              "positive_rate_pct": 21.52777777777778,
+              "pf": 0.907670582609376,
+              "resolved_sequence_drawdown_r": 7.945610335876149
+            }
+          ],
+          "gross_total_resolved_r": -0.4922085416473366,
+          "extra_cost_total_resolved_r": 1.0843074551429612,
+          "net_total_resolved_r": -1.5765159967902977,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.16203742244608532,
+            0.29684237596671287
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 10,
+              "net_total_r": 1.0015923403946898
+            },
+            "SL_TOUCH": {
+              "count": 11,
+              "net_total_r": -11.092742149997417
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 31,
+              "net_total_r": 10.505066002875216
+            },
+            "TP_TOUCH": {
+              "count": 5,
+              "net_total_r": 9.964016117968745
+            },
+            "WEAK_15M_NEXT_OPEN": {
+              "count": 87,
+              "net_total_r": -11.954448308031532
+            }
+          },
+          "skipped": {
+            "CLOSED_OR_PERIOD_END": 7,
+            "OCCUPIED_OR_UNKNOWN_OUTCOME": 14
+          },
+          "by_utc_month": {
+            "2026-01": {
+              "candidates": 16,
+              "resolved": 16,
+              "statuses": {
+                "RESOLVED_REFERENCE": 16
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 9,
+                "TIMEOUT_CLOSE": 4,
+                "SL_TOUCH": 2,
+                "SESSION_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.11217104619403448,
+                  "positive_rate_pct": 18.75,
+                  "pf": 0.6285712132519684,
+                  "resolved_sequence_drawdown_r": 2.8121285828947133
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.12048093157474721,
+                  "positive_rate_pct": 18.75,
+                  "pf": 0.6096091201711555,
+                  "resolved_sequence_drawdown_r": 2.9139879889738265
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.12879081695545996,
+                  "positive_rate_pct": 18.75,
+                  "pf": 0.5914431287045477,
+                  "resolved_sequence_drawdown_r": 3.01584739505294
+                }
+              ],
+              "gross_total_resolved_r": -1.7947367391045517,
+              "extra_cost_total_resolved_r": 0.1329581660914039,
+              "net_total_resolved_r": -1.9276949051959555,
+              "net_mean_all_candidates_r": -0.12048093157474722,
+              "descriptive_win_fraction_wilson95": [
+                0.06591599071428142,
+                0.4300888096197414
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.04097930182265988
+                },
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.0204510136399643
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 4,
+                  "net_total_r": 2.787939765489735
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 9,
+                  "net_total_r": -2.654204355223066
+                }
+              }
+            },
+            "2026-02": {
+              "candidates": 20,
+              "resolved": 20,
+              "statuses": {
+                "RESOLVED_REFERENCE": 20
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 15,
+                "TIMEOUT_CLOSE": 5
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.03981467330630713,
+                  "positive_rate_pct": 20.0,
+                  "pf": 0.6847534057372369,
+                  "resolved_sequence_drawdown_r": 2.023751774192383
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.04564960530042871,
+                  "positive_rate_pct": 20.0,
+                  "pf": 0.6517404059719138,
+                  "resolved_sequence_drawdown_r": 2.079814899110497
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.051484537294550305,
+                  "positive_rate_pct": 20.0,
+                  "pf": 0.6210515220114634,
+                  "resolved_sequence_drawdown_r": 2.1358780240286106
+                }
+              ],
+              "gross_total_resolved_r": -0.7962934661261426,
+              "extra_cost_total_resolved_r": 0.11669863988243165,
+              "net_total_resolved_r": -0.9129921060085743,
+              "net_mean_all_candidates_r": -0.04564960530042871,
+              "descriptive_win_fraction_wilson95": [
+                0.08065766257979806,
+                0.41601743225189364
+              ],
+              "by_exit_reason": {
+                "TIMEOUT_CLOSE": {
+                  "count": 5,
+                  "net_total_r": 1.3916971702825822
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 15,
+                  "net_total_r": -2.3046892762911564
+                }
+              }
+            },
+            "2026-03": {
+              "candidates": 18,
+              "resolved": 18,
+              "statuses": {
+                "RESOLVED_REFERENCE": 18
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 2,
+                "WEAK_15M_NEXT_OPEN": 10,
+                "TIMEOUT_CLOSE": 4,
+                "SESSION_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.2925581179708905,
+                  "positive_rate_pct": 38.888888888888886,
+                  "pf": 4.230733706461018,
+                  "resolved_sequence_drawdown_r": 1.3830600143674092
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.2879803213580902,
+                  "positive_rate_pct": 38.888888888888886,
+                  "pf": 4.085364422398584,
+                  "resolved_sequence_drawdown_r": 1.403595894103777
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.28340252474528993,
+                  "positive_rate_pct": 38.888888888888886,
+                  "pf": 3.94841248844548,
+                  "resolved_sequence_drawdown_r": 1.424131773840144
+                }
+              ],
+              "gross_total_resolved_r": 5.266046123476029,
+              "extra_cost_total_resolved_r": 0.08240033903040475,
+              "net_total_resolved_r": 5.183645784445624,
+              "net_mean_all_candidates_r": 0.28798032135809026,
+              "descriptive_win_fraction_wilson95": [
+                0.2030524657216362,
+                0.613809583977621
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 1.860101705903702
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 4,
+                  "net_total_r": 0.46352819708661314
+                },
+                "TP_TOUCH": {
+                  "count": 2,
+                  "net_total_r": 3.9906221694027506
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 10,
+                  "net_total_r": -1.1306062879474421
+                }
+              }
+            },
+            "2026-04": {
+              "candidates": 17,
+              "resolved": 16,
+              "statuses": {
+                "RESOLVED_REFERENCE": 16,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 1,
+                "SL_TOUCH": 1,
+                "WEAK_15M_NEXT_OPEN": 9,
+                "SESSION_CLOSE": 3,
+                "TIMEOUT_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.07314391486648053,
+                  "positive_rate_pct": 25.0,
+                  "pf": 1.3632053242154039,
+                  "resolved_sequence_drawdown_r": 2.3737785839604078
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.06549273792272141,
+                  "positive_rate_pct": 25.0,
+                  "pf": 1.3161796705987088,
+                  "resolved_sequence_drawdown_r": 2.4518953620983908
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.05784156097896228,
+                  "positive_rate_pct": 25.0,
+                  "pf": 1.2716956955190768,
+                  "resolved_sequence_drawdown_r": 2.5300121402363738
+                }
+              ],
+              "gross_total_resolved_r": 1.1703026378636885,
+              "extra_cost_total_resolved_r": 0.12241883110014597,
+              "net_total_resolved_r": 1.0478838067635425,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.10182067491213048,
+                0.49498316535508774
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 3,
+                  "net_total_r": -0.3725546453613234
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.007036566691574
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 1.6634063923092084
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.99469025206132
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 9,
+                  "net_total_r": -1.2306216255540885
+                }
+              }
+            },
+            "2026-05": {
+              "candidates": 19,
+              "resolved": 19,
+              "statuses": {
+                "RESOLVED_REFERENCE": 19
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 11,
+                "TIMEOUT_CLOSE": 6,
+                "SL_TOUCH": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.07356298501899623,
+                  "positive_rate_pct": 26.31578947368421,
+                  "pf": 0.6151433664618087,
+                  "resolved_sequence_drawdown_r": 2.957076547913313
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.0814687747328702,
+                  "positive_rate_pct": 21.05263157894737,
+                  "pf": 0.5868437205464875,
+                  "resolved_sequence_drawdown_r": 3.0690279670816163
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.08937456444674416,
+                  "positive_rate_pct": 21.05263157894737,
+                  "pf": 0.5608423168137874,
+                  "resolved_sequence_drawdown_r": 3.180979386249919
+                }
+              ],
+              "gross_total_resolved_r": -1.3976967153609285,
+              "extra_cost_total_resolved_r": 0.15021000456360514,
+              "net_total_resolved_r": -1.5479067199245338,
+              "net_mean_all_candidates_r": -0.0814687747328702,
+              "descriptive_win_fraction_wilson95": [
+                0.08507676632916253,
+                0.43334278443814167
+              ],
+              "by_exit_reason": {
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.017945181585155
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 6,
+                  "net_total_r": 1.6542702834566316
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 11,
+                  "net_total_r": -1.1842318217960106
+                }
+              }
+            },
+            "2026-06": {
+              "candidates": 14,
+              "resolved": 14,
+              "statuses": {
+                "RESOLVED_REFERENCE": 14
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 10,
+                "SESSION_CLOSE": 1,
+                "SL_TOUCH": 1,
+                "TIMEOUT_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.11150677564708447,
+                  "positive_rate_pct": 7.142857142857143,
+                  "pf": 0.4026407558264997,
+                  "resolved_sequence_drawdown_r": 2.500328859054356
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.11905443066820047,
+                  "positive_rate_pct": 7.142857142857143,
+                  "pf": 0.38545907666588036,
+                  "resolved_sequence_drawdown_r": 2.5917206369822616
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.12660208568931644,
+                  "positive_rate_pct": 7.142857142857143,
+                  "pf": 0.369486129371246,
+                  "resolved_sequence_drawdown_r": 2.683112414910166
+                }
+              ],
+              "gross_total_resolved_r": -1.5610948590591827,
+              "extra_cost_total_resolved_r": 0.10566717029562392,
+              "net_total_resolved_r": -1.6667620293548067,
+              "net_mean_all_candidates_r": -0.11905443066820047,
+              "descriptive_win_fraction_wilson95": [
+                0.012722215247890939,
+                0.31468704424151117
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.08772678061744293
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0051344617739322
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 0.8867077238490798
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 10,
+                  "net_total_r": -1.4606085108125113
+                }
+              }
+            },
+            "2026-07": {
+              "candidates": 9,
+              "resolved": 9,
+              "statuses": {
+                "RESOLVED_REFERENCE": 9
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 8,
+                "TIMEOUT_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.03078459865326952,
+                  "positive_rate_pct": 22.22222222222222,
+                  "pf": 0.6900778294275565,
+                  "resolved_sequence_drawdown_r": 0.5428316631884516
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.040217790306070554,
+                  "positive_rate_pct": 11.11111111111111,
+                  "pf": 0.6225077900887118,
+                  "resolved_sequence_drawdown_r": 0.597294729772947
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.04965098195887159,
+                  "positive_rate_pct": 11.11111111111111,
+                  "pf": 0.5680171306786911,
+                  "resolved_sequence_drawdown_r": 0.6517577963574424
+                }
+              ],
+              "gross_total_resolved_r": -0.2770613878794257,
+              "extra_cost_total_resolved_r": 0.08489872487520927,
+              "net_total_resolved_r": -0.36196011275463497,
+              "net_mean_all_candidates_r": -0.040217790306070554,
+              "descriptive_win_fraction_wilson95": [
+                0.019890887638544907,
+                0.434999705576656
+              ],
+              "by_exit_reason": {
+                "TIMEOUT_CLOSE": {
+                  "count": 1,
+                  "net_total_r": 0.596894409937891
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 8,
+                  "net_total_r": -0.958854522692526
+                }
+              }
+            },
+            "2026-08": {
+              "candidates": 11,
+              "resolved": 11,
+              "statuses": {
+                "RESOLVED_REFERENCE": 11
+              },
+              "exit_reasons": {
+                "TIMEOUT_CLOSE": 2,
+                "TP_TOUCH": 1,
+                "SL_TOUCH": 2,
+                "WEAK_15M_NEXT_OPEN": 5,
+                "SESSION_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.15289921574941043,
+                  "positive_rate_pct": 18.181818181818183,
+                  "pf": 0.5438876972949419,
+                  "resolved_sequence_drawdown_r": 3.432485197471516
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.1613160741157701,
+                  "positive_rate_pct": 9.090909090909092,
+                  "pf": 0.5282659711844979,
+                  "resolved_sequence_drawdown_r": 3.5027867061474507
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.16973293248212978,
+                  "positive_rate_pct": 9.090909090909092,
+                  "pf": 0.5139526326116168,
+                  "resolved_sequence_drawdown_r": 3.5730882148233856
+                }
+              ],
+              "gross_total_resolved_r": -1.6818913732435148,
+              "extra_cost_total_resolved_r": 0.09258544202995644,
+              "net_total_resolved_r": -1.7744768152734713,
+              "net_mean_all_candidates_r": -0.16131607411577012,
+              "descriptive_win_fraction_wilson95": [
+                0.016232172885884855,
+                0.37735843645159567
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.3521839981704798
+                },
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.0163110290855837
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.9745197074043728
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.9871276204486747
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 5,
+                  "net_total_r": -0.41858970106170984
+                }
+              }
+            },
+            "2026-09": {
+              "candidates": 14,
+              "resolved": 14,
+              "statuses": {
+                "RESOLVED_REFERENCE": 14
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 1,
+                "WEAK_15M_NEXT_OPEN": 6,
+                "SL_TOUCH": 3,
+                "TIMEOUT_CLOSE": 2,
+                "SESSION_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.0030173150746046367,
+                  "positive_rate_pct": 35.714285714285715,
+                  "pf": 1.0119107346925063,
+                  "resolved_sequence_drawdown_r": 2.457635309669658
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.005474272261014164,
+                  "positive_rate_pct": 35.714285714285715,
+                  "pf": 0.978845906386661,
+                  "resolved_sequence_drawdown_r": 2.559534058412093
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.013965859596632943,
+                  "positive_rate_pct": 28.571428571428573,
+                  "pf": 0.9472438414930403,
+                  "resolved_sequence_drawdown_r": 2.6614328071545272
+                }
+              ],
+              "gross_total_resolved_r": 0.04224241104446491,
+              "extra_cost_total_resolved_r": 0.11888222269866319,
+              "net_total_resolved_r": -0.07663981165419828,
+              "net_mean_all_candidates_r": -0.005474272261014163,
+              "descriptive_win_fraction_wilson95": [
+                0.1634473175355414,
+                0.612355768960926
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.005064639537106119
+                },
+                "SL_TOUCH": {
+                  "count": 3,
+                  "net_total_r": -3.0258638972212077
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 1.4257998077417404
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.9915760760559993
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 6,
+                  "net_total_r": -0.46308715869362443
+                }
+              }
+            },
+            "2026-10": {
+              "candidates": 7,
+              "resolved": 7,
+              "statuses": {
+                "RESOLVED_REFERENCE": 7
+              },
+              "exit_reasons": {
+                "TIMEOUT_CLOSE": 3,
+                "WEAK_15M_NEXT_OPEN": 4
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.0768535466774611,
+                  "positive_rate_pct": 28.571428571428573,
+                  "pf": 1.9823606077552156,
+                  "resolved_sequence_drawdown_r": 0.5476347712797133
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.06576955888095867,
+                  "positive_rate_pct": 28.571428571428573,
+                  "pf": 1.7614080744539782,
+                  "resolved_sequence_drawdown_r": 0.6046519962332467
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.054685571084456264,
+                  "positive_rate_pct": 28.571428571428573,
+                  "pf": 1.5785352942737754,
+                  "resolved_sequence_drawdown_r": 0.6616692211867804
+                }
+              ],
+              "gross_total_resolved_r": 0.5379748267422276,
+              "extra_cost_total_resolved_r": 0.0775879145755169,
+              "net_total_resolved_r": 0.46038691216671074,
+              "net_mean_all_candidates_r": 0.06576955888095867,
+              "descriptive_win_fraction_wilson95": [
+                0.08221892400405678,
+                0.6410655481673808
+              ],
+              "by_exit_reason": {
+                "TIMEOUT_CLOSE": {
+                  "count": 3,
+                  "net_total_r": 0.6093419601261068
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 4,
+                  "net_total_r": -0.14895504795939613
+                }
+              }
+            }
+          }
+        }
+      },
+      "checkpoint_states": {
+        "WEAK_EXIT_REQUESTED": 87,
+        "STRONG_HOLD": 58
+      },
+      "entries_absent_from_2r": 24,
+      "baseline_checkpoint_diagnostic": {
+        "baseline_entries": 124,
+        "states": {
+          "STRONG_HOLD": {
+            "candidates": 53,
+            "resolved": 52,
+            "statuses": {
+              "RESOLVED_REFERENCE": 52,
+              "CENSORED_AT_SIDE_GAP": 1
+            },
+            "exit_reasons": {
+              "TIMEOUT_CLOSE": 27,
+              "SL_TOUCH": 11,
+              "SESSION_CLOSE": 9,
+              "TP_TOUCH": 5
+            },
+            "scenarios": [
+              {
+                "additional_cost_price": 0,
+                "mean_resolved_r": 0.23084939101599888,
+                "positive_rate_pct": 55.76923076923077,
+                "pf": 1.8307112886190466,
+                "resolved_sequence_drawdown_r": 3.3301077640479697
+              },
+              {
+                "additional_cost_price": 0.3,
+                "mean_resolved_r": 0.22313330205552961,
+                "positive_rate_pct": 55.76923076923077,
+                "pf": 1.7926637962984837,
+                "resolved_sequence_drawdown_r": 3.378949274541675
+              },
+              {
+                "additional_cost_price": 0.6,
+                "mean_resolved_r": 0.21541721309506037,
+                "positive_rate_pct": 55.76923076923077,
+                "pf": 1.7555783295204521,
+                "resolved_sequence_drawdown_r": 3.427790785035384
+              }
+            ],
+            "gross_total_resolved_r": 12.004168332831942,
+            "extra_cost_total_resolved_r": 0.40123662594440107,
+            "net_total_resolved_r": 11.60293170688754,
+            "net_mean_all_candidates_r": null,
+            "descriptive_win_fraction_wilson95": [
+              0.42339761787202884,
+              0.6840494318059871
+            ],
+            "by_exit_reason": {
+              "SESSION_CLOSE": {
+                "count": 9,
+                "net_total_r": 2.3258373404689547
+              },
+              "SL_TOUCH": {
+                "count": 11,
+                "net_total_r": -11.092742149997417
+              },
+              "TIMEOUT_CLOSE": {
+                "count": 27,
+                "net_total_r": 10.405820398447256
+              },
+              "TP_TOUCH": {
+                "count": 5,
+                "net_total_r": 9.964016117968745
+              }
+            }
+          },
+          "WEAK_EXIT_REQUESTED": {
+            "candidates": 71,
+            "resolved": 70,
+            "statuses": {
+              "RESOLVED_REFERENCE": 70,
+              "CENSORED_AT_SIDE_GAP": 1
+            },
+            "exit_reasons": {
+              "TIMEOUT_CLOSE": 32,
+              "SL_TOUCH": 19,
+              "SESSION_CLOSE": 15,
+              "TP_TOUCH": 4
+            },
+            "scenarios": [
+              {
+                "additional_cost_price": 0,
+                "mean_resolved_r": -0.10027784888943875,
+                "positive_rate_pct": 35.714285714285715,
+                "pf": 0.7258243523631853,
+                "resolved_sequence_drawdown_r": 9.76828903933816
+              },
+              {
+                "additional_cost_price": 0.3,
+                "mean_resolved_r": -0.10789200966607417,
+                "positive_rate_pct": 35.714285714285715,
+                "pf": 0.70880420665537,
+                "resolved_sequence_drawdown_r": 9.919275723027976
+              },
+              {
+                "additional_cost_price": 0.6,
+                "mean_resolved_r": -0.11550617044270961,
+                "positive_rate_pct": 35.714285714285715,
+                "pf": 0.6922167742304777,
+                "resolved_sequence_drawdown_r": 10.070262406717795
+              }
+            ],
+            "gross_total_resolved_r": -7.0194494222607124,
+            "extra_cost_total_resolved_r": 0.5329912543644794,
+            "net_total_resolved_r": -7.552440676625192,
+            "net_mean_all_candidates_r": null,
+            "descriptive_win_fraction_wilson95": [
+              0.2550333927163484,
+              0.47411605368658505
+            ],
+            "by_exit_reason": {
+              "SESSION_CLOSE": {
+                "count": 15,
+                "net_total_r": 0.5398271411768829
+              },
+              "SL_TOUCH": {
+                "count": 19,
+                "net_total_r": -19.156243471029956
+              },
+              "TIMEOUT_CLOSE": {
+                "count": 32,
+                "net_total_r": 3.102262459510671
+              },
+              "TP_TOUCH": {
+                "count": 4,
+                "net_total_r": 7.9617131937172125
+              }
+            }
+          }
+        },
+        "post_entry_landmark": true,
+        "entry_time_predictor": false
+      }
+    },
+    "separate_2025_q4": {
+      "start_utc": 1759276800,
+      "end_utc_exclusive": 1767225600,
+      "comparators_reproduced": true,
+      "passing_signals": 44,
+      "arms": {
+        "TP_2R": {
+          "candidates": 33,
+          "resolved": 31,
+          "statuses": {
+            "RESOLVED_REFERENCE": 31,
+            "CENSORED_AT_SIDE_GAP": 2
+          },
+          "exit_reasons": {
+            "SESSION_CLOSE": 5,
+            "TIMEOUT_CLOSE": 18,
+            "TP_TOUCH": 2,
+            "SL_TOUCH": 6
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.1343959178895437,
+              "positive_rate_pct": 51.61290322580645,
+              "pf": 1.4728375364176465,
+              "resolved_sequence_drawdown_r": 2.722374048604292
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.12529705596695967,
+              "positive_rate_pct": 51.61290322580645,
+              "pf": 1.4334705597168558,
+              "resolved_sequence_drawdown_r": 2.7383896463392308
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.11619819404437565,
+              "positive_rate_pct": 51.61290322580645,
+              "pf": 1.3953956642669123,
+              "resolved_sequence_drawdown_r": 2.754405244074169
+            }
+          ],
+          "gross_total_resolved_r": 4.166273454575855,
+          "extra_cost_total_resolved_r": 0.28206471960010465,
+          "net_total_resolved_r": 3.88420873497575,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.348403954480288,
+            0.6802974843758269
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 5,
+              "net_total_r": -1.0944779190505398
+            },
+            "SL_TOUCH": {
+              "count": 6,
+              "net_total_r": -6.059440142707405
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 18,
+              "net_total_r": 7.051951330251674
+            },
+            "TP_TOUCH": {
+              "count": 2,
+              "net_total_r": 3.9861754664820213
+            }
+          },
+          "skipped": {
+            "OCCUPIED_OR_UNKNOWN_OUTCOME": 10,
+            "CLOSED_OR_PERIOD_END": 1
+          },
+          "by_utc_month": {
+            "2025-10": {
+              "candidates": 9,
+              "resolved": 9,
+              "statuses": {
+                "RESOLVED_REFERENCE": 9
+              },
+              "exit_reasons": {
+                "SESSION_CLOSE": 2,
+                "TIMEOUT_CLOSE": 4,
+                "TP_TOUCH": 1,
+                "SL_TOUCH": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.10224732069526438,
+                  "positive_rate_pct": 44.44444444444444,
+                  "pf": 0.7538013493423592,
+                  "resolved_sequence_drawdown_r": 2.722374048604292
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.10949662407505197,
+                  "positive_rate_pct": 44.44444444444444,
+                  "pf": 0.7391740166065189,
+                  "resolved_sequence_drawdown_r": 2.7383896463392308
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.1167459274548396,
+                  "positive_rate_pct": 44.44444444444444,
+                  "pf": 0.7248571527098158,
+                  "resolved_sequence_drawdown_r": 2.754405244074169
+                }
+              ],
+              "gross_total_resolved_r": -0.9202258862573793,
+              "extra_cost_total_resolved_r": 0.06524373041808852,
+              "net_total_resolved_r": -0.9854696166754678,
+              "net_mean_all_candidates_r": -0.10949662407505198,
+              "descriptive_win_fraction_wilson95": [
+                0.18877852109766452,
+                0.733348706504507
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.7484227846216914
+                },
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.0118478146978154
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 4,
+                  "net_total_r": -0.21830348467606128
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.9931044673201006
+                }
+              }
+            },
+            "2025-11": {
+              "candidates": 11,
+              "resolved": 10,
+              "statuses": {
+                "RESOLVED_REFERENCE": 10,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "SESSION_CLOSE": 2,
+                "TIMEOUT_CLOSE": 6,
+                "TP_TOUCH": 1,
+                "SL_TOUCH": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.45484620426087263,
+                  "positive_rate_pct": 60.0,
+                  "pf": 4.202988206544094,
+                  "resolved_sequence_drawdown_r": 1.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.4451216163609108,
+                  "positive_rate_pct": 60.0,
+                  "pf": 4.040597532840816,
+                  "resolved_sequence_drawdown_r": 1.0107795680986387
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.435397028460949,
+                  "positive_rate_pct": 60.0,
+                  "pf": 3.887654369562504,
+                  "resolved_sequence_drawdown_r": 1.0215591361972765
+                }
+              ],
+              "gross_total_resolved_r": 4.548462042608726,
+              "extra_cost_total_resolved_r": 0.09724587899961785,
+              "net_total_resolved_r": 4.451216163609108,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.31267376973365824,
+                0.8318196702937638
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.31707886408878716
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0107795680986382
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 6,
+                  "net_total_r": 3.786003596634613
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.9930709991619207
+                }
+              }
+            },
+            "2025-12": {
+              "candidates": 13,
+              "resolved": 12,
+              "statuses": {
+                "RESOLVED_REFERENCE": 12,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "TIMEOUT_CLOSE": 8,
+                "SL_TOUCH": 3,
+                "SESSION_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.04483644151870902,
+                  "positive_rate_pct": 50.0,
+                  "pf": 1.1472698958763645,
+                  "resolved_sequence_drawdown_r": 2.5828291472994542
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.03487184900350914,
+                  "positive_rate_pct": 50.0,
+                  "pf": 1.1125343612284901,
+                  "resolved_sequence_drawdown_r": 2.641808369391203
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.0249072564883093,
+                  "positive_rate_pct": 50.0,
+                  "pf": 1.078994454168052,
+                  "resolved_sequence_drawdown_r": 2.7007875914829516
+                }
+              ],
+              "gross_total_resolved_r": 0.5380372982245082,
+              "extra_cost_total_resolved_r": 0.11957511018239829,
+              "net_total_resolved_r": 0.4184621880421099,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.2537815976337061,
+                0.7462184023662939
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.02897627034006129
+                },
+                "SL_TOUCH": {
+                  "count": 3,
+                  "net_total_r": -3.0368127599109513
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 8,
+                  "net_total_r": 3.4842512182931222
+                }
+              }
+            }
+          }
+        },
+        "TP_05R": {
+          "candidates": 35,
+          "resolved": 33,
+          "statuses": {
+            "RESOLVED_REFERENCE": 33,
+            "CENSORED_AT_SIDE_GAP": 2
+          },
+          "exit_reasons": {
+            "TP_TOUCH": 22,
+            "SL_TOUCH": 4,
+            "TIMEOUT_CLOSE": 4,
+            "SESSION_CLOSE": 3
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.17343617009064663,
+              "positive_rate_pct": 72.72727272727273,
+              "pf": 2.057834121882467,
+              "resolved_sequence_drawdown_r": 2.0220771583543327
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.16442111957783487,
+              "positive_rate_pct": 72.72727272727273,
+              "pf": 1.988103715557942,
+              "resolved_sequence_drawdown_r": 2.0551159122774814
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": 0.1554060690650231,
+              "positive_rate_pct": 72.72727272727273,
+              "pf": 1.9203941288033195,
+              "resolved_sequence_drawdown_r": 2.088154666200631
+            }
+          ],
+          "gross_total_resolved_r": 5.723393612991339,
+          "extra_cost_total_resolved_r": 0.29749666692278814,
+          "net_total_resolved_r": 5.425896946068551,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.5578244099712737,
+            0.8493255911457935
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 3,
+              "net_total_r": -0.10772979827729681
+            },
+            "SL_TOUCH": {
+              "count": 4,
+              "net_total_r": -4.041218145742405
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 4,
+              "net_total_r": -1.2222263868074221
+            },
+            "TP_TOUCH": {
+              "count": 22,
+              "net_total_r": 10.797071276895673
+            }
+          },
+          "skipped": {
+            "OCCUPIED_OR_UNKNOWN_OUTCOME": 8,
+            "CLOSED_OR_PERIOD_END": 1
+          },
+          "by_utc_month": {
+            "2025-10": {
+              "candidates": 10,
+              "resolved": 10,
+              "statuses": {
+                "RESOLVED_REFERENCE": 10
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 7,
+                "SL_TOUCH": 1,
+                "TIMEOUT_CLOSE": 1,
+                "SESSION_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.18851030984754502,
+                  "positive_rate_pct": 80.0,
+                  "pf": 2.0944795063552104,
+                  "resolved_sequence_drawdown_r": 1.722374048604292
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.18127244709357831,
+                  "positive_rate_pct": 80.0,
+                  "pf": 2.047308628923443,
+                  "resolved_sequence_drawdown_r": 1.730840767347761
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.1740345843396116,
+                  "positive_rate_pct": 80.0,
+                  "pf": 2.0005969946735638,
+                  "resolved_sequence_drawdown_r": 1.7393074860912296
+                }
+              ],
+              "gross_total_resolved_r": 1.8851030984754502,
+              "extra_cost_total_resolved_r": 0.07237862753966713,
+              "net_total_resolved_r": 1.812724470935783,
+              "net_mean_all_candidates_r": 0.18127244709357831,
+              "descriptive_win_fraction_wilson95": [
+                0.49016247153664183,
+                0.9433178485456247
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": 0.1017297060594379
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0042989357063459
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.7265418316414151
+                },
+                "TP_TOUCH": {
+                  "count": 7,
+                  "net_total_r": 3.4418355322241063
+                }
+              }
+            },
+            "2025-11": {
+              "candidates": 12,
+              "resolved": 11,
+              "statuses": {
+                "RESOLVED_REFERENCE": 11,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "SESSION_CLOSE": 1,
+                "TP_TOUCH": 7,
+                "TIMEOUT_CLOSE": 2,
+                "SL_TOUCH": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.2027068916334596,
+                  "positive_rate_pct": 72.72727272727273,
+                  "pf": 2.7196783852429665,
+                  "resolved_sequence_drawdown_r": 1.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.19311207988793935,
+                  "positive_rate_pct": 72.72727272727273,
+                  "pf": 2.600377395885907,
+                  "resolved_sequence_drawdown_r": 1.0107795680986382
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.1835172681424191,
+                  "positive_rate_pct": 72.72727272727273,
+                  "pf": 2.4864717987070084,
+                  "resolved_sequence_drawdown_r": 1.0215591361972765
+                }
+              ],
+              "gross_total_resolved_r": 2.2297758079680556,
+              "extra_cost_total_resolved_r": 0.10554292920072272,
+              "net_total_resolved_r": 2.124232878767333,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.43435469882387084,
+                0.902539407099751
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.18048323399667343
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0107795680986382
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.11775161695052998
+                },
+                "TP_TOUCH": {
+                  "count": 7,
+                  "net_total_r": 3.4332472978131743
+                }
+              }
+            },
+            "2025-12": {
+              "candidates": 13,
+              "resolved": 12,
+              "statuses": {
+                "RESOLVED_REFERENCE": 12,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 8,
+                "SL_TOUCH": 2,
+                "SESSION_CLOSE": 1,
+                "TIMEOUT_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.13404289221231944,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 1.672600710090884,
+                  "resolved_sequence_drawdown_r": 2.0220771583543327
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.12407829969711957,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 1.6119645300437602,
+                  "resolved_sequence_drawdown_r": 2.055115912277482
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.11411370718191971,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 1.553365238941711,
+                  "resolved_sequence_drawdown_r": 2.088154666200631
+                }
+              ],
+              "gross_total_resolved_r": 1.6085147065478331,
+              "extra_cost_total_resolved_r": 0.11957511018239829,
+              "net_total_resolved_r": 1.4889395963654348,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.39062208887279953,
+                0.8618799089087867
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.02897627034006129
+                },
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.0261396419374202
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.37793293821547713
+                },
+                "TP_TOUCH": {
+                  "count": 8,
+                  "net_total_r": 3.9219884468583937
+                }
+              }
+            }
+          }
+        },
+        "MOTION_15M": {
+          "candidates": 40,
+          "resolved": 39,
+          "statuses": {
+            "RESOLVED_REFERENCE": 39,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "SESSION_CLOSE": 2,
+            "WEAK_15M_NEXT_OPEN": 30,
+            "TP_TOUCH": 1,
+            "TIMEOUT_CLOSE": 5,
+            "SL_TOUCH": 1
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.018915275206894764,
+              "positive_rate_pct": 20.512820512820515,
+              "pf": 0.8792144607082816,
+              "resolved_sequence_drawdown_r": 3.156181494979068
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.02787534125629696,
+              "positive_rate_pct": 15.384615384615385,
+              "pf": 0.8300887864871526,
+              "resolved_sequence_drawdown_r": 3.343166951565686
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.03683540730569917,
+              "positive_rate_pct": 15.384615384615385,
+              "pf": 0.7855421994177632,
+              "resolved_sequence_drawdown_r": 3.5301524081523032
+            }
+          ],
+          "gross_total_resolved_r": -0.7376957330688958,
+          "extra_cost_total_resolved_r": 0.34944257592668576,
+          "net_total_resolved_r": -1.0871383089955815,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.07247472376982099,
+            0.29729463648926696
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 2,
+              "net_total_r": -0.986748120773243
+            },
+            "SL_TOUCH": {
+              "count": 1,
+              "net_total_r": -1.0075488789914697
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 5,
+              "net_total_r": 3.3182694655860794
+            },
+            "TP_TOUCH": {
+              "count": 1,
+              "net_total_r": 1.9928651028784214
+            },
+            "WEAK_15M_NEXT_OPEN": {
+              "count": 30,
+              "net_total_r": -4.40397587769537
+            }
+          },
+          "skipped": {
+            "CLOSED_OR_PERIOD_END": 1,
+            "OCCUPIED_OR_UNKNOWN_OUTCOME": 3
+          },
+          "by_utc_month": {
+            "2025-10": {
+              "candidates": 12,
+              "resolved": 12,
+              "statuses": {
+                "RESOLVED_REFERENCE": 12
+              },
+              "exit_reasons": {
+                "SESSION_CLOSE": 1,
+                "WEAK_15M_NEXT_OPEN": 8,
+                "TP_TOUCH": 1,
+                "TIMEOUT_CLOSE": 1,
+                "SL_TOUCH": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.022931589385075002,
+                  "positive_rate_pct": 25.0,
+                  "pf": 1.089211311384853,
+                  "resolved_sequence_drawdown_r": 1.8206289707982013
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.015892937057434702,
+                  "positive_rate_pct": 16.666666666666668,
+                  "pf": 1.0604480642789615,
+                  "resolved_sequence_drawdown_r": 1.8579772592676747
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.00885428472979438,
+                  "positive_rate_pct": 16.666666666666668,
+                  "pf": 1.0329147299309234,
+                  "resolved_sequence_drawdown_r": 1.8953255477371476
+                }
+              ],
+              "gross_total_resolved_r": 0.2751790726209,
+              "extra_cost_total_resolved_r": 0.08446382793168358,
+              "net_total_resolved_r": 0.19071524468921644,
+              "net_mean_all_candidates_r": 0.015892937057434702,
+              "descriptive_win_fraction_wilson95": [
+                0.04696514218385378,
+                0.4480308622529734
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.8501524906811293
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0075488789914697
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 1,
+                  "net_total_r": 1.3528766420653837
+                },
+                "TP_TOUCH": {
+                  "count": 1,
+                  "net_total_r": 1.9928651028784214
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 8,
+                  "net_total_r": -1.2973251305819897
+                }
+              }
+            },
+            "2025-11": {
+              "candidates": 12,
+              "resolved": 11,
+              "statuses": {
+                "RESOLVED_REFERENCE": 11,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 8,
+                "SESSION_CLOSE": 1,
+                "TIMEOUT_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.06715594056116042,
+                  "positive_rate_pct": 18.181818181818183,
+                  "pf": 0.4130217297151351,
+                  "resolved_sequence_drawdown_r": 0.7387153461727646
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.07733440402898036,
+                  "positive_rate_pct": 18.181818181818183,
+                  "pf": 0.3716232607945954,
+                  "resolved_sequence_drawdown_r": 0.8506784443187838
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.0875128674968003,
+                  "positive_rate_pct": 18.181818181818183,
+                  "pf": 0.33566821827820736,
+                  "resolved_sequence_drawdown_r": 0.9626415424648034
+                }
+              ],
+              "gross_total_resolved_r": -0.7387153461727647,
+              "extra_cost_total_resolved_r": 0.11196309814601937,
+              "net_total_resolved_r": -0.850678444318784,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.05136768974608513,
+                0.4769805619608442
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.13659563009211373
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 0.503092933970114
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 8,
+                  "net_total_r": -1.2171757481967842
+                }
+              }
+            },
+            "2025-12": {
+              "candidates": 16,
+              "resolved": 16,
+              "statuses": {
+                "RESOLVED_REFERENCE": 16
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 14,
+                "TIMEOUT_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.017134966219814446,
+                  "positive_rate_pct": 18.75,
+                  "pf": 0.8446162512653135,
+                  "resolved_sequence_drawdown_r": 1.1073243420799608
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.02669844433537587,
+                  "positive_rate_pct": 12.5,
+                  "pf": 0.7739186231037979,
+                  "resolved_sequence_drawdown_r": 1.1686827652480969
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.036261922450937296,
+                  "positive_rate_pct": 12.5,
+                  "pf": 0.7129965439232291,
+                  "resolved_sequence_drawdown_r": 1.2300411884162328
+                }
+              ],
+              "gross_total_resolved_r": -0.27415945951703113,
+              "extra_cost_total_resolved_r": 0.15301564984898283,
+              "net_total_resolved_r": -0.427175109366014,
+              "net_mean_all_candidates_r": -0.026698444335375875,
+              "descriptive_win_fraction_wilson95": [
+                0.03497748774324047,
+                0.36022827265758695
+              ],
+              "by_exit_reason": {
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 1.4622998895505817
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 14,
+                  "net_total_r": -1.8894749989165955
+                }
+              }
+            }
+          }
+        }
+      },
+      "checkpoint_states": {
+        "STRONG_HOLD": 10,
+        "WEAK_EXIT_REQUESTED": 30
+      },
+      "entries_absent_from_2r": 7,
+      "baseline_checkpoint_diagnostic": {
+        "baseline_entries": 33,
+        "states": {
+          "STRONG_HOLD": {
+            "candidates": 7,
+            "resolved": 7,
+            "statuses": {
+              "RESOLVED_REFERENCE": 7
+            },
+            "exit_reasons": {
+              "SESSION_CLOSE": 2,
+              "SL_TOUCH": 1,
+              "TIMEOUT_CLOSE": 4
+            },
+            "scenarios": [
+              {
+                "additional_cost_price": 0,
+                "mean_resolved_r": 0.006238540606966794,
+                "positive_rate_pct": 57.142857142857146,
+                "pf": 1.02228772746608,
+                "resolved_sequence_drawdown_r": 1.9593646016728057
+              },
+              {
+                "additional_cost_price": 0.3,
+                "mean_resolved_r": -0.004129168034859582,
+                "positive_rate_pct": 57.142857142857146,
+                "pf": 0.9855065839002781,
+                "resolved_sequence_drawdown_r": 1.9942969997647126
+              },
+              {
+                "additional_cost_price": 0.6,
+                "mean_resolved_r": -0.014496876676685979,
+                "positive_rate_pct": 57.142857142857146,
+                "pf": 0.9499917866141755,
+                "resolved_sequence_drawdown_r": 2.02922939785662
+              }
+            ],
+            "gross_total_resolved_r": 0.04366978424876756,
+            "extra_cost_total_resolved_r": 0.07257396049278465,
+            "net_total_resolved_r": -0.028904176244017095,
+            "net_mean_all_candidates_r": -0.004129168034859585,
+            "descriptive_win_fraction_wilson95": [
+              0.2504583645276572,
+              0.8417801447485302
+            ],
+            "by_exit_reason": {
+              "SESSION_CLOSE": {
+                "count": 2,
+                "net_total_r": -0.986748120773243
+              },
+              "SL_TOUCH": {
+                "count": 1,
+                "net_total_r": -1.0075488789914697
+              },
+              "TIMEOUT_CLOSE": {
+                "count": 4,
+                "net_total_r": 1.9653928235206957
+              }
+            }
+          },
+          "WEAK_EXIT_REQUESTED": {
+            "candidates": 26,
+            "resolved": 24,
+            "statuses": {
+              "RESOLVED_REFERENCE": 24,
+              "CENSORED_AT_SIDE_GAP": 2
+            },
+            "exit_reasons": {
+              "TIMEOUT_CLOSE": 14,
+              "TP_TOUCH": 2,
+              "SL_TOUCH": 5,
+              "SESSION_CLOSE": 3
+            },
+            "scenarios": [
+              {
+                "additional_cost_price": 0,
+                "mean_resolved_r": 0.1717751529302953,
+                "positive_rate_pct": 50.0,
+                "pf": 1.6016773715682326,
+                "resolved_sequence_drawdown_r": 3.77467030103132
+              },
+              {
+                "additional_cost_price": 0.3,
+                "mean_resolved_r": 0.16304637130082364,
+                "positive_rate_pct": 50.0,
+                "pf": 1.561710416578911,
+                "resolved_sequence_drawdown_r": 3.8618291631572497
+              },
+              {
+                "additional_cost_price": 0.6,
+                "mean_resolved_r": 0.15431758967135198,
+                "positive_rate_pct": 50.0,
+                "pf": 1.523036820359031,
+                "resolved_sequence_drawdown_r": 3.94898802528318
+              }
+            ],
+            "gross_total_resolved_r": 4.122603670327087,
+            "extra_cost_total_resolved_r": 0.20949075910732,
+            "net_total_resolved_r": 3.913112911219767,
+            "net_mean_all_candidates_r": null,
+            "descriptive_win_fraction_wilson95": [
+              0.3142742581957335,
+              0.6857257418042665
+            ],
+            "by_exit_reason": {
+              "SESSION_CLOSE": {
+                "count": 3,
+                "net_total_r": -0.10772979827729681
+              },
+              "SL_TOUCH": {
+                "count": 5,
+                "net_total_r": -5.051891263715936
+              },
+              "TIMEOUT_CLOSE": {
+                "count": 14,
+                "net_total_r": 5.086558506730978
+              },
+              "TP_TOUCH": {
+                "count": 2,
+                "net_total_r": 3.9861754664820213
+              }
+            }
+          }
+        },
+        "post_entry_landmark": true,
+        "entry_time_predictor": false
+      }
+    },
+    "separate_2025_q2": {
+      "start_utc": 1743465600,
+      "end_utc_exclusive": 1751328000,
+      "comparators_reproduced": true,
+      "passing_signals": 47,
+      "arms": {
+        "TP_2R": {
+          "candidates": 36,
+          "resolved": 35,
+          "statuses": {
+            "RESOLVED_REFERENCE": 35,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "SL_TOUCH": 8,
+            "SESSION_CLOSE": 10,
+            "TIMEOUT_CLOSE": 17
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.00029617206554602465,
+              "positive_rate_pct": 48.57142857142857,
+              "pf": 1.0009513346574979,
+              "resolved_sequence_drawdown_r": 3.2162895974536108
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.011844321853159055,
+              "positive_rate_pct": 48.57142857142857,
+              "pf": 0.9627252478686735,
+              "resolved_sequence_drawdown_r": 3.3573407777678197
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.02398481577186412,
+              "positive_rate_pct": 48.57142857142857,
+              "pf": 0.9260165784941254,
+              "resolved_sequence_drawdown_r": 3.4983919580820286
+            }
+          ],
+          "gross_total_resolved_r": 0.010366022294110863,
+          "extra_cost_total_resolved_r": 0.42491728715467736,
+          "net_total_resolved_r": -0.4145512648605665,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.32994236002509725,
+            0.6443119540413141
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 10,
+              "net_total_r": 1.0474925606629495
+            },
+            "SL_TOUCH": {
+              "count": 8,
+              "net_total_r": -8.09931647895067
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 17,
+              "net_total_r": 6.637272653427153
+            }
+          },
+          "skipped": {
+            "OCCUPIED_OR_UNKNOWN_OUTCOME": 9,
+            "CLOSED_OR_PERIOD_END": 2
+          },
+          "by_utc_month": {
+            "2025-04": {
+              "candidates": 12,
+              "resolved": 12,
+              "statuses": {
+                "RESOLVED_REFERENCE": 12
+              },
+              "exit_reasons": {
+                "SL_TOUCH": 4,
+                "SESSION_CLOSE": 4,
+                "TIMEOUT_CLOSE": 4
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.23315099269148734,
+                  "positive_rate_pct": 41.666666666666664,
+                  "pf": 0.4420689758431933,
+                  "resolved_sequence_drawdown_r": 3.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.24329560411361317,
+                  "positive_rate_pct": 41.666666666666664,
+                  "pf": 0.42604456254208306,
+                  "resolved_sequence_drawdown_r": 3.0315858388442383
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.253440215535739,
+                  "positive_rate_pct": 41.666666666666664,
+                  "pf": 0.41046803217641215,
+                  "resolved_sequence_drawdown_r": 3.0631716776884756
+                }
+              ],
+              "gross_total_resolved_r": -2.797811912297848,
+              "extra_cost_total_resolved_r": 0.12173533706550961,
+              "net_total_resolved_r": -2.9195472493633576,
+              "net_mean_all_candidates_r": -0.24329560411361315,
+              "descriptive_win_fraction_wilson95": [
+                0.19326031365875665,
+                0.6804886874504503
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 4,
+                  "net_total_r": 0.5414407114379246
+                },
+                "SL_TOUCH": {
+                  "count": 4,
+                  "net_total_r": -4.040964104490311
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 4,
+                  "net_total_r": 0.5799761436890284
+                }
+              }
+            },
+            "2025-05": {
+              "candidates": 9,
+              "resolved": 9,
+              "statuses": {
+                "RESOLVED_REFERENCE": 9
+              },
+              "exit_reasons": {
+                "SESSION_CLOSE": 2,
+                "SL_TOUCH": 1,
+                "TIMEOUT_CLOSE": 6
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.24602223945174156,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 2.257483918934885,
+                  "resolved_sequence_drawdown_r": 1.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.23480837930855453,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 2.178250636979434,
+                  "resolved_sequence_drawdown_r": 1.0107598503868422
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.22359451916536754,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 2.1018592260179414,
+                  "resolved_sequence_drawdown_r": 1.0215197007736843
+                }
+              ],
+              "gross_total_resolved_r": 2.214200155065674,
+              "extra_cost_total_resolved_r": 0.10092474128868309,
+              "net_total_resolved_r": 2.113275413776991,
+              "net_mean_all_candidates_r": 0.23480837930855458,
+              "descriptive_win_fraction_wilson95": [
+                0.3542021355803963,
+                0.879416181613089
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": 0.41836509498851004
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0107598503868422
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 6,
+                  "net_total_r": 2.7056701691753227
+                }
+              }
+            },
+            "2025-06": {
+              "candidates": 15,
+              "resolved": 14,
+              "statuses": {
+                "RESOLVED_REFERENCE": 14,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "TIMEOUT_CLOSE": 7,
+                "SL_TOUCH": 3,
+                "SESSION_CLOSE": 4
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.042426984251877534,
+                  "positive_rate_pct": 42.857142857142854,
+                  "pf": 1.1441393955670074,
+                  "resolved_sequence_drawdown_r": 2.3091577891071724
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.027980040766128613,
+                  "positive_rate_pct": 42.857142857142854,
+                  "pf": 1.0923603862474907,
+                  "resolved_sequence_drawdown_r": 2.438701576977739
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.013533097280379708,
+                  "positive_rate_pct": 42.857142857142854,
+                  "pf": 1.0434391555717404,
+                  "resolved_sequence_drawdown_r": 2.568245364848306
+                }
+              ],
+              "gross_total_resolved_r": 0.5939777795262855,
+              "extra_cost_total_resolved_r": 0.20225720880048467,
+              "net_total_resolved_r": 0.3917205707258008,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.21380798904474121,
+                0.6740935542034926
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 4,
+                  "net_total_r": 0.08768675423651481
+                },
+                "SL_TOUCH": {
+                  "count": 3,
+                  "net_total_r": -3.047592524073516
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 7,
+                  "net_total_r": 3.3516263405628015
+                }
+              }
+            }
+          }
+        },
+        "TP_05R": {
+          "candidates": 36,
+          "resolved": 35,
+          "statuses": {
+            "RESOLVED_REFERENCE": 35,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "TP_TOUCH": 17,
+            "SL_TOUCH": 6,
+            "SESSION_CLOSE": 5,
+            "TIMEOUT_CLOSE": 7
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.010095700766880654,
+              "positive_rate_pct": 57.142857142857146,
+              "pf": 1.040442643216246,
+              "resolved_sequence_drawdown_r": 2.4497305069848236
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.0020447931518244203,
+              "positive_rate_pct": 57.142857142857146,
+              "pf": 0.9919791545504253,
+              "resolved_sequence_drawdown_r": 2.7104863842285765
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.014185287070529486,
+              "positive_rate_pct": 57.142857142857146,
+              "pf": 0.9454914431664546,
+              "resolved_sequence_drawdown_r": 2.976572937637386
+            }
+          ],
+          "gross_total_resolved_r": 0.3533495268408229,
+          "extra_cost_total_resolved_r": 0.42491728715467736,
+          "net_total_resolved_r": -0.07156776031385448,
+          "net_mean_all_candidates_r": null,
+          "descriptive_win_fraction_wilson95": [
+            0.4085741114397492,
+            0.7201543182281931
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 5,
+              "net_total_r": -1.0451989164059263
+            },
+            "SL_TOUCH": {
+              "count": 6,
+              "net_total_r": -6.073156365797242
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 7,
+              "net_total_r": -1.2472656033029024
+            },
+            "TP_TOUCH": {
+              "count": 17,
+              "net_total_r": 8.294053125192216
+            }
+          },
+          "skipped": {
+            "OCCUPIED_OR_UNKNOWN_OUTCOME": 9,
+            "CLOSED_OR_PERIOD_END": 2
+          },
+          "by_utc_month": {
+            "2025-04": {
+              "candidates": 12,
+              "resolved": 12,
+              "statuses": {
+                "RESOLVED_REFERENCE": 12
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 6,
+                "SL_TOUCH": 2,
+                "SESSION_CLOSE": 2,
+                "TIMEOUT_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.004182267176263393,
+                  "positive_rate_pct": 58.333333333333336,
+                  "pf": 1.016647939339328,
+                  "resolved_sequence_drawdown_r": 1.5146197131198111
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.005962344245862409,
+                  "positive_rate_pct": 58.333333333333336,
+                  "pf": 0.9766224905952166,
+                  "resolved_sequence_drawdown_r": 1.564715608425559
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.016106955667988206,
+                  "positive_rate_pct": 58.333333333333336,
+                  "pf": 0.9377807206479815,
+                  "resolved_sequence_drawdown_r": 1.6148115037313064
+                }
+              ],
+              "gross_total_resolved_r": 0.05018720611516071,
+              "extra_cost_total_resolved_r": 0.12173533706550961,
+              "net_total_resolved_r": -0.0715481309503489,
+              "net_mean_all_candidates_r": -0.005962344245862408,
+              "descriptive_win_fraction_wilson95": [
+                0.31951131254954973,
+                0.8067396863412435
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.43694109520932384
+                },
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.0148039913368843
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.5567928776651756
+                },
+                "TP_TOUCH": {
+                  "count": 6,
+                  "net_total_r": 2.936989833261035
+                }
+              }
+            },
+            "2025-05": {
+              "candidates": 9,
+              "resolved": 9,
+              "statuses": {
+                "RESOLVED_REFERENCE": 9
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 5,
+                "SL_TOUCH": 1,
+                "TIMEOUT_CLOSE": 2,
+                "SESSION_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.11332782103165198,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 1.57924809087508,
+                  "resolved_sequence_drawdown_r": 1.0
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.10211396088846496,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 1.5124001103181393,
+                  "resolved_sequence_drawdown_r": 1.0107598503868422
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.09090010074527795,
+                  "positive_rate_pct": 66.66666666666667,
+                  "pf": 1.4479497754507502,
+                  "resolved_sequence_drawdown_r": 1.0215197007736843
+                }
+              ],
+              "gross_total_resolved_r": 1.0199503892848678,
+              "extra_cost_total_resolved_r": 0.10092474128868309,
+              "net_total_resolved_r": 0.9190256479961847,
+              "net_mean_all_candidates_r": 0.10211396088846497,
+              "descriptive_win_fraction_wilson95": [
+                0.3542021355803963,
+                0.879416181613089
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 1,
+                  "net_total_r": -0.15460122699387024
+                },
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0107598503868422
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.3550225204251101
+                },
+                "TP_TOUCH": {
+                  "count": 5,
+                  "net_total_r": 2.439409245802007
+                }
+              }
+            },
+            "2025-06": {
+              "candidates": 15,
+              "resolved": 14,
+              "statuses": {
+                "RESOLVED_REFERENCE": 14,
+                "CENSORED_AT_SIDE_GAP": 1
+              },
+              "exit_reasons": {
+                "TP_TOUCH": 6,
+                "SL_TOUCH": 3,
+                "TIMEOUT_CLOSE": 3,
+                "SESSION_CLOSE": 2
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.05119914775422897,
+                  "positive_rate_pct": 50.0,
+                  "pf": 0.8190667316005624,
+                  "resolved_sequence_drawdown_r": 2.4497305069848236
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.06564609123997789,
+                  "positive_rate_pct": 50.0,
+                  "pf": 0.7741124197272168,
+                  "resolved_sequence_drawdown_r": 2.5528473609471316
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.08009303472572679,
+                  "positive_rate_pct": 50.0,
+                  "pf": 0.7314616090159018,
+                  "resolved_sequence_drawdown_r": 2.65596421490944
+                }
+              ],
+              "gross_total_resolved_r": -0.7167880685592056,
+              "extra_cost_total_resolved_r": 0.20225720880048467,
+              "net_total_resolved_r": -0.9190452773596903,
+              "net_mean_all_candidates_r": null,
+              "descriptive_win_fraction_wilson95": [
+                0.26799202452413634,
+                0.7320079754758637
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 2,
+                  "net_total_r": -0.4536565942027322
+                },
+                "SL_TOUCH": {
+                  "count": 3,
+                  "net_total_r": -3.047592524073516
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 3,
+                  "net_total_r": -0.3354502052126166
+                },
+                "TP_TOUCH": {
+                  "count": 6,
+                  "net_total_r": 2.9176540461291744
+                }
+              }
+            }
+          }
+        },
+        "MOTION_15M": {
+          "candidates": 41,
+          "resolved": 41,
+          "statuses": {
+            "RESOLVED_REFERENCE": 41
+          },
+          "exit_reasons": {
+            "WEAK_15M_NEXT_OPEN": 25,
+            "SL_TOUCH": 4,
+            "SESSION_CLOSE": 3,
+            "TIMEOUT_CLOSE": 9
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.01773697792209105,
+              "positive_rate_pct": 24.390243902439025,
+              "pf": 0.8948614170559727,
+              "resolved_sequence_drawdown_r": 2.497810746035864
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.029938588679736516,
+              "positive_rate_pct": 24.390243902439025,
+              "pf": 0.8317355808802175,
+              "resolved_sequence_drawdown_r": 2.715483594131727
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.04214019943738197,
+              "positive_rate_pct": 24.390243902439025,
+              "pf": 0.7748328526901443,
+              "resolved_sequence_drawdown_r": 2.93315644222759
+            }
+          ],
+          "gross_total_resolved_r": -0.727216094805733,
+          "extra_cost_total_resolved_r": 0.5002660410634638,
+          "net_total_resolved_r": -1.227482135869197,
+          "net_mean_all_candidates_r": -0.029938588679736512,
+          "descriptive_win_fraction_wilson95": [
+            0.13825002738090333,
+            0.39343336222575687
+          ],
+          "by_exit_reason": {
+            "SESSION_CLOSE": {
+              "count": 3,
+              "net_total_r": 0.3596073469586904
+            },
+            "SL_TOUCH": {
+              "count": 4,
+              "net_total_r": -4.045471972824714
+            },
+            "TIMEOUT_CLOSE": {
+              "count": 9,
+              "net_total_r": 5.237466897122646
+            },
+            "WEAK_15M_NEXT_OPEN": {
+              "count": 25,
+              "net_total_r": -2.7790844071258194
+            }
+          },
+          "skipped": {
+            "CLOSED_OR_PERIOD_END": 2,
+            "OCCUPIED_OR_UNKNOWN_OUTCOME": 4
+          },
+          "by_utc_month": {
+            "2025-04": {
+              "candidates": 14,
+              "resolved": 14,
+              "statuses": {
+                "RESOLVED_REFERENCE": 14
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 8,
+                "SL_TOUCH": 2,
+                "SESSION_CLOSE": 3,
+                "TIMEOUT_CLOSE": 1
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.09594939407671328,
+                  "positive_rate_pct": 21.428571428571427,
+                  "pf": 0.5416959793552557,
+                  "resolved_sequence_drawdown_r": 2.090527181000086
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.10607537430887377,
+                  "positive_rate_pct": 21.428571428571427,
+                  "pf": 0.5114263374746324,
+                  "resolved_sequence_drawdown_r": 2.1522088855940824
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.11620135454103421,
+                  "positive_rate_pct": 21.428571428571427,
+                  "pf": 0.4832444682104293,
+                  "resolved_sequence_drawdown_r": 2.213890590188079
+                }
+              ],
+              "gross_total_resolved_r": -1.3432915170739859,
+              "extra_cost_total_resolved_r": 0.14176372325024658,
+              "net_total_resolved_r": -1.4850552403242325,
+              "net_mean_all_candidates_r": -0.10607537430887375,
+              "descriptive_win_fraction_wilson95": [
+                0.07571386712693184,
+                0.47589230586600295
+              ],
+              "by_exit_reason": {
+                "SESSION_CLOSE": {
+                  "count": 3,
+                  "net_total_r": 0.3596073469586904
+                },
+                "SL_TOUCH": {
+                  "count": 2,
+                  "net_total_r": -2.018101220940518
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 1,
+                  "net_total_r": 1.0464661034411695
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 8,
+                  "net_total_r": -0.8730274697835744
+                }
+              }
+            },
+            "2025-05": {
+              "candidates": 11,
+              "resolved": 11,
+              "statuses": {
+                "RESOLVED_REFERENCE": 11
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 6,
+                "SL_TOUCH": 1,
+                "TIMEOUT_CLOSE": 4
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": 0.11750671318845977,
+                  "positive_rate_pct": 36.36363636363637,
+                  "pf": 1.887951963170525,
+                  "resolved_sequence_drawdown_r": 1.1545192289618786
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": 0.10602898604298083,
+                  "positive_rate_pct": 36.36363636363637,
+                  "pf": 1.7599172390166673,
+                  "resolved_sequence_drawdown_r": 1.2304283538074947
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": 0.09455125889750193,
+                  "positive_rate_pct": 36.36363636363637,
+                  "pf": 1.6444355445107226,
+                  "resolved_sequence_drawdown_r": 1.3063374786531108
+                }
+              ],
+              "gross_total_resolved_r": 1.2925738450730575,
+              "extra_cost_total_resolved_r": 0.12625499860026815,
+              "net_total_resolved_r": 1.1663188464727894,
+              "net_mean_all_candidates_r": 0.10602898604298085,
+              "descriptive_win_fraction_wilson95": [
+                0.15166471095367573,
+                0.6461988254921511
+              ],
+              "by_exit_reason": {
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.0107598503868422
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 4,
+                  "net_total_r": 2.701116040943605
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 6,
+                  "net_total_r": -0.5240373440839735
+                }
+              }
+            },
+            "2025-06": {
+              "candidates": 16,
+              "resolved": 16,
+              "statuses": {
+                "RESOLVED_REFERENCE": 16
+              },
+              "exit_reasons": {
+                "WEAK_15M_NEXT_OPEN": 11,
+                "SL_TOUCH": 1,
+                "TIMEOUT_CLOSE": 4
+              },
+              "scenarios": [
+                {
+                  "additional_cost_price": 0,
+                  "mean_resolved_r": -0.042281151425300284,
+                  "positive_rate_pct": 18.75,
+                  "pf": 0.7326149592629206,
+                  "resolved_sequence_drawdown_r": 1.2588681143310783
+                },
+                {
+                  "additional_cost_price": 0.3,
+                  "mean_resolved_r": -0.05679660887610961,
+                  "positive_rate_pct": 18.75,
+                  "pf": 0.6659746973215518,
+                  "resolved_sequence_drawdown_r": 1.3141722884637925
+                },
+                {
+                  "additional_cost_price": 0.6,
+                  "mean_resolved_r": -0.07131206632691892,
+                  "positive_rate_pct": 18.75,
+                  "pf": 0.6080577824571906,
+                  "resolved_sequence_drawdown_r": 1.3694764625965066
+                }
+              ],
+              "gross_total_resolved_r": -0.6764984228048045,
+              "extra_cost_total_resolved_r": 0.2322473192129491,
+              "net_total_resolved_r": -0.9087457420177536,
+              "net_mean_all_candidates_r": -0.0567966088761096,
+              "descriptive_win_fraction_wilson95": [
+                0.06591599071428142,
+                0.4300888096197414
+              ],
+              "by_exit_reason": {
+                "SL_TOUCH": {
+                  "count": 1,
+                  "net_total_r": -1.016610901497354
+                },
+                "TIMEOUT_CLOSE": {
+                  "count": 4,
+                  "net_total_r": 1.4898847527378718
+                },
+                "WEAK_15M_NEXT_OPEN": {
+                  "count": 11,
+                  "net_total_r": -1.3820195932582717
+                }
+              }
+            }
+          }
+        }
+      },
+      "checkpoint_states": {
+        "WEAK_EXIT_REQUESTED": 25,
+        "STRONG_HOLD": 16
+      },
+      "entries_absent_from_2r": 5,
+      "baseline_checkpoint_diagnostic": {
+        "baseline_entries": 36,
+        "states": {
+          "STRONG_HOLD": {
+            "candidates": 14,
+            "resolved": 14,
+            "statuses": {
+              "RESOLVED_REFERENCE": 14
+            },
+            "exit_reasons": {
+              "SL_TOUCH": 4,
+              "SESSION_CLOSE": 2,
+              "TIMEOUT_CLOSE": 8
+            },
+            "scenarios": [
+              {
+                "additional_cost_price": 0,
+                "mean_resolved_r": 0.10684546547586705,
+                "positive_rate_pct": 64.28571428571429,
+                "pf": 1.3471493332853561,
+                "resolved_sequence_drawdown_r": 2.0
+              },
+              {
+                "additional_cost_price": 0.3,
+                "mean_resolved_r": 0.09494804624283827,
+                "positive_rate_pct": 64.28571428571429,
+                "pf": 1.3043603079748265,
+                "resolved_sequence_drawdown_r": 2.018101220940518
+              },
+              {
+                "additional_cost_price": 0.6,
+                "mean_resolved_r": 0.08305062700980954,
+                "positive_rate_pct": 64.28571428571429,
+                "pf": 1.2627027458790032,
+                "resolved_sequence_drawdown_r": 2.036202441881036
+              }
+            ],
+            "gross_total_resolved_r": 1.4958365166621388,
+            "extra_cost_total_resolved_r": 0.16656386926240266,
+            "net_total_resolved_r": 1.329272647399736,
+            "net_mean_all_candidates_r": 0.09494804624283829,
+            "descriptive_win_fraction_wilson95": [
+              0.38764423103907397,
+              0.8365526824644587
+            ],
+            "by_exit_reason": {
+              "SESSION_CLOSE": {
+                "count": 2,
+                "net_total_r": 0.5080515072315054
+              },
+              "SL_TOUCH": {
+                "count": 4,
+                "net_total_r": -4.045471972824714
+              },
+              "TIMEOUT_CLOSE": {
+                "count": 8,
+                "net_total_r": 4.8666931129929445
+              }
+            }
+          },
+          "WEAK_EXIT_REQUESTED": {
+            "candidates": 22,
+            "resolved": 21,
+            "statuses": {
+              "RESOLVED_REFERENCE": 21,
+              "CENSORED_AT_SIDE_GAP": 1
+            },
+            "exit_reasons": {
+              "SL_TOUCH": 4,
+              "TIMEOUT_CLOSE": 9,
+              "SESSION_CLOSE": 8
+            },
+            "scenarios": [
+              {
+                "additional_cost_price": 0,
+                "mean_resolved_r": -0.07073669020800133,
+                "positive_rate_pct": 38.095238095238095,
+                "pf": 0.7744975415715519,
+                "resolved_sequence_drawdown_r": 2.927363878453809
+              },
+              {
+                "additional_cost_price": 0.3,
+                "mean_resolved_r": -0.08303923391715727,
+                "positive_rate_pct": 38.095238095238095,
+                "pf": 0.7418114680596429,
+                "resolved_sequence_drawdown_r": 3.137883972750995
+              },
+              {
+                "additional_cost_price": 0.6,
+                "mean_resolved_r": -0.09534177762631323,
+                "positive_rate_pct": 38.095238095238095,
+                "pf": 0.7106999284526815,
+                "resolved_sequence_drawdown_r": 3.348404067048181
+              }
+            ],
+            "gross_total_resolved_r": -1.485470494368028,
+            "extra_cost_total_resolved_r": 0.25835341789227473,
+            "net_total_resolved_r": -1.7438239122603028,
+            "net_mean_all_candidates_r": null,
+            "descriptive_win_fraction_wilson95": [
+              0.20751011368564493,
+              0.5912134622488425
+            ],
+            "by_exit_reason": {
+              "SESSION_CLOSE": {
+                "count": 8,
+                "net_total_r": 0.539441053431444
+              },
+              "SL_TOUCH": {
+                "count": 4,
+                "net_total_r": -4.053844506125955
+              },
+              "TIMEOUT_CLOSE": {
+                "count": 9,
+                "net_total_r": 1.7705795404342082
+              }
+            }
+          }
+        },
+        "post_entry_landmark": true,
+        "entry_time_predictor": false
+      }
+    }
+  },
+  "full_result_sha256": "297e94880398b362c23405a092d8de817e55478a6de2de69bd8c31ac64a0700b"
+}
