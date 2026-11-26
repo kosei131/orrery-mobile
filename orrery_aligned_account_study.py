@@ -295,7 +295,8 @@ def xauusd_cost_assumptions(spec):
 
 
 def compare_xauusd_holdout(sessions, settings, *, contract_spec, expected_plan_sha256,
-                           development_end_s, cost_spec=None, **account_assumptions):
+                           development_end_s, cost_spec=None, expected_pipeline_sha256=None,
+                           **account_assumptions):
     """Use one pinned linear USD contract for the full declared holdout."""
     spec = dict(contract_spec)
     source = xauusd_valuation_source(spec)
@@ -323,6 +324,7 @@ def compare_xauusd_holdout(sessions, settings, *, contract_spec, expected_plan_s
     result = compare_holdout(
         sessions, settings, expected_plan_sha256=expected_plan_sha256,
         development_end_s=development_end_s, valuation_source=source,
-        pnl_quote=pnl_quote, expected_contract_size=size, **account_assumptions)
+        pnl_quote=pnl_quote, expected_contract_size=size,
+        expected_pipeline_sha256=expected_pipeline_sha256, **account_assumptions)
     return dict(result, contract_spec=spec, cost_spec=None if cost_spec is None else dict(cost_spec),
                 broker_spec_authenticity_verified=False, cost_source_authenticity_verified=False)

@@ -438,3 +438,24 @@ class PipelinePinTests(unittest.TestCase):
                                     expected_pipeline_sha256='saved',
                                     pnl_quote=account_fixture.pnl, **protocol)
                 replay.assert_not_called()
+
+class XauPipelinePinTests(unittest.TestCase):
+    def test_xau_pipeline_pin_does_not_change_strategy_protocol(self):
+        from orrery_aligned_account_study import (
+            compare_xauusd_holdout, session_plan_sha256,
+            xauusd_valuation_source, account_pipeline_sha256)
+        spec = dict(source='synthetic', start_s=14400, end_s=28800, contract_size=100)
+        sessions = [dict(start_s=14400, end_s=28800, raw_csvs=None,
+                         path=None, catalog_sha256=None)]
+        settings = dict(symbol='XAUUSD')
+        plan = session_plan_sha256(sessions, settings, development_end_s=14400,
+                                   valuation_source=xauusd_valuation_source(spec),
+                                   expected_contract_size=100)
+        inputs = dict(contract_spec=spec, expected_plan_sha256=plan, development_end_s=14400)
+        result = compare_xauusd_holdout(sessions, settings,
+                    expected_pipeline_sha256=account_pipeline_sha256(), **inputs)
+        self.assertEqual(result['plan_sha256'], plan)
+        self.assertEqual(result['blocked_sessions'], 1)
+        self.assertIsNone(result['sessions'][0]['result']['accounts'])
+        with self.assertRaisesRegex(ValueError, 'pipeline SHA256 mismatch'):
+            compare_xauusd_holdout(sessions, settings, expected_pipeline_sha256='changed', **inputs)
