@@ -230,10 +230,11 @@ def holdout_data_sha256(sessions):
 
 
 def account_pipeline_sha256():
-    """Fingerprint four account pipeline files; not all strategy dependencies."""
+    """Fingerprint account pipeline and execution risk files, not all dependencies."""
     root = Path(__file__).resolve().parent
     names = ('orrery_aligned_account_study.py', 'orrery_tradingview_study.py',
-             'orrery_bar_quote_alignment.py', 'orrery_account_coverage_study.py')
+             'orrery_bar_quote_alignment.py', 'orrery_account_coverage_study.py',
+             'lsr03_account_replay.py', 'lsr04_broker_sizing.py', 'lsr04_account_gate.py')
     return sha256(_encode({name: sha256((root / name).read_bytes()).hexdigest()
                            for name in names})).hexdigest()
 

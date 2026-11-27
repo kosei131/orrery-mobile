@@ -459,3 +459,16 @@ class XauPipelinePinTests(unittest.TestCase):
         self.assertIsNone(result['sessions'][0]['result']['accounts'])
         with self.assertRaisesRegex(ValueError, 'pipeline SHA256 mismatch'):
             compare_xauusd_holdout(sessions, settings, expected_pipeline_sha256='changed', **inputs)
+
+class AccountEnginePinTests(unittest.TestCase):
+    def test_execution_and_risk_file_changes_alter_pipeline_pin(self):
+        from unittest.mock import patch
+        from orrery_aligned_account_study import account_pipeline_sha256
+        original = Path.read_bytes
+        baseline = account_pipeline_sha256()
+        for name in ('lsr03_account_replay.py', 'lsr04_broker_sizing.py', 'lsr04_account_gate.py'):
+            def changed(path):
+                raw = original(path)
+                return raw + b'\n# synthetic mutation\n' if path.name == name else raw
+            with self.subTest(name=name), patch.object(Path, 'read_bytes', changed):
+                self.assertNotEqual(account_pipeline_sha256(), baseline)
