@@ -1,0 +1,708 @@
+{
+  "status": "EXPLORATORY_XAUUSD_STANDALONE_CHANNEL_BREAKOUT",
+  "rules": {
+    "timeframe": "M15",
+    "channel_lookback": 20,
+    "prior_true_range_average": 14,
+    "stop_range_multiplier": 1,
+    "target_r": 1.5,
+    "max_hold_minutes": 120,
+    "minimum_signal_separation_minutes": 120
+  },
+  "source_audits": {
+    "bid_2026_09.csv": {
+      "sha256": "09cc828da25ee817719c3fb5b3be22058f62d6f7b991ca00f7102a381953e325",
+      "rows": 30208,
+      "first_open_utc": "2026-09-01T00:00:00+00:00",
+      "last_open_utc": "2026-09-30T23:59:00+00:00",
+      "gaps": 23,
+      "unobserved_minutes": 12992,
+      "gap_examples": [
+        {
+          "after": 1788296340,
+          "before": 1788300000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788382740,
+          "before": 1788386400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788469140,
+          "before": 1788472800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788555540,
+          "before": 1788732000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1788805680,
+          "before": 1788818400,
+          "unobserved_minutes": 211
+        },
+        {
+          "after": 1788901140,
+          "before": 1788904800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788987540,
+          "before": 1788991200,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789073940,
+          "before": 1789077600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789160340,
+          "before": 1789336800,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1789419540,
+          "before": 1789423200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    },
+    "bid_2026_10.csv": {
+      "sha256": "05cdf7ebea1932a6a4748ed47ad74fe2de0023bb11f9b835c38bba424358dd7d",
+      "rows": 17400,
+      "first_open_utc": "2026-10-01T00:00:00+00:00",
+      "last_open_utc": "2026-10-19T13:59:00+00:00",
+      "gaps": 12,
+      "unobserved_minutes": 9360,
+      "gap_examples": [
+        {
+          "after": 1790888340,
+          "before": 1790892000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1790974740,
+          "before": 1791151200,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791233940,
+          "before": 1791237600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791320340,
+          "before": 1791324000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791406740,
+          "before": 1791410400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791493140,
+          "before": 1791496800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791579540,
+          "before": 1791756000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791838740,
+          "before": 1791842400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791925140,
+          "before": 1791928800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1792011540,
+          "before": 1792015200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    },
+    "ask_2026_09.csv": {
+      "sha256": "697c9079a8ed80eb2716604f27900e4352206db0a62847510530efdcfaf3645d",
+      "rows": 30208,
+      "first_open_utc": "2026-09-01T00:00:00+00:00",
+      "last_open_utc": "2026-09-30T23:59:00+00:00",
+      "gaps": 23,
+      "unobserved_minutes": 12992,
+      "gap_examples": [
+        {
+          "after": 1788296340,
+          "before": 1788300000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788382740,
+          "before": 1788386400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788469140,
+          "before": 1788472800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788555540,
+          "before": 1788732000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1788805680,
+          "before": 1788818400,
+          "unobserved_minutes": 211
+        },
+        {
+          "after": 1788901140,
+          "before": 1788904800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1788987540,
+          "before": 1788991200,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789073940,
+          "before": 1789077600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1789160340,
+          "before": 1789336800,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1789419540,
+          "before": 1789423200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    },
+    "ask_2026_10.csv": {
+      "sha256": "43d37686754e87fd343d14012832fd476b47551d390a15520fb62963f2ff74c0",
+      "rows": 17400,
+      "first_open_utc": "2026-10-01T00:00:00+00:00",
+      "last_open_utc": "2026-10-19T13:59:00+00:00",
+      "gaps": 12,
+      "unobserved_minutes": 9360,
+      "gap_examples": [
+        {
+          "after": 1790888340,
+          "before": 1790892000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1790974740,
+          "before": 1791151200,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791233940,
+          "before": 1791237600,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791320340,
+          "before": 1791324000,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791406740,
+          "before": 1791410400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791493140,
+          "before": 1791496800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791579540,
+          "before": 1791756000,
+          "unobserved_minutes": 2940
+        },
+        {
+          "after": 1791838740,
+          "before": 1791842400,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1791925140,
+          "before": 1791928800,
+          "unobserved_minutes": 60
+        },
+        {
+          "after": 1792011540,
+          "before": 1792015200,
+          "unobserved_minutes": 60
+        }
+      ],
+      "longest_identical_flat_minutes": 0
+    }
+  },
+  "direction_comparison": {
+    "overall": {
+      "candidates": 122,
+      "matched_resolved": 116,
+      "both_stop": 24,
+      "original": {
+        "candidates": 122,
+        "resolved": 116,
+        "statuses": {
+          "RESOLVED_REFERENCE": 116,
+          "CENSORED_AT_SIDE_GAP": 6
+        },
+        "exit_reasons": {
+          "TP_TOUCH": 34,
+          "SL_TOUCH": 64,
+          "TIMEOUT_CLOSE": 18
+        },
+        "scenarios": [
+          {
+            "additional_cost_price": 0,
+            "mean_resolved_r": -0.08137972775229443,
+            "positive_rate_pct": 38.793103448275865,
+            "pf": 0.855860570010765,
+            "resolved_sequence_drawdown_r": 15.780856142368226
+          },
+          {
+            "additional_cost_price": 0.3,
+            "mean_resolved_r": -0.11898112147202078,
+            "positive_rate_pct": 38.793103448275865,
+            "pf": 0.7976656765562418,
+            "resolved_sequence_drawdown_r": 17.392971895134856
+          },
+          {
+            "additional_cost_price": 0.6,
+            "mean_resolved_r": -0.1565825151917471,
+            "positive_rate_pct": 37.93103448275862,
+            "pf": 0.7440065965226687,
+            "resolved_sequence_drawdown_r": 20.538715145617903
+          }
+        ]
+      },
+      "reverse": {
+        "candidates": 122,
+        "resolved": 118,
+        "statuses": {
+          "RESOLVED_REFERENCE": 118,
+          "CENSORED_AT_SIDE_GAP": 4
+        },
+        "exit_reasons": {
+          "SL_TOUCH": 75,
+          "TP_TOUCH": 30,
+          "TIMEOUT_CLOSE": 13
+        },
+        "scenarios": [
+          {
+            "additional_cost_price": 0,
+            "mean_resolved_r": -0.20738870841453913,
+            "positive_rate_pct": 33.898305084745765,
+            "pf": 0.6750892552720825,
+            "resolved_sequence_drawdown_r": 35.93856990912454
+          },
+          {
+            "additional_cost_price": 0.3,
+            "mean_resolved_r": -0.2451766636598342,
+            "positive_rate_pct": 33.898305084745765,
+            "pf": 0.6306544724657417,
+            "resolved_sequence_drawdown_r": 39.40397956937224
+          },
+          {
+            "additional_cost_price": 0.6,
+            "mean_resolved_r": -0.2829646189051293,
+            "positive_rate_pct": 33.898305084745765,
+            "pf": 0.5895096796649868,
+            "resolved_sequence_drawdown_r": 42.91232031659831
+          }
+        ]
+      },
+      "matched_original": {
+        "candidates": 116,
+        "resolved": 116,
+        "statuses": {
+          "RESOLVED_REFERENCE": 116
+        },
+        "exit_reasons": {
+          "TP_TOUCH": 34,
+          "SL_TOUCH": 64,
+          "TIMEOUT_CLOSE": 18
+        },
+        "scenarios": [
+          {
+            "additional_cost_price": 0,
+            "mean_resolved_r": -0.08137972775229443,
+            "positive_rate_pct": 38.793103448275865,
+            "pf": 0.855860570010765,
+            "resolved_sequence_drawdown_r": 15.780856142368226
+          },
+          {
+            "additional_cost_price": 0.3,
+            "mean_resolved_r": -0.11898112147202078,
+            "positive_rate_pct": 38.793103448275865,
+            "pf": 0.7976656765562418,
+            "resolved_sequence_drawdown_r": 17.392971895134856
+          },
+          {
+            "additional_cost_price": 0.6,
+            "mean_resolved_r": -0.1565825151917471,
+            "positive_rate_pct": 37.93103448275862,
+            "pf": 0.7440065965226687,
+            "resolved_sequence_drawdown_r": 20.538715145617903
+          }
+        ]
+      },
+      "matched_reverse": {
+        "candidates": 116,
+        "resolved": 116,
+        "statuses": {
+          "RESOLVED_REFERENCE": 116
+        },
+        "exit_reasons": {
+          "SL_TOUCH": 73,
+          "TP_TOUCH": 30,
+          "TIMEOUT_CLOSE": 13
+        },
+        "scenarios": [
+          {
+            "additional_cost_price": 0,
+            "mean_resolved_r": -0.1937229964906519,
+            "positive_rate_pct": 34.48275862068966,
+            "pf": 0.6935044452801659,
+            "resolved_sequence_drawdown_r": 34.938569909124546
+          },
+          {
+            "additional_cost_price": 0.3,
+            "mean_resolved_r": -0.23132439021037823,
+            "positive_rate_pct": 34.48275862068966,
+            "pf": 0.6480042101532015,
+            "resolved_sequence_drawdown_r": 38.367387828650855
+          },
+          {
+            "additional_cost_price": 0.6,
+            "mean_resolved_r": -0.2689257839301046,
+            "positive_rate_pct": 34.48275862068966,
+            "pf": 0.6058544809106648,
+            "resolved_sequence_drawdown_r": 41.83913683515554
+          }
+        ]
+      }
+    },
+    "by_utc_month": {
+      "2026-09": {
+        "candidates": 80,
+        "matched_resolved": 75,
+        "both_stop": 15,
+        "original": {
+          "candidates": 80,
+          "resolved": 75,
+          "statuses": {
+            "RESOLVED_REFERENCE": 75,
+            "CENSORED_AT_SIDE_GAP": 5
+          },
+          "exit_reasons": {
+            "TP_TOUCH": 26,
+            "SL_TOUCH": 38,
+            "TIMEOUT_CLOSE": 11
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.04421266401849879,
+              "positive_rate_pct": 42.666666666666664,
+              "pf": 1.0863252739622196,
+              "resolved_sequence_drawdown_r": 5.010341643582748
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.009149282005058485,
+              "positive_rate_pct": 42.666666666666664,
+              "pf": 1.0171972367584103,
+              "resolved_sequence_drawdown_r": 5.837555339901124
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.025914100008381805,
+              "positive_rate_pct": 42.666666666666664,
+              "pf": 0.9530437317900459,
+              "resolved_sequence_drawdown_r": 6.722157694822375
+            }
+          ]
+        },
+        "reverse": {
+          "candidates": 80,
+          "resolved": 76,
+          "statuses": {
+            "RESOLVED_REFERENCE": 76,
+            "CENSORED_AT_SIDE_GAP": 4
+          },
+          "exit_reasons": {
+            "SL_TOUCH": 51,
+            "TP_TOUCH": 18,
+            "TIMEOUT_CLOSE": 7
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.27023255512989824,
+              "positive_rate_pct": 31.57894736842105,
+              "pf": 0.5994562843072295,
+              "resolved_sequence_drawdown_r": 24.76722145553986
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.305316047126338,
+              "positive_rate_pct": 31.57894736842105,
+              "pf": 0.5634092351957305,
+              "resolved_sequence_drawdown_r": 26.88942369314896
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.34039953912277765,
+              "positive_rate_pct": 31.57894736842105,
+              "pf": 0.5298172898431042,
+              "resolved_sequence_drawdown_r": 29.054557017736453
+            }
+          ]
+        },
+        "matched_original": {
+          "candidates": 75,
+          "resolved": 75,
+          "statuses": {
+            "RESOLVED_REFERENCE": 75
+          },
+          "exit_reasons": {
+            "TP_TOUCH": 26,
+            "SL_TOUCH": 38,
+            "TIMEOUT_CLOSE": 11
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": 0.04421266401849879,
+              "positive_rate_pct": 42.666666666666664,
+              "pf": 1.0863252739622196,
+              "resolved_sequence_drawdown_r": 5.010341643582748
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": 0.009149282005058485,
+              "positive_rate_pct": 42.666666666666664,
+              "pf": 1.0171972367584103,
+              "resolved_sequence_drawdown_r": 5.837555339901124
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.025914100008381805,
+              "positive_rate_pct": 42.666666666666664,
+              "pf": 0.9530437317900459,
+              "resolved_sequence_drawdown_r": 6.722157694822375
+            }
+          ]
+        },
+        "matched_reverse": {
+          "candidates": 75,
+          "resolved": 75,
+          "statuses": {
+            "RESOLVED_REFERENCE": 75
+          },
+          "exit_reasons": {
+            "SL_TOUCH": 50,
+            "TP_TOUCH": 18,
+            "TIMEOUT_CLOSE": 7
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.2605023225316302,
+              "positive_rate_pct": 32.0,
+              "pf": 0.6113799517741347,
+              "resolved_sequence_drawdown_r": 24.574996833509516
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.2955657045450707,
+              "positive_rate_pct": 32.0,
+              "pf": 0.5746164348533697,
+              "resolved_sequence_drawdown_r": 26.428624865834617
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.3306290865585112,
+              "positive_rate_pct": 32.0,
+              "pf": 0.5403567572554778,
+              "resolved_sequence_drawdown_r": 28.338702426834963
+            }
+          ]
+        }
+      },
+      "2026-10": {
+        "candidates": 42,
+        "matched_resolved": 41,
+        "both_stop": 9,
+        "original": {
+          "candidates": 42,
+          "resolved": 41,
+          "statuses": {
+            "RESOLVED_REFERENCE": 41,
+            "CENSORED_AT_SIDE_GAP": 1
+          },
+          "exit_reasons": {
+            "TP_TOUCH": 8,
+            "SL_TOUCH": 26,
+            "TIMEOUT_CLOSE": 7
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.3111219078208186,
+              "positive_rate_pct": 31.70731707317073,
+              "pf": 0.5289549217795982,
+              "resolved_sequence_drawdown_r": 15.780856142368226
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.3533660058813121,
+              "positive_rate_pct": 31.70731707317073,
+              "pf": 0.48826174059781263,
+              "resolved_sequence_drawdown_r": 17.081956574520003
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.39561010394180557,
+              "positive_rate_pct": 29.26829268292683,
+              "pf": 0.4513310817062502,
+              "resolved_sequence_drawdown_r": 18.383057006671784
+            }
+          ]
+        },
+        "reverse": {
+          "candidates": 42,
+          "resolved": 42,
+          "statuses": {
+            "RESOLVED_REFERENCE": 42
+          },
+          "exit_reasons": {
+            "SL_TOUCH": 24,
+            "TP_TOUCH": 12,
+            "TIMEOUT_CLOSE": 6
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.09367127150103216,
+              "positive_rate_pct": 38.095238095238095,
+              "pf": 0.8363769577473947,
+              "resolved_sequence_drawdown_r": 14.171348453584741
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.1363530173871131,
+              "positive_rate_pct": 38.095238095238095,
+              "pf": 0.772580865931621,
+              "resolved_sequence_drawdown_r": 15.268141798754325
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.1790347632731941,
+              "positive_rate_pct": 38.095238095238095,
+              "pf": 0.714299510294429,
+              "resolved_sequence_drawdown_r": 16.364935143923915
+            }
+          ]
+        },
+        "matched_original": {
+          "candidates": 41,
+          "resolved": 41,
+          "statuses": {
+            "RESOLVED_REFERENCE": 41
+          },
+          "exit_reasons": {
+            "TP_TOUCH": 8,
+            "SL_TOUCH": 26,
+            "TIMEOUT_CLOSE": 7
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.3111219078208186,
+              "positive_rate_pct": 31.70731707317073,
+              "pf": 0.5289549217795982,
+              "resolved_sequence_drawdown_r": 15.780856142368226
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.3533660058813121,
+              "positive_rate_pct": 31.70731707317073,
+              "pf": 0.48826174059781263,
+              "resolved_sequence_drawdown_r": 17.081956574520003
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.39561010394180557,
+              "positive_rate_pct": 29.26829268292683,
+              "pf": 0.4513310817062502,
+              "resolved_sequence_drawdown_r": 18.383057006671784
+            }
+          ]
+        },
+        "matched_reverse": {
+          "candidates": 41,
+          "resolved": 41,
+          "statuses": {
+            "RESOLVED_REFERENCE": 41
+          },
+          "exit_reasons": {
+            "SL_TOUCH": 23,
+            "TP_TOUCH": 12,
+            "TIMEOUT_CLOSE": 6
+          },
+          "scenarios": [
+            {
+              "additional_cost_price": 0,
+              "mean_resolved_r": -0.0715656927571549,
+              "positive_rate_pct": 39.02439024390244,
+              "pf": 0.8726713453869103,
+              "resolved_sequence_drawdown_r": 14.171348453584741
+            },
+            {
+              "additional_cost_price": 0.3,
+              "mean_resolved_r": -0.1138097908176481,
+              "positive_rate_pct": 39.02439024390244,
+              "pf": 0.8065517771150466,
+              "resolved_sequence_drawdown_r": 15.268141798754325
+            },
+            {
+              "additional_cost_price": 0.6,
+              "mean_resolved_r": -0.15605388887814128,
+              "positive_rate_pct": 39.02439024390244,
+              "pf": 0.7460839621541242,
+              "resolved_sequence_drawdown_r": 16.364935143923915
+            }
+          ]
+        }
+      }
+    }
+  },
+  "out_of_sample": false,
+  "actual_broker_profit": null,
+  "account_return_pct": null,
+  "execution_allowed": false,
+  "adoption_allowed": false,
+  "code_sha256": "4aeb8bd83756d56e58e0f63ef332a6fbaf934652d593f1fb23553049a167bd3c"
+}

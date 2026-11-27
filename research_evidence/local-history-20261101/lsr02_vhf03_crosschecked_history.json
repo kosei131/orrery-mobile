@@ -1,0 +1,880 @@
+{
+  "parameters": {
+    "buffer": 0.1,
+    "target_r": 2,
+    "period": 14,
+    "min_vhf": 0.4,
+    "left": 1,
+    "right": 1,
+    "lifetime": 6000
+  },
+  "parameters_optimized": false,
+  "windows": [
+    {
+      "start": 1774497600,
+      "end": 1774555200,
+      "candidates": 0
+    },
+    {
+      "start": 1774569600,
+      "end": 1774641600,
+      "candidates": 0
+    },
+    {
+      "start": 1774828800,
+      "end": 1774900800,
+      "candidates": 0
+    },
+    {
+      "start": 1774915200,
+      "end": 1774987200,
+      "candidates": 0
+    },
+    {
+      "start": 1775001600,
+      "end": 1775073600,
+      "candidates": 0
+    },
+    {
+      "start": 1775088000,
+      "end": 1775160000,
+      "candidates": 0
+    },
+    {
+      "start": 1775433600,
+      "end": 1775505600,
+      "candidates": 0
+    },
+    {
+      "start": 1775520000,
+      "end": 1775592000,
+      "candidates": 0
+    },
+    {
+      "start": 1775606400,
+      "end": 1775678400,
+      "candidates": 0
+    },
+    {
+      "start": 1775692800,
+      "end": 1775764800,
+      "candidates": 0
+    },
+    {
+      "start": 1775779200,
+      "end": 1775851200,
+      "candidates": 0
+    },
+    {
+      "start": 1776038400,
+      "end": 1776110400,
+      "candidates": 0
+    },
+    {
+      "start": 1776124800,
+      "end": 1776196800,
+      "candidates": 0
+    },
+    {
+      "start": 1776211200,
+      "end": 1776283200,
+      "candidates": 0
+    },
+    {
+      "start": 1776297600,
+      "end": 1776369600,
+      "candidates": 0
+    },
+    {
+      "start": 1776384000,
+      "end": 1776456000,
+      "candidates": 0
+    },
+    {
+      "start": 1776643200,
+      "end": 1776715200,
+      "candidates": 0
+    },
+    {
+      "start": 1776729600,
+      "end": 1776801600,
+      "candidates": 0
+    },
+    {
+      "start": 1776816000,
+      "end": 1776888000,
+      "candidates": 0
+    },
+    {
+      "start": 1776902400,
+      "end": 1776974400,
+      "candidates": 0
+    },
+    {
+      "start": 1776988800,
+      "end": 1777060800,
+      "candidates": 0
+    },
+    {
+      "start": 1777248000,
+      "end": 1777320000,
+      "candidates": 0
+    },
+    {
+      "start": 1777334400,
+      "end": 1777406400,
+      "candidates": 0
+    },
+    {
+      "start": 1777420800,
+      "end": 1777492800,
+      "candidates": 0
+    },
+    {
+      "start": 1777507200,
+      "end": 1777579200,
+      "candidates": 0
+    },
+    {
+      "start": 1777593600,
+      "end": 1777665600,
+      "candidates": 0
+    },
+    {
+      "start": 1777852800,
+      "end": 1777924800,
+      "candidates": 0
+    },
+    {
+      "start": 1777939200,
+      "end": 1778011200,
+      "candidates": 0
+    },
+    {
+      "start": 1778025600,
+      "end": 1778097600,
+      "candidates": 0
+    },
+    {
+      "start": 1778112000,
+      "end": 1778184000,
+      "candidates": 0
+    },
+    {
+      "start": 1778198400,
+      "end": 1778270400,
+      "candidates": 0
+    },
+    {
+      "start": 1778457600,
+      "end": 1778529600,
+      "candidates": 0
+    },
+    {
+      "start": 1778544000,
+      "end": 1778616000,
+      "candidates": 0
+    },
+    {
+      "start": 1778630400,
+      "end": 1778702400,
+      "candidates": 0
+    },
+    {
+      "start": 1778716800,
+      "end": 1778788800,
+      "candidates": 0
+    },
+    {
+      "start": 1778803200,
+      "end": 1778875200,
+      "candidates": 0
+    },
+    {
+      "start": 1779062400,
+      "end": 1779134400,
+      "candidates": 0
+    },
+    {
+      "start": 1779148800,
+      "end": 1779220800,
+      "candidates": 0
+    },
+    {
+      "start": 1779235200,
+      "end": 1779307200,
+      "candidates": 0
+    },
+    {
+      "start": 1779321600,
+      "end": 1779393600,
+      "candidates": 0
+    },
+    {
+      "start": 1779408000,
+      "end": 1779480000,
+      "candidates": 0
+    },
+    {
+      "start": 1779667200,
+      "end": 1779724800,
+      "candidates": 0
+    },
+    {
+      "start": 1779753600,
+      "end": 1779825600,
+      "candidates": 0
+    },
+    {
+      "start": 1779840000,
+      "end": 1779912000,
+      "candidates": 0
+    },
+    {
+      "start": 1779926400,
+      "end": 1779998400,
+      "candidates": 0
+    },
+    {
+      "start": 1780012800,
+      "end": 1780084800,
+      "candidates": 0
+    },
+    {
+      "start": 1780272000,
+      "end": 1780344000,
+      "candidates": 0
+    },
+    {
+      "start": 1780358400,
+      "end": 1780430400,
+      "candidates": 0
+    },
+    {
+      "start": 1780444800,
+      "end": 1780516800,
+      "candidates": 0
+    },
+    {
+      "start": 1780531200,
+      "end": 1780603200,
+      "candidates": 0
+    },
+    {
+      "start": 1780617600,
+      "end": 1780689600,
+      "candidates": 0
+    },
+    {
+      "start": 1780876800,
+      "end": 1780948800,
+      "candidates": 0
+    },
+    {
+      "start": 1780963200,
+      "end": 1781035200,
+      "candidates": 0
+    },
+    {
+      "start": 1781049600,
+      "end": 1781121600,
+      "candidates": 0
+    },
+    {
+      "start": 1781136000,
+      "end": 1781208000,
+      "candidates": 0
+    },
+    {
+      "start": 1781222400,
+      "end": 1781294400,
+      "candidates": 0
+    },
+    {
+      "start": 1781481600,
+      "end": 1781553600,
+      "candidates": 0
+    },
+    {
+      "start": 1781568000,
+      "end": 1781640000,
+      "candidates": 0
+    },
+    {
+      "start": 1781654400,
+      "end": 1781726400,
+      "candidates": 0
+    },
+    {
+      "start": 1781740800,
+      "end": 1781812800,
+      "candidates": 0
+    },
+    {
+      "start": 1781827200,
+      "end": 1781884800,
+      "candidates": 0
+    },
+    {
+      "start": 1782086400,
+      "end": 1782158400,
+      "candidates": 0
+    },
+    {
+      "start": 1782172800,
+      "end": 1782244800,
+      "candidates": 0
+    },
+    {
+      "start": 1782259200,
+      "end": 1782331200,
+      "candidates": 0
+    },
+    {
+      "start": 1782345600,
+      "end": 1782417600,
+      "candidates": 0
+    },
+    {
+      "start": 1782432000,
+      "end": 1782504000,
+      "candidates": 0
+    },
+    {
+      "start": 1782691200,
+      "end": 1782763200,
+      "candidates": 0
+    },
+    {
+      "start": 1782777600,
+      "end": 1782849600,
+      "candidates": 0
+    },
+    {
+      "start": 1782864000,
+      "end": 1782936000,
+      "candidates": 0
+    },
+    {
+      "start": 1782950400,
+      "end": 1783022400,
+      "candidates": 0
+    },
+    {
+      "start": 1783036800,
+      "end": 1783080000,
+      "candidates": 0
+    },
+    {
+      "start": 1783296000,
+      "end": 1783368000,
+      "candidates": 0
+    },
+    {
+      "start": 1783382400,
+      "end": 1783454400,
+      "candidates": 0
+    },
+    {
+      "start": 1783468800,
+      "end": 1783540800,
+      "candidates": 0
+    },
+    {
+      "start": 1783555200,
+      "end": 1783627200,
+      "candidates": 0
+    },
+    {
+      "start": 1783641600,
+      "end": 1783713600,
+      "candidates": 0
+    },
+    {
+      "start": 1783900800,
+      "end": 1783972800,
+      "candidates": 0
+    },
+    {
+      "start": 1783987200,
+      "end": 1784059200,
+      "candidates": 0
+    },
+    {
+      "start": 1784073600,
+      "end": 1784145600,
+      "candidates": 0
+    },
+    {
+      "start": 1784160000,
+      "end": 1784232000,
+      "candidates": 0
+    },
+    {
+      "start": 1784246400,
+      "end": 1784318400,
+      "candidates": 0
+    },
+    {
+      "start": 1784505600,
+      "end": 1784577600,
+      "candidates": 0
+    },
+    {
+      "start": 1784592000,
+      "end": 1784664000,
+      "candidates": 0
+    },
+    {
+      "start": 1784678400,
+      "end": 1784750400,
+      "candidates": 0
+    },
+    {
+      "start": 1784764800,
+      "end": 1784836800,
+      "candidates": 0
+    },
+    {
+      "start": 1784851200,
+      "end": 1784923200,
+      "candidates": 0
+    },
+    {
+      "start": 1785110400,
+      "end": 1785182400,
+      "candidates": 0
+    },
+    {
+      "start": 1785196800,
+      "end": 1785268800,
+      "candidates": 0
+    },
+    {
+      "start": 1785283200,
+      "end": 1785355200,
+      "candidates": 0
+    },
+    {
+      "start": 1785369600,
+      "end": 1785441600,
+      "candidates": 0
+    },
+    {
+      "start": 1785456000,
+      "end": 1785528000,
+      "candidates": 0
+    },
+    {
+      "start": 1785715200,
+      "end": 1785787200,
+      "candidates": 0
+    },
+    {
+      "start": 1785801600,
+      "end": 1785873600,
+      "candidates": 0
+    },
+    {
+      "start": 1785888000,
+      "end": 1785960000,
+      "candidates": 0
+    },
+    {
+      "start": 1785974400,
+      "end": 1786046400,
+      "candidates": 0
+    },
+    {
+      "start": 1786060800,
+      "end": 1786132800,
+      "candidates": 0
+    },
+    {
+      "start": 1786320000,
+      "end": 1786392000,
+      "candidates": 0
+    },
+    {
+      "start": 1786406400,
+      "end": 1786478400,
+      "candidates": 0
+    },
+    {
+      "start": 1786492800,
+      "end": 1786564800,
+      "candidates": 0
+    },
+    {
+      "start": 1786579200,
+      "end": 1786651200,
+      "candidates": 0
+    },
+    {
+      "start": 1786665600,
+      "end": 1786737600,
+      "candidates": 0
+    },
+    {
+      "start": 1786924800,
+      "end": 1786996800,
+      "candidates": 0
+    },
+    {
+      "start": 1787011200,
+      "end": 1787083200,
+      "candidates": 0
+    },
+    {
+      "start": 1787097600,
+      "end": 1787169600,
+      "candidates": 0
+    },
+    {
+      "start": 1787184000,
+      "end": 1787256000,
+      "candidates": 0
+    },
+    {
+      "start": 1787270400,
+      "end": 1787342400,
+      "candidates": 0
+    },
+    {
+      "start": 1787529600,
+      "end": 1787601600,
+      "candidates": 0
+    },
+    {
+      "start": 1787616000,
+      "end": 1787688000,
+      "candidates": 0
+    },
+    {
+      "start": 1787702400,
+      "end": 1787774400,
+      "candidates": 0
+    },
+    {
+      "start": 1787788800,
+      "end": 1787860800,
+      "candidates": 0
+    },
+    {
+      "start": 1787875200,
+      "end": 1787947200,
+      "candidates": 0
+    },
+    {
+      "start": 1788134400,
+      "end": 1788206400,
+      "candidates": 0
+    },
+    {
+      "start": 1788220800,
+      "end": 1788292800,
+      "candidates": 0
+    },
+    {
+      "start": 1788307200,
+      "end": 1788379200,
+      "candidates": 0
+    },
+    {
+      "start": 1788393600,
+      "end": 1788465600,
+      "candidates": 0
+    },
+    {
+      "start": 1788480000,
+      "end": 1788552000,
+      "candidates": 0
+    },
+    {
+      "start": 1788739200,
+      "end": 1788796800,
+      "candidates": 0
+    },
+    {
+      "start": 1788825600,
+      "end": 1788897600,
+      "candidates": 0
+    },
+    {
+      "start": 1788912000,
+      "end": 1788984000,
+      "candidates": 0
+    },
+    {
+      "start": 1788998400,
+      "end": 1789070400,
+      "candidates": 0
+    },
+    {
+      "start": 1789084800,
+      "end": 1789156800,
+      "candidates": 0
+    },
+    {
+      "start": 1789344000,
+      "end": 1789416000,
+      "candidates": 0
+    },
+    {
+      "start": 1789430400,
+      "end": 1789502400,
+      "candidates": 0
+    },
+    {
+      "start": 1789516800,
+      "end": 1789588800,
+      "candidates": 0
+    },
+    {
+      "start": 1789603200,
+      "end": 1789675200,
+      "candidates": 0
+    },
+    {
+      "start": 1789689600,
+      "end": 1789761600,
+      "candidates": 0
+    },
+    {
+      "start": 1789948800,
+      "end": 1790020800,
+      "candidates": 0
+    },
+    {
+      "start": 1790035200,
+      "end": 1790107200,
+      "candidates": 0
+    },
+    {
+      "start": 1790121600,
+      "end": 1790193600,
+      "candidates": 0
+    },
+    {
+      "start": 1790208000,
+      "end": 1790280000,
+      "candidates": 0
+    },
+    {
+      "start": 1790294400,
+      "end": 1790366400,
+      "candidates": 0
+    }
+  ],
+  "summaries": {
+    "LSR02": {
+      "candidates": 0,
+      "closed_reference": 0,
+      "censored": 0,
+      "ambiguous": 0,
+      "reference_wins": 0,
+      "reference_losses": 0,
+      "mean_closed_gross_reference_r": null,
+      "profit_factor_closed_gross_reference": null,
+      "all_candidates_reference_resolved": false,
+      "total_all_candidates_gross_reference_r": null,
+      "closed_reference_sequence": {
+        "all_candidates_evaluable": false,
+        "exit_batches": 0,
+        "simultaneous_exit_batches": 0,
+        "max_drawdown_at_exit_batches_r": null,
+        "max_consecutive_closed_losses": null,
+        "account_drawdown_available": false,
+        "live_stop_decision_available": false
+      },
+      "net_expectancy_r": null,
+      "account_return_pct": null,
+      "account_max_dd_usd": null,
+      "actual_profit_usd": null
+    },
+    "VHF03": {
+      "candidates": 0,
+      "closed_reference": 0,
+      "censored": 0,
+      "ambiguous": 0,
+      "reference_wins": 0,
+      "reference_losses": 0,
+      "mean_closed_gross_reference_r": null,
+      "profit_factor_closed_gross_reference": null,
+      "all_candidates_reference_resolved": false,
+      "total_all_candidates_gross_reference_r": null,
+      "closed_reference_sequence": {
+        "all_candidates_evaluable": false,
+        "exit_batches": 0,
+        "simultaneous_exit_batches": 0,
+        "max_drawdown_at_exit_batches_r": null,
+        "max_consecutive_closed_losses": null,
+        "account_drawdown_available": false,
+        "live_stop_decision_available": false
+      },
+      "net_expectancy_r": null,
+      "account_return_pct": null,
+      "account_max_dd_usd": null,
+      "actual_profit_usd": null
+    }
+  },
+  "source_price_basis": "PUBLIC_UNVERIFIED_OHLC",
+  "reset_at_gaps": true,
+  "bid_ask_costs_verified": false,
+  "independent_holdout": false,
+  "actual_profit_usd": null,
+  "execution_allowed": false,
+  "candidates": [],
+  "audit": {
+    "source": "GetData Finance GitHub public XAUUSD 1m sample",
+    "source_price_type": "mid quotes according to publisher; broker fills unverified",
+    "sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+    "rows": 179662,
+    "first": "2026-03-26T02:28:00",
+    "last": "2026-09-25T20:44:00",
+    "duplicate_timestamps": 0,
+    "nonminute_timestamps": 0,
+    "number_of_gaps_gt_1min": 175,
+    "largest_missing_minutes": 3279,
+    "first_10_gaps": [
+      [
+        "2026-03-26T20:59:00",
+        "2026-03-26T22:00:00",
+        60
+      ],
+      [
+        "2026-03-27T20:44:00",
+        "2026-03-29T22:00:00",
+        2955
+      ],
+      [
+        "2026-03-30T20:59:00",
+        "2026-03-30T22:00:00",
+        60
+      ],
+      [
+        "2026-03-31T20:59:00",
+        "2026-03-31T22:00:00",
+        60
+      ],
+      [
+        "2026-04-01T20:59:00",
+        "2026-04-01T22:01:00",
+        61
+      ],
+      [
+        "2026-04-02T20:59:00",
+        "2026-04-03T14:36:00",
+        1056
+      ],
+      [
+        "2026-04-03T14:37:00",
+        "2026-04-03T14:43:00",
+        5
+      ],
+      [
+        "2026-04-03T14:43:00",
+        "2026-04-03T15:05:00",
+        21
+      ],
+      [
+        "2026-04-03T15:05:00",
+        "2026-04-03T15:07:00",
+        1
+      ],
+      [
+        "2026-04-03T15:07:00",
+        "2026-04-03T15:10:00",
+        2
+      ]
+    ],
+    "ready_for_6mo_backtest": false,
+    "pnl_usd": null
+  },
+  "aggregation_crosscheck": {
+    "5m": {
+      "checked_parents": 35893,
+      "mismatches": 0
+    },
+    "15m": {
+      "checked_parents": 11942,
+      "mismatches": 0
+    },
+    "4H": {
+      "checked_parents": 649,
+      "mismatches": 0
+    }
+  },
+  "frame_counts": {
+    "5m": 35893,
+    "15m": 11942,
+    "4H": 649
+  },
+  "frame_coverage": {
+    "5m": {
+      "rows": 35893,
+      "gap_count": 139,
+      "longest_contiguous_bars": 276,
+      "first_open_utc": "2026-03-26T02:30:00+00:00",
+      "last_close_utc": "2026-09-25T20:45:00+00:00",
+      "session_calendar_verified": false
+    },
+    "15m": {
+      "rows": 11942,
+      "gap_count": 134,
+      "longest_contiguous_bars": 92,
+      "first_open_utc": "2026-03-26T02:30:00+00:00",
+      "last_close_utc": "2026-09-25T20:45:00+00:00",
+      "session_calendar_verified": false
+    },
+    "4H": {
+      "rows": 649,
+      "gap_count": 130,
+      "longest_contiguous_bars": 5,
+      "first_open_utc": "2026-03-26T04:00:00+00:00",
+      "last_close_utc": "2026-09-25T20:00:00+00:00",
+      "session_calendar_verified": false
+    }
+  },
+  "source_rows_by_utc_hour": {
+    "0": 7800,
+    "1": 7800,
+    "2": 7832,
+    "3": 7860,
+    "4": 7860,
+    "5": 7860,
+    "6": 7860,
+    "7": 7860,
+    "8": 7860,
+    "9": 7860,
+    "10": 7860,
+    "11": 7860,
+    "12": 7860,
+    "13": 7860,
+    "14": 7862,
+    "15": 7868,
+    "16": 7860,
+    "17": 7805,
+    "18": 7774,
+    "19": 7703,
+    "20": 7322,
+    "21": 0,
+    "22": 7777,
+    "23": 7799
+  },
+  "source_rows_by_month": {
+    "2026-03": 5357,
+    "2026-04": 28945,
+    "2026-05": 28784,
+    "2026-06": 30236,
+    "2026-07": 31325,
+    "2026-08": 29036,
+    "2026-09": 25979
+  },
+  "bars_sha256": {
+    "XAUUSD_H4_UNVERIFIED_QUOTE.csv": "643c95d6c7ec72cb331d280b0c4c1c2d72702fe04fc85402e2666bbe0f19854c",
+    "XAUUSD_M15_UNVERIFIED_QUOTE.csv": "8bba85eab3ed8da92341dea6b0b6c26fa884b882caf074e8bc9de6ac844a083d",
+    "XAUUSD_M1_UNVERIFIED_QUOTE.csv": "741531ca37f0fddc904238da0fc1d646127928da0c87f5f81b4aab0579bfae91",
+    "XAUUSD_M5_UNVERIFIED_QUOTE.csv": "ef68aad060022c4534a5cee2d7ff9d89b243177f5a479f938cf8ad582dc84b99"
+  }
+}

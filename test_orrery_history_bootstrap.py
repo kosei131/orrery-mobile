@@ -1,5 +1,6 @@
 import ast
 import os
+import shutil
 from hashlib import sha256
 from pathlib import Path
 import subprocess
@@ -19,7 +20,9 @@ class BootstrapTests(unittest.TestCase):
     def download(self, name):
         # Simulate GitHub raw LF bytes, independent of Git's CRLF checkout.
         # Production download verification still compares exact response bytes.
-        return (self.source/name).read_text(encoding='utf-8').encode('utf-8')
+        fixture=(self.source/'test_fixtures/pinned_lsr02_replay.py.txt'
+                 if name=='lsr02_replay.py' else self.source/name)
+        return fixture.read_text(encoding='utf-8').encode('utf-8')
 
     def test_exact_source_pins_and_fresh_folders(self):
         first = bootstrap.prepare(self.parent, download=self.download)
@@ -89,7 +92,8 @@ class BootstrapTests(unittest.TestCase):
         code, _ = self.cli(timeout=True)
         self.assertEqual(code, 1)
 
-    @unittest.skipUnless(os.name == 'nt', 'Windows Python launcher integration only')
+    @unittest.skipUnless(os.name == 'nt' and shutil.which('py'),
+                         'Windows integration requires py launcher')
     def test_windows_launcher_real_public_download_without_mt5(self):
         result = subprocess.run(['py', '-3.12', str(self.source/'orrery_history_bootstrap.py'),
                                  '--verify-only'], cwd=self.temp.name,

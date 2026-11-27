@@ -1,0 +1,97 @@
+{
+  "study": "gold_band_reentry",
+  "historical_2026": {
+    "entries": 521,
+    "resolved": 499,
+    "unresolved": 22,
+    "wins": 247,
+    "positive_rate": 0.49498997995991983,
+    "all_entry_positive_rate_upper": 0.5163147792706334,
+    "mean_r": -0.0769714477083801,
+    "pf": 0.7572916219659607,
+    "mean_win_r": 0.48518976574784317,
+    "mean_loss_r": 0.6279786688341228,
+    "status": {
+      "RESOLVED_REFERENCE": 499,
+      "CENSORED_AT_SIDE_GAP": 15,
+      "TARGET_INVALID_AT_ENTRY": 3,
+      "UNKNOWN_ENTRY_HISTORY": 3,
+      "AMBIGUOUS_SAME_MINUTE": 1
+    },
+    "scenarios": [
+      {
+        "additional_cost_price": 0,
+        "mean_resolved_r": -0.05638142673857626,
+        "positive_rate_pct": 50.501002004008015,
+        "pf": 0.8161365597010721,
+        "resolved_sequence_drawdown_r": 38.07142848331333
+      },
+      {
+        "additional_cost_price": 0.3,
+        "mean_resolved_r": -0.0769714477083801,
+        "positive_rate_pct": 49.498997995991985,
+        "pf": 0.7572916219659607,
+        "resolved_sequence_drawdown_r": 44.539718882701706
+      },
+      {
+        "additional_cost_price": 0.6,
+        "mean_resolved_r": -0.09756146867818395,
+        "positive_rate_pct": 47.69539078156313,
+        "pf": 0.7023513436333906,
+        "resolved_sequence_drawdown_r": 51.675515650893175
+      }
+    ],
+    "skipped_while_occupied": 18,
+    "resolved_per_week": 11.97942269219777
+  },
+  "separate_2025_q4": {
+    "entries": 169,
+    "resolved": 161,
+    "unresolved": 8,
+    "wins": 83,
+    "positive_rate": 0.515527950310559,
+    "all_entry_positive_rate_upper": 0.5384615384615384,
+    "mean_r": -0.030658410945519222,
+    "pf": 0.9047108893011623,
+    "mean_win_r": 0.5646300249806215,
+    "mean_loss_r": 0.6641063619951306,
+    "status": {
+      "RESOLVED_REFERENCE": 161,
+      "CENSORED_AT_SIDE_GAP": 5,
+      "TARGET_INVALID_AT_ENTRY": 2,
+      "UNKNOWN_ENTRY_HISTORY": 1
+    },
+    "scenarios": [
+      {
+        "additional_cost_price": 0,
+        "mean_resolved_r": -0.006633227887306431,
+        "positive_rate_pct": 52.17391304347826,
+        "pf": 0.9786232031495552,
+        "resolved_sequence_drawdown_r": 10.668608083959999
+      },
+      {
+        "additional_cost_price": 0.3,
+        "mean_resolved_r": -0.030658410945519222,
+        "positive_rate_pct": 51.5527950310559,
+        "pf": 0.9047108893011623,
+        "resolved_sequence_drawdown_r": 13.171884919884683
+      },
+      {
+        "additional_cost_price": 0.6,
+        "mean_resolved_r": -0.054683594003731996,
+        "positive_rate_pct": 49.68944099378882,
+        "pf": 0.8360010644715079,
+        "resolved_sequence_drawdown_r": 15.892910490475114
+      }
+    ],
+    "skipped_while_occupied": 2,
+    "resolved_per_week": 12.25
+  },
+  "paired_minutes_2026": 282761,
+  "paired_minutes_2025_q4": 89091,
+  "code_sha256": "344673baac6f276c51995da1ea2f38051b47b3d7b826899d56f5c4105c361f67",
+  "historical_data_previously_seen": true,
+  "account_return_pct": null,
+  "adoption_allowed": false,
+  "execution_allowed": false
+}

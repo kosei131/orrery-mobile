@@ -3,6 +3,7 @@ No inferred ticks, TradingView login, Pine strategy equivalence or live orders.
 """
 import argparse
 import csv
+import re
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from hashlib import sha256
@@ -44,9 +45,14 @@ def normalize(raw, *, timeframe, settings):
             if n!=n.to_integral_value():raise ValueError('Whole UTC seconds required')
             at=int(n)
         else:
+            # datetime can silently discard sub-microsecond or zero-second offset fractions.
+            if any(int(part) for part in re.findall(r'[.,](\d+)', row['time'])):
+                raise ValueError('Whole UTC seconds required')
             t=datetime.fromisoformat(row['time'].replace('Z','+00:00'))
             if t.tzinfo is None or t.microsecond:raise ValueError('Explicit timezone and whole seconds required')
-            at=int(t.timestamp())
+            stamp=t.timestamp()
+            if not stamp.is_integer():raise ValueError('Whole UTC seconds required')
+            at=int(stamp)
         if at<0 or at>asof or (previous is not None and (at<=previous or (at-previous)%interval)):
             raise ValueError('Future, unordered or inconsistent timeframe clocks')
         prices={k:float(_number(row[k])) for k in ('open','high','low','close')}

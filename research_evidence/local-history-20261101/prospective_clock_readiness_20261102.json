@@ -1,0 +1,45 @@
+{
+  "status": "NO_PROSPECTIVE_INPUT_ATTACHED",
+  "phase": "IN_PROGRESS",
+  "observed_at_utc": "2026-11-03T05:11:38.828297+00:00",
+  "plan_sha256": "580ec6b919f6da6e9adb8b0973f89f3af2112000dce56ca559899bd10803c434",
+  "start_open_utc": "2026-11-03T00:00:00Z",
+  "end_close_utc": "2026-12-01T00:00:00Z",
+  "start_hst": "2026-11-02T14:00:00-10:00",
+  "end_hst": "2026-11-30T14:00:00-10:00",
+  "closed_bar_cutoff_upper_bound_utc": "2026-11-03T05:11:38Z",
+  "elapsed_calendar_seconds": 18698,
+  "planned_calendar_seconds": 2419200,
+  "frames": {
+    "5m": {
+      "interval_seconds": 300,
+      "earliest_evaluation_open_utc": "2026-11-03T00:00:00Z",
+      "latest_possible_nominal_open_utc": "2026-11-03T05:06:38Z",
+      "actual_bar_count": null,
+      "feed_grid_verified": false
+    },
+    "15m": {
+      "interval_seconds": 900,
+      "earliest_evaluation_open_utc": "2026-11-03T00:00:00Z",
+      "latest_possible_nominal_open_utc": "2026-11-03T04:56:38Z",
+      "actual_bar_count": null,
+      "feed_grid_verified": false
+    },
+    "4H": {
+      "interval_seconds": 14400,
+      "earliest_evaluation_open_utc": "2026-11-03T00:00:00Z",
+      "latest_possible_nominal_open_utc": "2026-11-03T01:11:38Z",
+      "actual_bar_count": null,
+      "feed_grid_verified": false
+    }
+  },
+  "source_declared": "OANDA:XAUUSD via TradingView MCP",
+  "prospective_candidates": null,
+  "net_expectancy_r": null,
+  "account_return_pct": null,
+  "complete_session_coverage_verified": false,
+  "data_acquired": false,
+  "execution_allowed": false,
+  "adopted": false,
+  "limitation": "Clock bounds only, not observed bars, session coverage or data availability. No prospective input attached to this view."
+}

@@ -23,6 +23,62 @@ def weekly_open(t):
     return day == 6 and minute >= 22*60
 
 
+
+def classify_gap_intervals(gaps):
+    """Partition missing minutes by the existing UNVERIFIED weekly hypothesis.
+
+    Publication timing is descriptive: this is neither a historical calendar
+    certificate nor permission to bridge bars or change candidate selection.
+    """
+    if not isinstance(gaps,list) or len(gaps)>10000:
+        raise ValueError('Bounded explicit gap list required')
+    published=dt.datetime.fromisoformat('2026-08-22T20:59:35+00:00')
+    rows=[]; previous_end=None; total_minutes=0
+    for gap in gaps:
+        pair=[]
+        for key in ('after_utc','before_utc'):
+            at=dt.datetime.fromisoformat(gap[key].replace('Z','+00:00'))
+            if at.utcoffset()!=dt.timedelta(0) or at.second or at.microsecond:
+                raise ValueError('Explicit UTC minute gap boundaries required')
+            pair.append(at)
+        before,after=pair
+        count=int((after-before).total_seconds())//60-1
+        if (count<=0 or type(gap.get('missing_minutes')) is not int
+                or gap['missing_minutes']!=count
+                or previous_end is not None and before<previous_end):
+            raise ValueError('Ordered nonoverlapping gaps with exact counts required')
+        total_minutes+=count
+        if total_minutes>366*1440:
+            raise ValueError('Gap minute budget exceeds one year')
+        previous_end=after
+        open_minutes=closed_minutes=before_publication=0
+        at=before+dt.timedelta(minutes=1)
+        while at<after:
+            if weekly_open(at):open_minutes+=1
+            else:closed_minutes+=1
+            before_publication+=at<published
+            at+=dt.timedelta(minutes=1)
+        rows.append(dict(after_utc=before.isoformat(),before_utc=after.isoformat(),
+            missing_minutes=count,weekly_open_unexplained_minutes=open_minutes,
+            weekly_closed_candidate_minutes=closed_minutes,
+            minutes_before_schedule_publication=before_publication,
+            classification=('MIXED_WEEKLY_OPEN_AND_CLOSED' if open_minutes and closed_minutes
+                else 'UNEXPLAINED_WEEKLY_OPEN' if open_minutes else 'WEEKLY_CLOSURE_CANDIDATE'),
+            session_reason='UNVERIFIED'))
+    return dict(status='UNVERIFIED_WEEKLY_GAP_PARTITION_ONLY',
+        source_url=SOURCE,published_report_utc=published.isoformat(),
+        rule_basis='EXISTING_UNVERIFIED_UTC_WEEKLY_HYPOTHESIS_NOT_RETRIEVED_LIVE',
+        weekly_rule=dict(mon_thu_closed='21:00-22:00',friday_close='20:45',
+                         saturday='CLOSED',sunday_open='22:00',timezone='UTC'),
+        missing_minutes=total_minutes,
+        weekly_open_unexplained_minutes=sum(r['weekly_open_unexplained_minutes'] for r in rows),
+        weekly_closed_candidate_minutes=sum(r['weekly_closed_candidate_minutes'] for r in rows),
+        minutes_before_schedule_publication=sum(r['minutes_before_schedule_publication'] for r in rows),
+        gaps=rows,calendar_authenticated=False,publication_preknown_for_all_minutes=all(
+            r['minutes_before_schedule_publication']==0 for r in rows),
+        continuity_restored=False,strategy_adopted=False,actual_profit_usd=None,
+        execution_allowed=False)
+
 def crosscheck(src, output_dir):
     observed = set()
     with Path(src).open(newline='', encoding='utf-8') as f:

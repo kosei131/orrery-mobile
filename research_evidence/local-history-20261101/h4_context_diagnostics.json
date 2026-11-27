@@ -1,0 +1,2353 @@
+{
+  "status": "H4_CONFIRMED_CONTEXT_DIAGNOSTIC_ONLY",
+  "source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "start_open_utc": "2026-08-23T00:00:00+00:00",
+  "end_close_utc": "2026-09-25T20:00:00+00:00",
+  "parameters": {
+    "buffer": 0.1,
+    "target_r": 2,
+    "period": 14,
+    "min_vhf": 0.4,
+    "left": 1,
+    "right": 1,
+    "lifetime": 6000
+  },
+  "previous_comparison_sha256": "7772f640b9ea68b25fc14bdd2a4a6907fabf48032b0884c58bca305d21351e8c",
+  "existing_trace_counters_and_candidate_outcomes_unchanged": true,
+  "arms": {
+    "UTC_COMPLETE_ONLY": {
+      "decision_diagnostics": {
+        "status": "EXISTING_REPLAY_DECISION_COUNTS_ONLY",
+        "m5_closes": 5952,
+        "m15_sweep_events": 201,
+        "h4_states": {
+          "MISSING": 1175,
+          "RANGE": 4777
+        },
+        "sweep_dispositions": {
+          "HTF_STALE_OR_MISSING": 40,
+          "HTF_RANGE": 159,
+          "MULTIPLE_SWEEPS_SAME_CLOSE": 2
+        },
+        "candidate_transitions": {},
+        "invalidation_reasons": {},
+        "invalidation_from_states": {},
+        "h4_context_reasons": {
+          "MISSING": 1175,
+          "INSUFFICIENT_CONFIRMED_PIVOTS": 4777
+        },
+        "h4_context_bars": {
+          "0": 1175,
+          "1": 1200,
+          "2": 1200,
+          "3": 1200,
+          "4": 1153,
+          "5": 24
+        },
+        "h4_reason_by_bars": {
+          "MISSING:0": 1175,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:1": 1200,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:2": 1200,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:3": 1200,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:4": 1153,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:5": 24
+        },
+        "h4_sweep_context_reasons": {
+          "MISSING": 40,
+          "INSUFFICIENT_CONFIRMED_PIVOTS": 161
+        },
+        "windows": [
+          {
+            "start_s": 1787529600,
+            "end_s": 1787601600,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 8
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 8
+            }
+          },
+          {
+            "start_s": 1787616000,
+            "end_s": 1787688000,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 7,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 6
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1787702400,
+            "end_s": 1787774400,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_RANGE": 9
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 9
+            }
+          },
+          {
+            "start_s": 1787788800,
+            "end_s": 1787860800,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 7
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 7
+            }
+          },
+          {
+            "start_s": 1787875200,
+            "end_s": 1787947200,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 11,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 9
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 9
+            }
+          },
+          {
+            "start_s": 1788134400,
+            "end_s": 1788206400,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 10,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 8
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 8
+            }
+          },
+          {
+            "start_s": 1788220800,
+            "end_s": 1788292800,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 5,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 4
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 4
+            }
+          },
+          {
+            "start_s": 1788307200,
+            "end_s": 1788379200,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 14,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 12
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 12
+            }
+          },
+          {
+            "start_s": 1788393600,
+            "end_s": 1788465600,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 7,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 3,
+              "HTF_RANGE": 4
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 3,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 4
+            }
+          },
+          {
+            "start_s": 1788480000,
+            "end_s": 1788552000,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 8,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 7
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 7
+            }
+          },
+          {
+            "start_s": 1788739200,
+            "end_s": 1788796800,
+            "m5_closes": 192,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 145
+            },
+            "m15_sweep_events": 6,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 3,
+              "HTF_RANGE": 3
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 145
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 3,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 3
+            }
+          },
+          {
+            "start_s": 1788825600,
+            "end_s": 1788897600,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 11,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 9
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 9
+            }
+          },
+          {
+            "start_s": 1788912000,
+            "end_s": 1788984000,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 7,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 6
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1788998400,
+            "end_s": 1789070400,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 8,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 6
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1789084800,
+            "end_s": 1789156800,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 5,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 4
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 4
+            }
+          },
+          {
+            "start_s": 1789344000,
+            "end_s": 1789416000,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 3,
+              "HTF_RANGE": 4,
+              "MULTIPLE_SWEEPS_SAME_CLOSE": 2
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 3,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1789430400,
+            "end_s": 1789502400,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 8,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 6
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1789516800,
+            "end_s": 1789588800,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 7,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 5
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 5
+            }
+          },
+          {
+            "start_s": 1789603200,
+            "end_s": 1789675200,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 3,
+            "sweep_dispositions": {
+              "HTF_RANGE": 3
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 3
+            }
+          },
+          {
+            "start_s": 1789689600,
+            "end_s": 1789761600,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 3,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 1
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 1
+            }
+          },
+          {
+            "start_s": 1789948800,
+            "end_s": 1790020800,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 8
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 8
+            }
+          },
+          {
+            "start_s": 1790035200,
+            "end_s": 1790107200,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 3,
+              "HTF_RANGE": 6
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 3,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1790121600,
+            "end_s": 1790193600,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 10,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 9
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 9
+            }
+          },
+          {
+            "start_s": 1790208000,
+            "end_s": 1790280000,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 7
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 7
+            }
+          },
+          {
+            "start_s": 1790294400,
+            "end_s": 1790366400,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 8,
+            "sweep_dispositions": {
+              "HTF_RANGE": 8
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 8
+            }
+          }
+        ],
+        "repeated_active_state_rows_counted": false,
+        "m15_scope": "SWEEP_EVENTS_AT_OBSERVED_M5_CLOSE_ONLY",
+        "h4_reason_basis": "EXISTING_CONFIRMED_PIVOTS_TWO_HIGHS_AND_TWO_LOWS",
+        "history_shortage_cause_verified": false,
+        "candidate_invalidations_are_trade_outcomes": false,
+        "counts_are_profitability_evidence": false,
+        "execution_allowed": false
+      },
+      "summaries": {
+        "LSR02": {
+          "candidates": 0,
+          "closed_reference": 0,
+          "censored": 0,
+          "ambiguous": 0,
+          "reference_wins": 0,
+          "reference_losses": 0,
+          "mean_closed_gross_reference_r": null,
+          "profit_factor_closed_gross_reference": null,
+          "all_candidates_reference_resolved": false,
+          "total_all_candidates_gross_reference_r": null,
+          "closed_reference_sequence": {
+            "all_candidates_evaluable": false,
+            "exit_batches": 0,
+            "simultaneous_exit_batches": 0,
+            "max_drawdown_at_exit_batches_r": null,
+            "max_consecutive_closed_losses": null,
+            "account_drawdown_available": false,
+            "live_stop_decision_available": false
+          },
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null,
+          "actual_profit_usd": null
+        },
+        "VHF03": {
+          "candidates": 0,
+          "closed_reference": 0,
+          "censored": 0,
+          "ambiguous": 0,
+          "reference_wins": 0,
+          "reference_losses": 0,
+          "mean_closed_gross_reference_r": null,
+          "profit_factor_closed_gross_reference": null,
+          "all_candidates_reference_resolved": false,
+          "total_all_candidates_gross_reference_r": null,
+          "closed_reference_sequence": {
+            "all_candidates_evaluable": false,
+            "exit_batches": 0,
+            "simultaneous_exit_batches": 0,
+            "max_drawdown_at_exit_batches_r": null,
+            "max_consecutive_closed_losses": null,
+            "account_drawdown_available": false,
+            "live_stop_decision_available": false
+          },
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null,
+          "actual_profit_usd": null
+        }
+      }
+    },
+    "WEEKLY_PARTIAL_UNVERIFIED": {
+      "decision_diagnostics": {
+        "status": "EXISTING_REPLAY_DECISION_COUNTS_ONLY",
+        "m5_closes": 6120,
+        "m15_sweep_events": 203,
+        "h4_states": {
+          "MISSING": 1010,
+          "RANGE": 4965,
+          "DOWN": 145
+        },
+        "sweep_dispositions": {
+          "HTF_STALE_OR_MISSING": 35,
+          "HTF_RANGE": 158,
+          "STARTED": 4,
+          "ACTIVE_CANDIDATE": 1,
+          "HTF_DIRECTION_MISMATCH": 3,
+          "MULTIPLE_SWEEPS_SAME_CLOSE": 2
+        },
+        "candidate_transitions": {
+          "SWEEP": 4,
+          "CONFIRM": 1,
+          "RETEST": 1,
+          "INVALID": 4
+        },
+        "invalidation_reasons": {
+          "EXPIRED": 1,
+          "STOP_TOUCHED": 3
+        },
+        "invalidation_from_states": {
+          "RETEST": 1,
+          "SWEEP": 3
+        },
+        "h4_context_reasons": {
+          "MISSING": 1010,
+          "INSUFFICIENT_CONFIRMED_PIVOTS": 4412,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE": 553,
+          "DOWN": 145
+        },
+        "h4_context_bars": {
+          "0": 1010,
+          "1": 1056,
+          "2": 1056,
+          "3": 1056,
+          "4": 1009,
+          "5": 139,
+          "6": 84,
+          "7": 96,
+          "8": 96,
+          "9": 96,
+          "10": 96,
+          "11": 49,
+          "12": 36,
+          "13": 48,
+          "14": 48,
+          "15": 48,
+          "16": 48,
+          "17": 48,
+          "18": 1
+        },
+        "h4_reason_by_bars": {
+          "MISSING:0": 1010,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:1": 1056,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:2": 1056,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:3": 1056,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:4": 1009,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:5": 139,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:6": 48,
+          "INSUFFICIENT_CONFIRMED_PIVOTS:7": 48,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:8": 96,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:9": 96,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:10": 96,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:11": 49,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:6": 36,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:7": 48,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:12": 36,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:13": 48,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:14": 48,
+          "DOWN:15": 48,
+          "DOWN:16": 48,
+          "DOWN:17": 48,
+          "DOWN:18": 1
+        },
+        "h4_sweep_context_reasons": {
+          "MISSING": 35,
+          "INSUFFICIENT_CONFIRMED_PIVOTS": 142,
+          "NON_DIRECTIONAL_CONFIRMED_STRUCTURE": 18,
+          "DOWN": 8
+        },
+        "windows": [
+          {
+            "start_s": 1787529600,
+            "end_s": 1787605200,
+            "m5_closes": 252,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 205
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 8
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 205
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 13
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 13
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 8
+            }
+          },
+          {
+            "start_s": 1787608800,
+            "end_s": 1787688000,
+            "m5_closes": 264,
+            "h4_states": {
+              "RANGE": 264
+            },
+            "m15_sweep_events": 7,
+            "sweep_dispositions": {
+              "HTF_RANGE": 7
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 119,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE": 145
+            },
+            "h4_context_bars": {
+              "5": 23,
+              "6": 48,
+              "7": 48,
+              "8": 48,
+              "9": 48,
+              "10": 48,
+              "11": 1
+            },
+            "h4_reason_by_bars": {
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 23,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:6": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:7": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:8": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:9": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:10": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:11": 1
+            },
+            "h4_sweep_context_reasons": {
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 1,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE": 6
+            }
+          },
+          {
+            "start_s": 1787702400,
+            "end_s": 1787774400,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_RANGE": 9
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 9
+            }
+          },
+          {
+            "start_s": 1787788800,
+            "end_s": 1787860800,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 7
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 7
+            }
+          },
+          {
+            "start_s": 1787875200,
+            "end_s": 1787949900,
+            "m5_closes": 249,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 202
+            },
+            "m15_sweep_events": 11,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 9
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 202
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 10
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 10
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 9
+            }
+          },
+          {
+            "start_s": 1788127200,
+            "end_s": 1788210000,
+            "m5_closes": 276,
+            "h4_states": {
+              "MISSING": 23,
+              "RANGE": 253
+            },
+            "m15_sweep_events": 11,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 10
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 23,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 240,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE": 13
+            },
+            "h4_context_bars": {
+              "0": 23,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 48,
+              "6": 13
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 23,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:6": 13
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 10
+            }
+          },
+          {
+            "start_s": 1788213600,
+            "end_s": 1788296400,
+            "m5_closes": 276,
+            "h4_states": {
+              "RANGE": 276
+            },
+            "m15_sweep_events": 5,
+            "sweep_dispositions": {
+              "HTF_RANGE": 5
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE": 276
+            },
+            "h4_context_bars": {
+              "6": 23,
+              "7": 48,
+              "8": 48,
+              "9": 48,
+              "10": 48,
+              "11": 48,
+              "12": 13
+            },
+            "h4_reason_by_bars": {
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:6": 23,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:7": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:8": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:9": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:10": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:11": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:12": 13
+            },
+            "h4_sweep_context_reasons": {
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE": 5
+            }
+          },
+          {
+            "start_s": 1788300000,
+            "end_s": 1788379200,
+            "m5_closes": 264,
+            "h4_states": {
+              "RANGE": 119,
+              "DOWN": 145
+            },
+            "m15_sweep_events": 15,
+            "sweep_dispositions": {
+              "HTF_RANGE": 7,
+              "STARTED": 4,
+              "ACTIVE_CANDIDATE": 1,
+              "HTF_DIRECTION_MISMATCH": 3
+            },
+            "candidate_transitions": {
+              "SWEEP": 4,
+              "CONFIRM": 1,
+              "RETEST": 1,
+              "INVALID": 4
+            },
+            "invalidation_reasons": {
+              "EXPIRED": 1,
+              "STOP_TOUCHED": 3
+            },
+            "invalidation_from_states": {
+              "RETEST": 1,
+              "SWEEP": 3
+            },
+            "h4_context_reasons": {
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE": 119,
+              "DOWN": 145
+            },
+            "h4_context_bars": {
+              "12": 23,
+              "13": 48,
+              "14": 48,
+              "15": 48,
+              "16": 48,
+              "17": 48,
+              "18": 1
+            },
+            "h4_reason_by_bars": {
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:12": 23,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:13": 48,
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE:14": 48,
+              "DOWN:15": 48,
+              "DOWN:16": 48,
+              "DOWN:17": 48,
+              "DOWN:18": 1
+            },
+            "h4_sweep_context_reasons": {
+              "NON_DIRECTIONAL_CONFIRMED_STRUCTURE": 7,
+              "DOWN": 8
+            }
+          },
+          {
+            "start_s": 1788393600,
+            "end_s": 1788465600,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 7,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 3,
+              "HTF_RANGE": 4
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 3,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 4
+            }
+          },
+          {
+            "start_s": 1788480000,
+            "end_s": 1788554700,
+            "m5_closes": 249,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 202
+            },
+            "m15_sweep_events": 8,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 7
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 202
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 10
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 10
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 7
+            }
+          },
+          {
+            "start_s": 1788739200,
+            "end_s": 1788796800,
+            "m5_closes": 192,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 145
+            },
+            "m15_sweep_events": 6,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 3,
+              "HTF_RANGE": 3
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 145
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 3,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 3
+            }
+          },
+          {
+            "start_s": 1788825600,
+            "end_s": 1788897600,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 11,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 9
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 9
+            }
+          },
+          {
+            "start_s": 1788912000,
+            "end_s": 1788984000,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 7,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 6
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1788998400,
+            "end_s": 1789070400,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 8,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 6
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1789084800,
+            "end_s": 1789159500,
+            "m5_closes": 249,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 202
+            },
+            "m15_sweep_events": 5,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 4
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 202
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 10
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 10
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 4
+            }
+          },
+          {
+            "start_s": 1789344000,
+            "end_s": 1789416000,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 3,
+              "HTF_RANGE": 4,
+              "MULTIPLE_SWEEPS_SAME_CLOSE": 2
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 3,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1789430400,
+            "end_s": 1789502400,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 8,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 6
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1789516800,
+            "end_s": 1789588800,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 7,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 5
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 5
+            }
+          },
+          {
+            "start_s": 1789603200,
+            "end_s": 1789675200,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 3,
+            "sweep_dispositions": {
+              "HTF_RANGE": 3
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 3
+            }
+          },
+          {
+            "start_s": 1789689600,
+            "end_s": 1789764300,
+            "m5_closes": 249,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 202
+            },
+            "m15_sweep_events": 3,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 1
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 202
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 10
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 10
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 1
+            }
+          },
+          {
+            "start_s": 1789948800,
+            "end_s": 1790020800,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 8
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 8
+            }
+          },
+          {
+            "start_s": 1790035200,
+            "end_s": 1790107200,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 3,
+              "HTF_RANGE": 6
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 3,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 6
+            }
+          },
+          {
+            "start_s": 1790121600,
+            "end_s": 1790193600,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 10,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 1,
+              "HTF_RANGE": 9
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 1,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 9
+            }
+          },
+          {
+            "start_s": 1790208000,
+            "end_s": 1790280000,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 9,
+            "sweep_dispositions": {
+              "HTF_STALE_OR_MISSING": 2,
+              "HTF_RANGE": 7
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "MISSING": 2,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 7
+            }
+          },
+          {
+            "start_s": 1790294400,
+            "end_s": 1790366400,
+            "m5_closes": 240,
+            "h4_states": {
+              "MISSING": 47,
+              "RANGE": 193
+            },
+            "m15_sweep_events": 8,
+            "sweep_dispositions": {
+              "HTF_RANGE": 8
+            },
+            "candidate_transitions": {},
+            "invalidation_reasons": {},
+            "invalidation_from_states": {},
+            "h4_context_reasons": {
+              "MISSING": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 193
+            },
+            "h4_context_bars": {
+              "0": 47,
+              "1": 48,
+              "2": 48,
+              "3": 48,
+              "4": 48,
+              "5": 1
+            },
+            "h4_reason_by_bars": {
+              "MISSING:0": 47,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:1": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:2": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:3": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:4": 48,
+              "INSUFFICIENT_CONFIRMED_PIVOTS:5": 1
+            },
+            "h4_sweep_context_reasons": {
+              "INSUFFICIENT_CONFIRMED_PIVOTS": 8
+            }
+          }
+        ],
+        "repeated_active_state_rows_counted": false,
+        "m15_scope": "SWEEP_EVENTS_AT_OBSERVED_M5_CLOSE_ONLY",
+        "h4_reason_basis": "EXISTING_CONFIRMED_PIVOTS_TWO_HIGHS_AND_TWO_LOWS",
+        "history_shortage_cause_verified": false,
+        "candidate_invalidations_are_trade_outcomes": false,
+        "counts_are_profitability_evidence": false,
+        "execution_allowed": false
+      },
+      "summaries": {
+        "LSR02": {
+          "candidates": 1,
+          "closed_reference": 1,
+          "censored": 0,
+          "ambiguous": 0,
+          "reference_wins": 0,
+          "reference_losses": 1,
+          "mean_closed_gross_reference_r": -1.0,
+          "profit_factor_closed_gross_reference": 0.0,
+          "all_candidates_reference_resolved": true,
+          "total_all_candidates_gross_reference_r": -1.0,
+          "closed_reference_sequence": {
+            "all_candidates_evaluable": true,
+            "exit_batches": 1,
+            "simultaneous_exit_batches": 0,
+            "max_drawdown_at_exit_batches_r": 1.0,
+            "max_consecutive_closed_losses": 1,
+            "account_drawdown_available": false,
+            "live_stop_decision_available": false
+          },
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null,
+          "actual_profit_usd": null
+        },
+        "VHF03": {
+          "candidates": 0,
+          "closed_reference": 0,
+          "censored": 0,
+          "ambiguous": 0,
+          "reference_wins": 0,
+          "reference_losses": 0,
+          "mean_closed_gross_reference_r": null,
+          "profit_factor_closed_gross_reference": null,
+          "all_candidates_reference_resolved": false,
+          "total_all_candidates_gross_reference_r": null,
+          "closed_reference_sequence": {
+            "all_candidates_evaluable": false,
+            "exit_batches": 0,
+            "simultaneous_exit_batches": 0,
+            "max_drawdown_at_exit_batches_r": null,
+            "max_consecutive_closed_losses": null,
+            "account_drawdown_available": false,
+            "live_stop_decision_available": false
+          },
+          "net_expectancy_r": null,
+          "account_return_pct": null,
+          "account_max_dd_usd": null,
+          "actual_profit_usd": null
+        }
+      }
+    }
+  },
+  "code_sha256": {
+    "orrery_history_session_study.py": "ea2cb10ef57b09febe25297af43ff4ff2e6d19fea937202e04f7c283091de48a",
+    "orrery_history_app.py": "79c3a355bd6ca412e31e00d3ee6ac7e3263fc99b0094f9daa8ca74eef22eeb3e",
+    "orrery_xau_session_coverage.py": "bb5cfe5b64af494b6decf5993e51780ff54e0fdb69173d35564cd13e60d6fb84",
+    "orrery_m1_complete_bars.py": "91f9b8579bb39f2ae175a7812c1e7025429bcdaa06c3e97087ec813cfdf55418",
+    "orrery_tradingview_window_replay.py": "8e0b2c04349150e9ff76ab7edee3cf7f65340c7bd78eb07a1d4730a08245bbd7",
+    "lsr03_account_study.py": "91e219d3f32ebadaef705ba162d34987fd84d2e97db0a2c48503c0c77e588995",
+    "lsr03_adapter.py": "6470b4122d1731446d9836929a7c8dfd95abf94ef2ff454a482f2ee4f7bc70ff",
+    "lsr02_replay.py": "3b654c0b1680a6e0a9f6f70980ed912ab58ce9b592c2f0b5dd695c90cd30dd1e",
+    "lsr02_structure.py": "873fe9d8951d80dc2e79082f5bee9c3ba162a3b0c77ba7c212a4cc94d0c04a1b",
+    "lsr02_sequence.py": "043f037cffdf1b30cb89be3a95176672900447fbccce4891c4f0d1d722a2f1da",
+    "lsr03_vhf.py": "20d7b8486434af192078cdeba8349900a407c9e9197183a0c4c8b1698c90b0ba",
+    "lsr02_exits.py": "dfc36f3ba68b47e3d37a8a85848a488a83d041562af0c7385320482e0fddb59a",
+    "lsr02.py": "1f90a07671350e44d44d4258ea91157afcf614e5c7a70069c70543f5830381cc",
+    "lsr02_regime.py": "8b4a504caeea2fd7f7654b2cbe673b9c4a4c5ebd35fbb69d873a89d1c6c8bab9",
+    "lsr03_learning_rollup.py": "043cd1b31fd9db81846854bd6a7d62e6c723ea32bdb15ca0d7fe3d8e0011f80f"
+  },
+  "tests": {
+    "total": 1013,
+    "passed": 1008,
+    "skipped": 5,
+    "failures": 0
+  },
+  "independent_holdout": false,
+  "market_edge_verified": false,
+  "actual_profit_usd": null,
+  "execution_allowed": false
+}

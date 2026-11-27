@@ -8,7 +8,7 @@ class BootstrapTests(unittest.TestCase):
         with zipfile.ZipFile(out,'w') as z:
             for n in PINS:
                 if n==omit:continue
-                raw=Path(n).read_bytes().replace(b"\r\n",b"\n");z.writestr(prefix+n,b'changed' if n==change else raw)
+                raw=(Path('test_fixtures/pinned_lsr02_replay.py.txt') if n=='lsr02_replay.py' else Path(n)).read_bytes().replace(b"\r\n",b"\n");z.writestr(prefix+n,b'changed' if n==change else raw)
                 if n==duplicate:z.writestr(prefix+n,raw)
             z.writestr('../../escape.txt','never extracted')
         return out.getvalue()

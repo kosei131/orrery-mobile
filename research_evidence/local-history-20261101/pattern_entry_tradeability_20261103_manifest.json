@@ -1,0 +1,10 @@
+{
+  "gzip_sha256": "1d21eff68159648d9995f06c3bfa8653258494d59375bdb6fa7a7d8c6a839683",
+  "uncompressed_sha256": "241f733410039908d5e57066d49f49f5c7bf7e485900ab8f230355e191494321",
+  "engine_code_sha256": {
+    "orrery_pattern_entry_tradeability.py": "81a6f21506d253fe6e04e8253b6994b24456a2c2c4bb6b72d38247c0ce718021",
+    "orrery_pattern_robustness.py": "81a2408ace41aa375be40bb8baf4d8361a5723b0189d6e70a71816d25d32edf9",
+    "orrery_paired_archive_study.py": "e1fa03147235097f05a9a5d7a05a05bbc68472b13cc006c3c7dbaa6973d20fd3"
+  },
+  "specification_sha256": "62753354b93863ff9fb2aa4a7d8add6f8010a78c3f3d56f7ad04102e5293a502"
+}

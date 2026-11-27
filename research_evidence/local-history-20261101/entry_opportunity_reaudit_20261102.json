@@ -1,0 +1,133 @@
+{
+  "status": "EXPLORATORY_ENTRY_OPPORTUNITY_REAUDIT_NOT_LSR02",
+  "retrieved_at_utc": "2026-11-02T19:49:14.744722+00:00",
+  "source_sha256": "a587597bbf88c2d868a00a4e0019cd705cee6ca4f20b0485d6b745f19fcc8225",
+  "source_url": "https://raw.githubusercontent.com/getdata-finance/xauusd-1m-ohlcv-metals-historical-data/adcd99e7e0abee51e9a5eef123935e68a8d8aa30/XAUUSD_1m.csv",
+  "full_sample_stages": {
+    "m15_sweeps": 640,
+    "unique_one_to_one_sweep_m5_matches": 132,
+    "sweep_time_vhf_research_passed": 30,
+    "vhf_passed_with_postconfirmation_poi_touch": 14
+  },
+  "comparison_period_utc": "2026-04-25 inclusive to 2026-09-25 exclusive",
+  "confirmation_universe": 22,
+  "assumptions": {
+    "spread_price_units": 0.6,
+    "reward_r": 1.5,
+    "exit_horizon_minutes": 120,
+    "retest_wait_minutes": 60,
+    "h4_filter": false
+  },
+  "results": {
+    "CONFIRMATION_FIXED_6": {
+      "entry_plans": 22,
+      "entry_outcomes": {
+        "candidates": 22,
+        "resolved_outcomes": 21,
+        "unresolved_or_unmodeled": 1,
+        "wins": 10,
+        "win_rate_pct": 47.62,
+        "mean_r": 0.1905,
+        "total_r": 4.0,
+        "pf": 1.3636
+      },
+      "no_entry_reasons": {},
+      "stop_policy_skip_counts": {},
+      "incomplete_after_entry": 1,
+      "exit_reason_counts": {
+        "TP_INTRAMINUTE": 10,
+        "STOP_INTRAMINUTE": 11
+      }
+    },
+    "CONFIRMATION_SWEEP_EXTREME": {
+      "entry_plans": 22,
+      "entry_outcomes": {
+        "candidates": 22,
+        "resolved_outcomes": 13,
+        "unresolved_or_unmodeled": 9,
+        "wins": 8,
+        "win_rate_pct": 61.54,
+        "mean_r": 0.1307,
+        "total_r": 1.6991,
+        "pf": 1.3611
+      },
+      "no_entry_reasons": {},
+      "stop_policy_skip_counts": {
+        "STRUCTURE_BREACHED_BEFORE_ENTRY": 8
+      },
+      "incomplete_after_entry": 1,
+      "exit_reason_counts": {
+        "TIMEOUT": 8,
+        "STOP_INTRAMINUTE": 4,
+        "TP_INTRAMINUTE": 1
+      }
+    },
+    "RETEST_FIXED_6": {
+      "entry_plans": 10,
+      "entry_outcomes": {
+        "candidates": 10,
+        "resolved_outcomes": 10,
+        "unresolved_or_unmodeled": 0,
+        "wins": 5,
+        "win_rate_pct": 50.0,
+        "mean_r": 0.25,
+        "total_r": 2.5,
+        "pf": 1.5
+      },
+      "no_entry_reasons": {
+        "EXPIRED": 11,
+        "UNKNOWN_HISTORY": 1
+      },
+      "stop_policy_skip_counts": {},
+      "incomplete_after_entry": 0,
+      "exit_reason_counts": {
+        "TP_INTRAMINUTE": 5,
+        "STOP_INTRAMINUTE": 5
+      }
+    },
+    "RETEST_SWEEP_EXTREME": {
+      "entry_plans": 10,
+      "entry_outcomes": {
+        "candidates": 10,
+        "resolved_outcomes": 7,
+        "unresolved_or_unmodeled": 3,
+        "wins": 2,
+        "win_rate_pct": 28.57,
+        "mean_r": -0.4224,
+        "total_r": -2.9569,
+        "pf": 0.4086
+      },
+      "no_entry_reasons": {
+        "EXPIRED": 11,
+        "UNKNOWN_HISTORY": 1
+      },
+      "stop_policy_skip_counts": {
+        "STRUCTURE_BREACHED_BEFORE_ENTRY": 3
+      },
+      "incomplete_after_entry": 0,
+      "exit_reason_counts": {
+        "TP_INTRAMINUTE": 1,
+        "STOP_INTRAMINUTE": 5,
+        "TIMEOUT": 1
+      }
+    }
+  },
+  "full_result_sha256": "a0fabce7640d0acd41710b1f86639d3af4bafbb547b654aca9cce8b38ea71348",
+  "out_of_sample": false,
+  "formal_lsr02": false,
+  "h4_filter_applied": false,
+  "halftrend_compared": false,
+  "reversal04_compared": false,
+  "actual_profit_usd": null,
+  "account_return_pct": null,
+  "account_max_dd_usd": null,
+  "net_expectancy_r": null,
+  "execution_allowed": false,
+  "adopted": false,
+  "code_sha256": {
+    "orrery_public_xau_sequence_study.py": "a3b97fe9490f25759cf8ce14f37d7a7708e375f4e727742550fcaec9937fce43",
+    "orrery_xau_confirmation_entry_comparison.py": "a00642434f613071223d009b5f7809d2f7fb695c30d20ac950d67ff639b10f81",
+    "orrery_xau_hypothetical_pnl.py": "2a847da7c2653227c381687060dfea8eb5328a51d5d89c1471b32e58812ec4b0",
+    "orrery_xau_structural_stop_comparison.py": "ce10a93dc79cda1d280a9d5af7900591e869c1532153804dc5a9989719ae7f1a"
+  }
+}

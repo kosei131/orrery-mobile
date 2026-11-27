@@ -1,0 +1,12 @@
+{
+  "gzip_sha256": "e67c2eb62bd25eb7a4dd779079440f6e3d5e3655022bce90c549abd3c4fde5d7",
+  "uncompressed_sha256": "994910a6865e2f23e2bd77920ab41f24dc54d970db7bb91f5fbc129523c5b336",
+  "engine_code_sha256": {
+    "orrery_small_tp_barrier_study.py": "7e6ac7a4f01727c9b576a69da82be8801db669954bcfda99d057b4b9a3751456",
+    "orrery_pattern_session_review.py": "5e4ce8694547f5f8ff083e9bb03c58aefbd4199c07072ce2bb26ff676bfbca03",
+    "orrery_pattern_session_spread.py": "57798661570f3d9b24e3499199b2b2ad4e15d27f76b025a2bfd24ca46edd0c5a",
+    "orrery_pattern_entry_tradeability.py": "81a6f21506d253fe6e04e8253b6994b24456a2c2c4bb6b72d38247c0ce718021",
+    "orrery_pattern_robustness.py": "81a2408ace41aa375be40bb8baf4d8361a5723b0189d6e70a71816d25d32edf9",
+    "orrery_paired_archive_study.py": "e1fa03147235097f05a9a5d7a05a05bbc68472b13cc006c3c7dbaa6973d20fd3"
+  }
+}

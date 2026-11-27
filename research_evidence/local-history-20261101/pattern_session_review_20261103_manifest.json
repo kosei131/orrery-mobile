@@ -1,0 +1,9 @@
+{
+  "gzip_sha256": "7e4ad76aa678766682f1ad9629dbe85a669da3ee12903c43af9ecd986da6687b",
+  "uncompressed_sha256": "0c6e8cc155d9e9b4693cc3cefd05d4a91101aa2f8afd355ae178bc7077492160",
+  "uncompressed_bytes": 208579,
+  "gzip_bytes": 14917,
+  "code_sha256": "5e4ce8694547f5f8ff083e9bb03c58aefbd4199c07072ce2bb26ff676bfbca03",
+  "specification_sha256": "619d00c7f71d842213bba86d81c49fa92d2bd114bc1328adfe8a6a59a8f594e4",
+  "parent_manifest_sha256": "f992759563e110ef2ed42dc3352f71963e1f0612d35e8c3fbb4b7b7746c2d982"
+}
